@@ -1,26 +1,28 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { redirect, notFound } from "next/navigation";
+import { WeddingDetail } from "@/components/dashboard/WeddingDetail";
 
-export default function WeddingDetailPage({
+export default async function WeddingDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
-  return (
-    <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-8">
-        Chi Tiết Thiệp Cưới
-      </h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>Wedding ID: {params.id}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-500">
-            Chi tiết thiệp cưới sẽ được hiển thị ở đây.
-          </p>
-          {/* Wedding detail tabs will be added in Phase 2 */}
-        </CardContent>
-      </Card>
-    </div>
-  );
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+
+  const wedding = await prisma.wedding.findFirst({
+    where: { id: params.id, userId: session.user.id },
+    include: {
+      template: true,
+      _count: { select: { wishes: true, guests: true } },
+    },
+  });
+
+  if (!wedding) notFound();
+
+  // Serialize for client component
+  const weddingData = JSON.parse(JSON.stringify(wedding));
+
+  return <WeddingDetail wedding={weddingData} />;
 }
