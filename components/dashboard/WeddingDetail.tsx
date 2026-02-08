@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,9 +14,10 @@ import {
   CheckCircle,
   Edit,
   Trash2,
+  PartyPopper,
 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { WeddingInfoTab } from "@/components/dashboard/WeddingInfoTab";
 import { GuestsTab } from "@/components/dashboard/GuestsTab";
@@ -88,10 +89,19 @@ const planConfig: Record<string, string> = {
 
 export function WeddingDetail({ wedding }: WeddingDetailProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const [deleting, setDeleting] = useState(false);
+  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
 
   const status = statusConfig[wedding.status] || statusConfig.DRAFT;
+
+  useEffect(() => {
+    if (searchParams.get("payment") === "success") {
+      setShowPaymentSuccess(true);
+      toast({ title: "Thanh toán thành công!", description: "Thiệp cưới đã được xuất bản." });
+    }
+  }, [searchParams, toast]);
 
   async function handleDelete() {
     if (!confirm("Bạn có chắc chắn muốn xoá thiệp cưới này? Hành động này không thể hoàn tác.")) return;
@@ -112,6 +122,27 @@ export function WeddingDetail({ wedding }: WeddingDetailProps) {
 
   return (
     <div>
+      {/* Payment Success Banner */}
+      {showPaymentSuccess && (
+        <Card className="bg-green-50 border-green-200 mb-6">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <PartyPopper className="w-6 h-6 text-green-600" />
+              <div>
+                <p className="font-semibold text-green-800">Chúc mừng! Thiệp cưới đã được xuất bản thành công!</p>
+                <p className="text-sm text-green-600">
+                  Chia sẻ đường dẫn{" "}
+                  <Link href={`/w/${wedding.slug}`} target="_blank" className="underline font-medium">
+                    /w/{wedding.slug}
+                  </Link>{" "}
+                  cho khách mời của bạn.
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
@@ -141,6 +172,13 @@ export function WeddingDetail({ wedding }: WeddingDetailProps) {
               <Edit className="w-4 h-4 mr-1.5" /> Chỉnh sửa
             </Button>
           </Link>
+          {wedding.status !== "PUBLISHED" && (
+            <Link href={`/dashboard/weddings/${wedding.id}/publish`}>
+              <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700">
+                <ExternalLink className="w-4 h-4 mr-1.5" /> Xuất bản
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
 

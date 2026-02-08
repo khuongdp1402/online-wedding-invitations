@@ -13,6 +13,7 @@ import { Wishes } from "./Wishes";
 import { Footer } from "./Footer";
 import { BackgroundMusic } from "./BackgroundMusic";
 import { ModeSwitcher } from "./ModeSwitcher";
+import { Watermark } from "@/components/templates/Watermark";
 import "./classic-burgundy.css";
 
 export default function ClassicBurgundyTemplate({
@@ -26,14 +27,8 @@ export default function ClassicBurgundyTemplate({
 
   return (
     <div className="cb-template min-h-screen bg-[#FDFBF7] text-[#4A4A4A] antialiased overflow-x-hidden">
-      {/* Demo Watermark */}
-      {isDemo && (
-        <div className="cb-watermark">
-          <div className="cb-watermark-text">
-            BẢN XEM THỬ - thiepcuoi.online
-          </div>
-        </div>
-      )}
+      {/* Canvas-based Watermark (tamper-resistant) */}
+      {isDemo && <Watermark />}
 
       {/* Card Opening */}
       <Suspense fallback={null}>
