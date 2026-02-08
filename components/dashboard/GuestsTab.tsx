@@ -28,7 +28,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, Copy, Loader2, Users } from "lucide-react";
+import { Plus, Trash2, Copy, Loader2, Users, Download, Share2 } from "lucide-react";
 
 type Guest = {
   id: string;
@@ -160,7 +160,35 @@ export function GuestsTab({ weddingId }: { weddingId: string }) {
           <Users className="w-5 h-5 text-gray-400" />
           <span className="text-sm text-gray-500">{guests.length} khách mời</span>
         </div>
-        <Dialog open={open} onOpenChange={setOpen}>
+        <div className="flex items-center gap-2">
+          {guests.length > 0 && (
+            <>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  window.open(`/api/weddings/${weddingId}/export`, "_blank");
+                }}
+              >
+                <Download className="w-4 h-4 mr-1.5" /> Export Excel
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const links = guests.map((g) => {
+                    const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+                    return `${g.salutation ? g.salutation + " " : ""}${g.name}: ${g.inviteLink ? baseUrl + g.inviteLink : ""}`;
+                  }).join("\n");
+                  navigator.clipboard.writeText(links);
+                  toast({ title: "Đã sao chép tất cả link mời" });
+                }}
+              >
+                <Share2 className="w-4 h-4 mr-1.5" /> Sao chép tất cả link
+              </Button>
+            </>
+          )}
+          <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button size="sm" className="bg-rose-600 hover:bg-rose-700">
               <Plus className="w-4 h-4 mr-1.5" /> Thêm khách
@@ -223,6 +251,7 @@ export function GuestsTab({ weddingId }: { weddingId: string }) {
             </div>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       {guests.length > 0 ? (

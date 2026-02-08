@@ -15,6 +15,8 @@ import {
   Edit,
   Trash2,
   PartyPopper,
+  Share2,
+  BarChart3,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -23,8 +25,25 @@ import { WeddingInfoTab } from "@/components/dashboard/WeddingInfoTab";
 import { GuestsTab } from "@/components/dashboard/GuestsTab";
 import { WishesTab } from "@/components/dashboard/WishesTab";
 import { RsvpTab } from "@/components/dashboard/RsvpTab";
+import { ShareLinks } from "@/components/dashboard/ShareLinks";
+import { AnalyticsTab } from "@/components/dashboard/AnalyticsTab";
+
+type AnalyticsData = {
+  viewCount: number;
+  guestCount: number;
+  wishCount: number;
+  acceptedCount: number;
+  declinedCount: number;
+  pendingCount: number;
+  totalAttendees: number;
+  linkOpenedCount: number;
+  createdAt: string;
+  publishedAt: string | null;
+  slug: string;
+};
 
 type WeddingDetailProps = {
+  analytics: AnalyticsData;
   wedding: {
     id: string;
     slug: string;
@@ -87,7 +106,7 @@ const planConfig: Record<string, string> = {
   PREMIUM: "Cao cấp - 2tr",
 };
 
-export function WeddingDetail({ wedding }: WeddingDetailProps) {
+export function WeddingDetail({ wedding, analytics }: WeddingDetailProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { toast } = useToast();
@@ -233,6 +252,12 @@ export function WeddingDetail({ wedding }: WeddingDetailProps) {
           <TabsTrigger value="rsvp" className="gap-1.5">
             <CheckCircle className="w-4 h-4" /> RSVP
           </TabsTrigger>
+          <TabsTrigger value="share" className="gap-1.5">
+            <Share2 className="w-4 h-4" /> Chia sẻ
+          </TabsTrigger>
+          <TabsTrigger value="analytics" className="gap-1.5">
+            <BarChart3 className="w-4 h-4" /> Thống kê
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="info">
@@ -246,6 +271,12 @@ export function WeddingDetail({ wedding }: WeddingDetailProps) {
         </TabsContent>
         <TabsContent value="rsvp">
           <RsvpTab weddingId={wedding.id} />
+        </TabsContent>
+        <TabsContent value="share">
+          <ShareLinks weddingId={wedding.id} weddingSlug={wedding.slug} />
+        </TabsContent>
+        <TabsContent value="analytics">
+          <AnalyticsTab analytics={analytics} />
         </TabsContent>
       </Tabs>
 

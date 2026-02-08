@@ -150,14 +150,48 @@ export default async function PublicWeddingPage({
     plan: wedding.plan as "FREE" | "BASIC" | "STANDARD" | "PREMIUM",
   };
 
+  // JSON-LD structured data for SEO
+  const groomCeremony = wedding.groomCeremony as { date?: string; venue?: string; address?: string } | null;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: `Lễ Cưới ${wedding.groomName} & ${wedding.brideName}`,
+    description: `Trân trọng kính mời bạn đến chung vui cùng ${wedding.groomName} & ${wedding.brideName}`,
+    ...(groomCeremony?.date && { startDate: groomCeremony.date }),
+    ...(groomCeremony?.venue && {
+      location: {
+        "@type": "Place",
+        name: groomCeremony.venue,
+        ...(groomCeremony.address && {
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: groomCeremony.address,
+          },
+        }),
+      },
+    }),
+    organizer: {
+      "@type": "Person",
+      name: `${wedding.groomName} & ${wedding.brideName}`,
+    },
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+  };
+
   return (
-    <WeddingPageClient
-      templateSlug={wedding.template.slug}
-      wedding={weddingData}
-      mode={mode}
-      isDemo={isDemo}
-      guestName={guestName}
-      guestSalutation={guestSalutation}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <WeddingPageClient
+        templateSlug={wedding.template.slug}
+        wedding={weddingData}
+        mode={mode}
+        isDemo={isDemo}
+        guestName={guestName}
+        guestSalutation={guestSalutation}
+      />
+    </>
   );
 }

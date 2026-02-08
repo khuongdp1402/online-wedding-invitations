@@ -14,6 +14,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://thiepcuoi.online"),
   title: {
     default: "Thiệp Cưới Online - Tạo Thiệp Cưới Đẹp & Chuyên Nghiệp",
     template: "%s | Thiệp Cưới Online",
