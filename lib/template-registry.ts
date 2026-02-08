@@ -1,4 +1,7 @@
 import type { ComponentType } from "react";
+import dynamic from "next/dynamic";
+
+// ==================== Types ====================
 
 export type WeddingTemplateProps = {
   wedding: WeddingData;
@@ -71,9 +74,47 @@ export type TemplateConfig = {
   sections: string[];
 };
 
-// Template registry - templates will be registered here
-// Classic Burgundy will be added in Phase 2 when migrating from existing project
-export const templates: Record<string, TemplateConfig> = {};
+// ==================== Dynamic Template Imports ====================
+
+const ClassicBurgundyTemplate = dynamic(
+  () => import("@/components/templates/classic-burgundy"),
+  { ssr: true }
+);
+
+// ==================== Template Registry ====================
+
+export const templates: Record<string, TemplateConfig> = {
+  "classic-burgundy": {
+    id: "classic-burgundy",
+    name: "Classic Burgundy",
+    slug: "classic-burgundy",
+    description:
+      "Thiệp cưới cổ điển tông đỏ burgundy & vàng gold, phong cách Việt Nam truyền thống.",
+    thumbnail: "/templates/classic-burgundy-preview.jpg",
+    category: "classic",
+    isPremium: false,
+    minPlan: "FREE",
+    component: ClassicBurgundyTemplate,
+    defaultColors: {
+      primary: "#800020",
+      accent: "#d4a853",
+      background: "#faf8f5",
+    },
+    sections: [
+      "card-opening",
+      "header",
+      "wedding-info",
+      "countdown",
+      "quote",
+      "gallery",
+      "location",
+      "wishes",
+      "footer",
+    ],
+  },
+};
+
+// ==================== Registry Helpers ====================
 
 export function getTemplate(slug: string): TemplateConfig | undefined {
   return templates[slug];
@@ -83,9 +124,7 @@ export function getAllTemplates(): TemplateConfig[] {
   return Object.values(templates);
 }
 
-export function getTemplatesByCategory(
-  category: string
-): TemplateConfig[] {
+export function getTemplatesByCategory(category: string): TemplateConfig[] {
   return Object.values(templates).filter((t) => t.category === category);
 }
 

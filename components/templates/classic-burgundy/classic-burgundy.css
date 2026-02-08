@@ -1,0 +1,106 @@
+/* ====== Classic Burgundy Template CSS ====== */
+
+/* Card Opening Bling Effects */
+@keyframes cb-shimmer-bling {
+  0%, 100% { background-position: -200% 0; }
+  50% { background-position: 200% 0; }
+}
+
+@keyframes cb-sparkle-bling {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 0.8; transform: scale(1); }
+}
+
+.cb-bling-layer {
+  position: relative;
+}
+
+.cb-bling-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 20%,
+    rgba(212, 175, 55, 0.15) 40%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(212, 175, 55, 0.15) 60%,
+    rgba(255, 255, 255, 0.06) 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: cb-shimmer-bling 6s ease-in-out infinite;
+}
+
+.cb-bling-sparkles {
+  position: absolute;
+  inset: 0;
+}
+
+.cb-sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+  animation: cb-sparkle-bling 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.cb-sparkle:nth-child(1) { left: 10%; top: 15%; animation-delay: 0s; }
+.cb-sparkle:nth-child(2) { left: 25%; top: 8%; animation-delay: 0.3s; width: 3px; height: 3px; }
+.cb-sparkle:nth-child(3) { right: 15%; top: 20%; animation-delay: 0.6s; }
+.cb-sparkle:nth-child(4) { right: 8%; top: 12%; animation-delay: 0.2s; width: 3px; height: 3px; }
+.cb-sparkle:nth-child(5) { left: 12%; bottom: 25%; animation-delay: 0.5s; }
+.cb-sparkle:nth-child(6) { right: 20%; bottom: 18%; animation-delay: 0.4s; width: 3px; height: 3px; }
+.cb-sparkle:nth-child(7) { left: 50%; top: 5%; animation-delay: 0.7s; }
+.cb-sparkle:nth-child(8) { right: 35%; bottom: 30%; animation-delay: 0.1s; }
+.cb-sparkle:nth-child(9) { left: 40%; bottom: 12%; animation-delay: 0.8s; width: 3px; height: 3px; }
+
+/* Watermark overlay */
+.cb-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cb-watermark-text {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgba(128, 0, 32, 0.08);
+  transform: rotate(-30deg);
+  user-select: none;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .cb-watermark-text {
+    font-size: 3rem;
+  }
+}
+
+/* Selection styling for template */
+.cb-template ::selection {
+  background-color: rgba(128, 0, 32, 0.1);
+  color: #800020;
+}
+
+/* Scrollbar styling */
+.cb-template ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cb-template ::-webkit-scrollbar-track {
+  background: #FDFBF7;
+}
+
+.cb-template ::-webkit-scrollbar-thumb {
+  background: #800020;
+  border-radius: 99px;
+}
