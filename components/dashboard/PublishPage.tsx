@@ -57,7 +57,7 @@ const plans = [
     duration: "6 tháng",
     features: [
       "Publish online",
-      "Bỏ watermark",
+      "Xóa giới hạn bản demo",
       "50 khách mời",
       "10 ảnh gallery",
       "Custom slug URL",
@@ -124,6 +124,7 @@ export function PublishPage({ wedding }: Props) {
   const [bankInfo, setBankInfo] = useState<BankInfo | null>(null);
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const [pollStatus, setPollStatus] = useState<string | null>(null);
+  const [mocking, setMocking] = useState(false);
 
   // Show toast for VNPay return result
   useEffect(() => {
@@ -249,7 +250,7 @@ export function PublishPage({ wedding }: Props) {
           <div className="text-center">
             <h2 className="text-xl font-bold text-gray-900 mb-2">Chọn gói để xuất bản</h2>
             <p className="text-gray-500">
-              Nâng cấp để bỏ watermark, publish thiệp và mở khoá tính năng
+              Nâng cấp để publish thiệp và mở khóa đầy đủ tính năng
             </p>
           </div>
 
@@ -453,17 +454,44 @@ export function PublishPage({ wedding }: Props) {
               </div>
 
               {/* Polling status */}
-              <div className="flex items-center justify-center gap-2 pt-4 text-gray-500">
-                {pollStatus === "COMPLETED" ? (
-                  <>
-                    <CheckCircle2 className="w-5 h-5 text-green-500" />
-                    <span className="text-green-600 font-medium">Đã xác nhận thanh toán!</span>
-                  </>
-                ) : (
-                  <>
-                    <Clock className="w-4 h-4 animate-pulse" />
-                    <span className="text-sm">Đang chờ xác nhận... (tự động kiểm tra mỗi 10 giây)</span>
-                  </>
+              <div className="flex items-center justify-between pt-4 text-gray-500 border-t">
+                <div className="flex items-center gap-2">
+                  {pollStatus === "COMPLETED" ? (
+                    <>
+                      <CheckCircle2 className="w-5 h-5 text-green-500" />
+                      <span className="text-green-600 font-medium">Đã xác nhận thanh toán!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Clock className="w-4 h-4 animate-pulse" />
+                      <span className="text-sm">Đang chờ xác nhận...</span>
+                    </>
+                  )}
+                </div>
+                
+                {pollStatus !== "COMPLETED" && (
+                  <Button 
+                    variant="secondary" 
+                    size="sm"
+                    disabled={mocking}
+                    onClick={async () => {
+                      setMocking(true);
+                      try {
+                        await fetch("/api/webhooks/casso", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ description: bankInfo.transferContent })
+                        });
+                        toast({ title: "Đã gửi Webhook giả lập" });
+                      } catch {
+                        toast({ title: "Lỗi giả lập webhook", variant: "destructive" });
+                      }
+                      setMocking(false);
+                    }}
+                  >
+                    {mocking ? <Loader2 className="w-3 h-3 mr-2 animate-spin" /> : <Sparkles className="w-3 h-3 mr-2 text-rose-500" />}
+                    Giả lập Webhook Casso
+                  </Button>
                 )}
               </div>
             </CardContent>

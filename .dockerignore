@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.env
+.env.*
+!.env.example
+*.md
+.cursor
+.idea
+.vscode
+npm-debug.log*
+.gemini
+brain
+.system_generated
+scratch

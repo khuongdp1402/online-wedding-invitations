@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { verifyVNPayReturn, calculateExpiryDate } from "@/lib/payment";
+import {
+  verifyVNPayReturn,
+  parseVNPayIpnBody,
+} from "@/lib/payment";
+import { completeVnPayIfPending } from "@/lib/vnpay-complete";
 
 /**
- * VNPay IPN (Instant Payment Notification) handler
- * VNPay calls this server-to-server to confirm payment
+ * VNPay IPN (Instant Payment Notification) — form-urlencoded hoặc JSON.
  */
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const query = body as Record<string, string>;
+    const query = await parseVNPayIpnBody(request);
 
     const { isValid, responseCode, transactionId, orderId } =
       verifyVNPayReturn(query);
@@ -21,66 +23,48 @@ export async function POST(request: Request) {
       );
     }
 
-    // Find payment
-    const payment = await prisma.payment.findUnique({
-      where: { id: orderId },
-      include: { wedding: true },
+    if (responseCode === "00") {
+      const pay = await prisma.payment.findUnique({ where: { id: orderId } });
+      if (!pay) {
+        return NextResponse.json(
+          { RspCode: "01", Message: "Order not found" },
+          { status: 200 }
+        );
+      }
+      if (pay.status === "COMPLETED") {
+        return NextResponse.json(
+          { RspCode: "02", Message: "Order already confirmed" },
+          { status: 200 }
+        );
+      }
+
+      const result = await completeVnPayIfPending(
+        prisma,
+        orderId,
+        transactionId
+      );
+      if (!result.ok) {
+        return NextResponse.json(
+          { RspCode: "01", Message: "Order not found" },
+          { status: 200 }
+        );
+      }
+
+      return NextResponse.json(
+        { RspCode: "00", Message: "Confirm Success" },
+        { status: 200 }
+      );
+    }
+
+    await prisma.payment.updateMany({
+      where: { id: orderId, status: "PENDING" },
+      data: { status: "FAILED" },
     });
 
-    if (!payment) {
-      return NextResponse.json(
-        { RspCode: "01", Message: "Order not found" },
-        { status: 200 }
-      );
-    }
-
-    if (payment.status === "COMPLETED") {
-      return NextResponse.json(
-        { RspCode: "02", Message: "Order already confirmed" },
-        { status: 200 }
-      );
-    }
-
-    if (responseCode === "00") {
-      // Payment successful
-      const expiresAt = calculateExpiryDate(payment.plan);
-
-      await prisma.$transaction([
-        prisma.payment.update({
-          where: { id: payment.id },
-          data: {
-            status: "COMPLETED",
-            transactionId,
-            paidAt: new Date(),
-          },
-        }),
-        prisma.wedding.update({
-          where: { id: payment.weddingId },
-          data: {
-            status: "PUBLISHED",
-            plan: payment.plan,
-            paidAt: new Date(),
-            expiresAt,
-          },
-        }),
-      ]);
-
-      return NextResponse.json(
-        { RspCode: "00", Message: "Confirm Success" },
-        { status: 200 }
-      );
-    } else {
-      // Payment failed
-      await prisma.payment.update({
-        where: { id: payment.id },
-        data: { status: "FAILED" },
-      });
-
-      return NextResponse.json(
-        { RspCode: "00", Message: "Confirm Success" },
-        { status: 200 }
-      );
-    }
+    return NextResponse.json(
+      { RspCode: "00", Message: "Confirm Success" },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("VNPay IPN error:", error);
     return NextResponse.json(
@@ -91,7 +75,7 @@ export async function POST(request: Request) {
 }
 
 /**
- * GET handler for VNPay return URL (user redirect back)
+ * GET — VNPay return URL (redirect người dùng).
  */
 export async function GET(request: Request) {
   try {
@@ -109,7 +93,6 @@ export async function GET(request: Request) {
       );
     }
 
-    // Find payment to get weddingId
     const payment = await prisma.payment.findUnique({
       where: { id: orderId },
     });
@@ -121,31 +104,8 @@ export async function GET(request: Request) {
     }
 
     if (responseCode === "00") {
-      // Process the payment if not already done by IPN
-      if (payment.status !== "COMPLETED") {
-        const expiresAt = calculateExpiryDate(payment.plan);
-        const transactionId = query["vnp_TransactionNo"] || "";
-
-        await prisma.$transaction([
-          prisma.payment.update({
-            where: { id: payment.id },
-            data: {
-              status: "COMPLETED",
-              transactionId,
-              paidAt: new Date(),
-            },
-          }),
-          prisma.wedding.update({
-            where: { id: payment.weddingId },
-            data: {
-              status: "PUBLISHED",
-              plan: payment.plan,
-              paidAt: new Date(),
-              expiresAt,
-            },
-          }),
-        ]);
-      }
+      const transactionId = query["vnp_TransactionNo"] || "";
+      await completeVnPayIfPending(prisma, orderId, transactionId);
 
       return NextResponse.redirect(
         new URL(
@@ -153,19 +113,19 @@ export async function GET(request: Request) {
           request.url
         )
       );
-    } else {
-      await prisma.payment.update({
-        where: { id: payment.id },
-        data: { status: "FAILED" },
-      });
-
-      return NextResponse.redirect(
-        new URL(
-          `/dashboard/weddings/${payment.weddingId}/publish?payment=failed`,
-          request.url
-        )
-      );
     }
+
+    await prisma.payment.updateMany({
+      where: { id: payment.id, status: "PENDING" },
+      data: { status: "FAILED" },
+    });
+
+    return NextResponse.redirect(
+      new URL(
+        `/dashboard/weddings/${payment.weddingId}/publish?payment=failed`,
+        request.url
+      )
+    );
   } catch (error) {
     console.error("VNPay return error:", error);
     return NextResponse.redirect(

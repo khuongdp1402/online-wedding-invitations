@@ -17,6 +17,7 @@ import {
   FileText,
   Eye,
   Link2,
+  Sparkles,
 } from "lucide-react";
 
 type Template = {
@@ -86,6 +87,43 @@ export function NewWeddingWizard({ templates }: WizardProps) {
     const remove = (s: string) =>
       s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").trim();
     return `${remove(groomName)}-${remove(brideName)}`;
+  }
+
+  function applySampleData() {
+    setGroomName("Thanh Tùng");
+    setBrideName("Hương Giang");
+
+    setGroomFather("Ông Nguyễn Văn Minh");
+    setGroomMother("Bà Trần Thị Lan");
+    setBrideFather("Ông Lê Văn Hòa");
+    setBrideMother("Bà Phạm Thị Hạnh");
+
+    setGcDate("Chủ nhật, 22/11/2026");
+    setGcLunarDate("13 tháng 10 năm Bính Ngọ");
+    setGcCeremonyTime("10:30");
+    setGcReceptionTime("11:30");
+    setGcVenue("Trung Tâm Hội Nghị Ánh Dương");
+    setGcAddress("120 Nguyễn Văn Linh, Quận 7, TP. Hồ Chí Minh");
+    setGcMapsUrl("https://maps.google.com/?q=10.7308,106.7218");
+
+    setBcDate("Thứ bảy, 21/11/2026");
+    setBcLunarDate("12 tháng 10 năm Bính Ngọ");
+    setBcCeremonyTime("08:00");
+    setBcReceptionTime("10:30");
+    setBcVenue("Tư Gia Nhà Gái");
+    setBcAddress("25 Lê Lợi, TP. Biên Hòa, Đồng Nai");
+    setBcMapsUrl("https://maps.google.com/?q=10.9509,106.8241");
+
+    setQuote("Cảm ơn bạn đã đến và chứng kiến khoảnh khắc hạnh phúc của Thanh Tùng & Hương Giang.");
+
+    if (!slug.trim()) {
+      setSlug("thanh-tung-huong-giang");
+    }
+
+    toast({
+      title: "Đã điền dữ liệu mẫu",
+      description: "Đã nạp nhanh mẫu Thanh Tùng & Hương Giang để bạn test.",
+    });
   }
 
   function canGoNext(): boolean {
@@ -192,15 +230,19 @@ export function NewWeddingWizard({ templates }: WizardProps) {
                 onClick={() => setSelectedTemplateId(t.id)}
               >
                 <CardContent className="p-4">
-                  <div className="aspect-[3/4] rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 mb-3 flex items-center justify-center overflow-hidden relative">
-                    <div className="text-center p-4">
-                      <div className="text-3xl mb-2" style={{ color: (t.config as { defaultColors?: { primary?: string } })?.defaultColors?.primary || "#800020" }}>
-                        ♥
+                  <div className="aspect-[3/4] rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 mb-3 flex items-center justify-center overflow-hidden relative group">
+                    {t.thumbnail ? (
+                      <img src={t.thumbnail} alt={t.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    ) : (
+                      <div className="text-center p-4">
+                        <div className="text-3xl mb-2" style={{ color: (t.config as { defaultColors?: { primary?: string } })?.defaultColors?.primary || "#800020" }}>
+                          ♥
+                        </div>
+                        <p className="font-serif text-sm font-semibold" style={{ color: (t.config as { defaultColors?: { primary?: string } })?.defaultColors?.primary || "#800020" }}>
+                          {t.name}
+                        </p>
                       </div>
-                      <p className="font-serif text-sm font-semibold" style={{ color: (t.config as { defaultColors?: { primary?: string } })?.defaultColors?.primary || "#800020" }}>
-                        {t.name}
-                      </p>
-                    </div>
+                    )}
                     {selectedTemplateId === t.id && (
                       <div className="absolute top-2 right-2 w-6 h-6 bg-rose-500 rounded-full flex items-center justify-center">
                         <Check className="w-4 h-4 text-white" />
@@ -226,6 +268,12 @@ export function NewWeddingWizard({ templates }: WizardProps) {
       {/* Step 2: Wedding Info Form */}
       {step === 2 && (
         <div className="max-w-3xl mx-auto space-y-8">
+          <div className="flex justify-end">
+            <Button type="button" variant="secondary" onClick={applySampleData}>
+              <Sparkles className="w-4 h-4 mr-2" /> Sample data: Thanh Tùng & Hương Giang
+            </Button>
+          </div>
+
           {/* Couple Info */}
           <Card>
             <CardHeader><CardTitle className="text-lg">Thông tin cặp đôi</CardTitle></CardHeader>

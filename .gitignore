@@ -39,3 +39,6 @@ next-env.d.ts
 
 # environment variables
 .env
+
+# User uploads (local storage fallback)
+/public/uploads

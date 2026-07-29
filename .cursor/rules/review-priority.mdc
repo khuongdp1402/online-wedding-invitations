@@ -1,0 +1,14 @@
+---
+description: Review priorities and output format for code review tasks
+alwaysApply: true
+---
+
+# Code Review Rule
+
+When user asks for review:
+
+- Prioritize bug, regression, security risk, and missing tests.
+- Report findings by severity: Critical -> High -> Medium -> Low.
+- Each finding should include file/symbol, issue, impact, and fix suggestion.
+- If no critical issue found, state it clearly and list residual risks.
+- Keep summary short.

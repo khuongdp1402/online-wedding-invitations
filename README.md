@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Thiệp cưới online
 
-## Getting Started
+Ứng dụng Next.js (App Router) + PostgreSQL + Prisma + NextAuth: tạo thiệp, khách, RSVP, thanh toán, template tùy chỉnh.
 
-First, run the development server:
+## Chạy bằng Docker (khuyến nghị)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env
+# Điền NEXTAUTH_SECRET (và các biến khác nếu cần)
+
+docker compose up --build -d
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **App:** http://localhost:3001  
+- **PostgreSQL (từ máy host):** `localhost:5433` — user `wedding`, password `wedding_secret`, database `wedding_db`  
+- **Connection string trong container:** đã set sẵn trong `docker-compose.yml` (`DATABASE_URL` trỏ tới service `db`)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Khi container `app` khởi động: chạy **`prisma migrate deploy`** (an toàn cho production), seed admin + template, rồi Next.js.  
+Nếu cần đồng bộ schema nhanh như cũ (rủi ro mất dữ liệu khi schema đổi): set `PRISMA_USE_DB_PUSH=true` cho service `app` trong compose hoặc khi chạy container.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Đăng nhập admin (sau seed):** `admin@example.com` / `Admin@123` — vào `/admin`.  
+User thường: đăng ký tại `/register`, đăng nhập `/login`.
 
-## Learn More
+### MinIO (S3 tự host, tùy chọn)
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker compose --profile storage up -d
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- API S3: http://localhost:9000  
+- Console: http://localhost:9001 (user/pass trong `docker-compose.yml`)  
+- Tạo bucket trùng tên `S3_BUCKET` trong `.env`, cấu hình policy đọc public nếu cần.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Nếu **không** cấu hình S3, ảnh upload ghi vào `public/uploads/...` (trong container **không có volume** mặc định — recreate container có thể mất file; production nên dùng S3 hoặc gắn volume).
 
-## Deploy on Vercel
+### Biến môi trường quan trọng
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Xem [.env.example](.env.example): `NEXTAUTH_URL` / `NEXT_PUBLIC_APP_URL` phải trùng URL bạn mở trình duyệt (Docker mặc định `http://localhost:3001`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Chạy local (không Docker)
+
+Cần PostgreSQL (ví dụ port `5433` nếu trùng với compose):
+
+```bash
+# .env
+DATABASE_URL="postgresql://wedding:wedding_secret@localhost:5433/wedding_db"
+
+npm ci
+npx prisma generate
+npx prisma migrate dev
+npm run dev
+```
+
+Mở http://localhost:3000 (hoặc port Next in báo).
+
+## Script hữu ích
+
+| Lệnh | Mô tả |
+|------|--------|
+| `npm run build` | Build production |
+| `npm run db:push` | Đồng bộ schema nhanh (dev) |
+| `npm run db:migrate` | Migration dev |
+| `npm run db:seed` | Seed TypeScript |
+| `npm test` | Chạy test (Vitest) |
+
+## Tài liệu chuẩn & agent
+
+- [AGENTS.md](AGENTS.md)
+- [docs/standards/CODE_STYLE.md](docs/standards/CODE_STYLE.md)

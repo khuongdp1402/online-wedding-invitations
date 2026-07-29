@@ -7,9 +7,15 @@ const VNPAY_HASH_SECRET = process.env.VNPAY_HASH_SECRET || "";
 const VNPAY_URL =
   process.env.VNPAY_URL ||
   "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+/** Phải trùng route GET thực tế: /api/payment/vnpay (không có /callback). */
 const VNPAY_RETURN_URL =
   process.env.VNPAY_RETURN_URL ||
-  "http://localhost:3000/api/payment/vnpay/callback";
+  (() => {
+    const base =
+      process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ||
+      "http://localhost:3001";
+    return `${base}/api/payment/vnpay`;
+  })();
 
 // ==================== Plan Pricing ====================
 
@@ -105,6 +111,40 @@ export function createVNPayUrl({
 /**
  * Verify VNPay return/IPN callback data
  */
+/**
+ * VNPay IPN thường gửi application/x-www-form-urlencoded; một số môi trường dùng JSON.
+ */
+export async function parseVNPayIpnBody(
+  request: Request
+): Promise<Record<string, string>> {
+  const ct = (request.headers.get("content-type") || "").toLowerCase();
+  if (ct.includes("application/json")) {
+    try {
+      const body = (await request.json()) as unknown;
+      if (body && typeof body === "object" && !Array.isArray(body)) {
+        return body as Record<string, string>;
+      }
+    } catch {
+      /* empty */
+    }
+    return {};
+  }
+  const text = await request.text().catch(() => "");
+  if (text.trim().startsWith("{")) {
+    try {
+      return JSON.parse(text) as Record<string, string>;
+    } catch {
+      return {};
+    }
+  }
+  const params = new URLSearchParams(text);
+  const out: Record<string, string> = {};
+  params.forEach((v, k) => {
+    out[k] = v;
+  });
+  return out;
+}
+
 export function verifyVNPayReturn(
   query: Record<string, string>
 ): { isValid: boolean; responseCode: string; transactionId: string; orderId: string } {

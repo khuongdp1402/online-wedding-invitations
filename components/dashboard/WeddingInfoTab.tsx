@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Clock, Calendar } from "lucide-react";
+import Image from "next/image";
 
 type Ceremony = {
   date?: string;
@@ -120,7 +121,7 @@ export function WeddingInfoTab({ wedding }: Props) {
             <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
               {wedding.gallery.map((img, i) => (
                 <div key={i} className="aspect-square rounded-lg bg-gray-100 overflow-hidden">
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+                  <Image src={img} alt="" className="w-full h-full object-cover" width={200} height={200} unoptimized />
                 </div>
               ))}
             </div>

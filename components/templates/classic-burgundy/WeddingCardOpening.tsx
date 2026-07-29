@@ -78,20 +78,20 @@ export function WeddingCardOpening({
             aria-label="Chạm để mở thiệp"
           >
             <div className="absolute inset-x-0 bottom-[-20px] h-10 bg-black/20 blur-xl rounded-full" />
-            <div className="absolute inset-0 bg-white shadow-sm rounded-lg border border-[#D4AF37]/5" />
+            <div className="absolute inset-0 bg-white shadow-sm rounded-lg border cb-border-accent" style={{ borderColor: 'color-mix(in srgb, var(--cb-accent) 5%, transparent)' }} />
 
             <motion.div
               className="absolute inset-0 z-10 origin-left"
               whileHover={{ rotateY: -10 }}
               transition={{ type: "spring", stiffness: 100, damping: 20 }}
             >
-              <div className="absolute inset-0 bg-white border border-[#D4AF37]/10 rounded-lg shadow-2xl flex flex-col items-center justify-center p-6 sm:p-8 text-center overflow-hidden">
+              <div className="absolute inset-0 bg-white rounded-lg shadow-2xl flex flex-col items-center justify-center p-6 sm:p-8 text-center overflow-hidden cb-border-accent" style={{ borderWidth: '1px', borderColor: 'color-mix(in srgb, var(--cb-accent) 10%, transparent)' }}>
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')]" aria-hidden />
-                <div className="absolute inset-4 border border-[#D4AF37]/20 pointer-events-none" aria-hidden />
+                <div className="absolute inset-4 pointer-events-none cb-border-accent" style={{ borderWidth: '1px', borderColor: 'color-mix(in srgb, var(--cb-accent) 20%, transparent)' }} aria-hidden />
 
                 <div className="mb-4 sm:mb-6 relative shrink-0">
-                  <div className="w-[72px] h-[72px] sm:w-[88px] sm:h-[88px] rounded-full overflow-hidden flex items-center justify-center shadow-lg border border-[#800020]/20 bg-white p-1.5">
-                    <Heart className="w-10 h-10 sm:w-12 sm:h-12 text-[#800020] fill-[#800020]/20" />
+                  <div className="w-[72px] h-[72px] sm:w-[88px] sm:h-[88px] rounded-full overflow-hidden flex items-center justify-center shadow-lg bg-white p-1.5 cb-border-primary" style={{ borderWidth: '1px', borderColor: 'color-mix(in srgb, var(--cb-primary) 20%, transparent)' }}>
+                    <Heart className="w-10 h-10 sm:w-12 sm:h-12 cb-text-primary" style={{ color: 'var(--cb-primary)', fill: 'color-mix(in srgb, var(--cb-primary) 20%, transparent)' }} />
                   </div>
                 </div>
 
@@ -102,34 +102,34 @@ export function WeddingCardOpening({
                   className="relative z-10 shrink-0"
                 >
                   {displayName && (
-                    <p className="text-[#800020]/90 text-sm sm:text-base font-serif mb-3">
-                      Kính gửi: <span className="font-black text-[#800020]">{displayName}</span>
+                    <p className="text-sm sm:text-base font-serif mb-3 cb-text-primary opacity-90">
+                      Kính gửi: <span className="font-black cb-text-primary">{displayName}</span>
                     </p>
                   )}
-                  <p className="text-[#800020] text-sm sm:text-base tracking-[0.4em] uppercase font-bold mb-4">
+                  <p className="cb-text-primary text-sm sm:text-base tracking-[0.4em] uppercase font-bold mb-4">
                     Trân trọng báo tin
                   </p>
-                  <div className="h-px w-24 bg-[#D4AF37]/40 mx-auto mb-6" />
+                  <div className="h-px w-24 mx-auto mb-6" style={{ backgroundColor: 'color-mix(in srgb, var(--cb-accent) 40%, transparent)' }} />
 
                   <div className="mb-8 space-y-2">
-                    <p className="text-3xl sm:text-4xl font-script text-[#800020] font-bold">
+                    <p className="text-3xl sm:text-4xl font-script cb-text-primary font-bold">
                       {firstName}
                     </p>
-                    <p className="text-xl sm:text-2xl font-script text-[#D4AF37]">&amp;</p>
-                    <p className="text-3xl sm:text-4xl font-script text-[#800020] font-bold">
+                    <p className="text-xl sm:text-2xl font-script cb-text-accent">&amp;</p>
+                    <p className="text-3xl sm:text-4xl font-script cb-text-primary font-bold">
                       {secondName}
                     </p>
                   </div>
 
-                  <h2 className="text-lg sm:text-xl font-serif text-[#4A4A4A]/60 italic mb-8">
+                  <h2 className="text-lg sm:text-xl font-serif italic mb-8 cb-text-body opacity-60">
                     (Chạm để mở thiệp)
                   </h2>
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="text-[#D4AF37]/60"
+                    className="cb-text-accent opacity-60"
                   >
-                    <Heart className="w-8 h-8 fill-[#D4AF37]/10 mx-auto" />
+                    <Heart className="w-8 h-8 mx-auto" style={{ fill: 'color-mix(in srgb, var(--cb-accent) 10%, transparent)', color: 'var(--cb-accent)' }} />
                   </motion.div>
                 </motion.div>
               </div>

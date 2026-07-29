@@ -1,0 +1,28 @@
+---
+description: Docker, Prisma, and Auth conventions for this project
+globs: Dockerfile,docker-compose.yml,prisma/**,lib/auth.ts,middleware.ts,app/api/auth/**
+alwaysApply: false
+---
+
+# Docker / Prisma / Auth Rules
+
+## Docker
+- Base image: `node:20-bookworm-slim` (not Alpine; Prisma needs OpenSSL).
+- Runner must install openssl: `RUN apt-get update -y && apt-get install -y openssl`.
+- Startup CMD order: `prisma db push` -> `seed` -> `node server.js`.
+- Call Prisma CLI via `node node_modules/prisma/build/index.js` (npx unavailable in slim runner).
+- Ports: db `5433:5432`, app `3001:3000` (avoid conflict with other local services).
+
+## Prisma
+- After any schema change: `npx prisma generate` locally, rebuild Docker image.
+- Prefer `--skip-generate` in container CMD since generate ran at build time.
+- Use `@@unique`, `@@index` for composite lookups; avoid full-table scans.
+- Keep `select/include` minimal in queries.
+
+## Auth (NextAuth v5 / Auth.js)
+- Set both `NEXTAUTH_SECRET` and `AUTH_SECRET` in Docker env for compatibility.
+- Always set `secret` explicitly in NextAuth config: `process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET`.
+- `trustHost: true` required when running behind Docker/proxy.
+- Credentials provider: bcrypt compare, return `role` in JWT callback.
+- Middleware protects `/dashboard` (login required) and `/admin` (ADMIN role required).
+- Seed script creates admin `admin@example.com` / `Admin@123` on first run.

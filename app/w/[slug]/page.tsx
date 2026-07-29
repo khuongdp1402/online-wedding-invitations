@@ -8,6 +8,19 @@ type PageProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
+function absoluteOgUrl(ogImage: string | null | undefined): string[] {
+  if (!ogImage?.trim()) return [];
+  const u = ogImage.trim();
+  if (u.startsWith("http://") || u.startsWith("https://")) return [u];
+  const base = (
+    process.env.NEXT_PUBLIC_APP_URL ||
+    process.env.NEXTAUTH_URL ||
+    ""
+  ).replace(/\/$/, "");
+  if (!base) return [u];
+  return [`${base}${u.startsWith("/") ? u : `/${u}`}`];
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const wedding = await prisma.wedding.findUnique({
     where: { slug: params.slug },
@@ -30,6 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description =
     wedding.metaDescription ||
     `Trân trọng kính mời bạn đến chung vui cùng ${wedding.groomName} & ${wedding.brideName}`;
+  const ogImages = absoluteOgUrl(wedding.ogImage);
 
   return {
     title,
@@ -37,9 +51,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title,
       description,
-      images: wedding.ogImage ? [wedding.ogImage] : [],
+      ...(ogImages.length ? { images: ogImages } : {}),
       type: "website",
       locale: "vi_VN",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(ogImages.length ? { images: ogImages } : {}),
     },
   };
 }
@@ -145,6 +165,8 @@ export default async function PublicWeddingPage({
     primaryColor: wedding.primaryColor || undefined,
     accentColor: wedding.accentColor || undefined,
     fontFamily: wedding.fontFamily || undefined,
+    backgroundColor: wedding.backgroundColor || undefined,
+    sectionOrder: wedding.sectionOrder as string[] | undefined,
     backgroundMusic: wedding.backgroundMusic || undefined,
     status: wedding.status as "DRAFT" | "DEMO" | "PUBLISHED" | "EXPIRED",
     plan: wedding.plan as "FREE" | "BASIC" | "STANDARD" | "PREMIUM",

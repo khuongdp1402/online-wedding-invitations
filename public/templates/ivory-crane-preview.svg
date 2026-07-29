@@ -1,0 +1,10 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" fill="#EFE4D5"/>
+  <rect x="330" y="110" width="540" height="580" rx="8" fill="#F6F1EA" stroke="#D8CABA"/>
+  <text x="600" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#C99B5E" letter-spacing="4">WEDDING INVITATION</text>
+  <text x="600" y="300" text-anchor="middle" font-family="Georgia, serif" font-size="56" fill="#8C2F2F">IVORY CRANE</text>
+  <text x="600" y="360" text-anchor="middle" font-family="Georgia, serif" font-size="32" fill="#8C2F2F">&amp;</text>
+  <text x="600" y="420" text-anchor="middle" font-family="Georgia, serif" font-size="38" fill="#8C2F2F">Modern Oriental</text>
+  <rect x="500" y="520" width="200" height="56" rx="28" fill="#8C2F2F"/>
+  <text x="600" y="555" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#FFFFFF">MÞ THIÆP</text>
+</svg>

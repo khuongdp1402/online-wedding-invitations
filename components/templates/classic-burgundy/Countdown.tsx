@@ -2,9 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import type { WeddingTemplateProps } from "@/lib/template-registry";
+import { useEditOverlay, editSlotClass } from "./EditOverlayContext";
 
 type Parts = { days: number; hours: number; minutes: number; seconds: number };
 
@@ -30,7 +32,7 @@ function NumberFlip({ value }: { value: string }) {
           transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           className="absolute inset-0 flex items-center justify-center"
         >
-          <span className="tabular-nums text-4xl sm:text-5xl lg:text-6xl font-serif text-[#800020] font-medium tracking-tight">{value}</span>
+          <span className="tabular-nums text-4xl sm:text-5xl lg:text-6xl font-serif cb-text-primary font-medium tracking-tight">{value}</span>
         </motion.div>
       </AnimatePresence>
     </div>
@@ -43,6 +45,7 @@ type Props = {
 };
 
 export function Countdown({ wedding, mode }: Props) {
+  const edit = useEditOverlay();
   const ceremony = mode === "bride" ? wedding.brideCeremony : wedding.groomCeremony;
   // Parse ISO date from ceremony.date field; fallback to Date.now + 30 days
   const targetMs = useMemo(() => {
@@ -55,7 +58,7 @@ export function Countdown({ wedding, mode }: Props) {
   }, [ceremony.date]);
 
   const [parts, setParts] = useState<Parts>(() => getParts(targetMs));
-  const countdownImage = wedding.gallery[1] || wedding.gallery[0] || "";
+  const countdownImage = wedding.gallery[1] || "";
 
   useEffect(() => {
     const id = setInterval(() => setParts(getParts(targetMs)), 1000);
@@ -76,9 +79,18 @@ export function Countdown({ wedding, mode }: Props) {
           <div className="lg:col-span-6">
             <Reveal x={-30}>
               {countdownImage && (
-                <div className="relative aspect-[4/5] sm:aspect-square rounded-t-full overflow-hidden border-[8px] border-white shadow-2xl transition-transform hover:scale-[1.01] duration-700">
-                  <img src={countdownImage} alt="Together" className="w-full h-full object-cover scale-105" />
-                  <div className="absolute inset-0 bg-[#800020]/5" />
+                <div
+                  className={editSlotClass(
+                    edit,
+                    "cb-countdown",
+                    "relative aspect-[4/5] sm:aspect-square rounded-t-full overflow-hidden border-[8px] border-white shadow-2xl transition-transform hover:scale-[1.01] duration-700"
+                  )}
+                  data-wedding-slot="cb-countdown"
+                  onClick={() => edit?.onSlotClick?.("cb-countdown")}
+                  role={edit?.onSlotClick ? "button" : undefined}
+                >
+                  <Image src={countdownImage} alt="Together" className="w-full h-full object-cover scale-105" fill unoptimized />
+                  <div className="absolute inset-0 opacity-5" style={{ backgroundColor: 'var(--cb-primary)' }} />
                 </div>
               )}
             </Reveal>
@@ -86,23 +98,23 @@ export function Countdown({ wedding, mode }: Props) {
           <div className="lg:col-span-6">
             <Reveal>
               <div className="text-center lg:text-left mb-12">
-                <h2 className="text-[#800020] uppercase tracking-[0.25em] text-lg sm:text-xl font-bold mb-6">Đếm ngược ngày trọng đại</h2>
-                <div className="h-px w-24 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto lg:mx-0 my-8 opacity-60" />
-                <p className="mt-8 text-4xl sm:text-5xl font-serif text-[#800020] font-bold tracking-tight">{ceremony.date}</p>
+                <h2 className="cb-text-primary uppercase tracking-[0.25em] text-lg sm:text-xl font-bold mb-6">Đếm ngược ngày trọng đại</h2>
+                <div className="h-px w-24 bg-gradient-to-r from-transparent via-[var(--cb-accent)] to-transparent mx-auto lg:mx-0 my-8 opacity-60" />
+                <p className="mt-8 text-4xl sm:text-5xl font-serif cb-text-primary font-bold tracking-tight">{ceremony.date}</p>
               </div>
             </Reveal>
             <Reveal delay={0.1} y={20}>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                 {items.map((item) => (
-                  <div key={item.label} className="bg-white/40 backdrop-blur-md border border-[#D4AF37]/10 p-6 rounded-2xl shadow-sm text-center group hover:bg-white/60 transition-colors duration-500">
+                  <div key={item.label} className="bg-white/40 backdrop-blur-md border p-6 rounded-2xl shadow-sm text-center group hover:bg-white/60 transition-colors duration-500" style={{ borderColor: 'color-mix(in srgb, var(--cb-accent) 10%, transparent)' }}>
                     <NumberFlip value={item.value} />
-                    <p className="mt-4 text-sm sm:text-base tracking-[0.3em] uppercase text-[#4A4A4A] font-bold">{item.label}</p>
+                    <p className="mt-4 text-sm sm:text-base tracking-[0.3em] uppercase cb-text-body font-bold">{item.label}</p>
                   </div>
                 ))}
               </div>
             </Reveal>
             <Reveal delay={0.3} y={20}>
-              <div className="mt-16 text-center lg:text-left italic text-[#4A4A4A]/70 text-lg font-serif">
+              <div className="mt-16 text-center lg:text-left italic cb-text-body text-lg font-serif opacity-70">
                 &ldquo;Dù đi đâu, làm gì, chỉ cần chúng ta bên nhau.&rdquo;
               </div>
             </Reveal>

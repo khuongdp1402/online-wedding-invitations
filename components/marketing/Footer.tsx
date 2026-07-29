@@ -55,10 +55,10 @@ export function Footer() {
         <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm">
           <p>© 2026 Thiệp Cưới Online. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-white transition-colors">
               Điều Khoản
             </Link>
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link href="/" className="hover:text-white transition-colors">
               Bảo Mật
             </Link>
           </div>

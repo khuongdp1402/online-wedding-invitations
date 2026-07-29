@@ -1,0 +1,37 @@
+---
+description: UI component and form patterns for dashboard and template pages
+globs: components/**/*.tsx,app/**/page.tsx
+alwaysApply: false
+---
+
+# UI and Form Patterns
+
+## Layout
+- Edit pages: two-column on desktop (form left, preview right sticky).
+- Mobile: preview collapses behind toggle button above form.
+- Use shadcn Card/CardHeader/CardTitle for form sections.
+
+## Forms
+- Group related fields in a single Card (e.g. couple info, ceremony, theme).
+- Use `grid grid-cols-1 md:grid-cols-2` for field pairs.
+- Labels: `text-sm font-medium text-gray-700`, inputs use shadcn `Input`.
+- Color pickers: native `<input type="color">` + hex Input side by side.
+- Section order: reorder list with ChevronUp/ChevronDown buttons.
+
+## Image Slots
+- Structure slots (hero, countdown, wedding, quote): defined in `lib/wedding-image-slots.ts`.
+- Album slots (gallery grid): start at index 6 in `wedding.gallery`.
+- Each slot card shows: label, hint text, thumbnail preview, upload button.
+- Clicking a slot in the form highlights the corresponding area in the preview panel.
+- Clicking an image area in the preview panel selects the slot in the form.
+
+## Template Components
+- Use `EditOverlayContext` to pass edit mode into template tree.
+- `editSlotClass()` adds ring highlight + cursor-pointer when in edit mode.
+- `data-wedding-slot` attribute on clickable image containers.
+- `ImageWithFallback` for all user-uploaded images (graceful fallback on error).
+
+## Toast and Feedback
+- Use `useToast()` from `hooks/use-toast` for success/error messages.
+- Show `Loader2` spinner on async buttons while loading.
+- Disable submit when required fields are empty.

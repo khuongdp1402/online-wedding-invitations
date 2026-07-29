@@ -9,9 +9,9 @@ type ModeSwitcherProps = {
 export function ModeSwitcher({ mode }: ModeSwitcherProps) {
   return (
     <div className="fixed top-4 right-4 z-50">
-      <div className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm border-2 border-[#800020]/20 rounded-full shadow-lg pointer-events-none">
-        <Flower className="w-4 h-4 text-[#800020]" />
-        <span className="text-sm font-serif font-semibold text-[#800020]">
+      <div className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm border-2 rounded-full shadow-lg pointer-events-none cb-border-primary" style={{ borderColor: 'color-mix(in srgb, var(--cb-primary) 20%, transparent)' }}>
+        <Flower className="w-4 h-4 cb-text-primary" />
+        <span className="text-sm font-serif font-semibold cb-text-primary">
           {mode === "bride" ? "Nhà Gái" : "Nhà Trai"}
         </span>
       </div>

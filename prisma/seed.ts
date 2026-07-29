@@ -1,33 +1,65 @@
 import { PrismaClient, Plan } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
+
+const ADMIN_EMAIL = "admin@example.com";
+const ADMIN_PASSWORD = "Admin@123";
 
 async function main() {
   console.log("🌱 Seeding database...");
 
-  // Create default templates
-  const classicBurgundy = await prisma.template.upsert({
-    where: { slug: "classic-burgundy" },
-    update: {},
-    create: {
-      name: "Classic Burgundy",
-      slug: "classic-burgundy",
-      description:
-        "Thiệp cưới cổ điển tông đỏ burgundy & vàng gold, phong cách Việt Nam truyền thống.",
-      thumbnail: "/templates/classic-burgundy-preview.jpg",
+  // Tạo user admin toàn quyền (để test)
+  const existingAdmin = await prisma.user.findUnique({
+    where: { email: ADMIN_EMAIL },
+  });
+  if (!existingAdmin) {
+    const hashed = await bcrypt.hash(ADMIN_PASSWORD, 10);
+    await prisma.user.create({
+      data: {
+        email: ADMIN_EMAIL,
+        name: "Admin",
+        password: hashed,
+        role: "ADMIN",
+      },
+    });
+    console.log("✅ Admin user created:", ADMIN_EMAIL, "| Password:", ADMIN_PASSWORD);
+  } else {
+    // Đảm bảo user có role ADMIN
+    await prisma.user.update({
+      where: { email: ADMIN_EMAIL },
+      data: { role: "ADMIN" },
+    });
+    console.log("✅ Admin user already exists, role set to ADMIN:", ADMIN_EMAIL);
+  }
+
+  // Xóa các template cũ
+  console.log("🧹 Clearing old templates...");
+  await prisma.template.deleteMany({});
+  
+  // Tạo 2 template chuẩn mới
+  console.log("📝 Creating standard templates...");
+  
+  const classicElegance = await prisma.template.create({
+    data: {
+      name: "Classic Elegance",
+      slug: "classic-elegance",
+      description: "Thiệp cưới mang phong cách truyền thống Việt Nam, tông màu đỏ burgundy & vàng gold thanh lịch.",
+      thumbnail: "/templates/template1-preview.png",
       category: "classic",
       isPremium: false,
       minPlan: Plan.FREE,
       config: {
         sections: [
-          "card-opening",
           "header",
           "wedding-info",
           "countdown",
           "quote",
           "gallery",
           "location",
+          "rsvp",
           "wishes",
+          "gifting",
           "footer",
         ],
         defaultColors: {
@@ -39,108 +71,36 @@ async function main() {
     },
   });
 
-  const modernMinimal = await prisma.template.upsert({
-    where: { slug: "modern-minimal" },
-    update: {},
-    create: {
-      name: "Modern Minimal",
-      slug: "modern-minimal",
-      description:
-        "Phong cách tối giản hiện đại, tông trắng đen thanh lịch.",
-      thumbnail: "/templates/modern-minimal-preview.jpg",
+  const modernCinematic = await prisma.template.create({
+    data: {
+      name: "Modern Cinematic",
+      slug: "modern-cinematic",
+      description: "Thiệp cưới cuộn 3D hiện đại, hiệu ứng điện ảnh và kể chuyện tinh tế.",
+      thumbnail: "/templates/template2-preview.png",
       category: "modern",
       isPremium: true,
       minPlan: Plan.STANDARD,
       config: {
         sections: [
-          "header",
-          "wedding-info",
-          "countdown",
+          "hero",
+          "story",
+          "journey",
+          "invitation",
           "gallery",
-          "wishes",
-          "footer",
+          "rsvp",
         ],
         defaultColors: {
-          primary: "#1a1a1a",
-          accent: "#f5f5f5",
-          background: "#ffffff",
-        },
-      },
-    },
-  });
-
-  const gardenRomance = await prisma.template.upsert({
-    where: { slug: "garden-romance" },
-    update: {},
-    create: {
-      name: "Garden Romance",
-      slug: "garden-romance",
-      description:
-        "Hoa lá thiên nhiên, tông xanh lá nhẹ nhàng và hồng pastel.",
-      thumbnail: "/templates/garden-romance-preview.jpg",
-      category: "classic",
-      isPremium: true,
-      minPlan: Plan.BASIC,
-      config: {
-        sections: [
-          "card-opening",
-          "header",
-          "wedding-info",
-          "countdown",
-          "quote",
-          "gallery",
-          "location",
-          "wishes",
-          "footer",
-        ],
-        defaultColors: {
-          primary: "#2d6a4f",
-          accent: "#f4a7b9",
-          background: "#fef9ef",
-        },
-      },
-    },
-  });
-
-  const royalGold = await prisma.template.upsert({
-    where: { slug: "royal-gold" },
-    update: {},
-    create: {
-      name: "Royal Gold",
-      slug: "royal-gold",
-      description:
-        "Sang trọng với tông vàng gold và đen, phong cách hoàng gia.",
-      thumbnail: "/templates/royal-gold-preview.jpg",
-      category: "luxury",
-      isPremium: true,
-      minPlan: Plan.STANDARD,
-      config: {
-        sections: [
-          "card-opening",
-          "header",
-          "wedding-info",
-          "countdown",
-          "quote",
-          "gallery",
-          "location",
-          "wishes",
-          "gifting",
-          "footer",
-        ],
-        defaultColors: {
-          primary: "#c9a84c",
-          accent: "#1a1a2e",
-          background: "#f8f4e8",
+          primary: "#111111",
+          accent: "#f5f1ea",
+          background: "#000000",
         },
       },
     },
   });
 
   console.log("✅ Templates seeded:", {
-    classicBurgundy: classicBurgundy.id,
-    modernMinimal: modernMinimal.id,
-    gardenRomance: gardenRomance.id,
-    royalGold: royalGold.id,
+    classicElegance: classicElegance.id,
+    modernCinematic: modernCinematic.id,
   });
 
   console.log("🎉 Seeding completed!");

@@ -1,21 +1,25 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { calculateExpiryDate } from "@/lib/payment";
+import { auth } from "@/lib/auth";
 
 /**
  * Manual payment confirmation webhook (for bank transfer)
- * Called by admin to confirm a bank transfer payment
+ * Cho phép: header x-api-key = ADMIN_API_KEY HOẶC đăng nhập với tài khoản admin
  */
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { paymentId, action } = body;
 
-    // Simple API key check for admin actions
     const apiKey = request.headers.get("x-api-key");
     const expectedKey = process.env.ADMIN_API_KEY;
+    const session = await auth();
 
-    if (!expectedKey || apiKey !== expectedKey) {
+    const isAdminByKey = expectedKey && apiKey === expectedKey;
+    const isAdminBySession = session?.user?.role === "ADMIN";
+
+    if (!isAdminByKey && !isAdminBySession) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

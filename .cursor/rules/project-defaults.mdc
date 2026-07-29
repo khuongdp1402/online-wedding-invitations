@@ -1,0 +1,13 @@
+---
+description: Baseline standards for all tasks in this repository
+alwaysApply: true
+---
+
+# Project Baseline Standards
+
+- Reply to users in Vietnamese, concise and clear.
+- Do not change business behavior unless requested.
+- Validate important changes with build or targeted tests.
+- Do not commit or push unless user explicitly asks.
+- For Docker/DB/Auth changes, always include rerun steps.
+- Avoid new dependencies unless necessary.

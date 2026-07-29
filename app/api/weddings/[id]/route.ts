@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { deleteStoredObject } from "@/lib/file-storage";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(
@@ -94,6 +95,11 @@ export async function PUT(
         ...(body.accentColor !== undefined && {
           accentColor: body.accentColor,
         }),
+        ...(body.backgroundColor !== undefined && {
+          backgroundColor: body.backgroundColor,
+        }),
+        ...(body.fontFamily !== undefined && { fontFamily: body.fontFamily }),
+        ...(body.sectionOrder !== undefined && { sectionOrder: body.sectionOrder }),
         ...(body.backgroundMusic !== undefined && {
           backgroundMusic: body.backgroundMusic,
         }),
@@ -130,7 +136,12 @@ export async function DELETE(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
+    const files = await prisma.fileManagement.findMany({
+      where: { weddingId: params.id },
+      select: { storageKey: true },
+    });
     await prisma.wedding.delete({ where: { id: params.id } });
+    await Promise.all(files.map((f) => deleteStoredObject(f.storageKey)));
 
     return NextResponse.json({ success: true });
   } catch (error) {

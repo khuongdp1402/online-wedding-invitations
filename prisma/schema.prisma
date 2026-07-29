@@ -56,10 +56,13 @@ model User {
   emailVerified DateTime?
   image         String?
   phone         String?
+  password      String?   // Bcrypt hash cho đăng nhập email/mật khẩu
+  role          Role      @default(USER) // USER | ADMIN
 
-  accounts Account[]
-  sessions Session[]
-  weddings Wedding[]
+  accounts         Account[]
+  sessions         Session[]
+  weddings         Wedding[]
+  fileManagement   FileManagement[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -93,7 +96,9 @@ model Wedding {
   // Custom Theme
   primaryColor    String? @default("#800020")
   accentColor     String? @default("#d4a853")
+  backgroundColor String? // Nền trang (mặc định #faf8f5)
   fontFamily      String?
+  sectionOrder    Json?   // ["header","wedding-info",...] — thứ tự khối
   backgroundMusic String? // URL to music file
 
   // SEO
@@ -105,15 +110,38 @@ model Wedding {
   viewCount Int @default(0)
 
   // Relations
-  guests   Guest[]
-  wishes   Wish[]
-  payments Payment[]
+  guests           Guest[]
+  wishes           Wish[]
+  payments         Payment[]
+  fileManagement   FileManagement[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@index([slug])
+}
+
+/// File đã upload (S3/MinIO hoặc local), gắn với thiệp + vị trí hiển thị (slotKey).
+model FileManagement {
+  id           String   @id @default(cuid())
+  weddingId    String
+  wedding      Wedding  @relation(fields: [weddingId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slotKey      String
+  publicUrl    String
+  storageKey   String
+  originalName String?
+  mimeType     String?
+  sizeBytes    Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([weddingId, slotKey])
+  @@index([userId])
+  @@index([weddingId])
 }
 
 model Template {
@@ -226,4 +254,9 @@ enum PaymentStatus {
   COMPLETED
   FAILED
   REFUNDED
+}
+
+enum Role {
+  USER
+  ADMIN
 }

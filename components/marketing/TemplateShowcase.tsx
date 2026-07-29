@@ -8,44 +8,22 @@ import Link from "next/link";
 
 const templatePreviews = [
   {
-    id: "classic-burgundy",
-    name: "Classic Burgundy",
-    description:
-      "Thiệp cưới cổ điển tông đỏ burgundy & vàng gold, phong cách Việt Nam truyền thống.",
+    id: "classic-elegance",
+    name: "Classic Elegance",
+    description: "Thiệp cưới mang phong cách truyền thống Việt Nam, tông màu đỏ burgundy & vàng gold thanh lịch.",
     category: "Cổ Điển",
     isPremium: false,
-    thumbnail: "/templates/classic-burgundy-preview.jpg",
+    thumbnail: "/templates/template1-preview.png",
     colors: ["#800020", "#d4a853", "#faf8f5"],
   },
   {
-    id: "modern-minimal",
-    name: "Modern Minimal",
-    description:
-      "Phong cách tối giản hiện đại, tông trắng đen thanh lịch.",
+    id: "modern-cinematic",
+    name: "Modern Cinematic",
+    description: "Thiệp cưới cuộn 3D hiện đại, hiệu ứng điện ảnh và kể chuyện tinh tế.",
     category: "Hiện Đại",
     isPremium: true,
-    thumbnail: "/templates/modern-minimal-preview.jpg",
-    colors: ["#1a1a1a", "#f5f5f5", "#ffffff"],
-  },
-  {
-    id: "garden-romance",
-    name: "Garden Romance",
-    description:
-      "Hoa lá thiên nhiên, tông xanh lá nhẹ nhàng và hồng pastel.",
-    category: "Lãng Mạn",
-    isPremium: true,
-    thumbnail: "/templates/garden-romance-preview.jpg",
-    colors: ["#2d6a4f", "#f4a7b9", "#fef9ef"],
-  },
-  {
-    id: "royal-gold",
-    name: "Royal Gold",
-    description:
-      "Sang trọng với tông vàng gold và đen, phong cách hoàng gia.",
-    category: "Sang Trọng",
-    isPremium: true,
-    thumbnail: "/templates/royal-gold-preview.jpg",
-    colors: ["#c9a84c", "#1a1a2e", "#f8f4e8"],
+    thumbnail: "/templates/template2-preview.png",
+    colors: ["#111111", "#f5f1ea", "#000000"],
   },
 ];
 
@@ -95,14 +73,16 @@ export function TemplateShowcase() {
 
               {/* Overlay on hover */}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  className="bg-white/90 hover:bg-white"
-                >
-                  <Eye className="w-4 h-4 mr-1" />
-                  Xem
-                </Button>
+                <Link href="/login">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    className="bg-white/90 hover:bg-white"
+                  >
+                    <Eye className="w-4 h-4 mr-1" />
+                    Xem
+                  </Button>
+                </Link>
               </div>
 
               {/* Badge */}

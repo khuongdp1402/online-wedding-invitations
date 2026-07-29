@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useMemo } from "react";
 import type { WeddingTemplateProps } from "@/lib/template-registry";
 import { WeddingCardOpening } from "./WeddingCardOpening";
 import { InvitationHeader } from "./InvitationHeader";
@@ -13,24 +13,130 @@ import { Wishes } from "./Wishes";
 import { Footer } from "./Footer";
 import { BackgroundMusic } from "./BackgroundMusic";
 import { ModeSwitcher } from "./ModeSwitcher";
-import { Watermark } from "@/components/templates/Watermark";
+import { resolveClassicBurgundyStructureGallery } from "@/lib/classic-burgundy-sample-gallery";
+import { CLASSIC_BURGUNDY_ALBUM_START_INDEX } from "@/lib/wedding-image-slots";
+import { EditOverlayContext } from "./EditOverlayContext";
 import "./classic-burgundy.css";
+
+const DEFAULT_SECTIONS = [
+  "header",
+  "wedding-info",
+  "countdown",
+  "quote",
+  "gallery",
+  "location",
+  "wishes",
+  "footer",
+];
 
 export default function ClassicBurgundyTemplate({
   wedding,
   mode,
-  isDemo,
+  isDemo: _isDemo,
   guestName,
   guestSalutation,
+  editOverlay,
 }: WeddingTemplateProps) {
   const isBrideMode = mode === "bride";
 
-  return (
-    <div className="cb-template min-h-screen bg-[#FDFBF7] text-[#4A4A4A] antialiased overflow-x-hidden">
-      {/* Canvas-based Watermark (tamper-resistant) */}
-      {isDemo && <Watermark />}
+  const { weddingWithSamples, albumUrls } = useMemo(() => {
+    const raw = wedding.gallery ?? [];
+    const structure = resolveClassicBurgundyStructureGallery(raw);
+    const album = raw
+      .slice(CLASSIC_BURGUNDY_ALBUM_START_INDEX)
+      .map((u) => String(u || "").trim())
+      .filter(Boolean);
+    return {
+      weddingWithSamples: {
+        ...wedding,
+        gallery: [...structure, ...album],
+      },
+      albumUrls: album,
+    };
+  }, [wedding]);
 
-      {/* Card Opening */}
+  const themeVars = useMemo(
+    () =>
+      ({
+        "--cb-primary": wedding.primaryColor ?? "#800020",
+        "--cb-accent": wedding.accentColor ?? "#d4a853",
+        "--cb-bg": wedding.backgroundColor ?? "#FDFBF7",
+        "--cb-text": "#4A4A4A",
+        "--cb-font": wedding.fontFamily ?? "var(--cb-font-serif)",
+      }) as React.CSSProperties,
+    [
+      wedding.primaryColor,
+      wedding.accentColor,
+      wedding.backgroundColor,
+      wedding.fontFamily,
+    ]
+  );
+
+  const sectionOrder =
+    wedding.sectionOrder && wedding.sectionOrder.length > 0
+      ? wedding.sectionOrder.filter((id) => DEFAULT_SECTIONS.includes(id))
+      : DEFAULT_SECTIONS;
+  const ordered = useMemo(() => {
+    const set = new Set(sectionOrder);
+    return [...sectionOrder, ...DEFAULT_SECTIONS.filter((id) => !set.has(id))];
+  }, [sectionOrder]);
+
+  const sectionMap: Record<string, React.ReactNode> = useMemo(
+    () => ({
+      header: (
+        <InvitationHeader wedding={weddingWithSamples} mode={mode} key="header" />
+      ),
+      "wedding-info": (
+        <WeddingInfo
+          wedding={weddingWithSamples}
+          mode={mode}
+          key="wedding-info"
+        />
+      ),
+      countdown: (
+        <Countdown wedding={weddingWithSamples} mode={mode} key="countdown" />
+      ),
+      quote: (
+        <Quote
+          wedding={weddingWithSamples}
+          mode={mode}
+          guestName={guestName}
+          guestSalutation={guestSalutation}
+          key="quote"
+        />
+      ),
+      gallery:
+        albumUrls.length > 0 ? (
+          <Gallery gallery={albumUrls} key="gallery" />
+        ) : null,
+      location: (
+        <Location wedding={weddingWithSamples} mode={mode} key="location" />
+      ),
+      wishes: <Wishes weddingId={wedding.id} key="wishes" />,
+      footer: (
+        <Footer wedding={weddingWithSamples} mode={mode} key="footer" />
+      ),
+    }),
+    [
+      weddingWithSamples,
+      mode,
+      guestName,
+      guestSalutation,
+      wedding.id,
+      albumUrls,
+    ]
+  );
+
+  const inner = (
+    <div
+      className="cb-template min-h-screen antialiased overflow-x-hidden"
+      style={{
+        ...themeVars,
+        backgroundColor: "var(--cb-bg)",
+        color: "var(--cb-text)",
+        fontFamily: "var(--cb-font)",
+      }}
+    >
       <Suspense fallback={null}>
         <WeddingCardOpening
           groomName={wedding.groomName}
@@ -41,32 +147,23 @@ export default function ClassicBurgundyTemplate({
         />
       </Suspense>
 
-      {/* Mode Badge */}
-      <ModeSwitcher mode={mode} />
+      <ModeSwitcher mode={mode || "groom"} />
 
-      {/* Main Content */}
-      <main>
-        <InvitationHeader wedding={wedding} mode={mode} />
-        <WeddingInfo wedding={wedding} mode={mode} />
-        <Countdown wedding={wedding} mode={mode} />
-        <Quote
-          wedding={wedding}
-          mode={mode}
-          guestName={guestName}
-          guestSalutation={guestSalutation}
-        />
-        {wedding.gallery.length > 0 && (
-          <Gallery gallery={wedding.gallery} />
-        )}
-        <Location wedding={wedding} mode={mode} />
-        <Wishes weddingId={wedding.id} />
-        <Footer wedding={wedding} mode={mode} />
-      </main>
+      <main>{ordered.map((id) => sectionMap[id]).filter(Boolean)}</main>
 
-      {/* Background Music */}
       {wedding.backgroundMusic && (
         <BackgroundMusic musicUrl={wedding.backgroundMusic} />
       )}
     </div>
   );
+
+  if (editOverlay?.onSlotClick) {
+    return (
+      <EditOverlayContext.Provider value={editOverlay}>
+        {inner}
+      </EditOverlayContext.Provider>
+    );
+  }
+
+  return inner;
 }

@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: wedding-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wedding
+      POSTGRES_PASSWORD: wedding_secret
+      POSTGRES_DB: wedding_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - wedding_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wedding -d wedding_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+
+  # MinIO (S3 self-host) — bật: docker compose --profile storage up -d
+  # Tạo bucket tên wedding-uploads trong Console http://localhost:9001
+  minio:
+    image: minio/minio:latest
+    profiles: ["storage"]
+    container_name: wedding-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio_secret_change_me
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - wedding_minio:/data
+
+volumes:
+  wedding_pgdata:
+  wedding_minio:

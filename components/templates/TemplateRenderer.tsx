@@ -3,6 +3,7 @@
 import {
   getTemplate,
   type WeddingData,
+  type WeddingTemplateProps,
 } from "@/lib/template-registry";
 
 type TemplateRendererProps = {
@@ -12,6 +13,7 @@ type TemplateRendererProps = {
   isDemo: boolean;
   guestName?: string;
   guestSalutation?: string;
+  editOverlay?: WeddingTemplateProps["editOverlay"];
 };
 
 export function TemplateRenderer({
@@ -21,6 +23,7 @@ export function TemplateRenderer({
   isDemo,
   guestName,
   guestSalutation,
+  editOverlay,
 }: TemplateRendererProps) {
   const template = getTemplate(templateSlug);
 
@@ -48,6 +51,7 @@ export function TemplateRenderer({
       isDemo={isDemo}
       guestName={guestName}
       guestSalutation={guestSalutation}
+      editOverlay={editOverlay}
     />
   );
 }

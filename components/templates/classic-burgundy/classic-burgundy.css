@@ -1,4 +1,23 @@
 /* ====== Classic Burgundy Template CSS ====== */
+/* Theme variables (override by inline style from wedding) */
+.cb-template {
+  --cb-primary: #800020;
+  --cb-accent: #d4a853;
+  --cb-bg: #FDFBF7;
+  --cb-text: #4A4A4A;
+  --cb-primary-dark: color-mix(in srgb, var(--cb-primary) 75%, black);
+  --cb-font-serif: Georgia, "Times New Roman", serif;
+}
+
+/* Utility classes for customizable colors */
+.cb-text-primary { color: var(--cb-primary); }
+.cb-text-accent { color: var(--cb-accent); }
+.cb-bg-primary { background-color: var(--cb-primary); }
+.cb-bg-primary-dark { background-color: var(--cb-primary-dark); }
+.cb-bg-page { background-color: var(--cb-bg); }
+.cb-text-body { color: var(--cb-text); }
+.cb-border-primary { border-color: var(--cb-primary); }
+.cb-border-accent { border-color: var(--cb-accent); }
 
 /* Card Opening Bling Effects */
 @keyframes cb-shimmer-bling {
@@ -58,37 +77,10 @@
 .cb-sparkle:nth-child(8) { right: 35%; bottom: 30%; animation-delay: 0.1s; }
 .cb-sparkle:nth-child(9) { left: 40%; bottom: 12%; animation-delay: 0.8s; width: 3px; height: 3px; }
 
-/* Watermark overlay */
-.cb-watermark {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.cb-watermark-text {
-  font-size: 2rem;
-  font-weight: bold;
-  color: rgba(128, 0, 32, 0.08);
-  transform: rotate(-30deg);
-  user-select: none;
-  white-space: nowrap;
-}
-
-@media (min-width: 640px) {
-  .cb-watermark-text {
-    font-size: 3rem;
-  }
-}
-
 /* Selection styling for template */
 .cb-template ::selection {
-  background-color: rgba(128, 0, 32, 0.1);
-  color: #800020;
+  background-color: color-mix(in srgb, var(--cb-primary) 15%, transparent);
+  color: var(--cb-primary);
 }
 
 /* Scrollbar styling */
@@ -97,10 +89,10 @@
 }
 
 .cb-template ::-webkit-scrollbar-track {
-  background: #FDFBF7;
+  background: var(--cb-bg);
 }
 
 .cb-template ::-webkit-scrollbar-thumb {
-  background: #800020;
+  background: var(--cb-primary);
   border-radius: 99px;
 }
