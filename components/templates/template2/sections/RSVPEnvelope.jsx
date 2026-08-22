@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
-import { useGuest } from "../StoryEngine";
+import { useGuest, useWeddingData } from "../StoryEngine";
 import { weddingData } from "../config/weddingData";
 import { getFullGuestName } from "../lib/utils/guest";
 
@@ -30,15 +30,18 @@ export default function RSVPEnvelope({ chapter }) {
     { name: "Chị Họ", wish: "Chúc đôi uyên ương mãi mãi hạnh phúc ngọt ngào bên nhau! Chúc mừng hạnh phúc gia đình mới!", status: "attending" }
   ];
 
-  const sideData = side === "nhagai" ? weddingData.nhagai : weddingData.nhatrai;
+  const contextData = useWeddingData();
+  const activeWeddingData = contextData || weddingData;
+
+  const sideData = side === "nhagai" ? activeWeddingData.nhagai : activeWeddingData.nhatrai;
   const ceremony = sideData.ceremony;
   const party = sideData.party;
 
   // Family data for Open Love Letter format
-  const nhaTraiImg = "/images/chure/z7974179759081_76fdea264281169d13a97a3261f1145c.jpg";
-  const nhaGaiImg = "/images/codau/z7974179703025_e749d94cbdda06a7d4d4e56c9b599db7.jpg";
-  const nhaTrai = weddingData.nhatrai;
-  const nhaGai = weddingData.nhagai;
+  const nhaTraiImg = activeWeddingData.gallery?.[0] || "/images/chure/z7974179759081_76fdea264281169d13a97a3261f1145c.jpg";
+  const nhaGaiImg = activeWeddingData.gallery?.[1] || "/images/codau/z7974179703025_e749d94cbdda06a7d4d4e56c9b599db7.jpg";
+  const nhaTrai = activeWeddingData.nhatrai;
+  const nhaGai = activeWeddingData.nhagai;
 
   useEffect(() => {
     // Load from localStorage on mount
@@ -159,7 +162,7 @@ export default function RSVPEnvelope({ chapter }) {
 
           {/* Thiệp mời bên trong — hiển thị ceremony + party info + Form */}
           <motion.div
-            className="absolute bg-[#FFFDF9] shadow-[0_20px_50px_rgba(0,0,0,0.35)] rounded-sm flex flex-col p-6 md:p-8 lg:p-10 border border-[#D4AF37]/40 overflow-y-auto overflow-x-hidden scrollbar-thin"
+            className="absolute bg-[#FFFDF9] shadow-[0_20px_50px_rgba(0,0,0,0.35)] rounded-sm flex flex-col p-6 md:p-8 lg:p-10 border border-[color-mix(in_srgb,var(--color-gold)_40%,transparent)] overflow-y-auto overflow-x-hidden scrollbar-thin"
             style={{ 
               backgroundImage: 'radial-gradient(circle at center, #FFFDF9 0%, #FAF5EC 100%)',
               left: "50%",
@@ -179,7 +182,7 @@ export default function RSVPEnvelope({ chapter }) {
             {(envelopeState === "card_extracted" || envelopeState === "submitted") ? (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 h-full text-center lg:text-left">
                 {/* Column 1: Lời mời & Info (The Open Love Letter) */}
-                <div className="flex flex-col border-b lg:border-b-0 lg:border-r border-[#D4AF37]/30 pb-6 lg:pb-0 lg:pr-8">
+                <div className="flex flex-col border-b lg:border-b-0 lg:border-r border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] pb-6 lg:pb-0 lg:pr-8">
                   
                   {/* Parental Portraits - Oval Frames */}
                   <div className="flex justify-center gap-6 md:gap-12 mb-8">
@@ -187,11 +190,11 @@ export default function RSVPEnvelope({ chapter }) {
                       <>
                         {/* Nhà Gái */}
                         <div className="flex flex-col items-center">
-                          <div className="w-20 h-28 md:w-24 md:h-32 mb-3 rounded-[50%_50%_50%_50%/60%_60%_40%_40%] overflow-hidden shadow-md border border-[#D4AF37]/30 p-1 bg-white">
+                          <div className="w-20 h-28 md:w-24 md:h-32 mb-3 rounded-[50%_50%_50%_50%/60%_60%_40%_40%] overflow-hidden shadow-md border border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] p-1 bg-white">
                             <div className="w-full h-full rounded-[50%_50%_50%_50%/60%_60%_40%_40%] bg-cover bg-top" style={{ backgroundImage: `url(${nhaGaiImg})` }} />
                           </div>
                           <p className="text-[9px] uppercase tracking-widest text-[var(--color-gold)] font-bold mb-1">Nhà Gái</p>
-                          <p className="text-[10px] md:text-xs text-[#4A3728] leading-tight">Ông: {nhaGai.parents.father}<br/>Bà: {nhaGai.parents.mother}</p>
+                          <p className="text-[10px] md:text-xs text-[var(--color-text-primary)] leading-tight">Ông: {nhaGai.parents.father}<br/>Bà: {nhaGai.parents.mother}</p>
                         </div>
 
                         {/* Dấu & */}
@@ -201,22 +204,22 @@ export default function RSVPEnvelope({ chapter }) {
 
                         {/* Nhà Trai */}
                         <div className="flex flex-col items-center">
-                          <div className="w-20 h-28 md:w-24 md:h-32 mb-3 rounded-[50%_50%_50%_50%/60%_60%_40%_40%] overflow-hidden shadow-md border border-[#D4AF37]/30 p-1 bg-white">
+                          <div className="w-20 h-28 md:w-24 md:h-32 mb-3 rounded-[50%_50%_50%_50%/60%_60%_40%_40%] overflow-hidden shadow-md border border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] p-1 bg-white">
                             <div className="w-full h-full rounded-[50%_50%_50%_50%/60%_60%_40%_40%] bg-cover bg-top" style={{ backgroundImage: `url(${nhaTraiImg})` }} />
                           </div>
                           <p className="text-[9px] uppercase tracking-widest text-[var(--color-gold)] font-bold mb-1">Nhà Trai</p>
-                          <p className="text-[10px] md:text-xs text-[#4A3728] leading-tight">Ông: {nhaTrai.parents.father}<br/>Bà: {nhaTrai.parents.mother}</p>
+                          <p className="text-[10px] md:text-xs text-[var(--color-text-primary)] leading-tight">Ông: {nhaTrai.parents.father}<br/>Bà: {nhaTrai.parents.mother}</p>
                         </div>
                       </>
                     ) : (
                       <>
                         {/* Nhà Trai */}
                         <div className="flex flex-col items-center">
-                          <div className="w-20 h-28 md:w-24 md:h-32 mb-3 rounded-[50%_50%_50%_50%/60%_60%_40%_40%] overflow-hidden shadow-md border border-[#D4AF37]/30 p-1 bg-white">
+                          <div className="w-20 h-28 md:w-24 md:h-32 mb-3 rounded-[50%_50%_50%_50%/60%_60%_40%_40%] overflow-hidden shadow-md border border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] p-1 bg-white">
                             <div className="w-full h-full rounded-[50%_50%_50%_50%/60%_60%_40%_40%] bg-cover bg-top" style={{ backgroundImage: `url(${nhaTraiImg})` }} />
                           </div>
                           <p className="text-[9px] uppercase tracking-widest text-[var(--color-gold)] font-bold mb-1">Nhà Trai</p>
-                          <p className="text-[10px] md:text-xs text-[#4A3728] leading-tight">Ông: {nhaTrai.parents.father}<br/>Bà: {nhaTrai.parents.mother}</p>
+                          <p className="text-[10px] md:text-xs text-[var(--color-text-primary)] leading-tight">Ông: {nhaTrai.parents.father}<br/>Bà: {nhaTrai.parents.mother}</p>
                         </div>
 
                         {/* Dấu & */}
@@ -226,11 +229,11 @@ export default function RSVPEnvelope({ chapter }) {
 
                         {/* Nhà Gái */}
                         <div className="flex flex-col items-center">
-                          <div className="w-20 h-28 md:w-24 md:h-32 mb-3 rounded-[50%_50%_50%_50%/60%_60%_40%_40%] overflow-hidden shadow-md border border-[#D4AF37]/30 p-1 bg-white">
+                          <div className="w-20 h-28 md:w-24 md:h-32 mb-3 rounded-[50%_50%_50%_50%/60%_60%_40%_40%] overflow-hidden shadow-md border border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] p-1 bg-white">
                             <div className="w-full h-full rounded-[50%_50%_50%_50%/60%_60%_40%_40%] bg-cover bg-top" style={{ backgroundImage: `url(${nhaGaiImg})` }} />
                           </div>
                           <p className="text-[9px] uppercase tracking-widest text-[var(--color-gold)] font-bold mb-1">Nhà Gái</p>
-                          <p className="text-[10px] md:text-xs text-[#4A3728] leading-tight">Ông: {nhaGai.parents.father}<br/>Bà: {nhaGai.parents.mother}</p>
+                          <p className="text-[10px] md:text-xs text-[var(--color-text-primary)] leading-tight">Ông: {nhaGai.parents.father}<br/>Bà: {nhaGai.parents.mother}</p>
                         </div>
                       </>
                     )}
@@ -246,7 +249,10 @@ export default function RSVPEnvelope({ chapter }) {
                       <strong className="text-[var(--color-burgundy)] text-base md:text-xl block my-3 not-italic font-[family-name:var(--font-serif-display)]">{getFullGuestName(guestRole, guestName)}</strong> 
                       đến chung vui cùng gia đình chúng tôi tại lễ thành hôn của 
                       <strong className="text-neutral-800 not-italic block mt-2 text-lg md:text-xl font-[family-name:var(--font-serif-display)]">
-                        {side === "nhagai" ? "Hoàng Thị Cẩm Hiền & Đỗ Phú Khương" : "Đỗ Phú Khương & Hoàng Thị Cẩm Hiền"}
+                        {side === "nhagai" 
+                          ? `${activeWeddingData.couple.bride.name} & ${activeWeddingData.couple.groom.name}`
+                          : `${activeWeddingData.couple.groom.name} & ${activeWeddingData.couple.bride.name}`
+                        }
                       </strong>.
                     </p>
                   </div>
@@ -270,7 +276,7 @@ export default function RSVPEnvelope({ chapter }) {
                       </div>
                     </div>
 
-                    <div className="w-1/2 h-[1px] bg-[#D4AF37]/20 mx-auto" />
+                    <div className="w-1/2 h-[1px] bg-[color-mix(in_srgb,var(--color-gold)_20%,transparent)] mx-auto" />
 
                     {/* Party */}
                     <div className="flex flex-col items-center">
@@ -330,14 +336,14 @@ export default function RSVPEnvelope({ chapter }) {
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           required
-                          className="w-full bg-transparent border-b border-[#D4AF37]/40 focus:border-[var(--color-gold)] text-center text-sm py-2 focus:outline-none transition-colors font-serif"
+                          className="w-full bg-transparent border-b border-[color-mix(in_srgb,var(--color-gold)_40%,transparent)] focus:border-[var(--color-gold)] text-center text-sm py-2 focus:outline-none transition-colors font-serif"
                         />
                         <input
                           type="text"
                           placeholder="Gửi lời chúc tốt đẹp nhất..."
                           value={wish}
                           onChange={(e) => setWish(e.target.value)}
-                          className="w-full bg-transparent border-b border-[#D4AF37]/40 focus:border-[var(--color-gold)] text-center text-sm py-2 focus:outline-none transition-colors font-serif"
+                          className="w-full bg-transparent border-b border-[color-mix(in_srgb,var(--color-gold)_40%,transparent)] focus:border-[var(--color-gold)] text-center text-sm py-2 focus:outline-none transition-colors font-serif"
                         />
                       </div>
 
@@ -349,7 +355,7 @@ export default function RSVPEnvelope({ chapter }) {
                       </button>
                     </form>
                   ) : (
-                    <div className="text-center py-6 bg-amber-50/50 rounded-sm border border-[#D4AF37]/20 mb-6 shrink-0">
+                    <div className="text-center py-6 bg-amber-50/50 rounded-sm border border-[color-mix(in_srgb,var(--color-gold)_20%,transparent)] mb-6 shrink-0">
                       <p className="text-[var(--color-gold)] font-[family-name:var(--font-calligraphy)] text-3xl mb-1">
                         Cảm ơn {name}! ♥
                       </p>
@@ -360,7 +366,7 @@ export default function RSVPEnvelope({ chapter }) {
                   )}
 
                   {/* Wishes Scrollable Area inside the card */}
-                  <div className="flex-1 flex flex-col min-h-0 border-t border-[#D4AF37]/20 pt-4 mt-2">
+                  <div className="flex-1 flex flex-col min-h-0 border-t border-[color-mix(in_srgb,var(--color-gold)_20%,transparent)] pt-4 mt-2">
                     <h4 className="text-center font-[family-name:var(--font-serif-display)] text-lg text-[var(--color-text-primary)] mb-4">
                       Lời Chúc Từ Mọi Người
                     </h4>

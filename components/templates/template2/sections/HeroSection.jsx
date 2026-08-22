@@ -3,11 +3,11 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useAudio } from "../StoryEngine";
-import { weddingData } from "../config/weddingData";
+import { useAudio, useGuest, useWeddingData } from "../StoryEngine";
+import { weddingData as staticWeddingData } from "../config/weddingData";
 import { EASE_LUXURY, DURATION_EPIC, DURATION_AUDIO_FADE } from "../config/motionConstants";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
-import { useGuest } from "../StoryEngine";
 import React from "react";
 import { getFullGuestName } from "../lib/utils/guest";
 
@@ -90,6 +90,7 @@ const TransparentWaxSeal = React.forwardRef(({ src, className, onClick }, ref) =
 
   return <canvas ref={internalRef} className={className} onClick={onClick} />;
 });
+
 TransparentWaxSeal.displayName = "TransparentWaxSeal";
 
 export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
@@ -106,8 +107,15 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
   const audioRef = useAudio();
   
   const { side, guestName, guestRole } = useGuest();
+  const contextData = useWeddingData();
+  const activeWeddingData = contextData || staticWeddingData;
+  const editCtx = useEditOverlay();
 
   const [isAnimating, setIsAnimating] = useState(false);
+
+  // Parse wedding dateSolar to get day, month, year
+  const solarDateStr = activeWeddingData[side]?.ceremony?.dateSolar || "19/07/2026";
+  const [day, month, year] = solarDateStr.includes('/') ? solarDateStr.split('/') : ["19", "07", "2026"];
 
   const handleWaxSealClick = useCallback(() => {
     if (hasStarted || isAnimating || !audioRef?.current) return;
@@ -238,7 +246,7 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
       ease: "none",
       delay: 2.5
     });
-  }, [hasStarted, isAnimating, audioRef]);
+  }, [hasStarted, isAnimating, audioRef, side, day, month, year]);
 
   return (
     <div
@@ -273,7 +281,7 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
               <img src="/bia/bia-thiep.jpg" alt="Envelope Card" fetchpriority="high" className="absolute inset-0 w-full h-full object-cover rounded-sm z-0" />
               
               {/* Gold string */}
-              <div className="absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-[#8B6914] via-[#D4AF37] to-[#8B6914] z-20 shadow-sm" style={{ transform: 'translateY(-50%)' }}></div>
+              <div className="absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-[#8B6914] via-[var(--color-gold)] to-[#8B6914] z-20 shadow-sm" style={{ transform: 'translateY(-50%)' }}></div>
               <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/40 z-20" style={{ transform: 'translateY(-50%)' }}></div>
 
               {/* Top Text (We're Getting Married) */}
@@ -287,9 +295,11 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
               {/* Middle-Bottom Text (Names & Date) */}
               <div className="absolute top-[62%] md:top-[60%] left-1/2 -translate-x-1/2 flex flex-col items-center text-[#5D4037] z-20 w-full text-center">
                 <p className="font-serif text-[13px] md:text-base font-bold tracking-[0.2em] mb-1 md:mb-2 uppercase whitespace-nowrap">
-                  {side === "nhagai" ? "CẨM HIỀN & PHÚ KHƯƠNG" : "PHÚ KHƯƠNG & CẨM HIỀN"}
+                  {side === "nhagai" 
+                    ? `${activeWeddingData.couple.bride.name} & ${activeWeddingData.couple.groom.name}` 
+                    : `${activeWeddingData.couple.groom.name} & ${activeWeddingData.couple.bride.name}`}
                 </p>
-                <p className="font-serif text-[11px] md:text-xs tracking-[0.3em] font-medium">{side === "nhagai" ? "18" : "19"} . 07 . 2026</p>
+                <p className="font-serif text-[11px] md:text-xs tracking-[0.3em] font-medium">{day} . {month} . {year}</p>
               </div>
 
               {/* Dynamic Text (Trân trọng kính mời...) - Centered at bottom */}
@@ -331,7 +341,10 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
           className="relative w-full h-full md:aspect-[2560/1708] md:max-w-[calc(100vh*2560/1708)] md:max-h-[calc(100vw*1708/2560)] flex items-center justify-center"
         >
           {/* Responsive Image (Desktop: original banner, Mobile: requested tall image) */}
-          <picture className="absolute inset-0 w-full h-full z-10">
+          <picture
+            className={editSlotClass(editCtx, "mc-hero", "absolute inset-0 w-full h-full z-10")}
+            onClick={(e) => editCtx?.onSlotClick?.("mc-hero", e.currentTarget)}
+          >
             <source media="(max-width: 767px)" srcSet="/images/our-journey/z7974179820669_9281941717087d8906923bbae63e6d2d.jpg" />
             <img
               src={chapter.images[0]}
@@ -349,11 +362,11 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
 
           {/* Vertical Typography - Right (Stacked Date) - DESKTOP ONLY */}
           <div className="hidden md:flex absolute left-full ml-8 lg:ml-12 top-1/2 -translate-y-1/2 flex-col items-center justify-center gap-3 text-white font-serif text-[40px] lg:text-[45px] z-30">
-            <span>{side === "nhagai" ? "18" : "19"}</span>
+            <span>{day}</span>
             <div className="w-[1px] h-[30px] lg:h-[50px] bg-white"></div>
-            <span>07</span>
+            <span>{month}</span>
             <div className="w-[1px] h-[30px] lg:h-[50px] bg-white"></div>
-            <span className="writing-vertical-lr text-center" style={{ writingMode: 'vertical-lr', textOrientation: 'upright', letterSpacing: '-0.1em' }}>2026</span>
+            <span className="writing-vertical-lr text-center" style={{ writingMode: 'vertical-lr', textOrientation: 'upright', letterSpacing: '-0.1em' }}>{year}</span>
           </div>
         </div>
 
@@ -372,13 +385,21 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
         {/* Desktop Signatures Wrapper - centered, same dimensions as image */}
         <div className="hidden md:block relative w-full h-full md:aspect-[2560/1708] md:max-w-[calc(100vh*2560/1708)] md:max-h-[calc(100vw*1708/2560)]">
           <div className={`absolute top-[2.5%] ${side === "nhagai" ? "right-[2%] text-right" : "left-[2%] text-left"}`}>
-            <h1 className="text-[40px] md:text-[50px] lg:text-[60px] xl:text-[70px] text-white/90 font-[family-name:var(--font-calligraphy)] whitespace-nowrap" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
-              {weddingData.couple.groom.firstName}
+            <h1
+              className={editSlotClass(editCtx, "mc-groom-name", "text-[40px] md:text-[50px] lg:text-[60px] xl:text-[70px] text-white/90 font-[family-name:var(--font-calligraphy)] whitespace-nowrap")}
+              style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)', pointerEvents: editCtx?.onSlotClick ? "auto" : undefined }}
+              onClick={(e) => { e.stopPropagation(); editCtx?.onSlotClick?.("mc-groom-name", e.currentTarget); }}
+            >
+              {activeWeddingData.couple.groom.firstName}
             </h1>
           </div>
           <div className={`absolute top-[2.5%] ${side === "nhagai" ? "left-[2%] text-left" : "right-[2%] text-right"}`}>
-            <h1 className="text-[40px] md:text-[50px] lg:text-[60px] xl:text-[70px] text-white/90 font-[family-name:var(--font-calligraphy)] whitespace-nowrap" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
-              {weddingData.couple.bride.firstName}
+            <h1
+              className={editSlotClass(editCtx, "mc-bride-name", "text-[40px] md:text-[50px] lg:text-[60px] xl:text-[70px] text-white/90 font-[family-name:var(--font-calligraphy)] whitespace-nowrap")}
+              style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)', pointerEvents: editCtx?.onSlotClick ? "auto" : undefined }}
+              onClick={(e) => { e.stopPropagation(); editCtx?.onSlotClick?.("mc-bride-name", e.currentTarget); }}
+            >
+              {activeWeddingData.couple.bride.firstName}
             </h1>
           </div>
         </div>
@@ -387,35 +408,62 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
         <div className="md:hidden w-full flex flex-col items-center justify-center text-center pb-8">
           {side === "nhagai" ? (
             <>
-              <h1 className="mobile-bride text-[60px] text-[#D4AF37] font-[family-name:var(--font-calligraphy)] leading-none" style={{ textShadow: '0 4px 15px rgba(0,0,0,0.8)' }}>
-                {weddingData.couple.bride.firstName}
+              <h1
+                className={editSlotClass(editCtx, "mc-bride-name", "mobile-bride text-[60px] text-[var(--color-gold)] font-[family-name:var(--font-calligraphy)] leading-none")}
+                style={{ textShadow: '0 4px 15px rgba(0,0,0,0.8)', pointerEvents: editCtx?.onSlotClick ? "auto" : undefined }}
+                onClick={(e) => { e.stopPropagation(); editCtx?.onSlotClick?.("mc-bride-name", e.currentTarget); }}
+              >
+                {activeWeddingData.couple.bride.firstName}
               </h1>
-              <span className="mobile-amp text-white/80 text-3xl font-script italic leading-none -my-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>&</span>
-              <h1 className="mobile-groom text-[60px] text-[#D4AF37] font-[family-name:var(--font-calligraphy)] leading-none" style={{ textShadow: '0 4px 15px rgba(0,0,0,0.8)' }}>
-                {weddingData.couple.groom.firstName}
+              <span className="mobile-amp text-white/80 text-3xl font-script italic leading-none -my-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>&amp;</span>
+              <h1
+                className={editSlotClass(editCtx, "mc-groom-name", "mobile-groom text-[60px] text-[var(--color-gold)] font-[family-name:var(--font-calligraphy)] leading-none")}
+                style={{ textShadow: '0 4px 15px rgba(0,0,0,0.8)', pointerEvents: editCtx?.onSlotClick ? "auto" : undefined }}
+                onClick={(e) => { e.stopPropagation(); editCtx?.onSlotClick?.("mc-groom-name", e.currentTarget); }}
+              >
+                {activeWeddingData.couple.groom.firstName}
               </h1>
             </>
           ) : (
             <>
-              <h1 className="mobile-groom text-[60px] text-[#D4AF37] font-[family-name:var(--font-calligraphy)] leading-none" style={{ textShadow: '0 4px 15px rgba(0,0,0,0.8)' }}>
-                {weddingData.couple.groom.firstName}
+              <h1
+                className={editSlotClass(editCtx, "mc-groom-name", "mobile-groom text-[60px] text-[var(--color-gold)] font-[family-name:var(--font-calligraphy)] leading-none")}
+                style={{ textShadow: '0 4px 15px rgba(0,0,0,0.8)', pointerEvents: editCtx?.onSlotClick ? "auto" : undefined }}
+                onClick={(e) => { e.stopPropagation(); editCtx?.onSlotClick?.("mc-groom-name", e.currentTarget); }}
+              >
+                {activeWeddingData.couple.groom.firstName}
               </h1>
-              <span className="mobile-amp text-white/80 text-3xl font-script italic leading-none -my-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>&</span>
-              <h1 className="mobile-bride text-[60px] text-[#D4AF37] font-[family-name:var(--font-calligraphy)] leading-none" style={{ textShadow: '0 4px 15px rgba(0,0,0,0.8)' }}>
-                {weddingData.couple.bride.firstName}
+              <span className="mobile-amp text-white/80 text-3xl font-script italic leading-none -my-1" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>&amp;</span>
+              <h1
+                className={editSlotClass(editCtx, "mc-bride-name", "mobile-bride text-[60px] text-[var(--color-gold)] font-[family-name:var(--font-calligraphy)] leading-none")}
+                style={{ textShadow: '0 4px 15px rgba(0,0,0,0.8)', pointerEvents: editCtx?.onSlotClick ? "auto" : undefined }}
+                onClick={(e) => { e.stopPropagation(); editCtx?.onSlotClick?.("mc-bride-name", e.currentTarget); }}
+              >
+                {activeWeddingData.couple.bride.firstName}
               </h1>
             </>
           )}
-          <div className="mobile-date mt-5 flex items-center gap-4 text-[#D4AF37] font-serif text-lg tracking-[0.15em] uppercase" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-            <span>{side === "nhagai" ? "18" : "19"}</span>
-            <span className="w-1 h-1 rounded-full bg-[#D4AF37]"></span>
-            <span>07</span>
-            <span className="w-1 h-1 rounded-full bg-[#D4AF37]"></span>
-            <span>2026</span>
+          <div className="mobile-date mt-5 flex items-center gap-4 text-[var(--color-gold)] font-serif text-lg tracking-[0.15em] uppercase" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+            <span>{day}</span>
+            <span className="w-1 h-1 rounded-full bg-[var(--color-gold)]"></span>
+            <span>{month}</span>
+            <span className="w-1 h-1 rounded-full bg-[var(--color-gold)]"></span>
+            <span>{year}</span>
           </div>
         </div>
 
-
+        {/* Decorative lines & elements on mobile */}
+        <div className="md:hidden absolute top-0 left-0 w-full h-full border-[12px] border-double border-[color-mix(in_srgb,var(--color-gold)_20%,transparent)] z-0 pointer-events-none" />
+        <div className="md:hidden absolute top-12 left-1/2 -translate-x-1/2 z-0 font-serif text-[10px] tracking-[0.4em] uppercase text-white/40 pointer-events-none">
+          Save the Date
+        </div>
+        <div 
+          ref={helperTextRef}
+          style={{ transform: "scale(1)" }}
+          className="md:hidden absolute bottom-6 left-1/2 -translate-x-1/2 z-60 text-[10px] tracking-[0.2em] uppercase text-white/60 font-serif opacity-0 animate-pulse pointer-events-none"
+        >
+          Cuộn xuống để xem thiệp
+        </div>
       </div>
     </div>
   );

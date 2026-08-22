@@ -4,7 +4,12 @@ import { createContext, useContext } from "react";
 
 export type EditOverlayValue = {
   highlightSlot: string | null;
-  onSlotClick?: (slotKey: string) => void;
+  /**
+   * `el`: phần tử DOM vừa bấm (thường `e.currentTarget`) — dùng để định vị
+   * popover sửa nhanh ngay tại chỗ. Optional để không bắt buộc mọi call site
+   * cũ phải truyền, nhưng nên truyền bất cứ khi nào có sẵn trong sự kiện.
+   */
+  onSlotClick?: (slotKey: string, el?: HTMLElement) => void;
 };
 
 export const EditOverlayContext = createContext<EditOverlayValue | null>(null);

@@ -9,7 +9,7 @@ type GalleryProps = {
   weddingId: string;
   editOverlay?: {
     highlightSlot: string | null;
-    onSlotClick?: (slotKey: string) => void;
+    onSlotClick?: (slotKey: string, el?: HTMLElement) => void;
   };
 };
 
@@ -21,7 +21,7 @@ export function Gallery({ images, editOverlay }: GalleryProps) {
     <div className="space-y-8">
       <div className="text-center">
         <p className="text-sm uppercase tracking-[0.3em] opacity-40 mb-2">Moments</p>
-        <h2 className="font-script text-4xl text-[#422114]">Album ảnh cưới</h2>
+        <h2 className="font-script text-4xl text-[var(--primary)]">Album ảnh cưới</h2>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
@@ -36,9 +36,9 @@ export function Gallery({ images, editOverlay }: GalleryProps) {
               transition={{ delay: i * 0.1 }}
               className={cn(
                 "aspect-[3/4] overflow-hidden rounded-sm bg-gray-100 cursor-pointer border border-white shadow-sm",
-                editOverlay?.highlightSlot === slotKey && "ring-4 ring-[#b9856f]"
+                editOverlay?.highlightSlot === slotKey && "ring-4 ring-[var(--secondary)]"
               )}
-              onClick={() => editOverlay?.onSlotClick?.(slotKey)}
+              onClick={(e) => editOverlay?.onSlotClick?.(slotKey, e.currentTarget)}
             >
               <Image 
                 src={img || "https://images.unsplash.com/photo-1544594081-347898b4807c?q=80&w=400"} 

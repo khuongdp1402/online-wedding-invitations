@@ -6,12 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import {
-  Check,
-  Crown,
-  Star,
-  Sparkles,
   CreditCard,
   Building2,
   ArrowLeft,
@@ -21,6 +18,8 @@ import {
   AlertCircle,
   CheckCircle2,
   Clock,
+  Sparkles,
+  Tag,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -29,7 +28,8 @@ type Props = {
     id: string;
     slug: string;
     status: string;
-    plan: string;
+    expiresAt: string | Date | null;
+    purchasePrice: number | null;
     groomName: string;
     brideName: string;
   };
@@ -44,71 +44,33 @@ type BankInfo = {
   transferContent: string;
 };
 
-const plans = [
-  {
-    id: "BASIC",
-    name: "Cơ Bản",
-    price: 500000,
-    priceLabel: "500.000₫",
-    icon: Star,
-    color: "border-blue-200 bg-blue-50",
-    activeColor: "ring-2 ring-blue-500 border-blue-300 bg-blue-50",
-    buttonColor: "bg-blue-600 hover:bg-blue-700",
-    duration: "6 tháng",
-    features: [
-      "Publish online",
-      "Xóa giới hạn bản demo",
-      "50 khách mời",
-      "10 ảnh gallery",
-      "Custom slug URL",
-      "Quản lý lời chúc",
-      "RSVP tracking",
-    ],
-  },
-  {
-    id: "STANDARD",
-    name: "Tiêu Chuẩn",
-    price: 1000000,
-    priceLabel: "1.000.000₫",
-    icon: Crown,
-    color: "border-rose-200 bg-rose-50",
-    activeColor: "ring-2 ring-rose-500 border-rose-300 bg-rose-50",
-    buttonColor: "bg-rose-600 hover:bg-rose-700",
-    duration: "1 năm",
-    popular: true,
-    features: [
-      "Tất cả gói Cơ Bản",
-      "200 khách mời",
-      "20 ảnh gallery",
-      "Thiệp in tên khách",
-      "Export Excel",
-      "Custom domain",
-      "Analytics (lượt xem)",
-    ],
-  },
-  {
-    id: "PREMIUM",
-    name: "Cao Cấp",
-    price: 2000000,
-    priceLabel: "2.000.000₫",
-    icon: Sparkles,
-    color: "border-amber-200 bg-amber-50",
-    activeColor: "ring-2 ring-amber-500 border-amber-300 bg-amber-50",
-    buttonColor: "bg-amber-600 hover:bg-amber-700",
-    duration: "Vĩnh viễn",
-    features: [
-      "Tất cả gói Tiêu Chuẩn",
-      "Unlimited khách mời",
-      "Unlimited ảnh",
-      "Nhạc nền tùy chỉnh",
-      "Hỗ trợ ưu tiên",
-      "Tất cả template",
-      "Vĩnh viễn không hết hạn",
-    ],
-  },
-];
+type Quote = {
+  templatePrice: number;
+  effectivePrice: number;
+  isOnSale: boolean;
+  saleEndsAt: string | null;
+  isRenewal: boolean;
+  currentExpiresAt: string | null;
+  couponPreview?:
+    | { valid: true; discount: number; finalAmount: number }
+    | { valid: false; reason: string };
+};
 
-type Step = "select-plan" | "select-method" | "bank-transfer" | "processing";
+type Step = "quote" | "select-method" | "bank-transfer" | "processing";
+
+function formatDate(value: string | Date | null): string {
+  if (!value) return "—";
+  return new Date(value).toLocaleDateString("vi-VN");
+}
+
+const COUPON_REASON_LABEL: Record<string, string> = {
+  not_found: "Mã giảm giá không tồn tại",
+  inactive: "Mã giảm giá đã bị vô hiệu hoá",
+  not_started: "Mã giảm giá chưa tới ngày áp dụng",
+  expired: "Mã giảm giá đã hết hạn",
+  exhausted: "Mã giảm giá đã hết lượt sử dụng",
+  wrong_template: "Mã giảm giá không áp dụng cho mẫu thiệp này",
+};
 
 export function PublishPage({ wedding }: Props) {
   const router = useRouter();
@@ -118,13 +80,39 @@ export function PublishPage({ wedding }: Props) {
   const isPublished = wedding.status === "PUBLISHED";
   const paymentResult = searchParams.get("payment");
 
-  const [step, setStep] = useState<Step>("select-plan");
-  const [selectedPlan, setSelectedPlan] = useState<string>("");
+  const [step, setStep] = useState<Step>("quote");
+  const [quote, setQuote] = useState<Quote | null>(null);
+  const [quoteLoading, setQuoteLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const [bankInfo, setBankInfo] = useState<BankInfo | null>(null);
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const [pollStatus, setPollStatus] = useState<string | null>(null);
   const [mocking, setMocking] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
+  const [couponApplying, setCouponApplying] = useState(false);
+
+  const loadQuote = useCallback(
+    async (coupon?: string) => {
+      setQuoteLoading(true);
+      try {
+        const url = new URL(`/api/weddings/${wedding.id}/publish-quote`, window.location.origin);
+        if (coupon) url.searchParams.set("coupon", coupon);
+        const res = await fetch(url.toString().replace(window.location.origin, ""));
+        if (res.ok) {
+          setQuote(await res.json());
+        }
+      } catch {
+        // giữ nguyên quote=null, UI hiện nút thử lại
+      }
+      setQuoteLoading(false);
+    },
+    [wedding.id]
+  );
+
+  // Giá xuất bản/gia hạn của template — server tính, không cho chọn tuỳ ý.
+  useEffect(() => {
+    loadQuote();
+  }, [loadQuote]);
 
   // Show toast for VNPay return result
   useEffect(() => {
@@ -161,16 +149,24 @@ export function PublishPage({ wedding }: Props) {
     return () => clearInterval(interval);
   }, [step, paymentId, pollPaymentStatus]);
 
+  async function handleApplyCoupon() {
+    if (!couponCode.trim()) return;
+    setCouponApplying(true);
+    await loadQuote(couponCode.trim());
+    setCouponApplying(false);
+  }
+
   async function handlePayment(method: "vnpay" | "bank_transfer") {
     setLoading(true);
     try {
+      const couponApplied = quote?.couponPreview?.valid === true;
       const res = await fetch("/api/payment/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           weddingId: wedding.id,
-          plan: selectedPlan,
           method,
+          ...(couponApplied && { couponCode: couponCode.trim() }),
         }),
       });
 
@@ -205,7 +201,8 @@ export function PublishPage({ wedding }: Props) {
     toast({ title: `Đã sao chép ${label}` });
   }
 
-  const selectedPlanData = plans.find((p) => p.id === selectedPlan);
+  const displayAmount =
+    quote?.couponPreview?.valid === true ? quote.couponPreview.finalAmount : quote?.effectivePrice;
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
@@ -218,7 +215,11 @@ export function PublishPage({ wedding }: Props) {
               <div>
                 <p className="font-semibold text-green-800">Thiệp đã được xuất bản!</p>
                 <p className="text-sm text-green-600">
-                  Gói hiện tại: <strong>{wedding.plan}</strong> · Đường dẫn:{" "}
+                  Hạn sử dụng: <strong>{formatDate(wedding.expiresAt)}</strong>
+                  {wedding.purchasePrice != null && (
+                    <> · Đã trả: <strong>{wedding.purchasePrice.toLocaleString("vi-VN")}đ</strong></>
+                  )}
+                  {" "}· Đường dẫn:{" "}
                   <Link href={`/w/${wedding.slug}`} target="_blank" className="underline">
                     /w/{wedding.slug}
                   </Link>
@@ -244,89 +245,123 @@ export function PublishPage({ wedding }: Props) {
         </Card>
       )}
 
-      {/* Step 1: Select Plan */}
-      {step === "select-plan" && (
+      {/* Step: báo giá theo template */}
+      {step === "quote" && (
         <>
           <div className="text-center">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Chọn gói để xuất bản</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">
+              {isPublished ? "Gia hạn thiệp cưới" : "Xuất bản thiệp cưới"}
+            </h2>
             <p className="text-gray-500">
-              Nâng cấp để publish thiệp và mở khóa đầy đủ tính năng
+              {isPublished
+                ? "Gia hạn thêm 30 ngày sử dụng kể từ hạn hiện tại."
+                : "Giá cố định theo mẫu thiệp bạn đang dùng, hiệu lực 30 ngày."}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {plans.map((plan) => {
-              const isSelected = selectedPlan === plan.id;
-              const isCurrent = wedding.plan === plan.id;
-              return (
-                <Card
-                  key={plan.id}
-                  className={`relative cursor-pointer transition-all hover:shadow-lg ${
-                    isSelected ? plan.activeColor : plan.color
-                  } ${isCurrent ? "opacity-60" : ""}`}
-                  onClick={() => !isCurrent && setSelectedPlan(plan.id)}
-                >
-                  {plan.popular && (
-                    <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-rose-500 hover:bg-rose-500 text-white">
-                      Phổ biến nhất
-                    </Badge>
+          {quoteLoading ? (
+            <div className="flex items-center justify-center gap-2 text-gray-500 py-12">
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span>Đang tính giá...</span>
+            </div>
+          ) : !quote ? (
+            <div className="text-center py-12 space-y-3">
+              <p className="text-gray-500">Không tính được giá, vui lòng thử lại.</p>
+              <Button variant="outline" onClick={() => window.location.reload()}>
+                Thử lại
+              </Button>
+            </div>
+          ) : (
+            <Card className="max-w-md mx-auto">
+              <CardHeader className="text-center pb-2">
+                <Sparkles className="w-8 h-8 mx-auto mb-2 text-rose-500" />
+                <CardTitle className="text-lg">
+                  {quote.isRenewal ? "Gia hạn 30 ngày" : "Xuất bản thiệp"}
+                </CardTitle>
+                <div className="text-3xl font-bold text-gray-900 mt-1">
+                  {displayAmount?.toLocaleString("vi-VN")}₫
+                </div>
+                {(quote.isOnSale || quote.couponPreview?.valid) && (
+                  <div className="text-sm text-gray-400 line-through">
+                    {quote.templatePrice.toLocaleString("vi-VN")}₫
+                  </div>
+                )}
+                <p className="text-sm text-gray-500">
+                  {quote.isRenewal
+                    ? `Hạn hiện tại: ${formatDate(quote.currentExpiresAt)}`
+                    : "Hiệu lực 30 ngày kể từ khi xuất bản"}
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <ul className="space-y-2 text-sm text-gray-600">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    Dùng đầy đủ mọi khối của mẫu thiệp
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-500 mt-0.5 shrink-0" />
+                    Thiệp hiển thị công khai tại /w/{wedding.slug}
+                  </li>
+                </ul>
+
+                <div className="border-t pt-4 space-y-2">
+                  <label className="text-xs font-medium text-gray-700 flex items-center gap-1.5">
+                    <Tag className="w-3.5 h-3.5" /> Mã giảm giá
+                  </label>
+                  <div className="flex gap-2">
+                    <Input
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value)}
+                      placeholder="Nhập mã (nếu có)"
+                      className="flex-1"
+                    />
+                    <Button
+                      variant="outline"
+                      disabled={!couponCode.trim() || couponApplying}
+                      onClick={handleApplyCoupon}
+                    >
+                      {couponApplying ? <Loader2 className="w-4 h-4 animate-spin" /> : "Áp dụng"}
+                    </Button>
+                  </div>
+                  {quote.couponPreview?.valid === true && (
+                    <p className="text-xs text-emerald-600">
+                      Đã áp dụng — giảm {quote.couponPreview.discount.toLocaleString("vi-VN")}đ
+                    </p>
                   )}
-                  {isCurrent && (
-                    <Badge className="absolute -top-3 right-4 bg-green-500 hover:bg-green-500 text-white">
-                      Gói hiện tại
-                    </Badge>
+                  {quote.couponPreview?.valid === false && (
+                    <p className="text-xs text-red-500">
+                      {COUPON_REASON_LABEL[quote.couponPreview.reason] ?? "Mã giảm giá không hợp lệ"}
+                    </p>
                   )}
-                  <CardHeader className="text-center pb-2">
-                    <plan.icon className="w-8 h-8 mx-auto mb-2 text-gray-700" />
-                    <CardTitle className="text-lg">{plan.name}</CardTitle>
-                    <div className="text-3xl font-bold text-gray-900 mt-1">{plan.priceLabel}</div>
-                    <p className="text-sm text-gray-500">{plan.duration}</p>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2 mb-4">
-                      {plan.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm text-gray-700">
-                          <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                    {isSelected && (
-                      <div className="flex items-center justify-center gap-2 text-sm font-medium text-rose-600 pt-2 border-t">
-                        <CheckCircle2 className="w-4 h-4" /> Đã chọn
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           <div className="flex items-center justify-between pt-4">
-            <Link href={`/dashboard/weddings/${wedding.id}`}>
+            <Link href={`/dashboard/weddings/${wedding.id}/edit`}>
               <Button variant="outline">
-                <ArrowLeft className="w-4 h-4 mr-1.5" /> Quay lại
+                <ArrowLeft className="w-4 h-4 mr-1.5" /> Quay lại chỉnh sửa
               </Button>
             </Link>
-            <Button
-              disabled={!selectedPlan}
-              onClick={() => setStep("select-method")}
-              className="bg-rose-600 hover:bg-rose-700"
-            >
-              Tiếp tục <ExternalLink className="w-4 h-4 ml-1.5" />
-            </Button>
+            {quote && (
+              <Button
+                onClick={() => setStep("select-method")}
+                className="bg-rose-600 hover:bg-rose-700"
+              >
+                Tiếp tục <ExternalLink className="w-4 h-4 ml-1.5" />
+              </Button>
+            )}
           </div>
         </>
       )}
 
-      {/* Step 2: Select Payment Method */}
-      {step === "select-method" && selectedPlanData && (
+      {/* Chọn phương thức thanh toán */}
+      {step === "select-method" && quote && (
         <>
           <div className="text-center">
             <h2 className="text-xl font-bold text-gray-900 mb-2">Chọn phương thức thanh toán</h2>
-            <p className="text-gray-500">
-              Gói <strong>{selectedPlanData.name}</strong> - {selectedPlanData.priceLabel}
-            </p>
+            <p className="text-gray-500">{displayAmount?.toLocaleString("vi-VN")}₫</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
@@ -377,21 +412,19 @@ export function PublishPage({ wedding }: Props) {
           )}
 
           <div className="flex justify-center pt-4">
-            <Button variant="outline" onClick={() => setStep("select-plan")}>
-              <ArrowLeft className="w-4 h-4 mr-1.5" /> Chọn lại gói
+            <Button variant="outline" onClick={() => setStep("quote")}>
+              <ArrowLeft className="w-4 h-4 mr-1.5" /> Quay lại
             </Button>
           </div>
         </>
       )}
 
-      {/* Step 3: Bank Transfer Info */}
-      {step === "bank-transfer" && bankInfo && selectedPlanData && (
+      {/* Thông tin chuyển khoản */}
+      {step === "bank-transfer" && bankInfo && quote && (
         <>
           <div className="text-center">
             <h2 className="text-xl font-bold text-gray-900 mb-2">Thông tin chuyển khoản</h2>
-            <p className="text-gray-500">
-              Gói <strong>{selectedPlanData.name}</strong> - {selectedPlanData.priceLabel}
-            </p>
+            <p className="text-gray-500">{bankInfo.amount.toLocaleString("vi-VN")}₫</p>
           </div>
 
           <Card className="max-w-lg mx-auto">
@@ -468,21 +501,36 @@ export function PublishPage({ wedding }: Props) {
                     </>
                   )}
                 </div>
-                
-                {pollStatus !== "COMPLETED" && (
-                  <Button 
-                    variant="secondary" 
+
+                {/*
+                  Nút giả lập chỉ hiện ở môi trường dev và gọi route xác nhận
+                  của admin (yêu cầu đăng nhập ADMIN). Trước đây nút này gọi
+                  thẳng /api/webhooks/casso — route đó nay đã yêu cầu secret
+                  phía server nên không thể gọi từ trình duyệt.
+                */}
+                {process.env.NODE_ENV !== "production" && pollStatus !== "COMPLETED" && paymentId && (
+                  <Button
+                    variant="secondary"
                     size="sm"
                     disabled={mocking}
                     onClick={async () => {
                       setMocking(true);
                       try {
-                        await fetch("/api/webhooks/casso", {
+                        const res = await fetch("/api/payment/webhook", {
                           method: "POST",
                           headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ description: bankInfo.transferContent })
+                          body: JSON.stringify({ paymentId, action: "confirm" })
                         });
-                        toast({ title: "Đã gửi Webhook giả lập" });
+                        if (res.ok) {
+                          toast({ title: "Đã xác nhận thanh toán (dev)" });
+                        } else {
+                          const err = await res.json().catch(() => ({}));
+                          toast({
+                            title: "Không xác nhận được",
+                            description: err.error ?? "Cần đăng nhập bằng tài khoản ADMIN",
+                            variant: "destructive",
+                          });
+                        }
                       } catch {
                         toast({ title: "Lỗi giả lập webhook", variant: "destructive" });
                       }
@@ -490,7 +538,7 @@ export function PublishPage({ wedding }: Props) {
                     }}
                   >
                     {mocking ? <Loader2 className="w-3 h-3 mr-2 animate-spin" /> : <Sparkles className="w-3 h-3 mr-2 text-rose-500" />}
-                    Giả lập Webhook Casso
+                    Xác nhận thủ công (dev)
                   </Button>
                 )}
               </div>
@@ -525,11 +573,9 @@ function InfoRow({
     <div className="flex items-center justify-between">
       <span className="text-sm text-gray-500">{label}</span>
       <div className="flex items-center gap-2">
-        <span className={`text-sm ${highlight ? "font-bold text-gray-900" : "text-gray-700"}`}>
-          {value}
-        </span>
+        <span className={highlight ? "font-bold text-gray-900" : "text-gray-700"}>{value}</span>
         {onCopy && (
-          <button onClick={onCopy} className="text-gray-400 hover:text-gray-600 transition-colors">
+          <button onClick={onCopy} className="text-gray-400 hover:text-gray-600">
             <Copy className="w-3.5 h-3.5" />
           </button>
         )}

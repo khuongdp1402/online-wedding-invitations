@@ -4,12 +4,17 @@ import { motion } from "framer-motion";
 import type { InvitationData } from "./lib/invitation";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
 type LocationSectionProps = {
   data: InvitationData;
+  isBrideMode?: boolean;
 };
 
-export function LocationSection({ data }: LocationSectionProps) {
+export function LocationSection({ data, isBrideMode }: LocationSectionProps) {
+  const edit = useEditOverlay();
+  const venueSlot = isBrideMode ? "cb-bride-venue" : "cb-groom-venue";
+  const addressSlot = isBrideMode ? "cb-bride-address" : "cb-groom-address";
   return (
     <Section id="dia-diem" className="relative lg:py-32">
       <div className="mx-auto max-w-6xl px-4">
@@ -17,10 +22,16 @@ export function LocationSection({ data }: LocationSectionProps) {
           <div className="grid gap-16 md:grid-cols-12 md:gap-20 items-center">
             <div className="md:col-span-5 text-center md:text-left">
               <h2 className="title-primary text-base sm:text-lg mb-6">Địa điểm tổ chức</h2>
-              <h3 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-ink-dark font-bold leading-tight mb-6">
+              <h3
+                className={editSlotClass(edit, venueSlot, "text-4xl sm:text-5xl lg:text-6xl font-heading text-ink-dark font-bold leading-tight mb-6")}
+                onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(venueSlot, e.currentTarget); }}
+              >
                 {data.ceremony.venueName}
               </h3>
-              <p className="text-xl sm:text-2xl text-ink leading-relaxed mb-10 max-w-md mx-auto md:mx-0 font-medium">
+              <p
+                className={editSlotClass(edit, addressSlot, "text-xl sm:text-2xl text-ink leading-relaxed mb-10 max-w-md mx-auto md:mx-0 font-medium")}
+                onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(addressSlot, e.currentTarget); }}
+              >
                 {data.ceremony.address}
               </p>
 

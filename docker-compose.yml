@@ -20,7 +20,7 @@ services:
 
 
   # MinIO (S3 self-host) — bật: docker compose --profile storage up -d
-  # Tạo bucket tên wedding-uploads trong Console http://localhost:9001
+  # Tạo bucket tên wedding-uploads trong Console http://localhost:9011
   minio:
     image: minio/minio:latest
     profiles: ["storage"]
@@ -31,8 +31,8 @@ services:
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: minio_secret_change_me
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "9010:9000"
+      - "9011:9001"
     volumes:
       - wedding_minio:/data
 

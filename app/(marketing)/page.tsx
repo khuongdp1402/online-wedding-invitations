@@ -61,8 +61,8 @@ export default function HomePage() {
               <span className="text-rose-600">Minh Bạch & Hợp Lý</span>
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Bắt đầu miễn phí, nâng cấp khi bạn sẵn sàng. Không phí ẩn, không
-              cam kết.
+              Mỗi mẫu thiệp một giá cố định. Chỉnh sửa thoải mái, chỉ thanh
+              toán khi bạn xuất bản.
             </p>
           </motion.div>
           <PricingCards />

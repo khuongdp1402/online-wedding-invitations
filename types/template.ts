@@ -1,4 +1,5 @@
 import { Wedding, Template } from "@prisma/client";
+import type { SectionConfig } from "@/lib/section-config";
 
 export type CeremonyEvent = {
   date: string;
@@ -39,12 +40,22 @@ export type WeddingData = {
   };
   primaryColor?: string;
   accentColor?: string;
-  fontFamily?: string;
+  fontFamily?: string; // (Legacy)
+  typography?: {
+    heading?: string;
+    body?: string;
+    script?: string;
+  };
   backgroundColor?: string;
-  sectionOrder?: string[];
+  textColor?: string;
+  /**
+   * Thứ tự + trạng thái bật/tắt các khối.
+   * `string[]` là định dạng cũ (mọi khối đều hiện) — đọc qua
+   * `resolveSections`/`visibleSectionKeys` trong `@/lib/section-config`.
+   */
+  sectionOrder?: string[] | SectionConfig[];
   backgroundMusic?: string;
   status: "DRAFT" | "DEMO" | "PUBLISHED" | "EXPIRED";
-  plan: "FREE" | "BASIC" | "STANDARD" | "PREMIUM";
 };
 
 /**
@@ -63,7 +74,8 @@ export interface WeddingTemplateProps {
   // Edit overlay for dashboard
   editOverlay?: {
     highlightSlot: string | null;
-    onSlotClick?: (slotKey: string) => void;
+    /** `el`: phần tử DOM vừa bấm, dùng để định vị popover sửa nhanh tại chỗ. */
+    onSlotClick?: (slotKey: string, el?: HTMLElement) => void;
   };
   
   // Các hàm tiện ích dùng chung

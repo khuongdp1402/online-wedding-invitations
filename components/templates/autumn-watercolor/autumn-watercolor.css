@@ -1,19 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Pinyon+Script&display=swap');
-
+/*
+ * Không @import Google Fonts ở đây: TemplateRenderer đã nạp font theo lựa chọn
+ * của người dùng và cấp qua --font-heading/--font-body/--font-script.
+ * Cũng không hard-code màu: index.tsx gán --primary/--secondary/--bg-cream từ
+ * wedding.primaryColor/accentColor/backgroundColor. Giá trị dưới đây chỉ là
+ * fallback khi thiếu dữ liệu.
+ */
 .autumn-watercolor-root {
   --primary: #422114;
   --secondary: #b9856f;
   --bg-cream: #f7f1eb;
   --bg-white: #ffffff;
-  
-  font-family: 'Playfair Display', serif;
+
+  font-family: var(--font-body, 'Playfair Display', serif);
   background-color: var(--bg-cream);
   color: var(--primary);
   overflow-x: hidden;
 }
 
-.font-script {
-  font-family: 'Pinyon Script', cursive;
+/* Giới hạn trong template để không đè utility .font-script toàn cục của Tailwind */
+.autumn-watercolor-root .font-script {
+  font-family: var(--font-script, 'Pinyon Script', cursive);
+}
+
+.autumn-watercolor-root h1,
+.autumn-watercolor-root h2,
+.autumn-watercolor-root h3 {
+  font-family: var(--font-heading, 'Playfair Display', serif);
 }
 
 /* Falling Leaves Animation */

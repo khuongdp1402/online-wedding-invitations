@@ -8,14 +8,15 @@ export default async function NewWeddingPage() {
   if (!session?.user?.id) redirect("/login");
 
   const templates = await prisma.template.findMany({
-    orderBy: [{ isPremium: "asc" }, { name: "asc" }],
+    orderBy: [{ price: "asc" }, { name: "asc" }],
   });
+  const templatesForClient = JSON.parse(JSON.stringify(templates));
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-gray-900 mb-2">Tạo Thiệp Cưới Mới</h1>
       <p className="text-gray-500 mb-8">Chọn mẫu thiệp, nhập thông tin và xem trước thiệp cưới của bạn.</p>
-      <NewWeddingWizard templates={templates} />
+      <NewWeddingWizard templates={templatesForClient} />
     </div>
   );
 }

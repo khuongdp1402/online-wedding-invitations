@@ -50,6 +50,11 @@ export async function POST(request: Request) {
       gifting,
       primaryColor,
       accentColor,
+      textColor,
+      backgroundColor,
+      fontFamily,
+      typography,
+      sectionOrder,
       backgroundMusic,
     } = body;
 
@@ -85,6 +90,11 @@ export async function POST(request: Request) {
         gifting: gifting || null,
         primaryColor: primaryColor || "#800020",
         accentColor: accentColor || "#d4a853",
+        textColor: textColor || "#4A4A4A",
+        backgroundColor: backgroundColor || null,
+        fontFamily: fontFamily || null,
+        typography: typography || undefined,
+        sectionOrder: sectionOrder || undefined,
         backgroundMusic: backgroundMusic || null,
         status: "DRAFT",
         plan: "FREE",

@@ -6,7 +6,6 @@
   --cb-bg: #FDFBF7;
   --cb-text: #4A4A4A;
   --cb-primary-dark: color-mix(in srgb, var(--cb-primary) 75%, black);
-  --cb-font-serif: Georgia, "Times New Roman", serif;
 }
 
 /* Utility classes for customizable colors */

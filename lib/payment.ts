@@ -17,27 +17,34 @@ const VNPAY_RETURN_URL =
     return `${base}/api/payment/vnpay`;
   })();
 
-// ==================== Plan Pricing ====================
+// ==================== Giới hạn khi chưa xuất bản ====================
 
-export const PLAN_PRICES: Record<string, number> = {
-  BASIC: 500000,
-  STANDARD: 1000000,
-  PREMIUM: 2000000,
-};
+/**
+ * Thiệp đã PUBLISHED dùng được toàn bộ section của template, không giới hạn
+ * số ảnh/khách mời nữa — giá đã trả đúng theo template, không theo gói.
+ * Giới hạn dưới đây chỉ áp dụng khi thiệp còn ở trạng thái DRAFT/DEMO, để
+ * tránh lạm dụng lúc chưa trả phí.
+ */
+export const DRAFT_MAX_PHOTOS = 3;
+export const DRAFT_MAX_GUESTS = 10;
 
-export const PLAN_DURATION_DAYS: Record<string, number | null> = {
-  FREE: 7,
-  BASIC: 180, // 6 months
-  STANDARD: 365, // 1 year
-  PREMIUM: null, // forever
-};
+// ==================== Hiệu lực & gia hạn ====================
 
-export const PLAN_LABELS: Record<string, string> = {
-  FREE: "Miễn phí",
-  BASIC: "Cơ bản",
-  STANDARD: "Tiêu chuẩn",
-  PREMIUM: "Cao cấp",
-};
+/** Số ngày hiệu lực mỗi lần xuất bản/gia hạn — đồng nhất cho mọi template. */
+export const WEDDING_VALIDITY_DAYS = 30;
+
+/**
+ * Tính hạn sử dụng mới, cộng `WEDDING_VALIDITY_DAYS` ngày kể từ mốc `from`.
+ *
+ * Gia hạn trước khi hết hạn: truyền `wedding.expiresAt` làm `from` để cộng
+ * dồn, không mất phần thời gian còn lại. Gia hạn sau khi đã hết hạn (hoặc
+ * xuất bản lần đầu): dùng mặc định `now`.
+ */
+export function calculateExpiryDate(from: Date = new Date()): Date {
+  const date = new Date(from);
+  date.setDate(date.getDate() + WEDDING_VALIDITY_DAYS);
+  return date;
+}
 
 // ==================== Bank Transfer Info ====================
 
@@ -168,17 +175,6 @@ export function verifyVNPayReturn(
   return { isValid, responseCode, transactionId, orderId };
 }
 
-/**
- * Calculate expiry date based on plan
- */
-export function calculateExpiryDate(plan: string): Date | null {
-  const days = PLAN_DURATION_DAYS[plan];
-  if (days === null || days === undefined) return null; // PREMIUM = forever
-  const date = new Date();
-  date.setDate(date.getDate() + days);
-  return date;
-}
-
 // ==================== Utilities ====================
 
 function formatDate(date: Date): string {
@@ -194,7 +190,10 @@ function formatDate(date: Date): string {
 /**
  * Generate bank transfer content for identification
  */
-export function generateTransferContent(weddingId: string, plan: string): string {
+export function generateTransferContent(
+  weddingId: string,
+  type: "PUBLISH" | "RENEW" | "TEMPLATE_CHANGE"
+): string {
   const shortId = weddingId.slice(-8).toUpperCase();
-  return `TC${shortId} ${plan}`;
+  return `TC${shortId} ${type}`;
 }

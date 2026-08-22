@@ -70,19 +70,19 @@ export default function AnimatedBackground() {
       {/* Chữ nền watermark Love, Forever, Together – nhìn thấy trên nền tối */}
       <div className="absolute inset-0 overflow-hidden">
         <span
-          className="absolute left-[5%] top-[15%] font-serif italic text-gold/20 sm:text-gold/25 lg:text-gold/20 text-[3rem] sm:text-[5rem] lg:text-[8rem] rotate-[-15deg] select-none bg-bling-text"
+          className="absolute left-[5%] top-[15%] font-heading italic text-gold/20 sm:text-gold/25 lg:text-gold/20 text-[3rem] sm:text-[5rem] lg:text-[8rem] rotate-[-15deg] select-none bg-bling-text"
           aria-hidden
         >
           Love
         </span>
         <span
-          className="absolute right-[10%] top-[25%] font-serif italic text-gold/20 sm:text-gold/25 lg:text-gold/20 text-[2.5rem] sm:text-[4rem] lg:text-[6rem] rotate-12 select-none bg-bling-text"
+          className="absolute right-[10%] top-[25%] font-heading italic text-gold/20 sm:text-gold/25 lg:text-gold/20 text-[2.5rem] sm:text-[4rem] lg:text-[6rem] rotate-12 select-none bg-bling-text"
           aria-hidden
         >
           Together
         </span>
         <span
-          className="absolute left-1/2 bottom-[20%] -translate-x-1/2 font-serif italic text-gold/20 sm:text-gold/25 lg:text-gold/20 text-[3rem] sm:text-[6rem] lg:text-[9rem] select-none bg-bling-text"
+          className="absolute left-1/2 bottom-[20%] -translate-x-1/2 font-heading italic text-gold/20 sm:text-gold/25 lg:text-gold/20 text-[3rem] sm:text-[6rem] lg:text-[9rem] select-none bg-bling-text"
           aria-hidden
         >
           Forever
@@ -91,7 +91,7 @@ export default function AnimatedBackground() {
         {EXTRA_WATERMARK_WORDS.map((w, i) => (
           <span
             key={`wm-${i}`}
-            className="absolute font-serif italic text-gold/20 sm:text-gold/25 select-none bg-bling-text hidden sm:inline"
+            className="absolute font-heading italic text-gold/20 sm:text-gold/25 select-none bg-bling-text hidden sm:inline"
             style={{
               left: w.left,
               top: w.top,

@@ -17,10 +17,16 @@ type WeddingInfo = {
   status?: string;
 };
 
+const TYPE_LABEL: Record<string, string> = {
+  PUBLISH: "Xuất bản",
+  RENEW: "Gia hạn",
+  TEMPLATE_CHANGE: "Đổi mẫu",
+};
+
 type PaymentRow = {
   id: string;
   amount: number;
-  plan: string;
+  type: string;
   method: string;
   status: string;
   createdAt: string;
@@ -92,7 +98,7 @@ export function AdminPaymentList({ pendingPayments, allPayments }: Props) {
                       {p.wedding.groomName} & {p.wedding.brideName}
                     </p>
                     <p className="text-sm text-gray-500">
-                      {formatMoney(p.amount)} · {p.plan} · {formatDate(p.createdAt)}
+                      {formatMoney(p.amount)} · {TYPE_LABEL[p.type] ?? p.type} · {formatDate(p.createdAt)}
                     </p>
                     <Link
                       href={`/w/${p.wedding.slug}`}
@@ -144,7 +150,7 @@ export function AdminPaymentList({ pendingPayments, allPayments }: Props) {
                   <th className="pb-2 pr-4">Thời gian</th>
                   <th className="pb-2 pr-4">Cặp đôi</th>
                   <th className="pb-2 pr-4">Số tiền</th>
-                  <th className="pb-2 pr-4">Gói</th>
+                  <th className="pb-2 pr-4">Loại</th>
                   <th className="pb-2 pr-4">Phương thức</th>
                   <th className="pb-2">Trạng thái</th>
                 </tr>
@@ -157,7 +163,7 @@ export function AdminPaymentList({ pendingPayments, allPayments }: Props) {
                       {p.wedding.groomName} & {p.wedding.brideName}
                     </td>
                     <td className="py-2 pr-4">{formatMoney(p.amount)}</td>
-                    <td className="py-2 pr-4">{p.plan}</td>
+                    <td className="py-2 pr-4">{TYPE_LABEL[p.type] ?? p.type}</td>
                     <td className="py-2 pr-4">{p.method}</td>
                     <td className="py-2">
                       <Badge

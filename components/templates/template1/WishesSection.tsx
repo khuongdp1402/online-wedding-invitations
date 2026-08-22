@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 
@@ -9,51 +9,37 @@ type Wish = {
   id: string;
   name: string;
   message: string;
-  createdAt: number;
+  attendance?: string | null;
+  createdAt: string;
 };
 
-const storageKey = "wedding_wishes";
+type Props = {
+  weddingId: string;
+  /** Tên khách lấy từ link cá nhân hoá (?guest=...), dùng làm giá trị mặc định. */
+  guestName?: string;
+};
 
-function safeParse(input: string | null): Wish[] {
-  if (!input) return [];
-  try {
-    const parsed = JSON.parse(input) as Wish[];
-    if (!Array.isArray(parsed)) return [];
-    return parsed;
-  } catch {
-    return [];
-  }
-}
-
-export function WishesSection() {
-  const [name, setName] = useState("");
+export function WishesSection({ weddingId, guestName }: Props) {
+  const [name, setName] = useState(guestName ?? "");
   const [message, setMessage] = useState("");
   const [attendance, setAttendance] = useState<"yes" | "no" | null>("yes");
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  async function fetchWishes() {
+  const fetchWishes = useCallback(async () => {
+    if (!weddingId) return;
     try {
-      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyjHNuAIkAHbkenRfujXDihgeuz5bnsEfknw9_GzoVlAkYQMKaaubcd66TbrNjdWEub/exec";
-      const response = await fetch(`${GOOGLE_SHEET_URL}?action=getWishes`);
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        setWishes(data.reverse()); // Show newest first
-      }
+      const res = await fetch(`/api/wishes?weddingId=${weddingId}`);
+      const data = await res.json();
+      if (Array.isArray(data.wishes)) setWishes(data.wishes);
     } catch (error) {
       console.error("Error fetching wishes:", error);
-      // Fallback to local storage if fetch fails
-      setWishes(safeParse(localStorage.getItem(storageKey)));
     }
-  }
+  }, [weddingId]);
 
   useEffect(() => {
     fetchWishes();
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(wishes));
-  }, [wishes]);
+  }, [fetchWishes]);
 
   const canSubmit = useMemo(() =>
     name.trim().length > 1 &&
@@ -66,41 +52,26 @@ export function WishesSection() {
     if (!canSubmit) return;
     setStatus("submitting");
 
-    const newWish: Wish = {
-      id: `${Date.now()}`,
-      name: name.trim(),
-      message: message.trim(),
-      createdAt: Date.now()
-    };
-
     try {
-      // NOTE: Replace this URL with your actual Google Apps Script Web App URL
-      // This allows saving data directly to an Excel/Google Sheet online
-      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyjHNuAIkAHbkenRfujXDihgeuz5bnsEfknw9_GzoVlAkYQMKaaubcd66TbrNjdWEub/exec";
-
-      const formData = new FormData();
-      formData.append("name", newWish.name);
-      formData.append("message", newWish.message);
-      formData.append("attendance", attendance === "yes" ? "Tham dự" : "Rất tiếc không thể");
-      formData.append("date", new Date().toLocaleString("vi-VN"));
-
-      // We use 'no-cors' for simple Google Script triggers if needed,
-      // but standard fetch is better if the script is configured correctly.
-      await fetch(GOOGLE_SHEET_URL, {
+      const res = await fetch("/api/wishes", {
         method: "POST",
-        mode: "no-cors",
-        body: formData
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          weddingId,
+          name: name.trim(),
+          message: message.trim(),
+          attendance: attendance === "yes" ? "Tham dự" : "Rất tiếc không thể",
+        }),
       });
 
-      setWishes((prev) => [newWish, ...prev]);
+      if (!res.ok) throw new Error("Gửi lời chúc thất bại");
+
       setName("");
       setMessage("");
       setAttendance(null);
       setStatus("success");
-      setTimeout(() => {
-        setStatus("idle");
-        fetchWishes();
-      }, 3000);
+      await fetchWishes();
+      setTimeout(() => setStatus("idle"), 3000);
     } catch (error) {
       console.error("Error saving wish:", error);
       setStatus("error");
@@ -116,7 +87,7 @@ export function WishesSection() {
             <div className="lg:col-span-12 xl:col-span-5">
               <div className="sticky top-24">
                 <p className="text-sm tracking-[0.42em] uppercase text-burgundy font-bold transition-all">Gửi lời chúc & Xác nhận</p>
-                <h2 className="mt-4 text-4xl sm:text-5xl font-serif text-ink-dark leading-tight">
+                <h2 className="mt-4 text-4xl sm:text-5xl font-heading text-ink-dark leading-tight">
                   Lời chúc gửi trao,<br />Niềm vui trọn vẹn.
                 </h2>
                 <p className="mt-6 text-base sm:text-lg text-ink-dark leading-relaxed mb-10 font-medium">
@@ -182,7 +153,7 @@ export function WishesSection() {
                   </div>
 
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-4">
-                    <p className="text-xs text-ink/50 tracking-wider font-medium italic">Thông tin sẽ gửi đến Trang tính và Lưu trữ mãi mãi.</p>
+                    <p className="text-xs text-ink/50 tracking-wider font-medium italic">Lời chúc của bạn sẽ được gửi tới cô dâu chú rể.</p>
 
                     <motion.button
                       type="button"
@@ -236,7 +207,7 @@ export function WishesSection() {
                       >
                         <div className="absolute top-0 right-0 w-24 h-24 bg-gold/[0.03] rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
                         <p className="text-[10px] tracking-[0.3em] uppercase text-burgundy font-bold mb-4">{wish.name}</p>
-                        <p className="text-base sm:text-lg text-ink-dark/80 leading-relaxed font-serif italic relative z-10">
+                        <p className="text-base sm:text-lg text-ink-dark/80 leading-relaxed font-heading italic relative z-10">
                           “{wish.message}”
                         </p>
                       </motion.div>

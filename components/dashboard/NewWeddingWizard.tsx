@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { resolveTemplatePrice } from "@/lib/template-pricing";
 import {
   Check,
   ChevronLeft,
@@ -27,8 +28,10 @@ type Template = {
   description: string;
   thumbnail: string;
   category: string;
-  isPremium: boolean;
-  minPlan: string;
+  price: number;
+  salePrice: number | null;
+  saleStartsAt: string | null;
+  saleEndsAt: string | null;
   config: unknown;
 };
 
@@ -248,16 +251,44 @@ export function NewWeddingWizard({ templates }: WizardProps) {
                         <Check className="w-4 h-4 text-white" />
                       </div>
                     )}
-                    {t.isPremium && (
-                      <Badge className="absolute top-2 left-2 bg-amber-500 hover:bg-amber-500 text-white text-[10px]">Premium</Badge>
-                    )}
+                    {(() => {
+                      const { isOnSale } = resolveTemplatePrice({
+                        price: t.price,
+                        salePrice: t.salePrice,
+                        saleStartsAt: t.saleStartsAt ? new Date(t.saleStartsAt) : null,
+                        saleEndsAt: t.saleEndsAt ? new Date(t.saleEndsAt) : null,
+                      });
+                      return isOnSale ? (
+                        <Badge className="absolute top-2 left-2 bg-amber-500 hover:bg-amber-500 text-white text-[10px]">Khuyến mãi</Badge>
+                      ) : null;
+                    })()}
                   </div>
                   <h3 className="font-semibold text-gray-900">{t.name}</h3>
                   <p className="text-sm text-gray-500 line-clamp-2 mt-1">{t.description}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <Badge variant="outline" className="text-[10px]">{t.category}</Badge>
-                    {!t.isPremium && <Badge variant="outline" className="text-[10px] text-emerald-600 border-emerald-200">Miễn phí</Badge>}
                   </div>
+                  {/* Cho tạo bản nháp tự do — giá chỉ áp dụng lúc bấm Xuất
+                      bản, hiện ở đây để tránh bất ngờ ở bước thanh toán. */}
+                  {(() => {
+                    const { effectivePrice, isOnSale } = resolveTemplatePrice({
+                      price: t.price,
+                      salePrice: t.salePrice,
+                      saleStartsAt: t.saleStartsAt ? new Date(t.saleStartsAt) : null,
+                      saleEndsAt: t.saleEndsAt ? new Date(t.saleEndsAt) : null,
+                    });
+                    return (
+                      <p className="text-[11px] text-gray-500 mt-2">
+                        Giá xuất bản:{" "}
+                        <strong className="text-gray-700">{effectivePrice.toLocaleString("vi-VN")}đ</strong>
+                        {isOnSale && (
+                          <span className="line-through text-gray-400 ml-1">
+                            {t.price.toLocaleString("vi-VN")}đ
+                          </span>
+                        )}
+                      </p>
+                    );
+                  })()}
                 </CardContent>
               </Card>
             ))}

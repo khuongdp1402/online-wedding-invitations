@@ -71,3 +71,38 @@ export async function uploadFilePresigned(
 
   return confirmRes.json();
 }
+
+/**
+ * Upload nhiều file liên tiếp (tuần tự, KHÔNG song song).
+ * confirm/route.ts đọc wedding.gallery từ DB rồi ghi đè cả mảng — 2 confirm chạy
+ * song song sẽ đọc cùng snapshot cũ và request xong sau sẽ xoá mất ảnh của request kia.
+ */
+export async function uploadFilesPresigned(
+  weddingId: string,
+  slotKeys: string[],
+  files: File[],
+  onProgress?: (done: number, total: number) => void
+): Promise<UploadResult[]> {
+  const results: UploadResult[] = [];
+  for (let i = 0; i < files.length; i++) {
+    results.push(await uploadFilePresigned(weddingId, slotKeys[i], files[i], "image"));
+    onProgress?.(i + 1, files.length);
+  }
+  return results;
+}
+
+/** Lưu lại thứ tự gallery mới sau khi kéo thả sắp xếp album. */
+export async function persistGalleryReorder(
+  weddingId: string,
+  gallery: string[]
+): Promise<void> {
+  const res = await fetch(`/api/weddings/${weddingId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ gallery }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error ?? "Lưu thứ tự ảnh thất bại");
+  }
+}

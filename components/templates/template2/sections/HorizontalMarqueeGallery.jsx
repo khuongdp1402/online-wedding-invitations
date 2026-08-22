@@ -147,11 +147,11 @@ export default function HorizontalMarqueeGallery({ chapter }) {
       
       {chapter?.title && (
         <div className="container mx-auto px-4 lg:px-8 mb-16 text-center relative z-20 pointer-events-none">
-          <h2 className="text-[50px] md:text-[80px] font-[family-name:var(--font-serif-display)] text-[#4A3728] leading-none">
+          <h2 className="text-[50px] md:text-[80px] font-[family-name:var(--font-serif-display)] text-[var(--color-text-primary)] leading-none">
             {chapter.title}
           </h2>
           {chapter.quote && (
-            <p className="mt-4 text-[12px] md:text-sm tracking-[0.2em] font-sans text-[#4A3728]/70 uppercase">
+            <p className="mt-4 text-[12px] md:text-sm tracking-[0.2em] font-sans text-[color-mix(in_srgb,var(--color-text-primary)_70%,transparent)] uppercase">
               {chapter.quote}
             </p>
           )}

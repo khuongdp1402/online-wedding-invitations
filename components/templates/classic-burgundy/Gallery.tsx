@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { ImageWithFallback } from "./ImageWithFallback";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
-import { useEditOverlay, editSlotClass } from "./EditOverlayContext";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 import { albumSlotKey } from "@/lib/wedding-image-slots";
 
 function GalleryItem({ src, alt, parallax }: { src: string; alt: string; parallax: number }) {
@@ -48,7 +48,7 @@ export function Gallery({ gallery }: Props) {
           <div className="text-center mb-20">
             <h2 className="cb-text-primary uppercase tracking-[0.25em] text-lg sm:text-xl font-bold mb-6">Bộ ảnh kỷ niệm</h2>
             <div className="h-px w-24 bg-gradient-to-r from-transparent via-[var(--cb-accent)] to-transparent mx-auto my-8 opacity-60" />
-            <p className="mt-8 text-3xl sm:text-4xl font-serif cb-text-body italic opacity-90 leading-tight">
+            <p className="mt-8 text-3xl sm:text-4xl font-heading cb-text-body italic opacity-90 leading-tight">
               &ldquo;Những khoảnh khắc chúng mình yêu nhất.&rdquo;
             </p>
           </div>
@@ -67,7 +67,7 @@ export function Gallery({ gallery }: Props) {
               onClick={(e) => {
                 if (edit?.onSlotClick) {
                   e.stopPropagation();
-                  edit.onSlotClick(albumSlotKey(index));
+                  edit.onSlotClick(albumSlotKey(index), e.currentTarget);
                 } else {
                   setSelectedImage(src);
                 }

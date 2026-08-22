@@ -4,7 +4,7 @@ import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import Image from "next/image";
 import type { WeddingTemplateProps } from "@/lib/template-registry";
-import { useEditOverlay, editSlotClass } from "./EditOverlayContext";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
 type Props = {
   wedding: WeddingTemplateProps["wedding"];
@@ -27,10 +27,10 @@ export function WeddingInfo({ wedding, mode }: Props) {
       <div className="mx-auto max-w-6xl px-4 relative z-10">
         <Reveal y={16}>
           <div className="text-center py-8 sm:py-10">
-            <p className="text-lg sm:text-xl font-serif cb-text-primary italic font-medium opacity-90">
+            <p className="text-lg sm:text-xl font-heading cb-text-primary italic font-medium opacity-90">
               &ldquo;Trăm năm tình viên mãn&rdquo;
             </p>
-            <p className="text-lg sm:text-xl font-serif cb-text-primary italic font-medium opacity-90 mt-2">
+            <p className="text-lg sm:text-xl font-heading cb-text-primary italic font-medium opacity-90 mt-2">
               &ldquo;Bạc đầu nghĩa phu thê&rdquo;
             </p>
           </div>
@@ -47,8 +47,20 @@ export function WeddingInfo({ wedding, mode }: Props) {
                 <div className="w-1 h-1 rounded-full" style={{ backgroundColor: 'color-mix(in srgb, var(--cb-accent) 40%, transparent)' }} />
               </div>
               <div className="space-y-0.5">
-                <p className="text-base sm:text-xl cb-text-body font-serif font-medium leading-relaxed whitespace-nowrap" style={{ color: 'var(--cb-text)' }}>{firstParents.father}</p>
-                <p className="text-base sm:text-xl cb-text-body font-serif font-medium leading-relaxed whitespace-nowrap" style={{ color: 'var(--cb-text)' }}>{firstParents.mother}</p>
+                <p
+                  className={editSlotClass(edit, isBrideMode ? "cb-bride-father" : "cb-groom-father", "text-base sm:text-xl cb-text-body font-heading font-medium leading-relaxed whitespace-nowrap")}
+                  style={{ color: 'var(--cb-text)' }}
+                  onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-father" : "cb-groom-father", e.currentTarget); }}
+                >
+                  {firstParents.father}
+                </p>
+                <p
+                  className={editSlotClass(edit, isBrideMode ? "cb-bride-mother" : "cb-groom-mother", "text-base sm:text-xl cb-text-body font-heading font-medium leading-relaxed whitespace-nowrap")}
+                  style={{ color: 'var(--cb-text)' }}
+                  onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-mother" : "cb-groom-mother", e.currentTarget); }}
+                >
+                  {firstParents.mother}
+                </p>
               </div>
             </div>
           </Reveal>
@@ -62,8 +74,20 @@ export function WeddingInfo({ wedding, mode }: Props) {
                 <div className="w-1 h-1 rounded-full" style={{ backgroundColor: 'color-mix(in srgb, var(--cb-accent) 40%, transparent)' }} />
               </div>
               <div className="space-y-0.5">
-                <p className="text-base sm:text-xl cb-text-body font-serif font-medium leading-relaxed whitespace-nowrap" style={{ color: 'var(--cb-text)' }}>{secondParents.father}</p>
-                <p className="text-base sm:text-xl cb-text-body font-serif font-medium leading-relaxed whitespace-nowrap" style={{ color: 'var(--cb-text)' }}>{secondParents.mother}</p>
+                <p
+                  className={editSlotClass(edit, isBrideMode ? "cb-groom-father" : "cb-bride-father", "text-base sm:text-xl cb-text-body font-heading font-medium leading-relaxed whitespace-nowrap")}
+                  style={{ color: 'var(--cb-text)' }}
+                  onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-groom-father" : "cb-bride-father", e.currentTarget); }}
+                >
+                  {secondParents.father}
+                </p>
+                <p
+                  className={editSlotClass(edit, isBrideMode ? "cb-groom-mother" : "cb-bride-mother", "text-base sm:text-xl cb-text-body font-heading font-medium leading-relaxed whitespace-nowrap")}
+                  style={{ color: 'var(--cb-text)' }}
+                  onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-groom-mother" : "cb-bride-mother", e.currentTarget); }}
+                >
+                  {secondParents.mother}
+                </p>
               </div>
             </div>
           </Reveal>
@@ -82,7 +106,7 @@ export function WeddingInfo({ wedding, mode }: Props) {
                       "absolute top-0 left-0 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white -rotate-6 z-0 transition-transform hover:z-20 hover:scale-105 duration-500"
                     )}
                     data-wedding-slot="cb-wedding-a"
-                    onClick={() => edit?.onSlotClick?.("cb-wedding-a")}
+                    onClick={(e) => edit?.onSlotClick?.("cb-wedding-a", e.currentTarget)}
                     role={edit?.onSlotClick ? "button" : undefined}
                   >
                     <Image src={photo1} alt={isBrideMode ? "Cô dâu" : "Chú rể"} className="w-full h-full object-cover" width={192} height={256} unoptimized />
@@ -94,7 +118,7 @@ export function WeddingInfo({ wedding, mode }: Props) {
                       "absolute top-10 right-0 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white rotate-6 z-10 transition-transform hover:z-20 hover:scale-105 duration-500"
                     )}
                     data-wedding-slot="cb-wedding-b"
-                    onClick={() => edit?.onSlotClick?.("cb-wedding-b")}
+                    onClick={(e) => edit?.onSlotClick?.("cb-wedding-b", e.currentTarget)}
                     role={edit?.onSlotClick ? "button" : undefined}
                   >
                     <Image src={photo2} alt={isBrideMode ? "Chú rể" : "Cô dâu"} className="w-full h-full object-cover" width={192} height={256} unoptimized />
@@ -106,13 +130,13 @@ export function WeddingInfo({ wedding, mode }: Props) {
                 <div className="flex flex-col gap-3 w-full max-w-4xl mx-auto">
                   <div className="text-left">
                     <span className="text-3xl sm:text-5xl lg:text-6xl font-script cb-text-primary font-bold leading-relaxed drop-shadow-sm">{firstName}</span>
-                    <span className="block text-base sm:text-lg font-serif cb-text-body font-bold tracking-[0.2em] uppercase mt-1" style={{ color: 'var(--cb-text)' }}>
+                    <span className="block text-base sm:text-lg font-heading cb-text-body font-bold tracking-[0.2em] uppercase mt-1" style={{ color: 'var(--cb-text)' }}>
                       {isBrideMode ? "Ái Nữ" : "Trưởng Nam"}
                     </span>
                   </div>
                   <div className="text-right">
                     <span className="text-3xl sm:text-5xl lg:text-6xl font-script cb-text-primary font-bold leading-relaxed drop-shadow-sm">{secondName}</span>
-                    <span className="block text-base sm:text-lg font-serif cb-text-body font-bold tracking-[0.2em] uppercase mt-1" style={{ color: 'var(--cb-text)' }}>
+                    <span className="block text-base sm:text-lg font-heading cb-text-body font-bold tracking-[0.2em] uppercase mt-1" style={{ color: 'var(--cb-text)' }}>
                       {isBrideMode ? "Trưởng Nam" : "Ái Nữ"}
                     </span>
                   </div>
@@ -124,25 +148,49 @@ export function WeddingInfo({ wedding, mode }: Props) {
                   <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
                     <div className="text-center">
                       <p className="cb-text-body text-xs sm:text-sm uppercase tracking-wider font-semibold mb-0.5 opacity-70" style={{ color: 'var(--cb-text)' }}>Giờ làm lễ</p>
-                      <p className="text-4xl sm:text-5xl font-serif cb-text-primary font-bold">{ceremony.ceremonyTime}</p>
+                      <p className="text-4xl sm:text-5xl font-heading cb-text-primary font-bold">{ceremony.ceremonyTime}</p>
                     </div>
                     <div className="w-px h-10 hidden sm:block" style={{ backgroundColor: 'color-mix(in srgb, var(--cb-accent) 30%, transparent)' }} />
                     <div className="text-center">
                       <p className="cb-text-body text-xs sm:text-sm uppercase tracking-wider font-semibold mb-0.5 opacity-70" style={{ color: 'var(--cb-text)' }}>Giờ nhập tiệc</p>
-                      <p className="text-4xl sm:text-5xl font-serif cb-text-primary font-bold">{ceremony.receptionTime}</p>
+                      <p className="text-4xl sm:text-5xl font-heading cb-text-primary font-bold">{ceremony.receptionTime}</p>
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <p className="text-3xl sm:text-4xl cb-text-body font-serif font-bold tracking-wide" style={{ color: 'var(--cb-text)' }}>{ceremony.date}</p>
-                    {ceremony.lunarDate && <p className="text-xl cb-text-body font-semibold">{ceremony.lunarDate}</p>}
+                    <p
+                      className={editSlotClass(edit, isBrideMode ? "cb-bride-date" : "cb-groom-date", "text-3xl sm:text-4xl cb-text-body font-heading font-bold tracking-wide")}
+                      style={{ color: 'var(--cb-text)' }}
+                      onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-date" : "cb-groom-date", e.currentTarget); }}
+                    >
+                      {ceremony.date}
+                    </p>
+                    {ceremony.lunarDate && (
+                      <p
+                        className={editSlotClass(edit, isBrideMode ? "cb-bride-lunar-date" : "cb-groom-lunar-date", "text-xl cb-text-body font-semibold")}
+                        onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-lunar-date" : "cb-groom-lunar-date", e.currentTarget); }}
+                      >
+                        {ceremony.lunarDate}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div className="pt-6 border-t border-[color:color-mix(in_srgb,var(--cb-accent)_20%,transparent)] inline-block px-8 mt-2">
                   <p className="text-base uppercase tracking-[0.4em] cb-text-primary font-bold mb-3">Địa điểm</p>
-                  <p className="text-4xl cb-text-body font-serif font-black tracking-tight mb-2 leading-tight" style={{ color: 'var(--cb-text)' }}>{ceremony.venue}</p>
-                  <p className="text-xl cb-text-body font-bold max-w-[500px] mx-auto leading-relaxed">{ceremony.address}</p>
+                  <p
+                    className={editSlotClass(edit, isBrideMode ? "cb-bride-venue" : "cb-groom-venue", "text-4xl cb-text-body font-heading font-black tracking-tight mb-2 leading-tight")}
+                    style={{ color: 'var(--cb-text)' }}
+                    onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-venue" : "cb-groom-venue", e.currentTarget); }}
+                  >
+                    {ceremony.venue}
+                  </p>
+                  <p
+                    className={editSlotClass(edit, isBrideMode ? "cb-bride-address" : "cb-groom-address", "text-xl cb-text-body font-bold max-w-[500px] mx-auto leading-relaxed")}
+                    onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-address" : "cb-groom-address", e.currentTarget); }}
+                  >
+                    {ceremony.address}
+                  </p>
                 </div>
               </div>
             </div>
@@ -150,7 +198,7 @@ export function WeddingInfo({ wedding, mode }: Props) {
         </div>
       </div>
 
-      <div className="absolute top-20 right-[-5%] pointer-events-none select-none font-serif rotate-12">
+      <div className="absolute top-20 right-[-5%] pointer-events-none select-none font-heading rotate-12">
         <span className="block text-[4rem] sm:text-[10rem] lg:text-[20rem] opacity-10 sm:opacity-[0.05] lg:opacity-[0.03] cb-text-primary">Love</span>
       </div>
     </Section>

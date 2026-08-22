@@ -46,10 +46,10 @@ export default function Carousel3DGallery({ chapter }) {
       className="relative w-full h-[100vh] overflow-hidden bg-[#e8e4db] flex flex-col items-center justify-start"
     >
       <div className="text-center pt-20 relative z-10 pointer-events-none">
-        <h2 className="text-[50px] md:text-[80px] font-[family-name:var(--font-serif-display)] text-[#4A3728] drop-shadow-sm leading-none">
+        <h2 className="text-[50px] md:text-[80px] font-[family-name:var(--font-serif-display)] text-[var(--color-text-primary)] drop-shadow-sm leading-none">
           {chapter.title}
         </h2>
-        <p className="text-sm tracking-[0.3em] font-semibold text-[#800020] uppercase mt-4">
+        <p className="text-sm tracking-[0.3em] font-semibold text-[var(--color-primary)] uppercase mt-4">
           Vuốt để xoay vòng thời gian
         </p>
       </div>

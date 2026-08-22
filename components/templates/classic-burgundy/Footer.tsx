@@ -3,6 +3,7 @@
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import type { WeddingTemplateProps } from "@/lib/template-registry";
+import { WatermarkBadge } from "@/components/templates/shared/WatermarkBadge";
 
 type Props = {
   wedding: WeddingTemplateProps["wedding"];
@@ -25,6 +26,9 @@ export function Footer({ wedding, mode }: Props) {
           </p>
           <p className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-script cb-text-primary font-bold whitespace-nowrap">{names}</p>
           <p className="mt-4 text-sm sm:text-base tracking-[0.32em] uppercase cb-text-body font-semibold opacity-70">Hẹn gặp bạn</p>
+          {wedding.status !== "PUBLISHED" && (
+            <WatermarkBadge className="mt-6" />
+          )}
         </div>
       </Reveal>
     </Section>

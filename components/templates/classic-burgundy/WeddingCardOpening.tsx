@@ -102,7 +102,7 @@ export function WeddingCardOpening({
                   className="relative z-10 shrink-0"
                 >
                   {displayName && (
-                    <p className="text-sm sm:text-base font-serif mb-3 cb-text-primary opacity-90">
+                    <p className="text-sm sm:text-base font-heading mb-3 cb-text-primary opacity-90">
                       Kính gửi: <span className="font-black cb-text-primary">{displayName}</span>
                     </p>
                   )}
@@ -121,7 +121,7 @@ export function WeddingCardOpening({
                     </p>
                   </div>
 
-                  <h2 className="text-lg sm:text-xl font-serif italic mb-8 cb-text-body opacity-60">
+                  <h2 className="text-lg sm:text-xl font-heading italic mb-8 cb-text-body opacity-60">
                     (Chạm để mở thiệp)
                   </h2>
                   <motion.div

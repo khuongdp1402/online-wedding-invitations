@@ -4,7 +4,7 @@ import { Heart, Sparkles } from "lucide-react";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import { ImageWithFallback } from "./ImageWithFallback";
-import { useEditOverlay, editSlotClass } from "./EditOverlayContext";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 import type { WeddingTemplateProps } from "@/lib/template-registry";
 
 type Props = {
@@ -27,7 +27,7 @@ export function InvitationHeader({ wedding, mode }: Props) {
         <div
           className={editSlotClass(edit, "cb-hero", "absolute inset-0")}
           data-wedding-slot="cb-hero"
-          onClick={() => edit?.onSlotClick?.("cb-hero")}
+          onClick={(e) => edit?.onSlotClick?.("cb-hero", e.currentTarget)}
           role={edit?.onSlotClick ? "button" : undefined}
         >
           <ImageWithFallback
@@ -54,11 +54,17 @@ export function InvitationHeader({ wedding, mode }: Props) {
               </h2>
             </Reveal>
             <Reveal delay={0.2} className="mb-4 sm:mb-6">
-              <div className="flex items-center justify-between gap-4 w-full">
-                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-script cb-text-accent font-bold leading-tight drop-shadow-sm shrink-0">
+              <div className="flex items-center justify-between gap-4 w-full pointer-events-auto">
+                <h1
+                  className={editSlotClass(edit, isBrideMode ? "cb-bride-name" : "cb-groom-name", "text-2xl sm:text-4xl lg:text-5xl font-script cb-text-accent font-bold leading-tight drop-shadow-sm shrink-0")}
+                  onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-name" : "cb-groom-name", e.currentTarget); }}
+                >
                   {firstName}
                 </h1>
-                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-script cb-text-accent font-bold leading-tight drop-shadow-sm shrink-0">
+                <h1
+                  className={editSlotClass(edit, isBrideMode ? "cb-groom-name" : "cb-bride-name", "text-2xl sm:text-4xl lg:text-5xl font-script cb-text-accent font-bold leading-tight drop-shadow-sm shrink-0")}
+                  onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-groom-name" : "cb-bride-name", e.currentTarget); }}
+                >
                   {secondName}
                 </h1>
               </div>
@@ -68,8 +74,8 @@ export function InvitationHeader({ wedding, mode }: Props) {
                 <p className="cb-text-accent text-[10px] sm:text-xs tracking-[0.25em] uppercase font-semibold">Save the date</p>
                 <div className="h-px w-16 sm:w-24 mx-auto" style={{ backgroundColor: 'var(--cb-accent)' }} aria-hidden />
                 <div className="px-4 sm:px-6 py-2.5 sm:py-4 w-full max-w-sm text-center">
-                  <p className="cb-text-accent text-base sm:text-xl lg:text-2xl font-serif font-bold tracking-wide">{ceremony.date}</p>
-                  {ceremony.lunarDate && <p className="cb-text-accent text-xs sm:text-sm font-serif mt-1">{ceremony.lunarDate}</p>}
+                  <p className="cb-text-accent text-base sm:text-xl lg:text-2xl font-heading font-bold tracking-wide">{ceremony.date}</p>
+                  {ceremony.lunarDate && <p className="cb-text-accent text-xs sm:text-sm font-heading mt-1">{ceremony.lunarDate}</p>}
                 </div>
               </div>
             </Reveal>
@@ -91,7 +97,7 @@ export function InvitationHeader({ wedding, mode }: Props) {
                 "w-[52%] min-w-0 relative shrink-0"
               )}
               data-wedding-slot="cb-hero"
-              onClick={() => edit?.onSlotClick?.("cb-hero")}
+              onClick={(e) => edit?.onSlotClick?.("cb-hero", e.currentTarget)}
               role={edit?.onSlotClick ? "button" : undefined}
             >
               <ImageWithFallback
@@ -113,8 +119,18 @@ export function InvitationHeader({ wedding, mode }: Props) {
               </Reveal>
               <Reveal delay={0.2} className="mb-8">
                 <div className="flex items-center justify-between gap-6 w-full min-w-0">
-                  <h1 className="text-3xl xl:text-4xl font-script cb-text-accent font-bold leading-tight shrink-0 text-left">{firstName}</h1>
-                  <h1 className="text-3xl xl:text-4xl font-script cb-text-accent font-bold leading-tight shrink-0 text-right">{secondName}</h1>
+                  <h1
+                    className={editSlotClass(edit, isBrideMode ? "cb-bride-name" : "cb-groom-name", "text-3xl xl:text-4xl font-script cb-text-accent font-bold leading-tight shrink-0 text-left")}
+                    onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-name" : "cb-groom-name", e.currentTarget); }}
+                  >
+                    {firstName}
+                  </h1>
+                  <h1
+                    className={editSlotClass(edit, isBrideMode ? "cb-groom-name" : "cb-bride-name", "text-3xl xl:text-4xl font-script cb-text-accent font-bold leading-tight shrink-0 text-right")}
+                    onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-groom-name" : "cb-bride-name", e.currentTarget); }}
+                  >
+                    {secondName}
+                  </h1>
                 </div>
               </Reveal>
               <Reveal delay={0.4}>
@@ -122,8 +138,8 @@ export function InvitationHeader({ wedding, mode }: Props) {
                   <p className="cb-text-accent text-xs tracking-[0.3em] uppercase font-semibold" style={{ color: 'color-mix(in srgb, var(--cb-accent) 90%, transparent)' }}>Save the date</p>
                   <div className="h-px w-20 mx-auto" style={{ backgroundColor: 'color-mix(in srgb, var(--cb-accent) 60%, transparent)' }} aria-hidden />
                   <div className="py-4 w-full max-w-sm text-center">
-                    <p className="cb-text-accent text-xl xl:text-2xl font-serif font-bold tracking-wide">{ceremony.date}</p>
-                    {ceremony.lunarDate && <p className="cb-text-accent text-sm font-serif mt-1 opacity-80">{ceremony.lunarDate}</p>}
+                    <p className="cb-text-accent text-xl xl:text-2xl font-heading font-bold tracking-wide">{ceremony.date}</p>
+                    {ceremony.lunarDate && <p className="cb-text-accent text-sm font-heading mt-1 opacity-80">{ceremony.lunarDate}</p>}
                   </div>
                 </div>
               </Reveal>

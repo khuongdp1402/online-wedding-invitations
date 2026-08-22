@@ -119,7 +119,7 @@ export default function CinematicEnding({ chapter }) {
 
               <button
                 onClick={() => setShowVideo(true)}
-                className="px-8 py-3 bg-[#D4AF37]/20 border border-[#D4AF37] text-[#F0D78C] hover:bg-[#D4AF37]/40 active:scale-95 transition-all rounded-full flex items-center gap-2 shadow-[0_0_15px_rgba(212,175,55,0.3)] backdrop-blur-sm"
+                className="px-8 py-3 bg-[color-mix(in_srgb,var(--color-gold)_20%,transparent)] border border-[var(--color-gold)] text-[#F0D78C] hover:bg-[color-mix(in_srgb,var(--color-gold)_40%,transparent)] active:scale-95 transition-all rounded-full flex items-center gap-2 shadow-[0_0_15px_rgba(212,175,55,0.3)] backdrop-blur-sm"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
@@ -140,7 +140,7 @@ export default function CinematicEnding({ chapter }) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
           >
-            <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden border border-[#D4AF37]/30 shadow-2xl">
+            <div className="relative w-full max-w-4xl aspect-video bg-black rounded-lg overflow-hidden border border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] shadow-2xl">
               <button
                 onClick={() => setShowVideo(false)}
                 className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 hover:bg-black/80 rounded-full flex items-center justify-center text-white border border-white/20 transition-colors"

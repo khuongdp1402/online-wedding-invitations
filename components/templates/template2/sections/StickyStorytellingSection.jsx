@@ -47,7 +47,7 @@ export default function StickyStorytellingSection({ chapter }) {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full bg-[#FFFDF9] text-[#4A3728]"
+      className="relative w-full bg-[#FFFDF9] text-[var(--color-text-primary)]"
     >
       <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto">
         
@@ -79,7 +79,7 @@ export default function StickyStorytellingSection({ chapter }) {
             {chapter.title}
           </h2>
 
-          <div className="relative border-l border-[#D4AF37]/30 pl-8 ml-4 md:ml-0 flex flex-col gap-[30vh] pb-[20vh]">
+          <div className="relative border-l border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] pl-8 ml-4 md:ml-0 flex flex-col gap-[30vh] pb-[20vh]">
             {milestones.map((m, i) => (
               <div 
                 key={i} 
@@ -91,10 +91,10 @@ export default function StickyStorytellingSection({ chapter }) {
                 <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-[var(--color-gold)] mb-2">
                   {m.year}
                 </p>
-                <h3 className="font-[family-name:var(--font-serif-display)] text-3xl md:text-4xl text-[#4A3728] mb-4">
+                <h3 className="font-[family-name:var(--font-serif-display)] text-3xl md:text-4xl text-[var(--color-text-primary)] mb-4">
                   {m.title}
                 </h3>
-                <p className="text-sm md:text-base leading-relaxed text-[#4A3728]/80 font-serif">
+                <p className="text-sm md:text-base leading-relaxed text-[color-mix(in_srgb,var(--color-text-primary)_80%,transparent)] font-serif">
                   {m.description}
                 </p>
               </div>

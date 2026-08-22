@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { AdminPaymentList } from "./AdminPaymentList";
+import { AdminContactList } from "./AdminContactList";
 
 export default async function AdminPage() {
   const session = await auth();
@@ -49,6 +50,25 @@ export default async function AdminPage() {
     createdAt: p.createdAt.toISOString(),
   }));
 
+  const contactRequests = await prisma.contactRequest.findMany({
+    take: 50,
+    orderBy: { createdAt: "desc" },
+    include: {
+      wedding: { select: { slug: true, groomName: true, brideName: true } },
+    },
+  });
+
+  const contactsForClient = contactRequests.map((c) => ({
+    id: c.id,
+    name: c.name,
+    phone: c.phone,
+    message: c.message,
+    status: c.status,
+    context: c.context,
+    wedding: c.wedding,
+    createdAt: c.createdAt.toISOString(),
+  }));
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
@@ -61,6 +81,16 @@ export default async function AdminPage() {
           pendingPayments={pendingPaymentsForClient}
           allPayments={allPaymentsForClient}
         />
+
+        <div className="mt-12">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">
+            Yêu cầu liên hệ
+          </h2>
+          <p className="text-gray-600 mb-4 text-sm">
+            Khách hàng muốn trao đổi trực tiếp về cấu trúc thiệp cưới.
+          </p>
+          <AdminContactList contacts={contactsForClient} />
+        </div>
       </div>
     </div>
   );

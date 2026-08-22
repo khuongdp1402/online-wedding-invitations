@@ -64,20 +64,20 @@ export default function InvitationWords({ name, role }) {
 
         {/* Lời mời (Giữa) */}
         <div className="invitation-item invitation-text-block w-full md:w-1/3 text-center px-4 py-16">
-          <div className="text-[#D4AF37] mb-8">
+          <div className="text-[var(--color-gold)] mb-8">
             <svg className="w-10 h-10 mx-auto" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
           </div>
           <h2 className="text-3xl tracking-[0.2em] text-[#7a1f24] uppercase font-serif mb-10">Trân trọng kính mời</h2>
-          <p className="text-[#4A3728] font-serif text-xl md:text-2xl leading-relaxed mb-8">
+          <p className="text-[var(--color-text-primary)] font-serif text-xl md:text-2xl leading-relaxed mb-8">
             quý khách tới dự buổi tiệc chung vui cùng gia đình chúng tôi.
           </p>
-          <p className="text-[#4A3728]/80 font-serif text-lg leading-relaxed">
-            Sự hiện diện của <br/><strong className="font-semibold text-[#4A3728] text-2xl mt-2 inline-block">{guestText}</strong> <br/>là niềm vinh hạnh lớn lao cho gia đình chúng tôi.
+          <p className="text-[color-mix(in_srgb,var(--color-text-primary)_80%,transparent)] font-serif text-lg leading-relaxed">
+            Sự hiện diện của <br/><strong className="font-semibold text-[var(--color-text-primary)] text-2xl mt-2 inline-block">{guestText}</strong> <br/>là niềm vinh hạnh lớn lao cho gia đình chúng tôi.
           </p>
           
-          <div className="w-24 h-px bg-[#D4AF37] mx-auto mt-12" />
+          <div className="w-24 h-px bg-[var(--color-gold)] mx-auto mt-12" />
         </div>
 
         {/* Ảnh phải (Cô dâu) */}

@@ -75,8 +75,12 @@ const config: Config = {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		fontFamily: {
-  			serif: ['var(--font-serif)', 'serif'],
+        heading: ['var(--font-heading)', 'serif'],
+        body: ['var(--font-body)', 'sans-serif'],
   			script: ['var(--font-script)', 'cursive'],
+        // template2 dùng `font-serif` ở 75 chỗ. Trỏ về --font-heading để font
+        // người dùng chọn có tác dụng, thay vì rơi về serif mặc định của Tailwind.
+        serif: ['var(--font-heading)', 'Georgia', 'serif'],
   		},
       boxShadow: {
         card: "0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -5px rgba(128, 0, 32, 0.02)",

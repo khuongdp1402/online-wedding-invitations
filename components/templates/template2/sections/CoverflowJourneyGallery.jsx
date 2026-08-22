@@ -31,11 +31,11 @@ export default function CoverflowJourneyGallery({ chapter }) {
       className="relative w-full min-h-screen bg-[#F9F6F0] flex flex-col items-center justify-between overflow-hidden py-16 md:py-24"
     >
       <div className="text-center z-20 pointer-events-none mb-8 md:mb-12">
-        <h2 className="text-[40px] sm:text-[50px] md:text-[80px] font-[family-name:var(--font-serif-display)] text-[#4A3728] leading-none drop-shadow-sm">
+        <h2 className="text-[40px] sm:text-[50px] md:text-[80px] font-[family-name:var(--font-serif-display)] text-[var(--color-text-primary)] leading-none drop-shadow-sm">
           {chapter.title}
         </h2>
         {chapter.quote && (
-          <p className="mt-4 md:mt-6 text-[10px] sm:text-[12px] md:text-sm tracking-[0.2em] font-sans text-[#4A3728]/70 uppercase">
+          <p className="mt-4 md:mt-6 text-[10px] sm:text-[12px] md:text-sm tracking-[0.2em] font-sans text-[color-mix(in_srgb,var(--color-text-primary)_70%,transparent)] uppercase">
             {chapter.quote}
           </p>
         )}
@@ -84,7 +84,7 @@ export default function CoverflowJourneyGallery({ chapter }) {
                   ease: [0.32, 0.72, 0, 1], // easeOutCubic
                 }}
               >
-                <div className="w-full h-full bg-white p-3 md:p-5 rounded-2xl shadow-2xl overflow-hidden border border-[#D4AF37]/20">
+                <div className="w-full h-full bg-white p-3 md:p-5 rounded-2xl shadow-2xl overflow-hidden border border-[color-mix(in_srgb,var(--color-gold)_20%,transparent)]">
                   <img 
                     src={src} 
                     alt={`Journey ${index + 1}`} 
@@ -102,13 +102,13 @@ export default function CoverflowJourneyGallery({ chapter }) {
       {/* Navigation Buttons (Optional, for manual override) */}
       <div className="flex gap-6 z-20 mt-8 relative">
         <button 
-          className="w-12 h-12 rounded-full bg-white/80 backdrop-blur border border-[#D4AF37]/30 flex items-center justify-center text-[#4A3728] hover:bg-[#D4AF37] hover:text-white transition-colors shadow-md"
+          className="w-12 h-12 rounded-full bg-white/80 backdrop-blur border border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] flex items-center justify-center text-[var(--color-text-primary)] hover:bg-[var(--color-gold)] hover:text-white transition-colors shadow-md"
           onClick={prevSlide}
         >
           <ChevronLeft size={24} />
         </button>
         <button 
-          className="w-12 h-12 rounded-full bg-white/80 backdrop-blur border border-[#D4AF37]/30 flex items-center justify-center text-[#4A3728] hover:bg-[#D4AF37] hover:text-white transition-colors shadow-md"
+          className="w-12 h-12 rounded-full bg-white/80 backdrop-blur border border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] flex items-center justify-center text-[var(--color-text-primary)] hover:bg-[var(--color-gold)] hover:text-white transition-colors shadow-md"
           onClick={nextSlide}
         >
           <ChevronRight size={24} />

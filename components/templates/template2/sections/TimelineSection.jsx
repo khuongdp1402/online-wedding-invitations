@@ -6,7 +6,8 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 import { Heart } from 'lucide-react';
-import { weddingData } from '@/config/weddingData';
+import { useWeddingData } from '../StoryEngine';
+import { weddingData as staticWeddingData } from '../config/weddingData';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
@@ -22,7 +23,9 @@ export default function TimelineSection({ side }) {
   const [activeEvent, setActiveEvent] = useState(null);
 
   const currentSide = side === 'nhagai' ? 'nhagai' : 'nhatrai';
-  const data = weddingData[currentSide];
+  const contextData = useWeddingData();
+  const activeWeddingData = contextData || staticWeddingData;
+  const data = activeWeddingData[currentSide];
   
   const dateStr = data.ceremony.dateSolar;
   const locationStr = data.ceremony.address;
@@ -109,7 +112,7 @@ export default function TimelineSection({ side }) {
                 exit={{ opacity: 0 }}
                 className="absolute inset-0 flex items-center justify-center"
               >
-                <p className="text-[#4A3728]/30 font-serif text-lg tracking-widest uppercase">Di chuột để xem</p>
+                <p className="text-[color-mix(in_srgb,var(--color-text-primary)_30%,transparent)] font-serif text-lg tracking-widest uppercase">Di chuột để xem</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -120,7 +123,7 @@ export default function TimelineSection({ side }) {
       <div className="flex-1 w-full max-w-lg">
         <div className="text-left mb-10 pl-10">
           <h2 className="text-3xl md:text-5xl font-serif text-[#7a1f24] mb-3">Lịch trình</h2>
-          <p className="text-[#4A3728]/60 text-sm md:text-base font-light tracking-[0.2em] uppercase">Cùng chia vui với chúng tôi</p>
+          <p className="text-[color-mix(in_srgb,var(--color-text-primary)_60%,transparent)] text-sm md:text-base font-light tracking-[0.2em] uppercase">Cùng chia vui với chúng tôi</p>
         </div>
 
         <div className="relative pl-6 md:pl-10 py-6">
@@ -139,7 +142,7 @@ export default function TimelineSection({ side }) {
               />
             </svg>
             
-            <div ref={iconRef} className="absolute top-0 left-0 text-[#7a1f24] drop-shadow-md w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-transparent rounded-full border-2 border-[#D4AF37]">
+            <div ref={iconRef} className="absolute top-0 left-0 text-[#7a1f24] drop-shadow-md w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-transparent rounded-full border-2 border-[var(--color-gold)]">
               <Heart size={14} fill="#D4AF37" />
             </div>
           </div>
@@ -154,12 +157,12 @@ export default function TimelineSection({ side }) {
                 onMouseLeave={() => setActiveEvent(null)}
                 onClick={() => setActiveEvent(event)}
               >
-                <div className={`bg-white/60 backdrop-blur-md p-4 md:p-6 rounded-2xl shadow-sm border-l-4 transition-all duration-300 ${activeEvent?.id === event.id ? 'border-l-[#7a1f24] bg-white/90 scale-[1.02] shadow-xl' : 'border-l-[#D4AF37] hover:bg-white/80'}`}>
+                <div className={`bg-white/60 backdrop-blur-md p-4 md:p-6 rounded-2xl shadow-sm border-l-4 transition-all duration-300 ${activeEvent?.id === event.id ? 'border-l-[#7a1f24] bg-white/90 scale-[1.02] shadow-xl' : 'border-l-[var(--color-gold)] hover:bg-white/80'}`}>
                   <span className="inline-block px-3 py-1 bg-[#FFF8DC] text-[#7a1f24] text-xs font-semibold tracking-wider rounded-full mb-2 uppercase">
                     {event.time}
                   </span>
-                  <h3 className="text-xl md:text-2xl font-serif text-[#4A3728] mb-1">{event.name}</h3>
-                  <p className="text-[#4A3728]/80 text-sm font-light leading-relaxed">{event.location}</p>
+                  <h3 className="text-xl md:text-2xl font-serif text-[var(--color-text-primary)] mb-1">{event.name}</h3>
+                  <p className="text-[color-mix(in_srgb,var(--color-text-primary)_80%,transparent)] text-sm font-light leading-relaxed">{event.location}</p>
                 </div>
               </div>
             ))}

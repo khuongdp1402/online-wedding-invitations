@@ -5,9 +5,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { InvitationData } from "./lib/invitation";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
+import { ImageWithFallback } from "./ImageWithFallback";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
 type CountdownSectionProps = {
   data: InvitationData;
+  image?: string;
 };
 
 type Parts = {
@@ -45,7 +48,7 @@ function NumberFlip({ value }: { value: string }) {
           transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           className="absolute inset-0 flex items-center justify-center"
         >
-          <span className="tabular-nums text-4xl sm:text-5xl lg:text-6xl font-serif text-burgundy font-medium tracking-tight">
+          <span className="tabular-nums text-4xl sm:text-5xl lg:text-6xl font-heading text-burgundy font-medium tracking-tight">
             {value}
           </span>
         </motion.div>
@@ -54,7 +57,8 @@ function NumberFlip({ value }: { value: string }) {
   );
 }
 
-export function CountdownSection({ data }: CountdownSectionProps) {
+export function CountdownSection({ data, image }: CountdownSectionProps) {
+  const edit = useEditOverlay();
   const targetMs = useMemo(() => new Date(data.ceremony.startsAtISO).getTime(), [data.ceremony.startsAtISO]);
   const [parts, setParts] = useState<Parts>(() => getParts(targetMs));
 
@@ -77,9 +81,14 @@ export function CountdownSection({ data }: CountdownSectionProps) {
           {/* Left side: Arched Image - Larger */}
           <div className="lg:col-span-6">
             <Reveal x={-30}>
-              <div className="relative aspect-[4/5] sm:aspect-square rounded-t-full overflow-hidden border-[8px] border-white shadow-2xl transition-transform hover:scale-[1.01] duration-700">
-                <img
-                  src="/images/z7481583509453_9b098e98c846243154f64e1e5eb8e430.jpg?auto=format&fit=crop&q=80&w=1600"
+              <div
+                className={editSlotClass(edit, "cb-countdown", "relative aspect-[4/5] sm:aspect-square rounded-t-full overflow-hidden border-[8px] border-white shadow-2xl transition-transform hover:scale-[1.01] duration-700")}
+                data-wedding-slot="cb-countdown"
+                onClick={(e) => edit?.onSlotClick?.("cb-countdown", e.currentTarget)}
+                role={edit?.onSlotClick ? "button" : undefined}
+              >
+                <ImageWithFallback
+                  src={image || ""}
                   alt="Together"
                   className="w-full h-full object-cover scale-105"
                 />
@@ -96,7 +105,7 @@ export function CountdownSection({ data }: CountdownSectionProps) {
                   Đếm ngược ngày trọng đại
                 </h2>
                 <div className="gold-divider w-24 lg:mx-0 opacity-60" />
-                <p className="mt-8 text-4xl sm:text-5xl font-serif text-burgundy font-bold tracking-tight">
+                <p className="mt-8 text-4xl sm:text-5xl font-heading text-burgundy font-bold tracking-tight">
                   {data.ceremony.solarDateLabel}
                 </p>
               </div>
@@ -116,7 +125,7 @@ export function CountdownSection({ data }: CountdownSectionProps) {
             </Reveal>
 
             <Reveal delay={0.3} y={20}>
-              <div className="mt-16 text-center lg:text-left italic text-ink/70 text-lg font-serif">
+              <div className="mt-16 text-center lg:text-left italic text-ink/70 text-lg font-heading">
                 “Dù đi đâu, làm gì, chỉ cần chúng ta bên nhau.”
               </div>
             </Reveal>

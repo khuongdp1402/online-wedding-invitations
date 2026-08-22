@@ -3,10 +3,10 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import {
   createVNPayUrl,
-  PLAN_PRICES,
   generateTransferContent,
   BANK_TRANSFER_INFO,
 } from "@/lib/payment";
+import { resolveTemplatePrice, applyCoupon } from "@/lib/template-pricing";
 
 export async function POST(request: Request) {
   try {
@@ -16,18 +16,11 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { weddingId, plan, method } = body;
+    const { weddingId, method, couponCode, targetTemplateId } = body;
 
-    if (!weddingId || !plan || !method) {
+    if (!weddingId || !method) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
-
-    if (!PLAN_PRICES[plan]) {
-      return NextResponse.json(
-        { error: "Invalid plan" },
         { status: 400 }
       );
     }
@@ -35,30 +28,82 @@ export async function POST(request: Request) {
     // Verify wedding ownership
     const wedding = await prisma.wedding.findFirst({
       where: { id: weddingId, userId: session.user.id },
+      include: {
+        template: {
+          select: { id: true, price: true, salePrice: true, saleStartsAt: true, saleEndsAt: true },
+        },
+      },
     });
     if (!wedding) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    // Check if already paid for same/higher plan
-    if (
-      wedding.status === "PUBLISHED" &&
-      getPlanLevel(wedding.plan) >= getPlanLevel(plan)
-    ) {
-      return NextResponse.json(
-        { error: "Thiệp đã được xuất bản với gói tương đương hoặc cao hơn" },
-        { status: 400 }
-      );
+    // `targetTemplateId`: chỉ gửi khi client đang trả phần chênh lệch để đổi
+    // sang một template khác đắt hơn (xem 402 ở PUT /api/weddings/[id]).
+    // Giá dùng để tính tiền khi đó là của template ĐÍCH, không phải template
+    // hiện tại của wedding.
+    const isTemplateChange =
+      typeof targetTemplateId === "string" &&
+      targetTemplateId !== wedding.templateId;
+
+    const pricingTemplate = isTemplateChange
+      ? await prisma.template.findUnique({
+          where: { id: targetTemplateId },
+          select: { id: true, price: true, salePrice: true, saleStartsAt: true, saleEndsAt: true },
+        })
+      : wedding.template;
+
+    if (isTemplateChange && !pricingTemplate) {
+      return NextResponse.json({ error: "Template không tồn tại" }, { status: 400 });
     }
 
-    const amount = PLAN_PRICES[plan];
+    const priceInfo = resolveTemplatePrice(pricingTemplate!);
 
-    // Create payment record
+    const type: "PUBLISH" | "RENEW" | "TEMPLATE_CHANGE" = isTemplateChange
+      ? "TEMPLATE_CHANGE"
+      : wedding.status === "PUBLISHED"
+        ? "RENEW"
+        : "PUBLISH";
+
+    // Đổi template: số tiền cần thu chỉ là phần CHÊNH LỆCH so với đã trả,
+    // không phải giá đầy đủ của template mới (khớp logic 402 ở PUT wedding).
+    const baseAmount = isTemplateChange
+      ? Math.max(0, priceInfo.effectivePrice - (wedding.purchasePrice ?? 0))
+      : priceInfo.effectivePrice;
+
+    let finalAmount = baseAmount;
+    let couponId: string | null = null;
+    let couponDiscount: number | null = null;
+
+    if (couponCode) {
+      const coupon = await prisma.coupon.findUnique({
+        where: { code: String(couponCode).trim().toUpperCase() },
+      });
+      const result = applyCoupon(baseAmount, coupon, pricingTemplate!.id);
+      if (!result.ok) {
+        return NextResponse.json(
+          { error: "Mã giảm giá không hợp lệ", reason: result.reason },
+          { status: 400 }
+        );
+      }
+      finalAmount = result.finalAmount;
+      couponId = coupon!.id;
+      couponDiscount = result.discount;
+    }
+
+    // Không tăng redemptionCount ở đây — chỉ tăng khi payment COMPLETED
+    // (xem lib/payment-completion.ts), để không đốt lượt dùng coupon cho
+    // giao dịch bị bỏ dở/thất bại.
     const payment = await prisma.payment.create({
       data: {
         weddingId,
-        amount,
-        plan,
+        type,
+        amount: finalAmount,
+        basePrice: baseAmount,
+        couponId,
+        couponDiscount,
+        targetTemplateId: isTemplateChange ? targetTemplateId : null,
+        plan: null,
         method,
         status: "PENDING",
       },
@@ -69,10 +114,12 @@ export async function POST(request: Request) {
       const forwarded = request.headers.get("x-forwarded-for");
       const ipAddr = forwarded?.split(",")[0]?.trim() || "127.0.0.1";
 
+      const orderLabel =
+        type === "RENEW" ? "Gia han" : type === "TEMPLATE_CHANGE" ? "Doi mau" : "Xuat ban";
       const paymentUrl = createVNPayUrl({
         orderId: payment.id,
-        amount,
-        orderInfo: `Thanh toan thiepcuoi ${wedding.groomName} & ${wedding.brideName} - Goi ${plan}`,
+        amount: finalAmount,
+        orderInfo: `Thanh toan thiepcuoi ${wedding.groomName} & ${wedding.brideName} - ${orderLabel}`,
         ipAddr,
       });
 
@@ -83,13 +130,13 @@ export async function POST(request: Request) {
     }
 
     if (method === "bank_transfer") {
-      const transferContent = generateTransferContent(weddingId, plan);
+      const transferContent = generateTransferContent(weddingId, type);
 
       return NextResponse.json({
         payment: { id: payment.id, method: "bank_transfer" },
         bankInfo: {
           ...BANK_TRANSFER_INFO,
-          amount,
+          amount: finalAmount,
           transferContent,
         },
       });
@@ -106,14 +153,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
-
-function getPlanLevel(plan: string): number {
-  const levels: Record<string, number> = {
-    FREE: 0,
-    BASIC: 1,
-    STANDARD: 2,
-    PREMIUM: 3,
-  };
-  return levels[plan] || 0;
 }

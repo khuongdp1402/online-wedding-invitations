@@ -1,12 +1,14 @@
 import type { InvitationData } from "./lib/invitation";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
+import { WatermarkBadge } from "@/components/templates/shared/WatermarkBadge";
 
 type FooterSectionProps = {
   data: InvitationData;
+  isFreePlan?: boolean;
 };
 
-export function FooterSection({ data }: FooterSectionProps) {
+export function FooterSection({ data, isFreePlan }: FooterSectionProps) {
   return (
     <Section className="bg-paper pb-16">
       <Reveal>
@@ -19,6 +21,7 @@ export function FooterSection({ data }: FooterSectionProps) {
             {data.groom.name} &amp; {data.bride.name}
           </p>
           <p className="mt-4 text-sm sm:text-base tracking-[0.32em] uppercase text-ink/70 font-semibold">Hẹn gặp bạn</p>
+          {isFreePlan && <WatermarkBadge className="mt-6 text-ink/70" />}
         </div>
       </Reveal>
     </Section>

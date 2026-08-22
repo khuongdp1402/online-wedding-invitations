@@ -4,7 +4,8 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { weddingData } from '@/config/weddingData';
+import { useWeddingData } from '../StoryEngine';
+import { weddingData as staticWeddingData } from '../config/weddingData';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,16 +14,41 @@ export default function CalendarSection({ side }) {
   const heart1Ref = useRef(null);
   const heart2Ref = useRef(null);
 
+  const contextData = useWeddingData();
+  const activeWeddingData = contextData || staticWeddingData;
   const currentSide = side === 'nhagai' ? 'nhagai' : 'nhatrai';
-  const data = weddingData[currentSide];
+  const data = activeWeddingData[currentSide];
   
-  // Lấy ngày từ chuỗi "19/07/2026" -> 19
-  const weddingDay = parseInt(data.ceremony.dateSolar.split('/')[0], 10);
+  // Safe parsing of dateSolar "DD/MM/YYYY" or ISO date
+  let weddingDay = 19;
+  let weddingMonth = 7;
+  let weddingYear = 2026;
 
-  // Mảng các ngày trong tháng 7/2026
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  if (data?.ceremony?.dateSolar) {
+    const parts = data.ceremony.dateSolar.split('/');
+    if (parts.length === 3) {
+      weddingDay = parseInt(parts[0], 10);
+      weddingMonth = parseInt(parts[1], 10);
+      weddingYear = parseInt(parts[2], 10);
+    } else {
+      const dateObj = new Date(data.ceremony.dateSolar);
+      if (!isNaN(dateObj.getTime())) {
+        weddingDay = dateObj.getDate();
+        weddingMonth = dateObj.getMonth() + 1;
+        weddingYear = dateObj.getFullYear();
+      }
+    }
+  }
+
+  // Calculate days in the current wedding month
+  const getDaysInMonth = (m, y) => new Date(y, m, 0).getDate();
+  const totalDays = getDaysInMonth(weddingMonth, weddingYear);
+  const days = Array.from({ length: totalDays }, (_, i) => i + 1);
+
+  // Calculate day index for padding (Sunday is CN=0, Monday is T2=1...)
+  const firstDayIndex = new Date(weddingYear, weddingMonth - 1, 1).getDay();
+  const paddingDays = Array.from({ length: firstDayIndex }, (_, i) => i);
   const weekDays = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
-  const paddingDays = Array.from({ length: 3 }, (_, i) => i);
 
   useGSAP(() => {
     const hearts = [heart1Ref.current, heart2Ref.current];
@@ -56,14 +82,14 @@ export default function CalendarSection({ side }) {
     <section ref={containerRef} className="w-full relative z-10 md:-translate-y-12">
       <div className="max-w-md mx-auto bg-[#FFF8DC]/60 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl border border-white">
         <div className="text-center mb-8">
-          <p className="text-sm tracking-[0.2em] uppercase text-[#4A3728]/60 mb-2">Save the Date</p>
-          <h2 className="text-4xl font-serif text-[#7a1f24]">Tháng 7 . 2026</h2>
+          <p className="text-sm tracking-[0.2em] uppercase text-[color-mix(in_srgb,var(--color-text-primary)_60%,transparent)] mb-2">Save the Date</p>
+          <h2 className="text-4xl font-serif text-[#7a1f24]">Tháng {weddingMonth} . {weddingYear}</h2>
         </div>
 
         {/* Lưới Lịch */}
         <div className="grid grid-cols-7 gap-2 text-center mb-4 relative z-20">
           {weekDays.map(day => (
-            <div key={day} className="text-xs font-bold text-[#4A3728]/60">{day}</div>
+            <div key={day} className="text-xs font-bold text-[color-mix(in_srgb,var(--color-text-primary)_60%,transparent)]">{day}</div>
           ))}
           
           {paddingDays.map(pad => (
@@ -77,7 +103,7 @@ export default function CalendarSection({ side }) {
               <div 
                 key={day} 
                 className={`p-2 relative flex items-center justify-center text-sm md:text-base font-medium
-                  ${isWeddingDay ? 'text-[#7a1f24] font-bold z-10' : 'text-[#4A3728]/60'}
+                  ${isWeddingDay ? 'text-[#7a1f24] font-bold z-10' : 'text-[color-mix(in_srgb,var(--color-text-primary)_60%,transparent)]'}
                 `}
               >
                 {day}
@@ -119,7 +145,7 @@ export default function CalendarSection({ side }) {
         
         <div className="text-center mt-8 space-y-2">
           <p className="font-serif text-lg text-[#7a1f24] font-semibold">{data.ceremony.type}</p>
-          <p className="text-sm font-light text-[#4A3728]/60 tracking-wide uppercase">
+          <p className="text-sm font-light text-[color-mix(in_srgb,var(--color-text-primary)_60%,transparent)] tracking-wide uppercase">
             {data.ceremony.dateSolar.replace(/\//g, ' Tháng ').replace(' Tháng 2026', ' Năm 2026')}
           </p>
         </div>

@@ -26,7 +26,16 @@ export default async function EditWeddingPage({
       <p className="text-gray-500 mb-8">
         {wedding.groomName} & {wedding.brideName}
       </p>
-      <EditWeddingForm wedding={weddingData} templateSlug={wedding.template.slug} />
+      <EditWeddingForm
+        wedding={weddingData}
+        templateSlug={wedding.template.slug}
+        template={{
+          price: wedding.template.price,
+          salePrice: wedding.template.salePrice,
+          saleStartsAt: wedding.template.saleStartsAt,
+          saleEndsAt: wedding.template.saleEndsAt,
+        }}
+      />
     </div>
   );
 }

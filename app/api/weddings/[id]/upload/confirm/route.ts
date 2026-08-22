@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { createS3Client, getPublicUrl } from "@/lib/s3-client";
 import { galleryIndexForSlotKey } from "@/lib/wedding-image-slots";
+import { DRAFT_MAX_PHOTOS } from "@/lib/payment";
 
 const ConfirmSchema = z.object({
   storageKey: z.string().min(1),
@@ -26,6 +27,7 @@ export async function POST(
 
     const wedding = await prisma.wedding.findFirst({
       where: { id: params.id, userId: session.user.id },
+      include: { template: true },
     });
     if (!wedding)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -73,13 +75,27 @@ export async function POST(
     }
 
     // Xử lý ảnh — cập nhật gallery array
-    const idx = galleryIndexForSlotKey(slotKey);
+    const idx = galleryIndexForSlotKey(slotKey, wedding.template?.slug);
     if (idx === null)
       return NextResponse.json({ error: "slotKey không hợp lệ" }, { status: 400 });
 
     const rawGallery = (wedding.gallery as string[]) ?? [];
     const gallery = [...rawGallery];
     while (gallery.length <= idx) gallery.push("");
+
+    // Thiệp đã xuất bản: không giới hạn số ảnh (đã trả đúng giá template).
+    // Còn DRAFT: giới hạn nhẹ để tránh lạm dụng khi chưa trả phí.
+    const isNewPhoto = !gallery[idx];
+    if (isNewPhoto && wedding.status !== "PUBLISHED") {
+      const currentPhotoCount = gallery.filter((url) => !!url).length;
+      if (currentPhotoCount >= DRAFT_MAX_PHOTOS) {
+        return NextResponse.json(
+          { error: `Bản nháp chỉ cho phép tối đa ${DRAFT_MAX_PHOTOS} ảnh. Xuất bản thiệp để thêm không giới hạn.` },
+          { status: 403 }
+        );
+      }
+    }
+
     gallery[idx] = publicUrl;
 
     await prisma.$transaction([

@@ -95,7 +95,7 @@ export default function MouseTrailGallerySection({ chapter }) {
       className="flex story-chapter relative w-full h-screen overflow-hidden flex-col items-center justify-center cursor-crosshair bg-[#111] border-t border-gray-900">
       
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full z-0 pointer-events-none text-center">
-        <p className="text-[14px] tracking-[0.3em] text-[#D4AF37] font-semibold uppercase mb-4" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>{chapter?.quote || "Phép Màu"}</p>
+        <p className="text-[14px] tracking-[0.3em] text-[var(--color-gold)] font-semibold uppercase mb-4" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>{chapter?.quote || "Phép Màu"}</p>
         <h2 className="text-[60px] md:text-[100px] text-white/90 font-[family-name:var(--font-serif-display)] leading-none text-shadow-xl drop-shadow-2xl">
           {chapter?.title || "Lễ Hằng Thuận"}
         </h2>

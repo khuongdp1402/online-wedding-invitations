@@ -13,12 +13,15 @@ import { FooterSection } from "./FooterSection";
 import { BackgroundMusic } from "./BackgroundMusic";
 import { RSVPSection } from "./RSVPSection";
 import { GiftingSection } from "./GiftingSection";
+import { EditOverlayContext } from "@/components/templates/shared/EditOverlayContext";
+import { visibleSectionKeys } from "@/lib/section-config";
 
 import type { InvitationData } from "./lib/invitation";
 
-export default function Template1Wrapper({ wedding, mode }: WeddingTemplateProps) {
+export default function Template1Wrapper({ wedding, mode, guestName, editOverlay }: WeddingTemplateProps) {
   // Determine which ceremony to use based on mode
   const ceremony = mode === "bride" ? wedding.brideCeremony : wedding.groomCeremony;
+  const isBrideMode = mode === "bride";
   
   // Format date helper (simple approximation, could use date-fns if needed)
   const ceremonyDate = new Date(ceremony.date);
@@ -91,13 +94,24 @@ export default function Template1Wrapper({ wedding, mode }: WeddingTemplateProps
     }
   };
 
-  // Section rendering loop based on wedding.sectionOrder
+  // Structure image slots (index cố định, giống classic-burgundy):
+  // 0=hero, 1=countdown, 2&3=wedding-info couple photos, 4&5=quote photos
+  const structureImages = {
+    hero: wedding.gallery?.[0] || "",
+    countdown: wedding.gallery?.[1] || "",
+    weddingA: wedding.gallery?.[2] || "",
+    weddingB: wedding.gallery?.[3] || "",
+    quoteA: wedding.gallery?.[4] || "",
+    quoteB: wedding.gallery?.[5] || "",
+  };
+
+  // Section rendering loop based on wedding.sectionOrder (bật/tắt của người dùng)
   const defaultOrder = [
     "header", "wedding-info", "countdown", "quote", "gallery", "location", "rsvp", "wishes", "gifting", "footer"
   ];
-  const order = wedding.sectionOrder?.length ? wedding.sectionOrder : defaultOrder;
+  const order = visibleSectionKeys(wedding.sectionOrder, defaultOrder);
 
-  return (
+  const inner = (
     <main className="bg-paper min-h-screen">
       {order.map((sectionKey) => {
         switch (sectionKey) {
@@ -105,32 +119,58 @@ export default function Template1Wrapper({ wedding, mode }: WeddingTemplateProps
           case "card-opening":
             return (
               <Suspense key={sectionKey} fallback={null}>
-                <InvitationHeaderSection data={mappedData} />
+                <InvitationHeaderSection data={mappedData} heroImage={structureImages.hero} isBrideMode={isBrideMode} />
               </Suspense>
             );
           case "wedding-info":
-            return <WeddingInfoSection key={sectionKey} data={mappedData} />;
+            return (
+              <WeddingInfoSection
+                key={sectionKey}
+                data={mappedData}
+                photo1={structureImages.weddingA}
+                photo2={structureImages.weddingB}
+                isBrideMode={isBrideMode}
+              />
+            );
           case "countdown":
-            return <CountdownSection key={sectionKey} data={mappedData} />;
+            return <CountdownSection key={sectionKey} data={mappedData} image={structureImages.countdown} />;
           case "quote":
             return (
               <Suspense key={sectionKey} fallback={null}>
-                <QuoteSection data={mappedData} />
+                <QuoteSection data={mappedData} photo1={structureImages.quoteA} photo2={structureImages.quoteB} isBrideMode={isBrideMode} />
               </Suspense>
             );
           case "gallery":
             if (!wedding.gallery?.length) return null;
             return <GallerySection key={sectionKey} data={mappedData} />;
           case "location":
-            return <LocationSection key={sectionKey} data={mappedData} />;
+            return <LocationSection key={sectionKey} data={mappedData} isBrideMode={isBrideMode} />;
           case "rsvp":
-            return <RSVPSection key={sectionKey} />;
+            return (
+              <RSVPSection
+                key={sectionKey}
+                weddingId={wedding.id}
+                guestName={guestName}
+              />
+            );
           case "wishes":
-            return <WishesSection key={sectionKey} />;
+            return (
+              <WishesSection
+                key={sectionKey}
+                weddingId={wedding.id}
+                guestName={guestName}
+              />
+            );
           case "gifting":
             return <GiftingSection key={sectionKey} data={mappedData} />;
           case "footer":
-            return <FooterSection key={sectionKey} data={mappedData} />;
+            return (
+              <FooterSection
+                key={sectionKey}
+                data={mappedData}
+                isFreePlan={wedding.status !== "PUBLISHED"}
+              />
+            );
           default:
             return null;
         }
@@ -138,4 +178,14 @@ export default function Template1Wrapper({ wedding, mode }: WeddingTemplateProps
       {wedding.backgroundMusic && <BackgroundMusic url={wedding.backgroundMusic} />}
     </main>
   );
+
+  if (editOverlay?.onSlotClick) {
+    return (
+      <EditOverlayContext.Provider value={editOverlay}>
+        {inner}
+      </EditOverlayContext.Provider>
+    );
+  }
+
+  return inner;
 }

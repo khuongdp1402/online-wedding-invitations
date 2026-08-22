@@ -1,5 +1,6 @@
-import { PrismaClient, Plan } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { TEMPLATE_DEFS } from "./template-defs.cjs";
 
 const prisma = new PrismaClient();
 
@@ -33,75 +34,27 @@ async function main() {
     console.log("✅ Admin user already exists, role set to ADMIN:", ADMIN_EMAIL);
   }
 
-  // Xóa các template cũ
-  console.log("🧹 Clearing old templates...");
-  await prisma.template.deleteMany({});
-  
-  // Tạo 2 template chuẩn mới
-  console.log("📝 Creating standard templates...");
-  
-  const classicElegance = await prisma.template.create({
-    data: {
-      name: "Classic Elegance",
-      slug: "classic-elegance",
-      description: "Thiệp cưới mang phong cách truyền thống Việt Nam, tông màu đỏ burgundy & vàng gold thanh lịch.",
-      thumbnail: "/templates/template1-preview.png",
-      category: "classic",
-      isPremium: false,
-      minPlan: Plan.FREE,
-      config: {
-        sections: [
-          "header",
-          "wedding-info",
-          "countdown",
-          "quote",
-          "gallery",
-          "location",
-          "rsvp",
-          "wishes",
-          "gifting",
-          "footer",
-        ],
-        defaultColors: {
-          primary: "#800020",
-          accent: "#d4a853",
-          background: "#faf8f5",
-        },
-      },
-    },
-  });
+  // Upsert templates theo slug (an toàn với Wedding đang tham chiếu templateId)
+  console.log("📝 Upserting templates...");
 
-  const modernCinematic = await prisma.template.create({
-    data: {
-      name: "Modern Cinematic",
-      slug: "modern-cinematic",
-      description: "Thiệp cưới cuộn 3D hiện đại, hiệu ứng điện ảnh và kể chuyện tinh tế.",
-      thumbnail: "/templates/template2-preview.png",
-      category: "modern",
-      isPremium: true,
-      minPlan: Plan.STANDARD,
-      config: {
-        sections: [
-          "hero",
-          "story",
-          "journey",
-          "invitation",
-          "gallery",
-          "rsvp",
-        ],
-        defaultColors: {
-          primary: "#111111",
-          accent: "#f5f1ea",
-          background: "#000000",
-        },
-      },
-    },
-  });
+  // Định nghĩa dùng chung với scripts/seed-docker.cjs.
+  // File .cjs không mang theo kiểu enum Plan nên ép kiểu tại đây;
+  // lib/template-defs.test.ts kiểm tra mọi mẫu đều có price > 0.
+  const templateDefs =
+    TEMPLATE_DEFS as (Prisma.TemplateCreateInput & { slug: string })[];
 
-  console.log("✅ Templates seeded:", {
-    classicElegance: classicElegance.id,
-    modernCinematic: modernCinematic.id,
-  });
+  const results: Record<string, string> = {};
+  for (const def of templateDefs) {
+    const { slug, ...data } = def;
+    const template = await prisma.template.upsert({
+      where: { slug },
+      create: { slug, ...data },
+      update: data,
+    });
+    results[slug] = template.id;
+  }
+
+  console.log("✅ Templates seeded:", results);
 
   console.log("🎉 Seeding completed!");
 }

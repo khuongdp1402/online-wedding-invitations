@@ -1,10 +1,26 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+/**
+ * Danh sách mẫu thiệp công khai (dùng cho trang Bảng giá/Marketing) —
+ * chỉ trả field cần cho hiển thị giá, không lộ `config` nội bộ.
+ */
 export async function GET() {
   try {
     const templates = await prisma.template.findMany({
-      orderBy: [{ isPremium: "asc" }, { name: "asc" }],
+      orderBy: [{ price: "asc" }, { name: "asc" }],
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        description: true,
+        thumbnail: true,
+        category: true,
+        price: true,
+        salePrice: true,
+        saleStartsAt: true,
+        saleEndsAt: true,
+      },
     });
 
     return NextResponse.json({ templates });

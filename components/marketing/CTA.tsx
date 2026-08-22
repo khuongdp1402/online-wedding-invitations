@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Heart, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 export function CTA() {
+  const { data: session } = useSession();
+  const ctaHref = session ? "/dashboard/weddings/new" : "/login";
+
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background */}
@@ -35,7 +39,7 @@ export function CTA() {
             nay, không cần thẻ tín dụng.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/login">
+            <Link href={ctaHref}>
               <Button
                 size="lg"
                 className="bg-white text-rose-600 hover:bg-rose-50 h-14 px-8 text-lg rounded-full shadow-xl"

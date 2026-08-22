@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import type { WeddingTemplateProps } from "@/lib/template-registry";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
 type Props = {
   wedding: WeddingTemplateProps["wedding"];
@@ -11,7 +12,9 @@ type Props = {
 };
 
 export function Location({ wedding, mode }: Props) {
-  const ceremony = mode === "bride" ? wedding.brideCeremony : wedding.groomCeremony;
+  const edit = useEditOverlay();
+  const isBrideMode = mode === "bride";
+  const ceremony = isBrideMode ? wedding.brideCeremony : wedding.groomCeremony;
 
   return (
     <Section id="dia-diem" className="relative lg:py-32">
@@ -20,8 +23,19 @@ export function Location({ wedding, mode }: Props) {
           <div className="grid gap-16 md:grid-cols-12 md:gap-20 items-center">
             <div className="md:col-span-5 text-center md:text-left">
               <h2 className="cb-text-primary uppercase tracking-[0.25em] text-base sm:text-lg mb-6 font-bold">Địa điểm tổ chức</h2>
-              <h3 className="text-4xl sm:text-5xl lg:text-6xl font-serif cb-text-body font-bold leading-tight mb-6" style={{ color: 'var(--cb-text)' }}>{ceremony.venue}</h3>
-              <p className="text-xl sm:text-2xl cb-text-body leading-relaxed mb-10 max-w-md mx-auto md:mx-0 font-medium">{ceremony.address}</p>
+              <h3
+                className={editSlotClass(edit, isBrideMode ? "cb-bride-venue" : "cb-groom-venue", "text-4xl sm:text-5xl lg:text-6xl font-heading cb-text-body font-bold leading-tight mb-6")}
+                style={{ color: 'var(--cb-text)' }}
+                onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-venue" : "cb-groom-venue", e.currentTarget); }}
+              >
+                {ceremony.venue}
+              </h3>
+              <p
+                className={editSlotClass(edit, isBrideMode ? "cb-bride-address" : "cb-groom-address", "text-xl sm:text-2xl cb-text-body leading-relaxed mb-10 max-w-md mx-auto md:mx-0 font-medium")}
+                onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(isBrideMode ? "cb-bride-address" : "cb-groom-address", e.currentTarget); }}
+              >
+                {ceremony.address}
+              </p>
 
               <div className="flex flex-col gap-4">
                 {ceremony.googleMapsUrl && (

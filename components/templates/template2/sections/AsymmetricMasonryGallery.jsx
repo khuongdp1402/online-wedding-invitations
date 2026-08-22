@@ -6,12 +6,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AsymmetricMasonryGallery({ chapter }) {
   const containerRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const editCtx = useEditOverlay();
 
   // Fallback images if not provided
   const rawImages = chapter?.images || [];
@@ -131,15 +133,18 @@ export default function AsymmetricMasonryGallery({ chapter }) {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="w-full py-24 min-h-screen relative bg-[#F9F6F0] text-[#4A3728] overflow-x-hidden">
+    <div ref={containerRef} className="w-full py-24 min-h-screen relative bg-[#F9F6F0] text-[var(--color-text-primary)] overflow-x-hidden">
       
       {chapter?.title && (
         <div className="container mx-auto px-4 lg:px-8 mb-12 text-center">
-          <h2 className="text-[50px] md:text-[80px] font-[family-name:var(--font-serif-display)] text-[#4A3728] leading-none">
+          <h2 className="text-[50px] md:text-[80px] font-[family-name:var(--font-serif-display)] text-[var(--color-text-primary)] leading-none">
             {chapter.title}
           </h2>
           {chapter.quote && (
-            <p className="mt-4 text-[12px] md:text-sm tracking-[0.2em] font-sans text-[#4A3728]/70 uppercase">
+            <p
+              className={editSlotClass(editCtx, "mc-quote", "mt-4 text-[12px] md:text-sm tracking-[0.2em] font-sans text-[color-mix(in_srgb,var(--color-text-primary)_70%,transparent)] uppercase")}
+              onClick={(e) => { e.stopPropagation(); editCtx?.onSlotClick?.("mc-quote", e.currentTarget); }}
+            >
               {chapter.quote}
             </p>
           )}

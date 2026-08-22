@@ -48,7 +48,8 @@ type WeddingDetailProps = {
     id: string;
     slug: string;
     status: string;
-    plan: string;
+    expiresAt?: string | null;
+    purchasePrice?: number | null;
     groomName: string;
     brideName: string;
     groomParents: { father?: string; mother?: string };
@@ -99,12 +100,15 @@ const statusConfig: Record<string, { label: string; variant: "default" | "second
   EXPIRED: { label: "Hết hạn", variant: "destructive" },
 };
 
-const planConfig: Record<string, string> = {
-  FREE: "Miễn phí",
-  BASIC: "Cơ bản - 500k",
-  STANDARD: "Tiêu chuẩn - 1tr",
-  PREMIUM: "Cao cấp - 2tr",
-};
+function formatExpiry(value?: string | null): { label: string; className: string } {
+  if (!value) return { label: "—", className: "text-gray-500" };
+  const date = new Date(value);
+  const daysLeft = Math.ceil((date.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+  const label = date.toLocaleDateString("vi-VN");
+  if (daysLeft < 0) return { label: `${label} (đã hết hạn)`, className: "text-red-600" };
+  if (daysLeft <= 7) return { label: `${label} (còn ${daysLeft} ngày)`, className: "text-amber-600" };
+  return { label, className: "text-gray-700" };
+}
 
 export function WeddingDetail({ wedding, analytics }: WeddingDetailProps) {
   const router = useRouter();
@@ -172,7 +176,10 @@ export function WeddingDetail({ wedding, analytics }: WeddingDetailProps) {
             <Badge variant={status.variant}>{status.label}</Badge>
           </div>
           <p className="text-gray-500 mt-1">
-            {wedding.template.name} · {planConfig[wedding.plan]}
+            {wedding.template.name}
+            {wedding.status === "PUBLISHED" && wedding.purchasePrice != null && (
+              <> · Đã trả {wedding.purchasePrice.toLocaleString("vi-VN")}đ</>
+            )}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -191,13 +198,12 @@ export function WeddingDetail({ wedding, analytics }: WeddingDetailProps) {
               <Edit className="w-4 h-4 mr-1.5" /> Chỉnh sửa
             </Button>
           </Link>
-          {wedding.status !== "PUBLISHED" && (
-            <Link href={`/dashboard/weddings/${wedding.id}/publish`}>
-              <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700">
-                <ExternalLink className="w-4 h-4 mr-1.5" /> Xuất bản
-              </Button>
-            </Link>
-          )}
+          <Link href={`/dashboard/weddings/${wedding.id}/publish`}>
+            <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700">
+              <ExternalLink className="w-4 h-4 mr-1.5" />
+              {wedding.status === "PUBLISHED" ? "Gia hạn" : "Xuất bản"}
+            </Button>
+          </Link>
         </div>
       </div>
 
@@ -231,7 +237,12 @@ export function WeddingDetail({ wedding, analytics }: WeddingDetailProps) {
           <CardContent className="pt-4 pb-4">
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-rose-500" />
-              <div><p className="text-xs text-gray-500">Gói</p><p className="text-lg font-bold">{planConfig[wedding.plan]}</p></div>
+              <div>
+                <p className="text-xs text-gray-500">Hạn sử dụng</p>
+                <p className={`text-lg font-bold ${formatExpiry(wedding.expiresAt).className}`}>
+                  {wedding.status === "PUBLISHED" ? formatExpiry(wedding.expiresAt).label : "Chưa xuất bản"}
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

@@ -6,6 +6,7 @@ import { Gift, Copy, CreditCard, Home, Phone, ChevronDown, ChevronUp } from "luc
 import type { InvitationData } from "./lib/invitation";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
+import { buildVietQrUrl } from "@/lib/vietqr";
 
 type GiftingSectionProps = {
     data: InvitationData;
@@ -16,7 +17,24 @@ export function GiftingSection({ data }: GiftingSectionProps) {
     const [copiedId, setCopiedId] = useState<string | null>(null);
 
     const gifting = data.gifting;
-    if (!gifting) return null;
+
+    const groomQrUrl = buildVietQrUrl({
+        bankName: gifting?.groom?.bankName ?? "",
+        accountNumber: gifting?.groom?.accountNumber ?? "",
+        accountHolder: gifting?.groom?.accountName,
+        message: "Mung cuoi",
+    });
+    const brideQrUrl = buildVietQrUrl({
+        bankName: gifting?.bride?.bankName ?? "",
+        accountNumber: gifting?.bride?.accountNumber ?? "",
+        accountHolder: gifting?.bride?.accountName,
+        message: "Mung cuoi",
+    });
+
+    // Chưa nhập tài khoản bên nào thì ẩn hẳn khối, tránh hiện thẻ rỗng.
+    const hasGroom = Boolean(gifting?.groom?.accountNumber?.trim());
+    const hasBride = Boolean(gifting?.bride?.accountNumber?.trim());
+    if (!gifting || (!hasGroom && !hasBride)) return null;
 
     const copyToClipboard = (text: string, id: string) => {
         navigator.clipboard.writeText(text);
@@ -32,7 +50,7 @@ export function GiftingSection({ data }: GiftingSectionProps) {
                         <div className="flex justify-center mb-4">
                             <Gift className="w-10 h-10 text-burgundy opacity-40" />
                         </div>
-                        <h2 className="text-3xl sm:text-4xl font-serif text-ink-dark leading-tight mb-4">
+                        <h2 className="text-3xl sm:text-4xl font-heading text-ink-dark leading-tight mb-4">
                             Gửi Quà Yêu Thương
                         </h2>
                         <div className="gold-divider w-16 mx-auto mb-6" />
@@ -66,23 +84,28 @@ export function GiftingSection({ data }: GiftingSectionProps) {
                             transition={{ duration: 0.5, ease: "easeInOut" }}
                             className="overflow-hidden mt-12"
                         >
-                            <div className="grid gap-8 md:grid-cols-2 lg:gap-12">
+                            <div className={`grid gap-8 lg:gap-12 ${hasGroom && hasBride ? "md:grid-cols-2" : "max-w-md mx-auto"}`}>
                                 {/* Groom's Gift Card */}
+                                {hasGroom && (
                                 <div className="bg-white/60 backdrop-blur-md rounded-[32px] border border-gold/10 p-8 shadow-card flex flex-col items-center">
                                     <div className="mb-6 text-center">
                                         <p className="text-[10px] tracking-[0.3em] uppercase text-burgundy font-bold mb-2">Chú rể</p>
-                                        <p className="text-xl font-serif text-ink-dark font-bold">{data.groom.name}</p>
+                                        <p className="text-xl font-heading text-ink-dark font-bold">{data.groom.name}</p>
                                     </div>
 
-                                    {/* QR Code Placeholder/Generated */}
-                                    <div className="bg-white p-4 rounded-2xl shadow-inner border border-gold/5 mb-6 relative group overflow-hidden">
-                                        <img
-                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=STK:${gifting.groom.accountNumber}|Bank:${gifting.groom.bankName}`}
-                                            alt="QR Mã Chú Rể"
-                                            className="w-40 h-40 sm:w-48 sm:h-48 object-contain opacity-90 transition-opacity group-hover:opacity-100"
-                                        />
-                                        <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                                    </div>
+                                    {/* QR chuẩn VietQR — quét bằng app ngân hàng
+                                        là tự điền số tài khoản. Ẩn nếu chưa
+                                        nhận diện được ngân hàng. */}
+                                    {groomQrUrl && (
+                                        <div className="bg-white p-4 rounded-2xl shadow-inner border border-gold/5 mb-6 relative group overflow-hidden">
+                                            <img
+                                                src={groomQrUrl}
+                                                alt="QR Mã Chú Rể"
+                                                className="w-40 h-40 sm:w-48 sm:h-48 object-contain opacity-90 transition-opacity group-hover:opacity-100"
+                                            />
+                                            <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                                        </div>
+                                    )}
 
                                     <div className="w-full space-y-4">
                                         {/* Bank Info */}
@@ -104,34 +127,42 @@ export function GiftingSection({ data }: GiftingSectionProps) {
 
                                         {/* Shipping Info */}
                                         <div className="p-4 rounded-xl bg-gold/[0.03] border border-gold/10 space-y-3">
-                                            <div className="flex items-start gap-3">
-                                                <Home className="w-5 h-5 text-gold/60 mt-0.5" />
-                                                <p className="text-sm text-ink leading-relaxed font-medium">{gifting.groom.address}</p>
-                                            </div>
-                                            <div className="flex items-center gap-3">
-                                                <Phone className="w-5 h-5 text-gold/60" />
-                                                <p className="text-sm text-ink-dark font-bold">{gifting.groom.phone}</p>
-                                            </div>
+                                            {gifting.groom.address && (
+                                                <div className="flex items-start gap-3">
+                                                    <Home className="w-5 h-5 text-gold/60 mt-0.5" />
+                                                    <p className="text-sm text-ink leading-relaxed font-medium">{gifting.groom.address}</p>
+                                                </div>
+                                            )}
+                                            {gifting.groom.phone && (
+                                                <div className="flex items-center gap-3">
+                                                    <Phone className="w-5 h-5 text-gold/60" />
+                                                    <p className="text-sm text-ink-dark font-bold">{gifting.groom.phone}</p>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
+                                )}
 
                                 {/* Bride's Gift Card */}
+                                {hasBride && (
                                 <div className="bg-white/60 backdrop-blur-md rounded-[32px] border border-gold/10 p-8 shadow-card flex flex-col items-center">
                                     <div className="mb-6 text-center">
                                         <p className="text-[10px] tracking-[0.3em] uppercase text-burgundy font-bold mb-2">Cô dâu</p>
-                                        <p className="text-xl font-serif text-ink-dark font-bold">{data.bride.name}</p>
+                                        <p className="text-xl font-heading text-ink-dark font-bold">{data.bride.name}</p>
                                     </div>
 
-                                    {/* QR Code Placeholder/Generated */}
-                                    <div className="bg-white p-4 rounded-2xl shadow-inner border border-gold/5 mb-6 relative group overflow-hidden">
-                                        <img
-                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=STK:${gifting.bride.accountNumber}|Bank:${gifting.bride.bankName}`}
-                                            alt="QR Mã Cô Dâu"
-                                            className="w-40 h-40 sm:w-48 sm:h-48 object-contain opacity-90 transition-opacity group-hover:opacity-100"
-                                        />
-                                        <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                                    </div>
+                                    {/* QR chuẩn VietQR — xem chú thích ở thẻ chú rể */}
+                                    {brideQrUrl && (
+                                        <div className="bg-white p-4 rounded-2xl shadow-inner border border-gold/5 mb-6 relative group overflow-hidden">
+                                            <img
+                                                src={brideQrUrl}
+                                                alt="QR Mã Cô Dâu"
+                                                className="w-40 h-40 sm:w-48 sm:h-48 object-contain opacity-90 transition-opacity group-hover:opacity-100"
+                                            />
+                                            <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                                        </div>
+                                    )}
 
                                     <div className="w-full space-y-4">
                                         {/* Bank Info */}
@@ -153,17 +184,22 @@ export function GiftingSection({ data }: GiftingSectionProps) {
 
                                         {/* Shipping Info */}
                                         <div className="p-4 rounded-xl bg-gold/[0.03] border border-gold/10 space-y-3">
-                                            <div className="flex items-start gap-3">
-                                                <Home className="w-5 h-5 text-gold/60 mt-0.5" />
-                                                <p className="text-sm text-ink leading-relaxed font-medium">{gifting.bride.address}</p>
-                                            </div>
-                                            <div className="flex items-center gap-3">
-                                                <Phone className="w-5 h-5 text-gold/60" />
-                                                <p className="text-sm text-ink-dark font-bold">{gifting.bride.phone}</p>
-                                            </div>
+                                            {gifting.bride.address && (
+                                                <div className="flex items-start gap-3">
+                                                    <Home className="w-5 h-5 text-gold/60 mt-0.5" />
+                                                    <p className="text-sm text-ink leading-relaxed font-medium">{gifting.bride.address}</p>
+                                                </div>
+                                            )}
+                                            {gifting.bride.phone && (
+                                                <div className="flex items-center gap-3">
+                                                    <Phone className="w-5 h-5 text-gold/60" />
+                                                    <p className="text-sm text-ink-dark font-bold">{gifting.bride.phone}</p>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
+                                )}
                             </div>
                         </motion.div>
                     )}

@@ -1,5 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
-import { calculateExpiryDate } from "@/lib/payment";
+import { applyCompletedPayment } from "@/lib/payment-completion";
 
 /**
  * Hoàn tất thanh toán VNPay một lần (idempotent): chỉ cập nhật khi payment còn PENDING.
@@ -44,16 +44,10 @@ export async function completeVnPayIfPending(
       return { ok: false, reason: "stale" };
     }
 
-    const expiresAt = calculateExpiryDate(pay.plan);
-    await tx.wedding.update({
-      where: { id: pay.weddingId },
-      data: {
-        status: "PUBLISHED",
-        plan: pay.plan,
-        paidAt: new Date(),
-        expiresAt,
-      },
+    const completed = await tx.payment.findUniqueOrThrow({
+      where: { id: orderId },
     });
+    await applyCompletedPayment(tx, completed);
 
     return {
       ok: true,

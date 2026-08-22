@@ -87,7 +87,7 @@ export function Wishes({ weddingId }: WishesProps) {
             <div className="lg:col-span-12 xl:col-span-5">
               <div className="sticky top-24">
                 <p className="text-sm tracking-[0.42em] uppercase cb-text-primary font-bold">Gửi lời chúc &amp; Xác nhận</p>
-                <h2 className="mt-4 text-4xl sm:text-5xl font-serif cb-text-body leading-tight" style={{ color: 'var(--cb-text)' }}>
+                <h2 className="mt-4 text-4xl sm:text-5xl font-heading cb-text-body leading-tight" style={{ color: 'var(--cb-text)' }}>
                   Lời chúc gửi trao,<br />Niềm vui trọn vẹn.
                 </h2>
                 <p className="mt-6 text-base sm:text-lg cb-text-body leading-relaxed mb-10 font-medium">
@@ -192,7 +192,7 @@ export function Wishes({ weddingId }: WishesProps) {
                           style={{ borderColor: 'color-mix(in srgb, var(--cb-accent) 10%, transparent)', borderLeftColor: 'color-mix(in srgb, var(--cb-primary) 40%, transparent)' }}
                         >
                           <p className="text-[10px] tracking-[0.3em] uppercase cb-text-primary font-bold mb-4">{wish.name}</p>
-                          <p className="text-base sm:text-lg cb-text-body leading-relaxed font-serif italic relative z-10 opacity-80">&ldquo;{wish.message}&rdquo;</p>
+                          <p className="text-base sm:text-lg cb-text-body leading-relaxed font-heading italic relative z-10 opacity-80">&ldquo;{wish.message}&rdquo;</p>
                         </motion.div>
                       ))}
                     </div>

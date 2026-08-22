@@ -38,8 +38,8 @@ export function WeddingInfo({ wedding, isBrideMode }: InfoProps) {
 
       {/* Ceremony Details */}
       <div className="pt-8 space-y-8">
-        <div className="inline-block p-1 border border-[#b9856f]/30">
-          <div className="border border-[#b9856f]/10 p-4">
+        <div className="inline-block p-1 border border-[color-mix(in_srgb,var(--secondary)_30%,transparent)]">
+          <div className="border border-[color-mix(in_srgb,var(--secondary)_10%,transparent)] p-4">
              <p className="font-script text-3xl mb-2">Save the Date</p>
              <p className="text-2xl font-bold">10 . 05 . 2026</p>
              <p className="text-xs uppercase tracking-widest opacity-60">(10 tháng 4 năm Bính Ngọ)</p>
@@ -47,7 +47,7 @@ export function WeddingInfo({ wedding, isBrideMode }: InfoProps) {
         </div>
 
         <div className="space-y-4">
-          <p className="font-script text-3xl text-[#b9856f]">Wedding Ceremony</p>
+          <p className="font-script text-3xl text-[var(--secondary)]">Wedding Ceremony</p>
           <div className="space-y-2 text-sm italic opacity-80">
             <p>{isBrideMode ? wedding.brideCeremony.ceremonyTime : wedding.groomCeremony.ceremonyTime}</p>
             <p className="font-bold uppercase not-italic tracking-tighter text-lg">

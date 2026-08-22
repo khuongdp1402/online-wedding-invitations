@@ -15,7 +15,8 @@ import { BackgroundMusic } from "./BackgroundMusic";
 import { ModeSwitcher } from "./ModeSwitcher";
 import { resolveClassicBurgundyStructureGallery } from "@/lib/classic-burgundy-sample-gallery";
 import { CLASSIC_BURGUNDY_ALBUM_START_INDEX } from "@/lib/wedding-image-slots";
-import { EditOverlayContext } from "./EditOverlayContext";
+import { EditOverlayContext } from "@/components/templates/shared/EditOverlayContext";
+import { visibleSectionKeys } from "@/lib/section-config";
 import "./classic-burgundy.css";
 
 const DEFAULT_SECTIONS = [
@@ -61,25 +62,20 @@ export default function ClassicBurgundyTemplate({
         "--cb-primary": wedding.primaryColor ?? "#800020",
         "--cb-accent": wedding.accentColor ?? "#d4a853",
         "--cb-bg": wedding.backgroundColor ?? "#FDFBF7",
-        "--cb-text": "#4A4A4A",
-        "--cb-font": wedding.fontFamily ?? "var(--cb-font-serif)",
+        "--cb-text": wedding.textColor ?? "#4A4A4A",
       }) as React.CSSProperties,
     [
       wedding.primaryColor,
       wedding.accentColor,
       wedding.backgroundColor,
-      wedding.fontFamily,
+      wedding.textColor,
     ]
   );
 
-  const sectionOrder =
-    wedding.sectionOrder && wedding.sectionOrder.length > 0
-      ? wedding.sectionOrder.filter((id) => DEFAULT_SECTIONS.includes(id))
-      : DEFAULT_SECTIONS;
-  const ordered = useMemo(() => {
-    const set = new Set(sectionOrder);
-    return [...sectionOrder, ...DEFAULT_SECTIONS.filter((id) => !set.has(id))];
-  }, [sectionOrder]);
+  const ordered = useMemo(
+    () => visibleSectionKeys(wedding.sectionOrder, DEFAULT_SECTIONS),
+    [wedding.sectionOrder]
+  );
 
   const sectionMap: Record<string, React.ReactNode> = useMemo(
     () => ({
@@ -134,7 +130,7 @@ export default function ClassicBurgundyTemplate({
         ...themeVars,
         backgroundColor: "var(--cb-bg)",
         color: "var(--cb-text)",
-        fontFamily: "var(--cb-font)",
+        fontFamily: "var(--font-body)",
       }}
     >
       <Suspense fallback={null}>

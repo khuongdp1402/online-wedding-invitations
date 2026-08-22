@@ -13,6 +13,8 @@ import {
   Menu,
   X,
   Shield,
+  Tag,
+  Ticket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
@@ -41,9 +43,28 @@ const navigation = [
   },
 ];
 
+const adminNavigation = [
+  {
+    name: "Quản trị",
+    href: "/admin",
+    icon: Shield,
+  },
+  {
+    name: "Giá mẫu thiệp",
+    href: "/admin/templates",
+    icon: Tag,
+  },
+  {
+    name: "Mã giảm giá",
+    href: "/admin/coupons",
+    icon: Ticket,
+  },
+];
+
 export function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const items = isAdmin ? [...navigation, ...adminNavigation] : navigation;
 
   const SidebarContent = () => (
     <>
@@ -55,10 +76,12 @@ export function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1">
-        {navigation.map((item) => {
+        {items.map((item) => {
           const isActive =
             pathname === item.href ||
-            (item.href !== "/dashboard" && pathname.startsWith(item.href));
+            (item.href !== "/dashboard" &&
+              item.href !== "/admin" &&
+              pathname.startsWith(item.href));
           return (
             <Link
               key={item.name}

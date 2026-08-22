@@ -48,7 +48,7 @@ export function BackgroundMusic({ url }: { url: string }) {
             setIsPlaying(!isPlaying);
           }}
           className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-colors ${
-            isPlaying ? 'bg-[#422114] text-white' : 'bg-white text-[#422114] border border-[#422114]/10'
+            isPlaying ? 'bg-[var(--primary)] text-white' : 'bg-white text-[var(--primary)] border border-[color-mix(in_srgb,var(--primary)_10%,transparent)]'
           }`}
         >
           <AnimatePresence mode="wait">
@@ -70,7 +70,7 @@ export function BackgroundMusic({ url }: { url: string }) {
 
           {/* Pulsing rings when playing */}
           {isPlaying && (
-            <span className="absolute inset-0 rounded-full bg-[#422114] animate-ping opacity-20" />
+            <span className="absolute inset-0 rounded-full bg-[var(--primary)] animate-ping opacity-20" />
           )}
         </motion.button>
       </div>

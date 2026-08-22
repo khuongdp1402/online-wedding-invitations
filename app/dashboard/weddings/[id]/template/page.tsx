@@ -19,7 +19,7 @@ export default async function TemplatePage({
   if (!wedding) notFound();
 
   const templates = await prisma.template.findMany({
-    orderBy: [{ isPremium: "asc" }, { name: "asc" }],
+    orderBy: [{ price: "asc" }, { name: "asc" }],
   });
 
   return (

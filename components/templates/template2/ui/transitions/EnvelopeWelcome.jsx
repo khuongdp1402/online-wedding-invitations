@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { weddingData } from '@/config/weddingData';
+import { useWeddingData } from '../../StoryEngine';
+import { weddingData as staticWeddingData } from '../../config/weddingData';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -18,10 +19,13 @@ export default function EnvelopeWelcome({ guestName, side }) {
   
   const tl = useRef(null);
 
+  const contextData = useWeddingData();
+  const activeWeddingData = contextData || staticWeddingData;
+
   // Lấy ngày cưới theo side
-  const weddingDate = side === 'nhagai' 
-    ? weddingData.nhagai.ceremony.dateSolar 
-    : weddingData.nhatrai.ceremony.dateSolar;
+  const weddingDate = (side === 'nhagai' 
+    ? activeWeddingData?.nhagai?.ceremony?.dateSolar 
+    : activeWeddingData?.nhatrai?.ceremony?.dateSolar) || "";
 
   // Lock scroll when envelope is visible
   useEffect(() => {
@@ -98,17 +102,17 @@ export default function EnvelopeWelcome({ guestName, side }) {
         {/* Inner Card */}
         <div 
           ref={innerCardRef}
-          className="absolute top-10 w-[95%] h-[90%] bg-[#FFF8DC] shadow-md rounded-md z-10 flex flex-col items-center justify-center border border-[#D4AF37]/30"
+          className="absolute top-10 w-[95%] h-[90%] bg-[#FFF8DC] shadow-md rounded-md z-10 flex flex-col items-center justify-center border border-[color-mix(in_srgb,var(--color-gold)_30%,transparent)]"
           style={{ backgroundImage: 'radial-gradient(circle at center, #FFF8DC 0%, #FDF5E6 100%)' }}
         >
            <div className="text-center">
-              <p className="text-sm md:text-base font-light text-[#7a1f24] tracking-[0.2em] uppercase">Save the Date</p>
-              <p className="text-4xl md:text-5xl font-calligraphy text-[#D4AF37] mt-4 mb-2">{side === 'nhagai' ? 'Hiền & Khương' : 'Khương & Hiền'}</p>
+               <p className="text-sm md:text-base font-light text-[#7a1f24] tracking-[0.2em] uppercase">Save the Date</p>
+               <p className="text-4xl md:text-5xl font-calligraphy text-[var(--color-gold)] mt-4 mb-2">{side === 'nhagai' ? `${activeWeddingData.couple.bride.firstName} & ${activeWeddingData.couple.groom.firstName}` : `${activeWeddingData.couple.groom.firstName} & ${activeWeddingData.couple.bride.firstName}`}</p>
            </div>
         </div>
 
         {/* Bottom/Main Envelope Body */}
-        <div ref={envelopeBodyRef} className="absolute bottom-0 w-full h-[85%] bg-[#5a1519] rounded-t-3xl rounded-b-lg shadow-2xl z-20 flex flex-col items-center justify-end pb-8 md:pb-12 border-t-2 border-[#D4AF37]/50 overflow-hidden">
+        <div ref={envelopeBodyRef} className="absolute bottom-0 w-full h-[85%] bg-[#5a1519] rounded-t-3xl rounded-b-lg shadow-2xl z-20 flex flex-col items-center justify-end pb-8 md:pb-12 border-t-2 border-[color-mix(in_srgb,var(--color-gold)_50%,transparent)] overflow-hidden">
           <div className="text-center flex flex-col items-center">
             {/* Lời Xin chào nét mảnh */}
             <div className="h-16 md:h-24 w-[150%] md:w-full relative flex items-center justify-center">
@@ -119,7 +123,7 @@ export default function EnvelopeWelcome({ guestName, side }) {
                   y="50%"
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  className="font-calligraphy text-5xl md:text-6xl stroke-[#D4AF37]"
+                  className="font-calligraphy text-5xl md:text-6xl stroke-[var(--color-gold)]"
                   style={{ strokeWidth: 0.2, fill: "rgba(212, 175, 55, 0)" }}
                 >
                   Xin chào {guestName ? guestName : "bạn"}
@@ -138,17 +142,17 @@ export default function EnvelopeWelcome({ guestName, side }) {
         <div
           ref={topFlapRef}
           style={{ transformOrigin: "top", backfaceVisibility: "hidden" }}
-          className="absolute top-0 w-full h-[55%] bg-[#7a1f24] drop-shadow-lg z-30 flex flex-col justify-center items-center pb-8 rounded-b-[50%] border-b border-[#D4AF37]/50"
+          className="absolute top-0 w-full h-[55%] bg-[#7a1f24] drop-shadow-lg z-30 flex flex-col justify-center items-center pb-8 rounded-b-[50%] border-b border-[color-mix(in_srgb,var(--color-gold)_50%,transparent)]"
         >
           {/* Nội dung trên nắp phong bì */}
           <div className="text-center space-y-2 mt-4 md:mt-8 pointer-events-none">
             <p className="text-sm md:text-base font-light text-[#FDF5E6] tracking-[0.2em] uppercase">
               Save the Date
             </p>
-            <p className="text-5xl md:text-6xl font-calligraphy text-[#D4AF37] mt-2 mb-2 drop-shadow-sm">
-              {side === 'nhagai' ? 'Hiền & Khương' : 'Khương & Hiền'}
-            </p>
-            <p className="text-lg md:text-xl font-medium text-[#D4AF37] tracking-widest drop-shadow-sm">
+             <p className="text-5xl md:text-6xl font-calligraphy text-[var(--color-gold)] mt-2 mb-2 drop-shadow-sm">
+               {side === 'nhagai' ? `${activeWeddingData.couple.bride.firstName} & ${activeWeddingData.couple.groom.firstName}` : `${activeWeddingData.couple.groom.firstName} & ${activeWeddingData.couple.bride.firstName}`}
+             </p>
+            <p className="text-lg md:text-xl font-medium text-[var(--color-gold)] tracking-widest drop-shadow-sm">
               {weddingDate.replace(/\//g, '.')}
             </p>
           </div>
@@ -157,7 +161,7 @@ export default function EnvelopeWelcome({ guestName, side }) {
           <div 
             ref={waxSealRef}
             onClick={handleOpen}
-            className="absolute -bottom-10 md:-bottom-12 w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-[#E2B75A] via-[#D4AF37] to-[#AA7C11] cursor-pointer shadow-xl border-[3px] border-[#D4AF37] flex items-center justify-center pointer-events-auto"
+            className="absolute -bottom-10 md:-bottom-12 w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-[#E2B75A] via-[var(--color-gold)] to-[#AA7C11] cursor-pointer shadow-xl border-[3px] border-[var(--color-gold)] flex items-center justify-center pointer-events-auto"
             style={{
               boxShadow: "0 10px 15px -3px rgba(170, 124, 17, 0.4), inset 0 0 12px rgba(255,255,255,0.4)",
               transformOrigin: "center"

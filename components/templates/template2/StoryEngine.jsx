@@ -20,6 +20,7 @@ import EditorialInvitation from "./sections/EditorialInvitation";
 import EditorialRSVP from "./sections/EditorialRSVP";
 import MouseTrailGallerySection from "./sections/MouseTrailGallerySection";
 import HorizontalMarqueeGallery from "./sections/HorizontalMarqueeGallery";
+import { WatermarkBadge } from "@/components/templates/shared/WatermarkBadge";
 
 // Contexts
 export const AudioContext = createContext(null);
@@ -27,6 +28,9 @@ export const useAudio = () => useContext(AudioContext);
 
 export const GuestContext = createContext({ side: "nhatrai", guestName: "Quý Khách", guestRole: "" });
 export const useGuest = () => useContext(GuestContext);
+
+export const WeddingDataContext = createContext(null);
+export const useWeddingData = () => useContext(WeddingDataContext);
 
 export default function StoryEngine({ side = "nhatrai", guestName = "Quý Khách", guestRole = "", weddingData }) {
   const bgRef = useRef(null);
@@ -120,48 +124,56 @@ export default function StoryEngine({ side = "nhatrai", guestName = "Quý Khách
   return (
     <AudioContext.Provider value={audioRef}>
       <GuestContext.Provider value={{ side, guestName, guestRole }}>
-        <div 
-          ref={containerRef} 
-          className={`relative w-full ${!hasStarted ? "h-screen overflow-hidden" : ""}`}
-        >
-          <audio ref={audioRef} src={weddingData.audio.bgmUrl} loop preload="auto" />
+        <WeddingDataContext.Provider value={weddingData}>
+          <div 
+            ref={containerRef} 
+            className={`relative w-full ${!hasStarted ? "h-screen overflow-hidden" : ""}`}
+          >
+            <audio ref={audioRef} src={weddingData.audio.bgmUrl} loop preload="auto" />
 
-          <div
-            ref={bgRef}
-            className="fixed inset-0 z-0"
-            style={{ backgroundColor: "#000000" }}
-          />
+            <div
+              ref={bgRef}
+              className="fixed inset-0 z-0"
+              style={{ backgroundColor: "#000000" }}
+            />
 
-          <FallingParticles />
-          <MusicToggle />
+            <FallingParticles />
+            <MusicToggle />
 
-          {heroChapter && (
-            <section
-              id={heroChapter.id}
-              data-theme={heroChapter.theme}
-              className="story-chapter nav-chapter w-full relative z-10"
-              style={{ backgroundColor: heroChapter.theme || "#000000" }}
-            >
-              <HeroSection chapter={heroChapter} hasStarted={hasStarted} setHasStarted={setHasStarted} />
-            </section>
-          )}
-
-          <div className="relative z-10 w-full flex flex-col">
-            {otherChapters.map((chapter) => (
+            {heroChapter && (
               <section
-                key={chapter.id}
-                id={chapter.id}
-                data-theme={chapter.theme}
-                className={`${chapter.layoutType === "asymmetric-left" ? "" : "story-chapter"} nav-chapter w-full`}
-                style={{ 
-                  backgroundColor: chapter.theme || "#ffffff"
-                }}
+                id={heroChapter.id}
+                data-theme={heroChapter.theme}
+                className="story-chapter nav-chapter w-full relative z-10"
+                style={{ backgroundColor: heroChapter.theme || "#000000" }}
               >
-                {renderChapter(chapter)}
+                <HeroSection chapter={heroChapter} hasStarted={hasStarted} setHasStarted={setHasStarted} />
               </section>
-            ))}
+            )}
+
+            <div className="relative z-10 w-full flex flex-col">
+              {otherChapters.map((chapter) => (
+                <section
+                  key={chapter.id}
+                  id={chapter.id}
+                  data-theme={chapter.theme}
+                  className={`${chapter.layoutType === "asymmetric-left" ? "" : "story-chapter"} nav-chapter w-full`}
+                  style={{ 
+                    backgroundColor: chapter.theme || "#ffffff"
+                  }}
+                >
+                  {renderChapter(chapter)}
+                </section>
+              ))}
+            </div>
+
+            {!weddingData.isPublished && (
+              <div className="relative z-10 w-full flex justify-center py-6 bg-black">
+                <WatermarkBadge className="text-white" />
+              </div>
+            )}
           </div>
-        </div>
+        </WeddingDataContext.Provider>
       </GuestContext.Provider>
     </AudioContext.Provider>
   );

@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Heart, Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 
 export function Hero() {
+  const { data: session } = useSession();
+  const ctaHref = session ? "/dashboard/weddings/new" : "/login";
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
@@ -82,7 +86,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Link href="/login">
+            <Link href={ctaHref}>
               <Button
                 size="lg"
                 className="bg-rose-600 hover:bg-rose-700 text-white h-14 px-8 text-lg rounded-full shadow-lg shadow-rose-200"

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { DRAFT_MAX_GUESTS } from "@/lib/payment";
 
 export async function GET(
   _request: Request,
@@ -48,7 +49,7 @@ export async function POST(
     // Verify ownership
     const wedding = await prisma.wedding.findFirst({
       where: { id: params.id, userId: session.user.id },
-      select: { id: true, slug: true },
+      select: { id: true, slug: true, status: true },
     });
     if (!wedding) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -62,6 +63,22 @@ export async function POST(
         { error: "Tên khách mời không được để trống" },
         { status: 400 }
       );
+    }
+
+    // Thiệp đã xuất bản: không giới hạn số khách mời (đã trả đúng giá
+    // template). Còn DRAFT: giới hạn nhẹ để tránh lạm dụng khi chưa trả phí.
+    if (wedding.status !== "PUBLISHED") {
+      const currentCount = await prisma.guest.count({
+        where: { weddingId: params.id },
+      });
+      if (currentCount >= DRAFT_MAX_GUESTS) {
+        return NextResponse.json(
+          {
+            error: `Bản nháp chỉ cho phép tối đa ${DRAFT_MAX_GUESTS} khách mời. Xuất bản thiệp để thêm không giới hạn.`,
+          },
+          { status: 403 }
+        );
+      }
     }
 
     // Generate unique invite link

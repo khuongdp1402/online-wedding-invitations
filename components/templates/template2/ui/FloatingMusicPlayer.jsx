@@ -52,10 +52,10 @@ export default function FloatingMusicPlayer() {
       
       <button 
         onClick={togglePlay}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-transparent rounded-full shadow-2xl flex items-center justify-center border-4 border-[#D4AF37] focus:outline-none hover:scale-105 transition-transform"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-transparent rounded-full shadow-2xl flex items-center justify-center border-4 border-[var(--color-gold)] focus:outline-none hover:scale-105 transition-transform"
         aria-label="Toggle Music"
       >
-        <div className={`w-10 h-10 rounded-full border border-[#4A3728]/10 bg-[radial-gradient(circle,_#333_40%,_#111_100%)] flex items-center justify-center relative overflow-hidden ${isPlaying ? 'animate-[spin_4s_linear_infinite]' : ''}`}>
+        <div className={`w-10 h-10 rounded-full border border-[color-mix(in_srgb,var(--color-text-primary)_10%,transparent)] bg-[radial-gradient(circle,_#333_40%,_#111_100%)] flex items-center justify-center relative overflow-hidden ${isPlaying ? 'animate-[spin_4s_linear_infinite]' : ''}`}>
           {/* Tâm đĩa than */}
           <div className="w-2 h-2 bg-white rounded-full absolute z-10" />
           

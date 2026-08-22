@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { calculateExpiryDate } from "@/lib/payment";
+import { applyCompletedPayment } from "@/lib/payment-completion";
 import { auth } from "@/lib/auth";
 
 /**
@@ -39,26 +39,16 @@ export async function POST(request: Request) {
     }
 
     if (action === "confirm") {
-      const expiresAt = calculateExpiryDate(payment.plan);
-
-      await prisma.$transaction([
-        prisma.payment.update({
+      await prisma.$transaction(async (tx) => {
+        const updated = await tx.payment.update({
           where: { id: payment.id },
           data: {
             status: "COMPLETED",
             paidAt: new Date(),
           },
-        }),
-        prisma.wedding.update({
-          where: { id: payment.weddingId },
-          data: {
-            status: "PUBLISHED",
-            plan: payment.plan,
-            paidAt: new Date(),
-            expiresAt,
-          },
-        }),
-      ]);
+        });
+        await applyCompletedPayment(tx, updated);
+      });
 
       return NextResponse.json({ success: true, status: "COMPLETED" });
     }

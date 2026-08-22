@@ -63,6 +63,7 @@ model User {
   sessions         Session[]
   weddings         Wedding[]
   fileManagement   FileManagement[]
+  contactRequests  ContactRequest[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -78,9 +79,14 @@ model Wedding {
 
   // Status & Plan
   status    WeddingStatus @default(DRAFT)
+  /// @deprecated Không còn dùng để khoá section theo gói — giữ lại để tương
+  /// thích dữ liệu cũ. Số tiền thật sự đã trả nằm ở `purchasePrice`.
   plan      Plan          @default(FREE)
   paidAt    DateTime?
   expiresAt DateTime?
+  /// Số tiền (VND) của lần thanh toán PUBLISH/RENEW/TEMPLATE_CHANGE gần nhất
+  /// thành công — cộng dồn khi đổi sang template đắt hơn.
+  purchasePrice Int?
 
   // Wedding Data
   groomName     String
@@ -97,7 +103,9 @@ model Wedding {
   primaryColor    String? @default("#800020")
   accentColor     String? @default("#d4a853")
   backgroundColor String? // Nền trang (mặc định #faf8f5)
+  textColor       String? @default("#4A4A4A") // Màu chữ chính
   fontFamily      String?
+  typography      Json?   // Tuỳ chỉnh font (heading, body, script)
   sectionOrder    Json?   // ["header","wedding-info",...] — thứ tự khối
   backgroundMusic String? // URL to music file
 
@@ -114,6 +122,7 @@ model Wedding {
   wishes           Wish[]
   payments         Payment[]
   fileManagement   FileManagement[]
+  contactRequests  ContactRequest[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -152,11 +161,21 @@ model Template {
   thumbnail   String
   previewUrl  String?
   category    String // "classic", "modern", "minimal", "luxury"
+  /// @deprecated Không còn dùng để khoá section theo gói — giữ lại để tương
+  /// thích dữ liệu cũ. Giá thật nằm ở `price`/`salePrice`.
   isPremium   Boolean @default(false)
+  /// @deprecated Xem `isPremium`.
   minPlan     Plan    @default(FREE)
   config      Json // Template-specific config/sections
 
+  // Giá bán, admin chỉnh trực tiếp trong dashboard (không cần deploy lại).
+  price        Int // VND — giá gốc của template
+  salePrice    Int? // VND — giá khuyến mãi, có hiệu lực trong [saleStartsAt, saleEndsAt]
+  saleStartsAt DateTime?
+  saleEndsAt   DateTime?
+
   weddings Wedding[]
+  coupons  Coupon[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -209,8 +228,20 @@ model Payment {
   weddingId String
   wedding   Wedding @relation(fields: [weddingId], references: [id])
 
-  amount        Int // VND
-  plan          Plan
+  /// Loại giao dịch: xuất bản lần đầu, gia hạn, hay đổi sang template đắt hơn.
+  type      PaymentType @default(PUBLISH)
+  amount        Int // VND — số tiền thực thu (sau khuyến mãi/coupon)
+  /// Giá hiệu lực của template (sau sale, trước coupon) tại thời điểm thanh toán.
+  basePrice     Int?
+  couponId      String?
+  coupon        Coupon? @relation(fields: [couponId], references: [id])
+  /// Số tiền (VND) đã được giảm nhờ coupon, dùng để đối soát.
+  couponDiscount Int?
+  /// Chỉ có giá trị khi `type = TEMPLATE_CHANGE` — template đích sẽ được áp
+  /// dụng cho `wedding` khi thanh toán này COMPLETED.
+  targetTemplateId String?
+  /// @deprecated Không còn ghi cho giao dịch mới — giữ nullable để đọc lịch sử cũ.
+  plan          Plan?
   method        String // "vnpay", "momo", "bank_transfer"
   transactionId String?
   status        PaymentStatus @default(PENDING)
@@ -220,9 +251,76 @@ model Payment {
   updatedAt DateTime @updatedAt
 
   @@index([weddingId])
+  @@index([couponId])
+}
+
+enum PaymentType {
+  PUBLISH
+  RENEW
+  TEMPLATE_CHANGE
+}
+
+/// Mã giảm giá áp dụng lúc thanh toán, độc lập với giá khuyến mãi trên Template.
+model Coupon {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  discountType    CouponDiscountType
+  /// VND nếu FIXED, 1-100 nếu PERCENT.
+  discountValue   Int
+  /// null = áp dụng cho mọi template.
+  templateId      String?
+  template        Template? @relation(fields: [templateId], references: [id])
+  /// null = không giới hạn tổng số lượt dùng.
+  maxRedemptions  Int?
+  redemptionCount Int      @default(0)
+  startsAt        DateTime?
+  endsAt          DateTime?
+  isActive        Boolean  @default(true)
+
+  payments Payment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([templateId])
+}
+
+enum CouponDiscountType {
+  FIXED
+  PERCENT
+}
+
+/// Yêu cầu tư vấn từ khách hàng, gửi từ editor thiệp.
+/// Đính kèm ngữ cảnh (mẫu đang dùng, các khối đang bật) để tư vấn đúng nhu cầu.
+model ContactRequest {
+  id        String  @id @default(cuid())
+  userId    String?
+  user      User?   @relation(fields: [userId], references: [id])
+  weddingId String?
+  wedding   Wedding? @relation(fields: [weddingId], references: [id])
+
+  name    String
+  phone   String
+  message String
+  context Json? // { templateSlug, enabledSections, plan }
+
+  status ContactStatus @default(NEW)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([weddingId])
+  @@index([status])
 }
 
 // ==================== ENUMS ====================
+
+enum ContactStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
 
 enum WeddingStatus {
   DRAFT

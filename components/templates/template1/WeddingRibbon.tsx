@@ -100,7 +100,7 @@ export function WeddingRibbon() {
                 {/* Vertical Text Content - không scroll */}
                 <div className="relative z-10 flex flex-col items-center justify-center h-full overflow-hidden">
                     <div
-                        className="whitespace-nowrap font-serif text-white/90 text-sm sm:text-base tracking-[0.4em] uppercase overflow-hidden"
+                        className="whitespace-nowrap font-heading text-white/90 text-sm sm:text-base tracking-[0.4em] uppercase overflow-hidden"
                         style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
                     >
                         <AnimatePresence mode="wait">

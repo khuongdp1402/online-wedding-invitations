@@ -21,9 +21,18 @@ const links = [
   { href: "/pricing", label: "Bảng Giá" },
 ];
 
+interface CustomSession {
+  user?: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    role?: string | null;
+  };
+}
+
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<CustomSession | null>(null);
 
   useEffect(() => {
     fetch("/api/auth/session")

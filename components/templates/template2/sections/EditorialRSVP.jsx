@@ -4,11 +4,13 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGuest } from "../StoryEngine";
 import { getFullGuestName } from "../lib/utils/guest";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
 const SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
 
 export default function EditorialRSVP({ chapter }) {
   const { guestName, guestRole } = useGuest();
+  const editCtx = useEditOverlay();
   
   const defaultGuestName = (guestName && guestName !== "Quý Khách")
     ? getFullGuestName(guestRole, guestName)
@@ -108,9 +110,10 @@ export default function EditorialRSVP({ chapter }) {
       >
         
         {/* Desktop Image Background */}
-        <div 
-          className="hidden md:block absolute inset-0 w-full h-full bg-cover bg-top transition-transform duration-1000 group-hover:scale-105"
+        <div
+          className={editSlotClass(editCtx, "mc-rsvp", "hidden md:block absolute inset-0 w-full h-full bg-cover bg-top transition-transform duration-1000 group-hover:scale-105")}
           style={{ backgroundImage: `url(${chapter.images?.[0] || "/images/banner.jpg"})` }}
+          onClick={(e) => editCtx?.onSlotClick?.("mc-rsvp", e.currentTarget)}
         />
 
         {/* Mobile Image Background */}
@@ -121,7 +124,7 @@ export default function EditorialRSVP({ chapter }) {
 
         {/* Text Block - Occupying bottom 40% (mobile) / 30% (desktop) with translucent black background */}
         <div className="absolute bottom-0 left-0 w-full h-[40%] md:h-[30%] flex flex-col items-center justify-center px-4 md:px-0 bg-black/50">
-          <h2 className="font-[family-name:var(--font-serif-display)] text-[50px] sm:text-[80px] md:text-[120px] lg:text-[150px] leading-[0.8] uppercase text-center tracking-tighter text-[#D4AF37]">
+          <h2 className="font-[family-name:var(--font-serif-display)] text-[50px] sm:text-[80px] md:text-[120px] lg:text-[150px] leading-[0.8] uppercase text-center tracking-tighter text-[var(--color-gold)]">
             Forever
           </h2>
           <p className="text-center text-white/90 font-sans uppercase tracking-[0.2em] md:tracking-[0.4em] text-[9px] md:text-xs mt-4 md:mt-6">
@@ -138,7 +141,7 @@ export default function EditorialRSVP({ chapter }) {
       >
         
         {/* NỬA TRÊN (50%) - FORM RSVP */}
-        <div className="w-full h-[55%] flex flex-col items-center justify-center p-6 md:p-8 border-b border-[#D4AF37]/20 relative bg-[#F5F0E6]">
+        <div className="w-full h-[55%] flex flex-col items-center justify-center p-6 md:p-8 border-b border-[color-mix(in_srgb,var(--color-gold)_20%,transparent)] relative bg-[#F5F0E6]">
           <AnimatePresence mode="wait">
             {!isSubmitted ? (
               <motion.div
@@ -146,9 +149,9 @@ export default function EditorialRSVP({ chapter }) {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="w-full max-w-[400px] flex flex-col bg-[#FDFCF8] p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-[#D4AF37]/10"
+                className="w-full max-w-[400px] flex flex-col bg-[#FDFCF8] p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-[color-mix(in_srgb,var(--color-gold)_10%,transparent)]"
               >
-                <h3 className="font-[family-name:var(--font-serif-display)] text-3xl md:text-4xl text-[#800020] text-center mb-6">
+                <h3 className="font-[family-name:var(--font-serif-display)] text-3xl md:text-4xl text-[var(--color-primary)] text-center mb-6">
                   Hồi Âm
                 </h3>
                 
@@ -161,21 +164,21 @@ export default function EditorialRSVP({ chapter }) {
                       onChange={handleChange}
                       required 
                       placeholder="Đại danh của bạn..." 
-                      className="w-full bg-transparent border-b border-[#D4AF37]/40 focus:border-[#800020] pb-2 text-[#333] text-sm outline-none transition-colors placeholder:text-[#999] placeholder:font-sans placeholder:italic"
+                      className="w-full bg-transparent border-b border-[color-mix(in_srgb,var(--color-gold)_40%,transparent)] focus:border-[var(--color-primary)] pb-2 text-[#333] text-sm outline-none transition-colors placeholder:text-[#999] placeholder:font-sans placeholder:italic"
                     />
                   </div>
                   
                   <div className="space-y-3 pt-2">
                     <label className="text-[9px] font-sans uppercase tracking-[0.2em] text-[#666]">Khả năng góp mặt</label>
                     <div className="flex gap-4">
-                      <label className="flex items-center gap-2 cursor-pointer text-sm text-[#444] hover:text-[#800020] transition-colors">
-                        <input type="radio" name="attendance" value="yes" onChange={handleChange} required className="accent-[#800020]" />
+                      <label className="flex items-center gap-2 cursor-pointer text-sm text-[#444] hover:text-[var(--color-primary)] transition-colors">
+                        <input type="radio" name="attendance" value="yes" onChange={handleChange} required className="accent-[var(--color-primary)]" />
                         Có mặt quẩy hết mình! 🎉
                       </label>
                     </div>
                     <div className="flex gap-4">
-                      <label className="flex items-center gap-2 cursor-pointer text-sm text-[#444] hover:text-[#800020] transition-colors">
-                        <input type="radio" name="attendance" value="no" onChange={handleChange} className="accent-[#800020]" />
+                      <label className="flex items-center gap-2 cursor-pointer text-sm text-[#444] hover:text-[var(--color-primary)] transition-colors">
+                        <input type="radio" name="attendance" value="no" onChange={handleChange} className="accent-[var(--color-primary)]" />
                         Tiếc ghê, bận mất rùi 🥺
                       </label>
                     </div>
@@ -188,14 +191,14 @@ export default function EditorialRSVP({ chapter }) {
                       value={formData.wish}
                       onChange={handleChange}
                       placeholder="Lời nhắn gửi yêu thương..." 
-                      className="w-full bg-transparent border-b border-[#D4AF37]/40 focus:border-[#800020] pb-2 text-[#333] text-sm outline-none transition-colors resize-none placeholder:text-[#999] placeholder:font-sans placeholder:italic"
+                      className="w-full bg-transparent border-b border-[color-mix(in_srgb,var(--color-gold)_40%,transparent)] focus:border-[var(--color-primary)] pb-2 text-[#333] text-sm outline-none transition-colors resize-none placeholder:text-[#999] placeholder:font-sans placeholder:italic"
                     />
                   </div>
                   
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full py-3 bg-[#800020] text-[#FDFCF8] font-sans text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-[#5a0016] transition-colors disabled:opacity-50"
+                    className="w-full py-3 bg-[var(--color-primary)] text-[#FDFCF8] font-sans text-[10px] uppercase tracking-[0.2em] rounded-full hover:bg-[#5a0016] transition-colors disabled:opacity-50"
                   >
                     {isSubmitting ? "Đang gửi..." : "Gửi Hồi Âm"}
                   </button>
@@ -208,7 +211,7 @@ export default function EditorialRSVP({ chapter }) {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center justify-center text-center space-y-4"
               >
-                <div className="w-16 h-16 rounded-full bg-[#800020]/10 flex items-center justify-center text-[#800020] mb-2">
+                <div className="w-16 h-16 rounded-full bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] flex items-center justify-center text-[var(--color-primary)] mb-2">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                 </div>
                 <h3 className="font-[family-name:var(--font-serif-display)] text-3xl text-[#333]">
@@ -224,12 +227,12 @@ export default function EditorialRSVP({ chapter }) {
 
         {/* NỬA DƯỚI (45%) - WISHES LIST */}
         <div className="w-full h-[45%] p-6 md:p-8 flex flex-col bg-[#F5F0E6]">
-          <div className="flex-1 flex flex-col bg-[#FDFCF8] p-4 md:p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-[#D4AF37]/10 overflow-hidden">
-            <h3 className="font-[family-name:var(--font-serif-display)] text-2xl text-[#D4AF37] text-center mb-4 md:mb-6 drop-shadow-sm">
+          <div className="flex-1 flex flex-col bg-[#FDFCF8] p-4 md:p-6 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] border border-[color-mix(in_srgb,var(--color-gold)_10%,transparent)] overflow-hidden">
+            <h3 className="font-[family-name:var(--font-serif-display)] text-2xl text-[var(--color-gold)] text-center mb-4 md:mb-6 drop-shadow-sm">
               Lời Nhắn Gửi
             </h3>
             
-            <div className="flex-1 overflow-y-auto space-y-4 pr-2 md:pr-3 scrollbar-thin scrollbar-thumb-[#D4AF37]/30 scrollbar-track-transparent">
+            <div className="flex-1 overflow-y-auto space-y-4 pr-2 md:pr-3 scrollbar-thin scrollbar-thumb-[color-mix(in_srgb,var(--color-gold)_30%,transparent)] scrollbar-track-transparent">
               {isLoadingWishes ? (
                 <div className="text-center text-xs text-[#999] italic mt-10">Đang tải lời chúc...</div>
               ) : (() => {
@@ -243,19 +246,19 @@ export default function EditorialRSVP({ chapter }) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1 }}
                     key={i} 
-                    className="p-4 md:p-5 bg-white/70 backdrop-blur-md rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.03)] border border-[#D4AF37]/20 relative"
+                    className="p-4 md:p-5 bg-white/70 backdrop-blur-md rounded-xl shadow-[0_4px_15px_rgba(0,0,0,0.03)] border border-[color-mix(in_srgb,var(--color-gold)_20%,transparent)] relative"
                   >
                     <p className="font-sans text-xs text-[#444] leading-relaxed italic mb-3 relative z-10">
                       &quot;{w.wish}&quot;
                     </p>
                     <div className="flex justify-between items-end relative z-10">
-                      <span className="font-bold text-[#800020] text-[10px] uppercase tracking-widest">{w.name}</span>
+                      <span className="font-bold text-[var(--color-primary)] text-[10px] uppercase tracking-widest">{w.name}</span>
                       <span className="text-[9px] text-[#999] font-sans">
                         {new Date(w.timestamp).toLocaleDateString('vi-VN')}
                       </span>
                     </div>
                     {/* Decorative quote mark */}
-                    <div className="absolute top-2 right-4 text-4xl text-[#D4AF37]/10 font-serif leading-none select-none">
+                    <div className="absolute top-2 right-4 text-4xl text-[color-mix(in_srgb,var(--color-gold)_10%,transparent)] font-serif leading-none select-none">
                       &quot;
                     </div>
                   </motion.div>

@@ -15,8 +15,8 @@ export default function PricingPage() {
               Bảng Giá Dịch Vụ
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Chọn gói phù hợp với nhu cầu của bạn. Bắt đầu miễn phí và nâng
-              cấp khi cần.
+              Mỗi mẫu thiệp một giá cố định, đã bao gồm chi phí hạ tầng.
+              Chỉnh sửa thoải mái, chỉ thanh toán khi bạn xuất bản.
             </p>
           </div>
           <PricingCards />

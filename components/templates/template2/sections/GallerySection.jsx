@@ -2,16 +2,17 @@
 
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import { weddingData } from '@/config/weddingData';
+import { useWeddingData } from '../StoryEngine';
+import { weddingData as staticWeddingData } from '../config/weddingData';
 import { getDirectImageUrl } from '@/lib/utils/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-const IMG_URLS = weddingData.gallery || [];
-// Duplicate array to create seamless loop
-const DUPLICATED_URLS = [...IMG_URLS, ...IMG_URLS];
-
 export default function GallerySection() {
+  const contextData = useWeddingData();
+  const activeWeddingData = contextData || staticWeddingData;
+  const imgUrls = activeWeddingData.gallery || [];
+  const duplicatedUrls = [...imgUrls, ...imgUrls];
   const containerRef = useRef(null);
   const scrollRef = useRef(null);
 
@@ -38,15 +39,15 @@ export default function GallerySection() {
       el.removeEventListener("mouseleave", handleMouseLeave);
       animation.kill();
     };
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [imgUrls.length] });
 
   return (
-    <section ref={containerRef} className="relative w-full h-[80vh] md:h-screen bg-transparent z-10 overflow-hidden border-t border-[#4A3728]/10 py-6 md:py-0">
+    <section ref={containerRef} className="relative w-full h-[80vh] md:h-screen bg-transparent z-10 overflow-hidden border-t border-[color-mix(in_srgb,var(--color-text-primary)_10%,transparent)] py-6 md:py-0">
       
       {/* Title */}
       <div className="absolute top-10 md:top-24 left-0 w-full z-20 pointer-events-none text-center">
         <p className="text-xs tracking-[0.3em] text-[#7a1f24] font-semibold uppercase mb-4">Khoảnh Khắc</p>
-        <h2 className="text-4xl md:text-5xl font-serif text-[#4A3728] drop-shadow-sm">Our Journey</h2>
+        <h2 className="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)] drop-shadow-sm">Our Journey</h2>
       </div>
 
       {/* The Scroll Container with GSAP */}
@@ -54,7 +55,7 @@ export default function GallerySection() {
         ref={scrollRef}
         className="flex items-center h-full pt-20 px-4 w-max"
       >
-        {DUPLICATED_URLS.map((url, i) => (
+        {duplicatedUrls.map((url, i) => (
           <div key={i} className="relative w-[75vw] md:w-[35vw] h-[55vh] md:h-[65vh] flex-shrink-0 mx-4 md:mx-10 rounded-sm overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] border-8 border-white group">
             <Image 
               src={getDirectImageUrl(url)} 

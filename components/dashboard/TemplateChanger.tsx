@@ -16,8 +16,7 @@ type Template = {
   description: string;
   thumbnail: string;
   category: string;
-  isPremium: boolean;
-  minPlan: string;
+  price: number;
 };
 
 type Props = {
@@ -45,10 +44,25 @@ export function TemplateChanger({ weddingId, currentTemplateId, templates }: Pro
         toast({ title: "Đã đổi mẫu thiệp!" });
         router.push(`/dashboard/weddings/${weddingId}`);
         router.refresh();
-      } else {
-        const err = await res.json();
-        toast({ title: "Lỗi", description: err.error, variant: "destructive" });
+        return;
       }
+
+      const err = await res.json();
+
+      // Mẫu mới đắt hơn mẫu đang dùng: cần trả phần chênh lệch trước khi đổi
+      // được. Liên hệ hỗ trợ để xử lý — luồng tự thanh toán chênh lệch cho
+      // đổi mẫu sẽ hoàn thiện ở một bản cập nhật sau.
+      if (res.status === 402 && err.requiresPayment) {
+        toast({
+          title: "Cần thanh toán phần chênh lệch",
+          description: `Mẫu này đắt hơn ${Number(err.amount).toLocaleString("vi-VN")}đ so với mẫu hiện tại. Vui lòng liên hệ hỗ trợ để đổi mẫu.`,
+          variant: "destructive",
+        });
+        setSaving(false);
+        return;
+      }
+
+      toast({ title: "Lỗi", description: err.error, variant: "destructive" });
     } catch {
       toast({ title: "Lỗi", variant: "destructive" });
     }
@@ -79,12 +93,10 @@ export function TemplateChanger({ weddingId, currentTemplateId, templates }: Pro
                 {currentTemplateId === t.id && (
                   <Badge className="absolute top-2 left-2 bg-green-500 hover:bg-green-500 text-white text-[10px]">Hiện tại</Badge>
                 )}
-                {t.isPremium && (
-                  <Badge className="absolute bottom-2 left-2 bg-amber-500 hover:bg-amber-500 text-white text-[10px]">Premium</Badge>
-                )}
               </div>
               <h3 className="font-semibold text-gray-900">{t.name}</h3>
               <p className="text-sm text-gray-500 line-clamp-2 mt-1">{t.description}</p>
+              <p className="text-xs text-gray-500 mt-1">{t.price.toLocaleString("vi-VN")}đ</p>
             </CardContent>
           </Card>
         ))}

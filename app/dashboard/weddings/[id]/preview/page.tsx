@@ -38,7 +38,6 @@ export default async function PreviewPage({
     sectionOrder: wedding.sectionOrder as string[] | undefined,
     backgroundMusic: wedding.backgroundMusic || undefined,
     status: wedding.status as WeddingData["status"],
-    plan: wedding.plan as WeddingData["plan"],
   };
 
   return (

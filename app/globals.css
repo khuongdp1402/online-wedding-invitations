@@ -88,6 +88,8 @@
   --color-burgundy: #800020;
   --color-beige: #F5F5DC;
   --color-gold: #D4AF37;
+  /* Fallback khi template chưa ghi đè bằng wedding.primaryColor */
+  --color-primary: #800020;
   --color-text-primary: #1A1A1A;
   --color-text-secondary: #4A4A4A;
   --color-pink-light: #FCE4EC;

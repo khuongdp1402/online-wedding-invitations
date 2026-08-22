@@ -88,11 +88,11 @@ export function MobileRedSeal({ data }: MobileRedSealProps) {
                                     <div className="grid gap-4 pt-4">
                                         <div className="flex items-center gap-4 bg-cream-light/50 p-4 rounded-2xl border border-gold/5">
                                             <Calendar className="w-5 h-5 text-burgundy/40" />
-                                            <p className="text-sm font-serif text-ink-dark font-medium leading-none">{data.ceremony.solarDateLabel}</p>
+                                            <p className="text-sm font-heading text-ink-dark font-medium leading-none">{data.ceremony.solarDateLabel}</p>
                                         </div>
                                         <div className="flex items-center gap-4 bg-cream-light/50 p-4 rounded-2xl border border-gold/5">
                                             <MapPin className="w-5 h-5 text-burgundy/40" />
-                                            <p className="text-sm font-serif text-ink-dark font-medium text-left leading-tight">{data.ceremony.venueName}</p>
+                                            <p className="text-sm font-heading text-ink-dark font-medium text-left leading-tight">{data.ceremony.venueName}</p>
                                         </div>
                                     </div>
 

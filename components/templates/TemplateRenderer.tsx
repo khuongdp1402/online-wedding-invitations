@@ -44,8 +44,40 @@ export function TemplateRenderer({
 
   const Component = template.component;
 
+  const typography = wedding.typography ?? {};
+  const headingFont = typography.heading || "inherit";
+  const bodyFont = typography.body || "inherit";
+  const scriptFont = typography.script || "inherit";
+
+  // Extract font names to load from Google Fonts
+  const fontNamesToLoad = new Set<string>();
+  [headingFont, bodyFont, scriptFont].forEach(f => {
+    const match = f.match(/'([^']+)'/);
+    if (match) fontNamesToLoad.add(match[1].replace(/ /g, '+'));
+  });
+
+  const fontUrls = Array.from(fontNamesToLoad).map(
+    name => `family=${name}:wght@400;500;600;700`
+  );
+
+  const googleFontsUrl = fontUrls.length > 0
+    ? `https://fonts.googleapis.com/css2?${fontUrls.join('&')}&display=swap`
+    : null;
+
   return (
-    <Component
+    <div 
+      className="w-full h-full"
+      style={{
+        '--font-heading': headingFont,
+        '--font-body': bodyFont,
+        '--font-script': scriptFont,
+        '--text-color': wedding.textColor || '#4A4A4A',
+      } as React.CSSProperties}
+    >
+      {googleFontsUrl && (
+        <link href={googleFontsUrl} rel="stylesheet" />
+      )}
+      <Component
       wedding={wedding}
       mode={mode}
       isDemo={isDemo}
@@ -53,5 +85,6 @@ export function TemplateRenderer({
       guestSalutation={guestSalutation}
       editOverlay={editOverlay}
     />
+    </div>
   );
 }

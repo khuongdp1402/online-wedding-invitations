@@ -4,18 +4,32 @@ import { Heart, Sparkles } from "lucide-react";
 import type { InvitationData } from "./lib/invitation";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
+import { ImageWithFallback } from "./ImageWithFallback";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
 type InvitationHeaderSectionProps = {
   data: InvitationData;
+  heroImage?: string;
+  isBrideMode?: boolean;
 };
 
-export function InvitationHeaderSection({ data }: InvitationHeaderSectionProps) {
+export function InvitationHeaderSection({ data, heroImage, isBrideMode }: InvitationHeaderSectionProps) {
+  const edit = useEditOverlay();
+  const firstNameSlot = isBrideMode ? "cb-bride-name" : "cb-groom-name";
+  const secondNameSlot = isBrideMode ? "cb-groom-name" : "cb-bride-name";
+
   const namesRow = (
-    <div className="flex items-center justify-between gap-4 w-full">
-      <h1 className="text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-sm shrink-0">
+    <div className="flex items-center justify-between gap-4 w-full pointer-events-auto">
+      <h1
+        className={editSlotClass(edit, firstNameSlot, "text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-sm shrink-0")}
+        onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(firstNameSlot, e.currentTarget); }}
+      >
         {data.groom.name}
       </h1>
-      <h1 className="text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-sm shrink-0">
+      <h1
+        className={editSlotClass(edit, secondNameSlot, "text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-sm shrink-0")}
+        onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(secondNameSlot, e.currentTarget); }}
+      >
         {data.bride.name}
       </h1>
     </div>
@@ -28,10 +42,10 @@ export function InvitationHeaderSection({ data }: InvitationHeaderSectionProps) 
       </p>
       <div className="h-px w-16 sm:w-24 bg-gold mx-auto" aria-hidden />
       <div className="px-4 sm:px-6 py-2.5 sm:py-4 w-full max-w-sm text-center">
-        <p className="text-gold text-base sm:text-xl lg:text-2xl font-serif font-bold tracking-wide">
+        <p className="text-gold text-base sm:text-xl lg:text-2xl font-heading font-bold tracking-wide">
           {data.ceremony.solarDateLabel}
         </p>
-        <p className="text-gold text-xs sm:text-sm font-serif mt-1">{data.ceremony.lunarDateLabel}</p>
+        <p className="text-gold text-xs sm:text-sm font-heading mt-1">{data.ceremony.lunarDateLabel}</p>
       </div>
     </div>
   );
@@ -40,9 +54,14 @@ export function InvitationHeaderSection({ data }: InvitationHeaderSectionProps) 
     <Section id="top" fullBleed className="relative min-h-screen min-h-[100dvh] overflow-hidden p-0">
       {/* ========== MOBILE: full màn hình ảnh + overlay, tên 1 dòng căn đều 2 bên, ngày căn giữa ========== */}
       <div className="lg:hidden relative w-full h-full min-h-screen min-h-[100dvh]">
-        <div className="absolute inset-0">
-          <img
-            src="/images/z7481584607328_c9e58e9bbed1d112b3e49b082ecdc8fb.jpg"
+        <div
+          className={editSlotClass(edit, "cb-hero", "absolute inset-0")}
+          data-wedding-slot="cb-hero"
+          onClick={(e) => edit?.onSlotClick?.("cb-hero", e.currentTarget)}
+          role={edit?.onSlotClick ? "button" : undefined}
+        >
+          <ImageWithFallback
+            src={heroImage || ""}
             alt="Wedding Background"
             className="w-full h-full object-cover object-[60%_50%]"
           />
@@ -53,7 +72,7 @@ export function InvitationHeaderSection({ data }: InvitationHeaderSectionProps) 
         </div>
 
         <div
-          className="absolute inset-0 z-10 flex flex-col justify-end pt-[max(env(safe-area-inset-top),0.75rem)] pb-[max(env(safe-area-inset-bottom),2rem)] pl-[max(env(safe-area-inset-left),1rem)] pr-[max(env(safe-area-inset-right),1rem)]"
+          className={`absolute inset-0 z-10 flex flex-col justify-end pt-[max(env(safe-area-inset-top),0.75rem)] pb-[max(env(safe-area-inset-bottom),2rem)] pl-[max(env(safe-area-inset-left),1rem)] pr-[max(env(safe-area-inset-right),1rem)] ${edit?.onSlotClick ? "pointer-events-none" : ""}`}
         >
           <div className="max-w-xl mx-auto w-full">
             <Reveal y={20}>
@@ -87,10 +106,15 @@ export function InvitationHeaderSection({ data }: InvitationHeaderSectionProps) 
       <div className="hidden lg:flex min-h-screen items-center justify-center px-8 py-14 bg-burgundy">
         <div className="w-full max-w-5xl overflow-hidden rounded-[40px] border border-gold/25 shadow-2xl relative">
           <div className="flex min-h-[68vh] relative">
-            {/* Ảnh bên trái – không overlay */}
-            <div className="w-[52%] min-w-0 relative shrink-0">
-              <img
-                src="/images/z7481584607328_c9e58e9bbed1d112b3e49b082ecdc8fb.jpg"
+            {/* Ảnh bên trái */}
+            <div
+              className={editSlotClass(edit, "cb-hero", "w-[52%] min-w-0 relative shrink-0")}
+              data-wedding-slot="cb-hero"
+              onClick={(e) => edit?.onSlotClick?.("cb-hero", e.currentTarget)}
+              role={edit?.onSlotClick ? "button" : undefined}
+            >
+              <ImageWithFallback
+                src={heroImage || ""}
                 alt="Wedding Background"
                 className="w-full h-full object-cover object-center"
               />
@@ -112,10 +136,16 @@ export function InvitationHeaderSection({ data }: InvitationHeaderSectionProps) 
 
               <Reveal delay={0.2} className="mb-8">
                 <div className="flex items-center justify-between gap-6 w-full min-w-0">
-                  <h1 className="text-3xl xl:text-4xl font-script text-gold font-bold leading-tight shrink-0 text-left">
+                  <h1
+                    className={editSlotClass(edit, firstNameSlot, "text-3xl xl:text-4xl font-script text-gold font-bold leading-tight shrink-0 text-left")}
+                    onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(firstNameSlot, e.currentTarget); }}
+                  >
                     {data.groom.name}
                   </h1>
-                  <h1 className="text-3xl xl:text-4xl font-script text-gold font-bold leading-tight shrink-0 text-right">
+                  <h1
+                    className={editSlotClass(edit, secondNameSlot, "text-3xl xl:text-4xl font-script text-gold font-bold leading-tight shrink-0 text-right")}
+                    onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(secondNameSlot, e.currentTarget); }}
+                  >
                     {data.bride.name}
                   </h1>
                 </div>
@@ -128,10 +158,10 @@ export function InvitationHeaderSection({ data }: InvitationHeaderSectionProps) 
                   </p>
                   <div className="h-px w-20 bg-gold/60 mx-auto" aria-hidden />
                   <div className="py-4 w-full max-w-sm text-center">
-                    <p className="text-gold text-xl xl:text-2xl font-serif font-bold tracking-wide">
+                    <p className="text-gold text-xl xl:text-2xl font-heading font-bold tracking-wide">
                       {data.ceremony.solarDateLabel}
                     </p>
-                    <p className="text-gold/80 text-sm font-serif mt-1">{data.ceremony.lunarDateLabel}</p>
+                    <p className="text-gold/80 text-sm font-heading mt-1">{data.ceremony.lunarDateLabel}</p>
                   </div>
                 </div>
               </Reveal>

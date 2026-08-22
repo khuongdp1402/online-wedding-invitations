@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import type { WeddingData } from "@/types/template";
 import { WeddingPageClient } from "./WeddingPageClient";
 
 type PageProps = {
@@ -79,6 +81,27 @@ export default async function PublicWeddingPage({
     notFound();
   }
 
+  // Thiệp DRAFT chưa phát hành: chỉ chủ sở hữu xem được.
+  // DEMO vẫn công khai (kèm watermark) để khách chia sẻ bản dùng thử.
+  if (wedding.status === "DRAFT") {
+    const session = await auth();
+    if (session?.user?.id !== wedding.userId) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-amber-50">
+          <div className="text-center max-w-md mx-auto px-4">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Thiệp cưới chưa được phát hành
+            </h1>
+            <p className="text-gray-500">
+              Thiệp cưới này đang ở chế độ nháp. Vui lòng liên hệ cô dâu chú rể
+              để nhận đường dẫn chính thức.
+            </p>
+          </div>
+        </div>
+      );
+    }
+  }
+
   // Increment view count (fire and forget)
   prisma.wedding
     .update({
@@ -97,11 +120,8 @@ export default async function PublicWeddingPage({
   const guestSalutation =
     (searchParams.salutation as string) || (searchParams.xung_ho as string) || undefined;
 
-  // Determine if demo
-  const isDemo =
-    wedding.status === "DRAFT" ||
-    wedding.status === "DEMO" ||
-    wedding.plan === "FREE";
+  // Determine if demo — thiệp chưa xuất bản (chưa trả tiền) luôn coi là demo.
+  const isDemo = wedding.status === "DRAFT" || wedding.status === "DEMO";
 
   // Check if expired
   if (wedding.status === "EXPIRED") {
@@ -166,10 +186,12 @@ export default async function PublicWeddingPage({
     accentColor: wedding.accentColor || undefined,
     fontFamily: wedding.fontFamily || undefined,
     backgroundColor: wedding.backgroundColor || undefined,
-    sectionOrder: wedding.sectionOrder as string[] | undefined,
+    textColor: wedding.textColor || undefined,
+    typography: wedding.typography as { heading?: string; body?: string; script?: string } | undefined,
+    sectionOrder: (wedding.sectionOrder ?? undefined) as
+      | WeddingData["sectionOrder"],
     backgroundMusic: wedding.backgroundMusic || undefined,
     status: wedding.status as "DRAFT" | "DEMO" | "PUBLISHED" | "EXPIRED",
-    plan: wedding.plan as "FREE" | "BASIC" | "STANDARD" | "PREMIUM",
   };
 
   // JSON-LD structured data for SEO

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Section } from "./Section";
 import { Reveal } from "./Reveal";
 import type { WeddingTemplateProps } from "@/lib/template-registry";
-import { useEditOverlay, editSlotClass } from "./EditOverlayContext";
+import { useEditOverlay, editSlotClass } from "@/components/templates/shared/EditOverlayContext";
 
 type Parts = { days: number; hours: number; minutes: number; seconds: number };
 
@@ -32,7 +32,7 @@ function NumberFlip({ value }: { value: string }) {
           transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
           className="absolute inset-0 flex items-center justify-center"
         >
-          <span className="tabular-nums text-4xl sm:text-5xl lg:text-6xl font-serif cb-text-primary font-medium tracking-tight">{value}</span>
+          <span className="tabular-nums text-4xl sm:text-5xl lg:text-6xl font-heading cb-text-primary font-medium tracking-tight">{value}</span>
         </motion.div>
       </AnimatePresence>
     </div>
@@ -86,7 +86,7 @@ export function Countdown({ wedding, mode }: Props) {
                     "relative aspect-[4/5] sm:aspect-square rounded-t-full overflow-hidden border-[8px] border-white shadow-2xl transition-transform hover:scale-[1.01] duration-700"
                   )}
                   data-wedding-slot="cb-countdown"
-                  onClick={() => edit?.onSlotClick?.("cb-countdown")}
+                  onClick={(e) => edit?.onSlotClick?.("cb-countdown", e.currentTarget)}
                   role={edit?.onSlotClick ? "button" : undefined}
                 >
                   <Image src={countdownImage} alt="Together" className="w-full h-full object-cover scale-105" fill unoptimized />
@@ -100,7 +100,7 @@ export function Countdown({ wedding, mode }: Props) {
               <div className="text-center lg:text-left mb-12">
                 <h2 className="cb-text-primary uppercase tracking-[0.25em] text-lg sm:text-xl font-bold mb-6">Đếm ngược ngày trọng đại</h2>
                 <div className="h-px w-24 bg-gradient-to-r from-transparent via-[var(--cb-accent)] to-transparent mx-auto lg:mx-0 my-8 opacity-60" />
-                <p className="mt-8 text-4xl sm:text-5xl font-serif cb-text-primary font-bold tracking-tight">{ceremony.date}</p>
+                <p className="mt-8 text-4xl sm:text-5xl font-heading cb-text-primary font-bold tracking-tight">{ceremony.date}</p>
               </div>
             </Reveal>
             <Reveal delay={0.1} y={20}>
@@ -114,7 +114,7 @@ export function Countdown({ wedding, mode }: Props) {
               </div>
             </Reveal>
             <Reveal delay={0.3} y={20}>
-              <div className="mt-16 text-center lg:text-left italic cb-text-body text-lg font-serif opacity-70">
+              <div className="mt-16 text-center lg:text-left italic cb-text-body text-lg font-heading opacity-70">
                 &ldquo;Dù đi đâu, làm gì, chỉ cần chúng ta bên nhau.&rdquo;
               </div>
             </Reveal>

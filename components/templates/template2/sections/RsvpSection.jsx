@@ -49,13 +49,13 @@ export default function RsvpSection({ name }) {
   return (
     <section className="py-24 px-4 relative z-10 overflow-hidden">
       {/* Decorative blurred blobs for background */}
-      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-[#D4AF37]/20 rounded-full blur-3xl" />
+      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-[color-mix(in_srgb,var(--color-gold)_20%,transparent)] rounded-full blur-3xl" />
       <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-[#7a1f24]/10 rounded-full blur-3xl" />
 
       <div className="max-w-xl mx-auto bg-white/40 backdrop-blur-xl rounded-3xl p-8 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/60 relative z-10">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-serif text-[#7a1f24] mb-2">Phúc Đáp (RSVP) 💌</h2>
-          <p className="text-[#4A3728]/80 font-light">Sự hiện diện của bạn là món quà to bự nhất dành cho tụi mình đấy! 🥰</p>
+          <p className="text-[color-mix(in_srgb,var(--color-text-primary)_80%,transparent)] font-light">Sự hiện diện của bạn là món quà to bự nhất dành cho tụi mình đấy! 🥰</p>
         </div>
 
         {isSubmitted ? (
@@ -65,24 +65,24 @@ export default function RsvpSection({ name }) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-2xl font-serif text-[#4A3728]">Triệu like cho {name || 'bạn'}! 👍</h3>
-            <p className="text-[#4A3728]/80">Tụi mình đã nhận được phản hồi. Hẹn quẩy hết mình tại đám cưới nhé! 🎉🍻</p>
+            <h3 className="text-2xl font-serif text-[var(--color-text-primary)]">Triệu like cho {name || 'bạn'}! 👍</h3>
+            <p className="text-[color-mix(in_srgb,var(--color-text-primary)_80%,transparent)]">Tụi mình đã nhận được phản hồi. Hẹn quẩy hết mình tại đám cưới nhé! 🎉🍻</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-[#4A3728] mb-1">Tên khách mời thân thương 💕</label>
+              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">Tên khách mời thân thương 💕</label>
               <input 
                 type="text" 
                 value={name || ''} 
                 disabled 
-                className="w-full px-4 py-3 bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl text-[#4A3728]/60 cursor-not-allowed shadow-inner focus:outline-none"
+                className="w-full px-4 py-3 bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl text-[color-mix(in_srgb,var(--color-text-primary)_60%,transparent)] cursor-not-allowed shadow-inner focus:outline-none"
               />
-              <p className="text-xs text-[#4A3728]/60 mt-2">* Tên được điền tự động (chống fake vé mời đó nha 😎)</p>
+              <p className="text-xs text-[color-mix(in_srgb,var(--color-text-primary)_60%,transparent)] mt-2">* Tên được điền tự động (chống fake vé mời đó nha 😎)</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#4A3728] mb-3">Bạn sẽ đến chung vui chứ? 👀</label>
+              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-3">Bạn sẽ đến chung vui chứ? 👀</label>
               <div className="flex flex-col sm:flex-row gap-4">
                 <label className="flex-1 flex items-center gap-2 cursor-pointer bg-white/50 hover:bg-white/70 transition-colors p-3 rounded-xl border border-white/60 shadow-sm">
                   <input 
@@ -91,9 +91,9 @@ export default function RsvpSection({ name }) {
                     value="yes"
                     checked={formData.attendance === 'yes'}
                     onChange={(e) => setFormData({...formData, attendance: e.target.value})}
-                    className="text-[#D4AF37] focus:ring-[#E2B75A] w-4 h-4"
+                    className="text-[var(--color-gold)] focus:ring-[#E2B75A] w-4 h-4"
                   />
-                  <span className="text-[#4A3728] text-sm">Chắc chắn rồi! Quẩy tới bến! 🚀</span>
+                  <span className="text-[var(--color-text-primary)] text-sm">Chắc chắn rồi! Quẩy tới bến! 🚀</span>
                 </label>
                 <label className="flex-1 flex items-center gap-2 cursor-pointer bg-white/50 hover:bg-white/70 transition-colors p-3 rounded-xl border border-white/60 shadow-sm">
                   <input 
@@ -102,20 +102,20 @@ export default function RsvpSection({ name }) {
                     value="no"
                     checked={formData.attendance === 'no'}
                     onChange={(e) => setFormData({...formData, attendance: e.target.value})}
-                    className="text-[#D4AF37] focus:ring-[#E2B75A] w-4 h-4"
+                    className="text-[var(--color-gold)] focus:ring-[#E2B75A] w-4 h-4"
                   />
-                  <span className="text-[#4A3728] text-sm">Bận mất tiêu, xin lỗi nha 🥺</span>
+                  <span className="text-[var(--color-text-primary)] text-sm">Bận mất tiêu, xin lỗi nha 🥺</span>
                 </label>
               </div>
             </div>
 
             {formData.attendance === 'yes' && (
               <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-                <label className="block text-sm font-medium text-[#4A3728] mb-2">Đi mấy người để tụi mình dọn cỗ nè? 🍽️</label>
+                <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-2">Đi mấy người để tụi mình dọn cỗ nè? 🍽️</label>
                 <select 
                   value={formData.guests}
                   onChange={(e) => setFormData({...formData, guests: e.target.value})}
-                  className="w-full px-4 py-3 bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl focus:border-[#E2B75A] focus:ring-1 focus:ring-[#E2B75A] outline-none transition-all shadow-inner text-[#4A3728]"
+                  className="w-full px-4 py-3 bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl focus:border-[#E2B75A] focus:ring-1 focus:ring-[#E2B75A] outline-none transition-all shadow-inner text-[var(--color-text-primary)]"
                 >
                   <option value="1">1 người (Đi lẻ nhưng quẩy khỏe) 😎</option>
                   <option value="2">2 người (Có đôi có cặp) 👫</option>
@@ -125,13 +125,13 @@ export default function RsvpSection({ name }) {
             )}
 
             <div>
-              <label className="block text-sm font-medium text-[#4A3728] mb-2">Để lại vài lời ướt át cho tụi mình nha ✍️</label>
+              <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-2">Để lại vài lời ướt át cho tụi mình nha ✍️</label>
               <textarea 
                 rows="4" 
                 placeholder="Ví dụ: Chúc hai bạn trăm năm hạnh phúc, sớm sinh quý tử..."
                 value={formData.wishes}
                 onChange={(e) => setFormData({...formData, wishes: e.target.value})}
-                className="w-full px-4 py-3 bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl focus:border-[#E2B75A] focus:ring-1 focus:ring-[#E2B75A] outline-none transition-all resize-none shadow-inner text-[#4A3728] placeholder-[#4A3728]/40"
+                className="w-full px-4 py-3 bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl focus:border-[#E2B75A] focus:ring-1 focus:ring-[#E2B75A] outline-none transition-all resize-none shadow-inner text-[var(--color-text-primary)] placeholder-[color-mix(in_srgb,var(--color-text-primary)_40%,transparent)]"
               ></textarea>
             </div>
 
