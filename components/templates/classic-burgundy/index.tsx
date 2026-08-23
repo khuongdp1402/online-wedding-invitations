@@ -145,7 +145,17 @@ export default function ClassicBurgundyTemplate({
 
       <ModeSwitcher mode={mode || "groom"} />
 
-      <main>{ordered.map((id) => sectionMap[id]).filter(Boolean)}</main>
+      <main>
+        {ordered.map((id) => {
+          const el = sectionMap[id];
+          if (!el) return null;
+          return (
+            <div key={id} data-section={id}>
+              {el}
+            </div>
+          );
+        })}
+      </main>
 
       {wedding.backgroundMusic && (
         <BackgroundMusic musicUrl={wedding.backgroundMusic} />

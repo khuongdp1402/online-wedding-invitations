@@ -5,7 +5,6 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { createS3Client, getPublicUrl } from "@/lib/s3-client";
 import { galleryIndexForSlotKey } from "@/lib/wedding-image-slots";
-import { DRAFT_MAX_PHOTOS } from "@/lib/payment";
 
 const ConfirmSchema = z.object({
   storageKey: z.string().min(1),
@@ -85,16 +84,7 @@ export async function POST(
 
     // Thiệp đã xuất bản: không giới hạn số ảnh (đã trả đúng giá template).
     // Còn DRAFT: giới hạn nhẹ để tránh lạm dụng khi chưa trả phí.
-    const isNewPhoto = !gallery[idx];
-    if (isNewPhoto && wedding.status !== "PUBLISHED") {
-      const currentPhotoCount = gallery.filter((url) => !!url).length;
-      if (currentPhotoCount >= DRAFT_MAX_PHOTOS) {
-        return NextResponse.json(
-          { error: `Bản nháp chỉ cho phép tối đa ${DRAFT_MAX_PHOTOS} ảnh. Xuất bản thiệp để thêm không giới hạn.` },
-          { status: 403 }
-        );
-      }
-    }
+
 
     gallery[idx] = publicUrl;
 

@@ -161,23 +161,9 @@ export function EditWeddingMediaSection({
 
   const albumCount = Math.max(0, gallery.length - albumStartIndex);
   const nextAlbumSlot = albumSlotKey(albumCount);
-  const currentPhotoCount = gallery.filter((u) => !!u?.trim()).length;
-  // Đã xuất bản: không giới hạn. Chưa xuất bản (DRAFT): giới hạn nhẹ.
-  const maxPhotos = isPublished ? null : DRAFT_MAX_PHOTOS;
 
   async function uploadMultipleToAlbum(files: FileList) {
-    let list = Array.from(files);
-    if (maxPhotos !== null) {
-      const remaining = Math.max(0, maxPhotos - currentPhotoCount);
-      if (remaining < list.length) {
-        toast({
-          title: "Vượt giới hạn ảnh của bản nháp",
-          description: `Bản nháp chỉ cho phép tối đa ${maxPhotos} ảnh. Chỉ ${remaining} ảnh đầu tiên sẽ được tải lên. Xuất bản thiệp để thêm không giới hạn.`,
-          variant: "destructive",
-        });
-        list = list.slice(0, remaining);
-      }
-    }
+    const list = Array.from(files);
     if (list.length === 0) return;
 
     const slotKeys = list.map((_, i) => albumSlotKey(albumCount + i));
@@ -251,12 +237,6 @@ export function EditWeddingMediaSection({
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          {maxPhotos !== null && (
-            <p className="text-xs text-gray-500 mb-3">
-              Đã dùng {currentPhotoCount}/{maxPhotos} ảnh (bản nháp). Xuất bản thiệp để thêm không giới hạn.
-            </p>
-          )}
-
           <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleAlbumDragEnd}>
             <SortableContext
               items={Array.from({ length: albumCount }, (_, i) => albumSlotKey(i))}

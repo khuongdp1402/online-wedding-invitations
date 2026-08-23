@@ -117,7 +117,15 @@ export default function AutumnWatercolorTemplate({
            </svg>
         </div>
 
-        {ordered.map((id) => sectionMap[id]).filter(Boolean)}
+        {ordered.map((id) => {
+          const el = sectionMap[id];
+          if (!el) return null;
+          return (
+            <div key={id} data-section={id}>
+              {el}
+            </div>
+          );
+        })}
       </main>
     </div>
   );

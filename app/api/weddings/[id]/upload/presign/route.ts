@@ -5,7 +5,7 @@ import { randomBytes } from "crypto";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { createS3Client } from "@/lib/s3-client";
+import { createS3ClientForSigning } from "@/lib/s3-client";
 
 const ALLOWED_MIME: Record<string, string[]> = {
   image: ["image/jpeg", "image/png", "image/webp", "image/gif"],
@@ -73,7 +73,7 @@ export async function POST(
 
     // Generate presigned URL (5 phút TTL)
     const presignedUrl = await getSignedUrl(
-      createS3Client(),
+      createS3ClientForSigning(),
       new PutObjectCommand({
         Bucket: process.env.S3_BUCKET!,
         Key: storageKey,

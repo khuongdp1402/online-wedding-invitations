@@ -114,66 +114,80 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
   const inner = (
     <main className="bg-paper min-h-screen">
       {order.map((sectionKey) => {
+        let content = null;
         switch (sectionKey) {
           case "header":
           case "card-opening":
-            return (
-              <Suspense key={sectionKey} fallback={null}>
+            content = (
+              <Suspense fallback={null}>
                 <InvitationHeaderSection data={mappedData} heroImage={structureImages.hero} isBrideMode={isBrideMode} />
               </Suspense>
             );
+            break;
           case "wedding-info":
-            return (
+            content = (
               <WeddingInfoSection
-                key={sectionKey}
                 data={mappedData}
                 photo1={structureImages.weddingA}
                 photo2={structureImages.weddingB}
                 isBrideMode={isBrideMode}
               />
             );
+            break;
           case "countdown":
-            return <CountdownSection key={sectionKey} data={mappedData} image={structureImages.countdown} />;
+            content = <CountdownSection data={mappedData} image={structureImages.countdown} />;
+            break;
           case "quote":
-            return (
-              <Suspense key={sectionKey} fallback={null}>
+            content = (
+              <Suspense fallback={null}>
                 <QuoteSection data={mappedData} photo1={structureImages.quoteA} photo2={structureImages.quoteB} isBrideMode={isBrideMode} />
               </Suspense>
             );
+            break;
           case "gallery":
-            if (!wedding.gallery?.length) return null;
-            return <GallerySection key={sectionKey} data={mappedData} />;
+            if (wedding.gallery?.length) {
+              content = <GallerySection data={mappedData} />;
+            }
+            break;
           case "location":
-            return <LocationSection key={sectionKey} data={mappedData} isBrideMode={isBrideMode} />;
+            content = <LocationSection data={mappedData} isBrideMode={isBrideMode} />;
+            break;
           case "rsvp":
-            return (
+            content = (
               <RSVPSection
-                key={sectionKey}
                 weddingId={wedding.id}
                 guestName={guestName}
               />
             );
+            break;
           case "wishes":
-            return (
+            content = (
               <WishesSection
-                key={sectionKey}
                 weddingId={wedding.id}
                 guestName={guestName}
               />
             );
+            break;
           case "gifting":
-            return <GiftingSection key={sectionKey} data={mappedData} />;
+            content = <GiftingSection data={mappedData} />;
+            break;
           case "footer":
-            return (
+            content = (
               <FooterSection
-                key={sectionKey}
                 data={mappedData}
                 isFreePlan={wedding.status !== "PUBLISHED"}
               />
             );
+            break;
           default:
-            return null;
+            content = null;
         }
+        if (!content) return null;
+        return (
+          <div key={sectionKey} data-section={sectionKey}>
+            {content}
+          </div>
+        );
       })}
       {wedding.backgroundMusic && <BackgroundMusic url={wedding.backgroundMusic} />}
     </main>

@@ -37,6 +37,41 @@ export default function PreviewPage() {
     return () => window.removeEventListener("message", handleMessage);
   }, []);
 
+  useEffect(() => {
+    if (!data?.highlightSlot) return;
+    const highlightSlot = data.highlightSlot;
+
+    // Map template2 section keys to their element IDs in StoryEngine.jsx
+    const template2Map: Record<string, string> = {
+      hero: "chapter-0-hero",
+      story: "chapter-1-meet",
+      journey: "chapter-2-journey",
+      invitation: "chapter-3-invitation",
+      mousetrail: "chapter-6-1-mousetrail",
+      carousel: "chapter-6-2-carousel",
+      rsvp: "chapter-6-rsvp",
+    };
+
+    const targetId = template2Map[highlightSlot] || highlightSlot;
+
+    // 1. Try finding element by data-section attribute
+    let el = document.querySelector(`[data-section="${highlightSlot}"]`);
+
+    // 2. Try finding element by ID
+    if (!el) {
+      el = document.getElementById(targetId);
+    }
+
+    // 3. Try finding element by class name (useful for specific slotKeys like cb-groom-name)
+    if (!el) {
+      el = document.querySelector(`.${highlightSlot}`);
+    }
+
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [data?.highlightSlot]);
+
   if (!data) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral-900 text-white font-sans">
