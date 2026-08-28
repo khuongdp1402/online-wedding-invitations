@@ -40,6 +40,33 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  // `/w/[slug]` (chính xác, không phải /w/[slug]/react hay /w/preview):
+  // route.ts phục vụ HTML tĩnh Astro nhưng không tự rewrite được được
+  // (NextResponse.rewrite() không hỗ trợ trong Route Handler, chỉ trong
+  // middleware) — nên eligibility phải quyết định ở đây. Không eligible
+  // (chưa publish, DRAFT, hoặc template chưa port sang Astro) thì rewrite
+  // sang react/page.tsx (giữ nguyên 100% hành vi/SEO cũ), URL public không đổi.
+  const weddingSlugMatch = pathname.match(/^\/w\/([^/]+)\/?$/);
+  if (weddingSlugMatch) {
+    const slug = weddingSlugMatch[1];
+    try {
+      const checkUrl = new URL("/api/static-wedding-eligible", req.nextUrl.origin);
+      checkUrl.searchParams.set("slug", slug);
+      const res = await fetch(checkUrl, { headers: { cookie: req.headers.get("cookie") || "" } });
+      const { eligible } = (await res.json()) as { eligible: boolean };
+      if (!eligible) {
+        url.pathname = `/w/${slug}/react`;
+        return NextResponse.rewrite(url);
+      }
+    } catch (err) {
+      // Eligibility check lỗi (API down, timeout...) — an toàn hơn là rơi về
+      // nhánh React đã chạy ổn định từ trước, không chặn khách xem thiệp.
+      console.error("static-wedding-eligible check failed:", err);
+      url.pathname = `/w/${slug}/react`;
+      return NextResponse.rewrite(url);
+    }
+  }
+
   if (pathname.startsWith("/api/auth")) {
     const ip = clientIp(req);
     const isRegister =

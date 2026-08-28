@@ -1,0 +1,24 @@
+---
+// Entry point build thật (chạy qua `astro build`, không phải Container API —
+// xem lib/static-site/generate.ts). Đọc StaticSiteInput từ file JSON tạm mà
+// generate.ts ghi trước mỗi lần build, chỉ định qua biến môi trường
+// ASTRO_STATIC_INPUT_PATH.
+import { readFileSync } from "node:fs";
+import ClassicBurgundyPage from "../components/ClassicBurgundyPage.astro";
+import AutumnWatercolorPage from "../components/AutumnWatercolorPage.astro";
+import ClassicElegancePage from "../components/ClassicElegancePage.astro";
+import type { StaticSiteInput } from "@/lib/static-site/types";
+
+const inputPath = process.env.ASTRO_STATIC_INPUT_PATH;
+if (!inputPath) {
+  throw new Error("ASTRO_STATIC_INPUT_PATH env var is required to build this page");
+}
+const input: StaticSiteInput = JSON.parse(readFileSync(inputPath, "utf-8"));
+---
+{input.templateSlug === "autumn-watercolor" ? (
+  <AutumnWatercolorPage input={input} />
+) : input.templateSlug === "classic-elegance" ? (
+  <ClassicElegancePage input={input} />
+) : (
+  <ClassicBurgundyPage input={input} />
+)}

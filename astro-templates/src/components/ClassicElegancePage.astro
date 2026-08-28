@@ -1,0 +1,272 @@
+---
+import type { StaticSiteInput } from "@/lib/static-site/types";
+import InvitationHeaderStaticT1 from "../static/InvitationHeaderStaticT1.astro";
+import WeddingInfoStaticT1 from "../static/WeddingInfoStaticT1.astro";
+import LocationStaticT1 from "../static/LocationStaticT1.astro";
+import FooterStaticT1 from "../static/FooterStaticT1.astro";
+import QuoteStaticT1 from "../static/QuoteStaticT1.astro";
+
+import { WeddingCardOpeningIslandT1 } from "../islands/WeddingCardOpeningIslandT1";
+import { CountdownIslandT1 } from "../islands/CountdownIslandT1";
+import { GalleryIslandT1 } from "../islands/GalleryIslandT1";
+import { RSVPIslandT1 } from "../islands/RSVPIslandT1";
+import { WishesIslandT1 } from "../islands/WishesIslandT1";
+import { GiftingIslandT1 } from "../islands/GiftingIslandT1";
+import { BackgroundMusicIslandT1 } from "../islands/BackgroundMusicIslandT1";
+
+interface Props {
+  input: StaticSiteInput;
+}
+const { input } = Astro.props;
+const { wedding, mode } = input;
+
+const ceremony = mode === "bride" ? wedding.brideCeremony : wedding.groomCeremony;
+const isBrideMode = mode === "bride";
+
+const ceremonyDate = new Date(ceremony?.date || new Date());
+const formattedDate = !isNaN(ceremonyDate.getTime()) 
+  ? ceremonyDate.toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' })
+  : ceremony?.date || "";
+
+const mappedData = {
+  groom: {
+    name: wedding.groomName || "Tên Chú Rể",
+    parents: {
+      father: wedding.groomParents?.father || "",
+      mother: wedding.groomParents?.mother || ""
+    }
+  },
+  bride: {
+    name: wedding.brideName || "Tên Cô Dâu",
+    parents: {
+      father: wedding.brideParents?.father || "",
+      mother: wedding.brideParents?.mother || ""
+    }
+  },
+  ceremony: {
+    title: mode === "bride" ? "Lễ Vu Quy" : "Lễ Tân Hôn",
+    solarDateLabel: formattedDate,
+    lunarDateLabel: ceremony?.lunarDate || "",
+    timeLabel: ceremony?.ceremonyTime || "09:00",
+    receptionTimeLabel: ceremony?.receptionTime || "11:00",
+    venueName: ceremony?.venue || "Tư Gia",
+    address: ceremony?.address || "",
+    googleMapsUrl: ceremony?.googleMapsUrl || "",
+    googleMapsEmbedUrl: ceremony?.googleMapsUrl || "",
+    startsAtISO: ceremony?.date || new Date().toISOString()
+  },
+  quote: wedding.quote || "Hạnh phúc là có bạn bên cạnh trong ngày trọng đại.",
+  gallery: wedding.gallery?.map((src: string, idx: number) => {
+    return {
+      src,
+      alt: `Gallery image ${idx + 1}`
+    };
+  }) || [],
+  gifting: {
+    groom: {
+      accountName: wedding.gifting?.groom?.accountHolder || "",
+      accountNumber: wedding.gifting?.groom?.accountNumber || "",
+      bankName: wedding.gifting?.groom?.bankName || "",
+      address: wedding.groomCeremony?.address || "",
+      phone: ""
+    },
+    bride: {
+      accountName: wedding.gifting?.bride?.accountHolder || "",
+      accountNumber: wedding.gifting?.bride?.accountNumber || "",
+      bankName: wedding.gifting?.bride?.bankName || "",
+      address: wedding.brideCeremony?.address || "",
+      phone: ""
+    }
+  }
+};
+
+const structureImages = {
+  hero: wedding.gallery?.[0] || "",
+  countdown: wedding.gallery?.[1] || "",
+  weddingA: wedding.gallery?.[2] || "",
+  weddingB: wedding.gallery?.[3] || "",
+  quoteA: wedding.gallery?.[4] || "",
+  quoteB: wedding.gallery?.[5] || "",
+};
+
+const defaultOrder = ["header", "wedding-info", "countdown", "quote", "gallery", "location", "rsvp", "wishes", "gifting", "footer"];
+const order = Array.isArray(wedding.sectionOrder) && wedding.sectionOrder.length > 0
+  ? (wedding.sectionOrder as {id: string, visible: boolean}[]).filter(s => s.visible).map(s => s.id)
+  : defaultOrder;
+---
+
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>{wedding.groomName} & {wedding.brideName} - Save the date</title>
+    
+    <!-- Load custom fonts based on user choice, or fallback to default tailwind fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style set:html={`
+      :root {
+        --font-heading: '${wedding.design?.fontHeading || 'Playfair Display'}', serif;
+        --font-body: '${wedding.design?.fontBody || 'Montserrat'}', sans-serif;
+        --font-script: '${wedding.design?.fontScript || 'Great Vibes'}', cursive;
+        --radius: 0.5rem;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+        background-color: #FDFBF7; /* paper color */
+      }
+      .card-cover-bling-layer {
+          mix-blend-mode: color-dodge;
+      }
+      .card-cover-bling-shimmer {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+              45deg,
+              transparent 0%,
+              rgba(212, 175, 55, 0.05) 45%,
+              rgba(212, 175, 55, 0.15) 50%,
+              rgba(212, 175, 55, 0.05) 55%,
+              transparent 100%
+          );
+          background-size: 200% 200%;
+          animation: cardCoverShimmer 6s infinite linear;
+      }
+      @keyframes cardCoverShimmer {
+          0% { background-position: -200% -200%; }
+          100% { background-position: 200% 200%; }
+      }
+      .card-cover-bling-sparkles {
+          position: absolute;
+          inset: 0;
+      }
+      .bling-sparkle {
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          background: #fff;
+          border-radius: 50%;
+          box-shadow: 0 0 10px 2px rgba(212, 175, 55, 0.8);
+          animation: cardCoverSparkle 3s infinite;
+      }
+      .bling-sparkle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
+      .bling-sparkle:nth-child(2) { top: 15%; left: 80%; animation-delay: 0.4s; }
+      .bling-sparkle:nth-child(3) { top: 75%; left: 85%; animation-delay: 0.8s; }
+      .bling-sparkle:nth-child(4) { top: 85%; left: 20%; animation-delay: 1.2s; }
+      .bling-sparkle:nth-child(5) { top: 50%; left: 10%; animation-delay: 1.6s; }
+      .bling-sparkle:nth-child(6) { top: 40%; left: 90%; animation-delay: 2.0s; }
+      .bling-sparkle:nth-child(7) { top: 10%; left: 50%; animation-delay: 2.4s; }
+      .bling-sparkle:nth-child(8) { top: 90%; left: 50%; animation-delay: 2.8s; }
+      @keyframes cardCoverSparkle {
+          0%, 100% { opacity: 0; transform: scale(0); }
+          50% { opacity: 1; transform: scale(1); }
+      }
+      .bg-bling-text {
+        background: radial-gradient(circle, rgba(128,0,32,0.1) 0%, transparent 70%);
+      }
+    `}></style>
+  </head>
+  <body class="font-body text-foreground antialiased min-h-screen">
+    <WeddingCardOpeningIslandT1 client:load />
+
+    <main class="bg-paper min-h-screen relative z-0">
+      {order.map((sectionKey) => {
+        if (sectionKey === "header" || sectionKey === "card-opening") {
+          return (
+            <div data-section="header">
+              <InvitationHeaderStaticT1 data={mappedData} heroImage={structureImages.hero} isBrideMode={isBrideMode} />
+            </div>
+          );
+        }
+        if (sectionKey === "wedding-info") {
+          return (
+            <div data-section="wedding-info">
+              <WeddingInfoStaticT1 data={mappedData} photo1={structureImages.weddingA} photo2={structureImages.weddingB} isBrideMode={isBrideMode} />
+            </div>
+          );
+        }
+        if (sectionKey === "countdown") {
+          return (
+            <div data-section="countdown">
+              <CountdownIslandT1 client:visible dateLabel={mappedData.ceremony.solarDateLabel} startsAtISO={mappedData.ceremony.startsAtISO} image={structureImages.countdown} />
+            </div>
+          );
+        }
+        if (sectionKey === "quote") {
+          return (
+            <div data-section="quote">
+              <QuoteStaticT1 data={mappedData} photo1={structureImages.quoteA} photo2={structureImages.quoteB} />
+            </div>
+          );
+        }
+        if (sectionKey === "gallery" && mappedData.gallery.length > 0) {
+          return (
+            <div data-section="gallery">
+              <GalleryIslandT1 client:visible gallery={mappedData.gallery} />
+            </div>
+          );
+        }
+        if (sectionKey === "location") {
+          return (
+            <div data-section="location">
+              <LocationStaticT1 data={mappedData} isBrideMode={isBrideMode} />
+            </div>
+          );
+        }
+        if (sectionKey === "rsvp") {
+          return (
+            <div data-section="rsvp">
+              <RSVPIslandT1 client:visible weddingId={wedding.id} />
+            </div>
+          );
+        }
+        if (sectionKey === "wishes") {
+          return (
+            <div data-section="wishes">
+              <WishesIslandT1 client:visible weddingId={wedding.id} />
+            </div>
+          );
+        }
+        if (sectionKey === "gifting") {
+          return (
+            <div data-section="gifting">
+              <GiftingIslandT1 client:visible data={mappedData} />
+            </div>
+          );
+        }
+        if (sectionKey === "footer") {
+          return (
+            <div data-section="footer">
+              <FooterStaticT1 data={mappedData} isFreePlan={wedding.status !== "PUBLISHED"} />
+            </div>
+          );
+        }
+        return null;
+      })}
+
+      {wedding.backgroundMusic && (
+        <BackgroundMusicIslandT1 client:idle url={wedding.backgroundMusic} />
+      )}
+    </main>
+
+    <script is:inline>
+      // Thay thế tên khách mời từ URL trên client
+      document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('guest');
+        if (guestName) {
+          document.querySelectorAll('.guest-name-placeholder').forEach(el => {
+            el.textContent = guestName;
+          });
+          document.querySelectorAll('.salutation-only-placeholder').forEach(el => {
+            // Thay thế bằng danh xưng. Đơn giản hóa: lấy từ đầu đến khoảng trắng đầu tiên
+            const salutation = guestName.split(' ')[0] || 'bạn';
+            el.textContent = salutation;
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

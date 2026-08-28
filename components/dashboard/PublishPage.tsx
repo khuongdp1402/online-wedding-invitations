@@ -4,12 +4,10 @@ import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import {
-  CreditCard,
   Building2,
   ArrowLeft,
   Loader2,
@@ -39,9 +37,9 @@ type BankInfo = {
   bankName: string;
   accountNumber: string;
   accountHolder: string;
-  branch: string;
   amount: number;
   transferContent: string;
+  qrUrl: string | null;
 };
 
 type Quote = {
@@ -56,7 +54,7 @@ type Quote = {
     | { valid: false; reason: string };
 };
 
-type Step = "quote" | "select-method" | "bank-transfer" | "processing";
+type Step = "quote" | "bank-transfer" | "processing";
 
 function formatDate(value: string | Date | null): string {
   if (!value) return "—";
@@ -114,12 +112,12 @@ export function PublishPage({ wedding }: Props) {
     loadQuote();
   }, [loadQuote]);
 
-  // Show toast for VNPay return result
+  // Show toast for payment return result
   useEffect(() => {
     if (paymentResult === "failed") {
       toast({
         title: "Thanh toán thất bại",
-        description: "Giao dịch VNPay không thành công. Vui lòng thử lại.",
+        description: "Giao dịch không thành công. Vui lòng thử lại.",
         variant: "destructive",
       });
     }
@@ -156,7 +154,7 @@ export function PublishPage({ wedding }: Props) {
     setCouponApplying(false);
   }
 
-  async function handlePayment(method: "vnpay" | "bank_transfer") {
+  async function handlePayment() {
     setLoading(true);
     try {
       const couponApplied = quote?.couponPreview?.valid === true;
@@ -165,7 +163,7 @@ export function PublishPage({ wedding }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           weddingId: wedding.id,
-          method,
+          method: "bank_transfer",
           ...(couponApplied && { couponCode: couponCode.trim() }),
         }),
       });
@@ -178,18 +176,9 @@ export function PublishPage({ wedding }: Props) {
       }
 
       const data = await res.json();
-
-      if (method === "vnpay") {
-        // Redirect to VNPay
-        window.location.href = data.paymentUrl;
-        return;
-      }
-
-      if (method === "bank_transfer") {
-        setBankInfo(data.bankInfo);
-        setPaymentId(data.payment.id);
-        setStep("bank-transfer");
-      }
+      setBankInfo(data.bankInfo);
+      setPaymentId(data.payment.id);
+      setStep("bank-transfer");
     } catch {
       toast({ title: "Lỗi", description: "Đã xảy ra lỗi, vui lòng thử lại.", variant: "destructive" });
     }
@@ -346,75 +335,18 @@ export function PublishPage({ wedding }: Props) {
             </Link>
             {quote && (
               <Button
-                onClick={() => setStep("select-method")}
+                onClick={handlePayment}
+                disabled={loading}
                 className="bg-rose-600 hover:bg-rose-700"
               >
-                Tiếp tục <ExternalLink className="w-4 h-4 ml-1.5" />
+                {loading ? (
+                  <Loader2 className="w-4 h-4 mr-1.5 animate-spin" />
+                ) : (
+                  <ExternalLink className="w-4 h-4 mr-1.5" />
+                )}
+                Tiếp tục
               </Button>
             )}
-          </div>
-        </>
-      )}
-
-      {/* Chọn phương thức thanh toán */}
-      {step === "select-method" && quote && (
-        <>
-          <div className="text-center">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Chọn phương thức thanh toán</h2>
-            <p className="text-gray-500">{displayAmount?.toLocaleString("vi-VN")}₫</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {/* VNPay */}
-            <Card
-              className="cursor-pointer hover:shadow-lg transition-all hover:ring-2 hover:ring-blue-400"
-              onClick={() => handlePayment("vnpay")}
-            >
-              <CardContent className="pt-8 pb-8 text-center">
-                <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <CreditCard className="w-8 h-8 text-blue-600" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1">VNPay</h3>
-                <p className="text-sm text-gray-500 mb-4">
-                  Thanh toán qua thẻ ATM, Visa, MasterCard, QR Pay
-                </p>
-                <Badge variant="outline" className="text-xs text-blue-600 border-blue-200">
-                  Xác nhận tự động
-                </Badge>
-              </CardContent>
-            </Card>
-
-            {/* Bank Transfer */}
-            <Card
-              className="cursor-pointer hover:shadow-lg transition-all hover:ring-2 hover:ring-emerald-400"
-              onClick={() => handlePayment("bank_transfer")}
-            >
-              <CardContent className="pt-8 pb-8 text-center">
-                <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Building2 className="w-8 h-8 text-emerald-600" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-1">Chuyển khoản ngân hàng</h3>
-                <p className="text-sm text-gray-500 mb-4">
-                  Chuyển khoản và chờ xác nhận từ admin
-                </p>
-                <Badge variant="outline" className="text-xs text-emerald-600 border-emerald-200">
-                  Xác nhận trong 24h
-                </Badge>
-              </CardContent>
-            </Card>
-          </div>
-
-          {loading && (
-            <div className="flex items-center justify-center gap-2 text-gray-500">
-              <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Đang xử lý...</span>
-            </div>
-          )}
-
-          <div className="flex justify-center pt-4">
-            <Button variant="outline" onClick={() => setStep("quote")}>
-              <ArrowLeft className="w-4 h-4 mr-1.5" /> Quay lại
-            </Button>
           </div>
         </>
       )}
@@ -423,7 +355,7 @@ export function PublishPage({ wedding }: Props) {
       {step === "bank-transfer" && bankInfo && quote && (
         <>
           <div className="text-center">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Thông tin chuyển khoản</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">Quét mã QR để chuyển khoản</h2>
             <p className="text-gray-500">{bankInfo.amount.toLocaleString("vi-VN")}₫</p>
           </div>
 
@@ -435,6 +367,20 @@ export function PublishPage({ wedding }: Props) {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              {bankInfo.qrUrl && (
+                <div className="flex flex-col items-center gap-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={bankInfo.qrUrl}
+                    alt="QR chuyển khoản"
+                    className="w-56 h-56 rounded-lg border"
+                  />
+                  <p className="text-xs text-gray-500">
+                    Quét mã bằng app ngân hàng để tự điền thông tin
+                  </p>
+                </div>
+              )}
+
               <div className="space-y-3">
                 <InfoRow
                   label="Ngân hàng"
@@ -453,11 +399,6 @@ export function PublishPage({ wedding }: Props) {
                   label="Chủ tài khoản"
                   value={bankInfo.accountHolder}
                   onCopy={() => copyToClipboard(bankInfo.accountHolder, "chủ tài khoản")}
-                />
-                <Separator />
-                <InfoRow
-                  label="Chi nhánh"
-                  value={bankInfo.branch}
                 />
                 <Separator />
                 <InfoRow
@@ -482,7 +423,7 @@ export function PublishPage({ wedding }: Props) {
                 </p>
                 <p className="text-sm text-amber-700">
                   Vui lòng ghi đúng <strong>nội dung chuyển khoản</strong> để chúng tôi xác nhận nhanh nhất.
-                  Thiệp sẽ được xuất bản sau khi admin xác nhận thanh toán (trong vòng 24h).
+                  Thiệp sẽ được xuất bản ngay sau khi hệ thống nhận được tiền (thường trong vài phút).
                 </p>
               </div>
 

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Plus, Eye, MessageSquare, ExternalLink, Settings } from "lucide-react";
 import Link from "next/link";
+import { getEffectiveWeddingStatus } from "@/lib/payment";
 
 const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
   DRAFT: { label: "Nháp", variant: "secondary" },
@@ -36,7 +37,11 @@ export default async function DashboardPage() {
 
   const totalViews = weddings.reduce((sum, w) => sum + w.viewCount, 0);
   const totalWishes = weddings.reduce((sum, w) => sum + w._count.wishes, 0);
-  const publishedCount = weddings.filter((w) => w.status === "PUBLISHED").length;
+  // `status` trong DB không tự chuyển "EXPIRED" khi `expiresAt` trôi qua
+  // (không có cron) — đếm theo trạng thái hiệu lực thực tế.
+  const publishedCount = weddings.filter(
+    (w) => getEffectiveWeddingStatus(w) === "PUBLISHED"
+  ).length;
 
   return (
     <div>
@@ -99,7 +104,9 @@ export default async function DashboardPage() {
       {weddings.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {weddings.map((wedding) => {
-            const st = statusLabels[wedding.status] || statusLabels.DRAFT;
+            const st =
+              statusLabels[getEffectiveWeddingStatus(wedding)] ||
+              statusLabels.DRAFT;
             return (
               <Card key={wedding.id} className="hover:shadow-lg transition-shadow">
                 <CardHeader className="pb-3">

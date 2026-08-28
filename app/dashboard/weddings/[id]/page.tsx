@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect, notFound } from "next/navigation";
 import { WeddingDetail } from "@/components/dashboard/WeddingDetail";
+import { getEffectiveWeddingStatus } from "@/lib/payment";
 
 export default async function WeddingDetailPage({
   params,
@@ -46,8 +47,13 @@ export default async function WeddingDetailPage({
     slug: wedding.slug,
   };
 
-  // Serialize for client component
-  const weddingData = JSON.parse(JSON.stringify(wedding));
+  // Serialize for client component. `status` trong DB không tự chuyển
+  // "EXPIRED" khi `expiresAt` trôi qua (không có cron) — hiển thị trạng
+  // thái hiệu lực thực tế cho chủ sở hữu thay vì "Đã xuất bản" sai lệch.
+  const weddingData = {
+    ...JSON.parse(JSON.stringify(wedding)),
+    status: getEffectiveWeddingStatus(wedding),
+  };
 
   return <WeddingDetail wedding={weddingData} analytics={analyticsData} />;
 }

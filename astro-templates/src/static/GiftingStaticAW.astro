@@ -1,0 +1,95 @@
+---
+import type { WeddingData, GiftingInfo } from "@/lib/template-registry";
+import { buildVietQrUrl } from "@/lib/vietqr";
+import Reveal from "./Reveal.astro";
+
+interface Props {
+  wedding: WeddingData;
+  mode: "groom" | "bride";
+}
+const { wedding, mode } = Astro.props;
+
+const groomGift = wedding.gifting?.groom;
+const brideGift = wedding.gifting?.bride;
+
+const sides: { label: string; gift?: GiftingInfo }[] = [
+  { label: "Gửi đến Chú rể", gift: groomGift },
+  { label: "Gửi đến Cô dâu", gift: brideGift },
+];
+
+const cards = sides.flatMap(({ label, gift }) => {
+  if (!gift?.accountNumber?.trim()) return [];
+  return [
+    {
+      label,
+      gift,
+      qrUrl: buildVietQrUrl({
+        bankName: gift.bankName ?? "",
+        accountNumber: gift.accountNumber,
+        accountHolder: gift.accountHolder,
+        message: "Mung cuoi",
+      }),
+    },
+  ];
+});
+---
+{cards.length > 0 && (
+  <Reveal y={20}>
+    <div class="space-y-12">
+      <div class="text-center">
+        <p class="text-sm uppercase tracking-[0.3em] opacity-40 mb-2">Gifting</p>
+        <h2 class="font-script text-4xl text-[var(--primary)]">Hộp mừng cưới</h2>
+      </div>
+
+      <div class="flex flex-col items-center space-y-8">
+        {/* Envelope Icon */}
+        <div class="relative">
+          <div class="w-24 h-24 bg-[var(--primary)] rounded-2xl flex items-center justify-center shadow-xl transform -rotate-3">
+             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail text-[var(--bg-cream)]"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="absolute -top-2 -right-2 w-8 h-8 bg-[var(--secondary)] rounded-full flex items-center justify-center shadow-md animate-bounce">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart text-white fill-white"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+          </div>
+        </div>
+
+        <p class="text-sm text-center italic opacity-60 px-4">
+          Sự hiện diện của quý vị là niềm hạnh phúc lớn nhất của chúng tôi. Nếu quý vị muốn gửi món quà chúc phúc, có thể sử dụng thông tin dưới đây:
+        </p>
+
+        <div class="w-full space-y-6">
+          {cards.map(({ label, gift, qrUrl }) => (
+            <div
+              class="p-6 border border-[color-mix(in_srgb,var(--secondary)_20%,transparent)] rounded-xl bg-white space-y-4"
+            >
+              <p class="font-bold text-[var(--secondary)] text-xs uppercase tracking-widest text-center">
+                {label}
+              </p>
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card opacity-40"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+                <div class="flex-1 space-y-0.5">
+                  <p class="text-xs opacity-50 uppercase font-bold">{gift.bankName}</p>
+                  <p class="font-bold text-[var(--primary)] tracking-wider">{gift.accountNumber}</p>
+                  {gift.accountHolder && (
+                    <p class="text-sm italic opacity-60">Chủ TK: {gift.accountHolder}</p>
+                  )}
+                </div>
+              </div>
+
+              {qrUrl && (
+                <div class="flex justify-center pt-2">
+                  <img
+                    src={qrUrl}
+                    alt={`Mã QR ${label}`}
+                    class="w-40 h-40 object-contain"
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </Reveal>
+)}

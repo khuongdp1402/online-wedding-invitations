@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import {
-  createVNPayUrl,
   generateTransferContent,
   BANK_TRANSFER_INFO,
 } from "@/lib/payment";
+import { buildVietQrUrl } from "@/lib/vietqr";
 import { resolveTemplatePrice, applyCoupon } from "@/lib/template-pricing";
 
 export async function POST(request: Request) {
@@ -109,28 +109,14 @@ export async function POST(request: Request) {
       },
     });
 
-    if (method === "vnpay") {
-      // Get client IP
-      const forwarded = request.headers.get("x-forwarded-for");
-      const ipAddr = forwarded?.split(",")[0]?.trim() || "127.0.0.1";
-
-      const orderLabel =
-        type === "RENEW" ? "Gia han" : type === "TEMPLATE_CHANGE" ? "Doi mau" : "Xuat ban";
-      const paymentUrl = createVNPayUrl({
-        orderId: payment.id,
-        amount: finalAmount,
-        orderInfo: `Thanh toan thiepcuoi ${wedding.groomName} & ${wedding.brideName} - ${orderLabel}`,
-        ipAddr,
-      });
-
-      return NextResponse.json({
-        payment: { id: payment.id, method: "vnpay" },
-        paymentUrl,
-      });
-    }
-
     if (method === "bank_transfer") {
       const transferContent = generateTransferContent(weddingId, type);
+      const qrUrl = buildVietQrUrl({
+        bankName: BANK_TRANSFER_INFO.bankName,
+        accountNumber: BANK_TRANSFER_INFO.accountNumber,
+        accountHolder: BANK_TRANSFER_INFO.accountHolder,
+        message: transferContent,
+      });
 
       return NextResponse.json({
         payment: { id: payment.id, method: "bank_transfer" },
@@ -138,6 +124,7 @@ export async function POST(request: Request) {
           ...BANK_TRANSFER_INFO,
           amount: finalAmount,
           transferContent,
+          qrUrl,
         },
       });
     }

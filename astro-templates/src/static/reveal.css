@@ -1,0 +1,22 @@
+/*
+ * Thay cho framer-motion `whileInView` (components/templates/classic-burgundy/Reveal.tsx).
+ * `.cb-reveal` bắt đầu ẩn; script reveal-observer.js thêm class `.is-visible`
+ * khi phần tử vào viewport, kích hoạt transition CSS thuần — không cần React.
+ */
+.cb-reveal {
+  opacity: 0;
+  transform: translate(var(--cb-reveal-x, 0), var(--cb-reveal-y, 14px));
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  transition-delay: var(--cb-reveal-delay, 0s);
+}
+
+.cb-reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* Không có JS (hiếm, nhưng an toàn hơn là ẩn vĩnh viễn): vẫn hiện nội dung. */
+.no-js .cb-reveal {
+  opacity: 1;
+  transform: none;
+}

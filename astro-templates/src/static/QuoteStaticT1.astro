@@ -1,0 +1,84 @@
+---
+import Reveal from "./Reveal.astro";
+
+interface Props {
+  data: any;
+  photo1?: string;
+  photo2?: string;
+}
+const { data, photo1, photo2 } = Astro.props;
+---
+
+<section class="relative sm:py-40 py-16 overflow-hidden bg-paper">
+  <div class="container mx-auto max-w-7xl px-4 relative z-10">
+    {/* Mobile: 2 ảnh hiển thị trên khối chữ */}
+    {(photo1 || photo2) && (
+      <div class="lg:hidden grid grid-cols-2 gap-4 sm:gap-6 max-w-sm mx-auto mb-8 sm:mb-10">
+        <Reveal x={-20}>
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden border-[4px] border-white shadow-xl rotate-[-3deg]">
+            <img src={photo1 || ""} alt="Ảnh cưới" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+        </Reveal>
+        <Reveal x={20}>
+          <div class="relative aspect-[3/4] rounded-2xl overflow-hidden border-[4px] border-white shadow-xl rotate-[3deg] mt-6">
+            <img src={photo2 || ""} alt="Cô dâu" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+        </Reveal>
+      </div>
+    )}
+
+    <div class="relative grid grid-cols-12 gap-8 items-center">
+      {/* Desktop: Ảnh trái */}
+      {photo1 && (
+        <div class="hidden lg:block lg:col-span-4">
+          <Reveal x={-40}>
+            <div class="relative aspect-[3/4] rounded-full overflow-hidden border-[6px] border-white shadow-2xl rotate-[-2deg] grayscale-[0.2] hover:grayscale-0 transition-all duration-700">
+              <img src={photo1} alt="Ảnh cưới" class="w-full h-full object-cover scale-110" loading="lazy" />
+            </div>
+          </Reveal>
+        </div>
+      )}
+
+      {/* Main Quote Content – Trân trọng kính mời trên, quote dưới */}
+      <div class="col-span-12 lg:col-span-4 text-center px-4 space-y-6 sm:space-y-8">
+        <Reveal>
+          <div class="mb-6 flex justify-center opacity-30">
+            <svg class="w-10 h-10 text-burgundy fill-burgundy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </div>
+          <p class="text-burgundy text-sm sm:text-base uppercase tracking-[0.35em] font-bold mb-4">
+            Trân trọng kính mời
+          </p>
+          <p class="text-ink-dark text-lg sm:text-xl font-heading font-medium mb-4">
+            <span class="font-bold guest-name-placeholder">Quý khách</span> tới dự buổi tiệc chung vui cùng gia đình chúng tôi.
+          </p>
+          <p class="text-ink-dark text-lg sm:text-xl font-heading font-medium mb-8">
+            Sự hiện diện của <span class="font-bold salutation-only-placeholder">bạn</span> là niềm vinh hạnh lớn lao cho gia đình chúng tôi.
+          </p>
+          {data.quote && (
+            <p class="text-ink-dark text-base sm:text-lg italic font-medium mb-4">
+              &ldquo;{data.quote}&rdquo;
+            </p>
+          )}
+          <div class="h-px w-24 bg-gold mx-auto" />
+        </Reveal>
+      </div>
+
+      {/* Desktop: Ảnh phải */}
+      {photo2 && (
+        <div class="hidden lg:block lg:col-span-4">
+          <Reveal x={40}>
+            <div class="relative aspect-[3/4] rounded-t-full overflow-hidden border-[6px] border-white shadow-2xl rotate-[2deg] grayscale-[0.2] hover:grayscale-0 transition-all duration-700 mt-12">
+              <img src={photo2} alt="Cô dâu" class="w-full h-full object-cover scale-110" loading="lazy" />
+            </div>
+          </Reveal>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none italic font-heading text-burgundy bg-bling-text">
+    <span class="block text-[4rem] sm:text-[7rem] lg:text-[15rem] text-burgundy/10 sm:text-burgundy/[0.06] lg:text-burgundy/[0.03]">
+      Forever
+    </span>
+  </div>
+</section>

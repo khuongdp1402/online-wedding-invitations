@@ -1,22 +1,3 @@
-import crypto from "crypto";
-
-// ==================== VNPay Configuration ====================
-
-const VNPAY_TMN_CODE = process.env.VNPAY_TMN_CODE || "";
-const VNPAY_HASH_SECRET = process.env.VNPAY_HASH_SECRET || "";
-const VNPAY_URL =
-  process.env.VNPAY_URL ||
-  "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-/** Phải trùng route GET thực tế: /api/payment/vnpay (không có /callback). */
-const VNPAY_RETURN_URL =
-  process.env.VNPAY_RETURN_URL ||
-  (() => {
-    const base =
-      process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ||
-      "http://localhost:3001";
-    return `${base}/api/payment/vnpay`;
-  })();
-
 // ==================== Giới hạn khi chưa xuất bản ====================
 
 /**
@@ -46,146 +27,48 @@ export function calculateExpiryDate(from: Date = new Date()): Date {
   return date;
 }
 
+/**
+ * `Wedding.status` chỉ được set "EXPIRED" khi có thanh toán mới xảy ra
+ * (xem `applyCompletedPayment`) — không có cron nào tự chuyển "PUBLISHED"
+ * sang "EXPIRED" khi `expiresAt` trôi qua. Vì vậy mọi nơi cần biết một
+ * thiệp có còn hiệu lực hay không phải tính trạng thái "hiệu lực" (effective)
+ * on-the-fly qua hàm này, thay vì đọc thẳng `wedding.status`.
+ */
+export function isWeddingExpired(wedding: {
+  status: string;
+  expiresAt: Date | string | null;
+}): boolean {
+  if (wedding.status !== "PUBLISHED") return false;
+  if (!wedding.expiresAt) return false;
+  return new Date(wedding.expiresAt).getTime() < Date.now();
+}
+
+/**
+ * Trạng thái hiệu lực thực tế của thiệp, tính cả trường hợp đã quá
+ * `expiresAt` nhưng DB chưa (và có thể sẽ không bao giờ) được cập nhật
+ * thành "EXPIRED". Dùng hàm này ở mọi nơi cần gate truy cập/hiển thị
+ * theo hạn sử dụng thay vì so sánh `status` trực tiếp.
+ */
+export function getEffectiveWeddingStatus(wedding: {
+  status: string;
+  expiresAt: Date | string | null;
+}): string {
+  return isWeddingExpired(wedding) ? "EXPIRED" : wedding.status;
+}
+
 // ==================== Bank Transfer Info ====================
 
+/**
+ * Tài khoản ngân hàng nhận tiền — đọc từ biến môi trường (chủ dự án tự cấu
+ * hình tài khoản cá nhân/doanh nghiệp thật của họ, không hardcode trong
+ * code). Cần khớp đúng tài khoản đã kết nối Casso để đối soát tự động hoạt
+ * động — xem docs/setup-payment-notify.md.
+ */
 export const BANK_TRANSFER_INFO = {
-  bankName: "Vietcombank",
-  accountNumber: "1234567890",
-  accountHolder: "NGUYEN VAN A",
-  branch: "Chi nhánh Hà Nội",
+  bankName: process.env.BANK_NAME || "",
+  accountNumber: process.env.BANK_ACCOUNT_NUMBER || "",
+  accountHolder: process.env.BANK_ACCOUNT_HOLDER || "",
 };
-
-// ==================== VNPay Helpers ====================
-
-function sortObject(obj: Record<string, string>): Record<string, string> {
-  const sorted: Record<string, string> = {};
-  const keys = Object.keys(obj).sort();
-  for (const key of keys) {
-    sorted[key] = obj[key];
-  }
-  return sorted;
-}
-
-export type CreateVNPayUrlParams = {
-  orderId: string; // Payment ID
-  amount: number; // VND
-  orderInfo: string; // Description
-  ipAddr: string;
-  locale?: "vn" | "en";
-};
-
-/**
- * Create a VNPay payment URL for redirect
- */
-export function createVNPayUrl({
-  orderId,
-  amount,
-  orderInfo,
-  ipAddr,
-  locale = "vn",
-}: CreateVNPayUrlParams): string {
-  const date = new Date();
-  const createDate = formatDate(date);
-  const expireDate = formatDate(new Date(date.getTime() + 15 * 60 * 1000)); // +15 min
-
-  let vnpParams: Record<string, string> = {
-    vnp_Version: "2.1.0",
-    vnp_Command: "pay",
-    vnp_TmnCode: VNPAY_TMN_CODE,
-    vnp_Locale: locale,
-    vnp_CurrCode: "VND",
-    vnp_TxnRef: orderId,
-    vnp_OrderInfo: orderInfo,
-    vnp_OrderType: "other",
-    vnp_Amount: String(amount * 100), // VNPay expects amount * 100
-    vnp_ReturnUrl: VNPAY_RETURN_URL,
-    vnp_IpAddr: ipAddr,
-    vnp_CreateDate: createDate,
-    vnp_ExpireDate: expireDate,
-  };
-
-  vnpParams = sortObject(vnpParams);
-
-  const signData = new URLSearchParams(vnpParams).toString();
-  const hmac = crypto.createHmac("sha512", VNPAY_HASH_SECRET);
-  const signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
-
-  vnpParams["vnp_SecureHash"] = signed;
-
-  return `${VNPAY_URL}?${new URLSearchParams(vnpParams).toString()}`;
-}
-
-/**
- * Verify VNPay return/IPN callback data
- */
-/**
- * VNPay IPN thường gửi application/x-www-form-urlencoded; một số môi trường dùng JSON.
- */
-export async function parseVNPayIpnBody(
-  request: Request
-): Promise<Record<string, string>> {
-  const ct = (request.headers.get("content-type") || "").toLowerCase();
-  if (ct.includes("application/json")) {
-    try {
-      const body = (await request.json()) as unknown;
-      if (body && typeof body === "object" && !Array.isArray(body)) {
-        return body as Record<string, string>;
-      }
-    } catch {
-      /* empty */
-    }
-    return {};
-  }
-  const text = await request.text().catch(() => "");
-  if (text.trim().startsWith("{")) {
-    try {
-      return JSON.parse(text) as Record<string, string>;
-    } catch {
-      return {};
-    }
-  }
-  const params = new URLSearchParams(text);
-  const out: Record<string, string> = {};
-  params.forEach((v, k) => {
-    out[k] = v;
-  });
-  return out;
-}
-
-export function verifyVNPayReturn(
-  query: Record<string, string>
-): { isValid: boolean; responseCode: string; transactionId: string; orderId: string } {
-  const secureHash = query["vnp_SecureHash"];
-
-  // Remove hash fields
-  const verifyParams = { ...query };
-  delete verifyParams["vnp_SecureHash"];
-  delete verifyParams["vnp_SecureHashType"];
-
-  const sorted = sortObject(verifyParams);
-  const signData = new URLSearchParams(sorted).toString();
-  const hmac = crypto.createHmac("sha512", VNPAY_HASH_SECRET);
-  const signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
-
-  const isValid = secureHash === signed;
-  const responseCode = query["vnp_ResponseCode"] || "";
-  const transactionId = query["vnp_TransactionNo"] || "";
-  const orderId = query["vnp_TxnRef"] || "";
-
-  return { isValid, responseCode, transactionId, orderId };
-}
-
-// ==================== Utilities ====================
-
-function formatDate(date: Date): string {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  const h = String(date.getHours()).padStart(2, "0");
-  const min = String(date.getMinutes()).padStart(2, "0");
-  const s = String(date.getSeconds()).padStart(2, "0");
-  return `${y}${m}${d}${h}${min}${s}`;
-}
 
 /**
  * Generate bank transfer content for identification

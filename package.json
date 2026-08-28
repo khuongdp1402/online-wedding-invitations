@@ -15,6 +15,7 @@
     "db:generate": "npx prisma generate",
     "dev:setup": "node scripts/dev-setup.cjs",
     "dev:reset": "node scripts/dev-setup.cjs --reset",
+    "new-template": "node scripts/new-template.cjs",
     "postinstall": "npx prisma generate",
     "test": "vitest run"
   },

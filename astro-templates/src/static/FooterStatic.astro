@@ -1,0 +1,31 @@
+---
+// Port từ components/templates/classic-burgundy/Footer.tsx +
+// components/templates/shared/WatermarkBadge.tsx.
+import Reveal from "./Reveal.astro";
+import type { WeddingData } from "@/types/template";
+
+interface Props {
+  wedding: WeddingData;
+  mode: "groom" | "bride";
+}
+const { wedding, mode } = Astro.props;
+const isBrideMode = mode === "bride";
+const names = isBrideMode ? `${wedding.brideName} & ${wedding.groomName}` : `${wedding.groomName} & ${wedding.brideName}`;
+---
+<section class="cb-bg-page pb-16">
+  <Reveal>
+    <div class="mx-auto max-w-4xl text-center">
+      <div class="mx-auto h-px w-full max-w-6xl" style="background: linear-gradient(90deg,transparent,rgba(58,13,26,0.18),transparent)"></div>
+      <p class="mt-10 text-lg sm:text-xl cb-text-body font-medium" style="color: var(--cb-text)">
+        Cảm ơn bạn đã dành thời gian cho ngày trọng đại của
+      </p>
+      <p class="mt-2 text-2xl sm:text-3xl lg:text-4xl font-script cb-text-primary font-bold whitespace-nowrap">{names}</p>
+      <p class="mt-4 text-sm sm:text-base tracking-[0.32em] uppercase cb-text-body font-semibold opacity-70">Hẹn gặp bạn</p>
+      {wedding.status !== "PUBLISHED" && (
+        <p class="text-xs tracking-wide opacity-60 mt-6">
+          ✨ Tạo bởi <a href="/" target="_blank" rel="noopener noreferrer" class="underline underline-offset-2 hover:opacity-100">ThiepCuoiOnline.vn</a>
+        </p>
+      )}
+    </div>
+  </Reveal>
+</section>

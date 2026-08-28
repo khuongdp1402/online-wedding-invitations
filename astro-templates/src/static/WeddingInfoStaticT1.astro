@@ -1,0 +1,150 @@
+---
+import Reveal from "./Reveal.astro";
+
+interface Props {
+  data: any;
+  photo1?: string;
+  photo2?: string;
+  isBrideMode?: boolean;
+}
+const { data, photo1, photo2, isBrideMode } = Astro.props;
+---
+
+<section id="thong-tin" class="relative overflow-hidden bg-white">
+  <div class="mx-auto max-w-6xl px-4 relative z-10">
+    <Reveal y={16}>
+      <div class="text-center py-8 sm:py-10">
+        <p class="text-lg sm:text-xl font-heading text-burgundy italic font-medium opacity-90">
+          &ldquo;Trăm năm tình viên mãn&rdquo;
+        </p>
+        <p class="text-lg sm:text-xl font-heading text-burgundy italic font-medium opacity-90 mt-2">
+          &ldquo;Bạc đầu nghĩa phu thê&rdquo;
+        </p>
+      </div>
+    </Reveal>
+
+    {/* Row 1: Parents info horizontally */}
+    <div class="grid grid-cols-[1fr_auto_1fr] gap-2 md:gap-12 mb-12 sm:mb-20 px-0 items-center">
+      {/* Nhà trai */}
+      <Reveal x={-20}>
+        <div class="space-y-4 text-center border-t border-gold/20 pt-6">
+          <div class="flex flex-col items-center gap-2 mb-2">
+            <p class="text-[0.6rem] sm:text-[0.7rem] uppercase tracking-[0.2em] text-burgundy font-bold whitespace-nowrap">Nhà trai</p>
+            <div class="w-1 h-1 bg-gold/40 rounded-full" />
+          </div>
+          <div class="space-y-0.5">
+            <p class="text-base sm:text-xl text-ink-dark font-heading font-medium leading-relaxed whitespace-nowrap">
+              {data.groom.parents.father}
+            </p>
+            <p class="text-base sm:text-xl text-ink-dark font-heading font-medium leading-relaxed whitespace-nowrap">
+              {data.groom.parents.mother}
+            </p>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Divider */}
+      <div class="h-24 w-px bg-gold/20 mx-auto" />
+
+      {/* Nhà gái */}
+      <Reveal x={20}>
+        <div class="space-y-4 text-center border-t border-gold/20 pt-6">
+          <div class="flex flex-col items-center gap-2 mb-2">
+            <p class="text-[0.6rem] sm:text-[0.7rem] uppercase tracking-[0.2em] text-burgundy font-bold whitespace-nowrap">Nhà gái</p>
+            <div class="w-1 h-1 bg-gold/40 rounded-full" />
+          </div>
+          <div class="space-y-0.5">
+            <p class="text-base sm:text-xl text-ink-dark font-heading font-medium leading-relaxed whitespace-nowrap">
+              {data.bride.parents.father}
+            </p>
+            <p class="text-base sm:text-xl text-ink-dark font-heading font-medium leading-relaxed whitespace-nowrap">
+              {data.bride.parents.mother}
+            </p>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+
+    {/* Row 2: Visual Centerpiece (Couple + Ceremony) */}
+    <div class="max-w-4xl mx-auto">
+      <Reveal y={30}>
+        <div class="text-center space-y-6 relative">
+          {(photo1 || photo2) && (
+            <div class="relative h-64 sm:h-80 mb-8 mx-auto w-full max-w-md">
+              <div class="absolute top-0 left-0 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white -rotate-6 z-0 transition-transform hover:z-20 hover:scale-105 duration-500">
+                <img src={photo1 || ""} alt="Wedding 1" class="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div class="absolute top-10 right-0 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white rotate-6 z-10 transition-transform hover:z-20 hover:scale-105 duration-500">
+                <img src={photo2 || ""} alt="Wedding 2" class="w-full h-full object-cover" loading="lazy" />
+              </div>
+            </div>
+          )}
+
+          <div class="space-y-5">
+            <div class="flex flex-col gap-3 w-full max-w-4xl mx-auto">
+              <div class="text-left">
+                <span class="text-3xl sm:text-5xl lg:text-6xl font-script text-burgundy font-bold leading-relaxed drop-shadow-sm">
+                  {data.groom.name}
+                </span>
+                <span class="block text-base sm:text-lg font-heading text-ink-dark font-bold tracking-[0.2em] uppercase mt-1">
+                  Trưởng Nam
+                </span>
+              </div>
+              <div class="text-right">
+                <span class="text-3xl sm:text-5xl lg:text-6xl font-script text-burgundy font-bold leading-relaxed drop-shadow-sm">
+                  {data.bride.name}
+                </span>
+                <span class="block text-base sm:text-lg font-heading text-ink-dark font-bold tracking-[0.2em] uppercase mt-1">
+                  Ái Nữ
+                </span>
+              </div>
+            </div>
+
+            <div class="h-px w-32 bg-gold mx-auto opacity-60" />
+
+            <div class="space-y-4 mt-4">
+              <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                <div class="text-center">
+                  <p class="text-ink/70 text-xs sm:text-sm uppercase tracking-wider font-semibold mb-0.5">Giờ làm lễ</p>
+                  <p class="text-4xl sm:text-5xl font-heading text-burgundy font-bold">{data.ceremony.timeLabel}</p>
+                </div>
+                <div class="w-px h-10 bg-gold/30 hidden sm:block" />
+                <div class="text-center">
+                  <p class="text-ink/70 text-xs sm:text-sm uppercase tracking-wider font-semibold mb-0.5">Giờ nhập tiệc</p>
+                  <p class="text-4xl sm:text-5xl font-heading text-burgundy font-bold">{data.ceremony.receptionTimeLabel}</p>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <p class="text-3xl sm:text-4xl text-ink-dark font-heading font-bold tracking-wide">
+                  {data.ceremony.solarDateLabel}
+                </p>
+                <p class="text-xl text-ink font-semibold">
+                  {data.ceremony.lunarDateLabel}
+                </p>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-gold/20 inline-block px-8 mt-2">
+              <p class="text-base uppercase tracking-[0.4em] text-burgundy font-bold mb-3">
+                Địa điểm
+              </p>
+              <p class="text-4xl text-ink-dark font-heading font-black tracking-tight mb-2 leading-tight">
+                {data.ceremony.venueName}
+              </p>
+              <p class="text-xl text-ink font-bold max-w-[500px] mx-auto leading-relaxed">
+                {data.ceremony.address}
+              </p>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </div>
+
+  <div class="absolute top-20 right-[-5%] pointer-events-none select-none font-heading rotate-12 bg-bling-text">
+    <span class="block text-[4rem] sm:text-[10rem] lg:text-[20rem] text-burgundy/10 sm:text-burgundy/[0.05] lg:text-burgundy/[0.03]">
+      Love
+    </span>
+  </div>
+</section>

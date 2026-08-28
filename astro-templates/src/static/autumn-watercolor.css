@@ -1,0 +1,97 @@
+/*
+ * Không @import Google Fonts ở đây: TemplateRenderer đã nạp font theo lựa chọn
+ * của người dùng và cấp qua --font-heading/--font-body/--font-script.
+ * Cũng không hard-code màu: index.tsx gán --primary/--secondary/--bg-cream từ
+ * wedding.primaryColor/accentColor/backgroundColor. Giá trị dưới đây chỉ là
+ * fallback khi thiếu dữ liệu.
+ */
+.autumn-watercolor-root {
+  --primary: #422114;
+  --secondary: #b9856f;
+  --bg-cream: #f7f1eb;
+  --bg-white: #ffffff;
+
+  font-family: var(--font-body, 'Playfair Display', serif);
+  background-color: var(--bg-cream);
+  color: var(--primary);
+  overflow-x: hidden;
+}
+
+/* Giới hạn trong template để không đè utility .font-script toàn cục của Tailwind */
+.autumn-watercolor-root .font-script {
+  font-family: var(--font-script, 'Pinyon Script', cursive);
+}
+
+.autumn-watercolor-root h1,
+.autumn-watercolor-root h2,
+.autumn-watercolor-root h3 {
+  font-family: var(--font-heading, 'Playfair Display', serif);
+}
+
+/* Falling Leaves Animation */
+.leaves-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.leaf {
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: var(--secondary);
+  opacity: 0.3;
+  border-radius: 50% 0 50% 0;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.leaf:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+.leaf:nth-child(2) { left: 25%; animation-duration: 12s; animation-delay: 2s; }
+.leaf:nth-child(3) { left: 40%; animation-duration: 10s; animation-delay: 4s; }
+.leaf:nth-child(4) { left: 60%; animation-duration: 14s; animation-delay: 1s; }
+.leaf:nth-child(5) { left: 80%; animation-duration: 9s; animation-delay: 5s; }
+.leaf:nth-child(6) { left: 90%; animation-duration: 11s; animation-delay: 3s; }
+
+/* Polaroid Frames */
+.polaroid-frame {
+  background: white;
+  padding: 10px 10px 30px 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+/* Section Decor */
+.watercolor-decor {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Wishes Slider Customization */
+.wishes-slider .slick-dots li button:before {
+  color: var(--primary);
+}
+.wishes-slider .slick-prev:before, .wishes-slider .slick-next:before {
+  color: var(--primary);
+}

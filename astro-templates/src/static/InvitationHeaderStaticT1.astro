@@ -1,0 +1,141 @@
+---
+import Reveal from "./Reveal.astro";
+
+interface Props {
+  data: any;
+  heroImage?: string;
+  isBrideMode?: boolean;
+}
+const { data, heroImage, isBrideMode } = Astro.props;
+
+const firstName = isBrideMode ? data.bride.name : data.groom.name;
+const secondName = isBrideMode ? data.groom.name : data.bride.name;
+---
+
+<section id="top" class="relative min-h-[100dvh] overflow-hidden p-0 w-full">
+  {/* ========== MOBILE ========== */}
+  <div class="lg:hidden relative w-full h-full min-h-[100dvh]">
+    <div class="absolute inset-0">
+      <img
+        src={heroImage || ""}
+        alt="Wedding Background"
+        class="w-full h-full object-cover object-[60%_50%]"
+        loading="lazy"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent pointer-events-none"
+        aria-hidden="true"
+      ></div>
+    </div>
+
+    <div
+      class="absolute inset-0 z-10 flex flex-col justify-end pt-[max(env(safe-area-inset-top),0.75rem)] pb-[max(env(safe-area-inset-bottom),2rem)] pl-[max(env(safe-area-inset-left),1rem)] pr-[max(env(safe-area-inset-right),1rem)]"
+    >
+      <div class="max-w-xl mx-auto w-full">
+        <Reveal>
+          <div class="mb-2 sm:mb-3 text-center">
+            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-gold fill-gold/20 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </div>
+        </Reveal>
+
+        <Reveal delay="0.1s">
+          <h2 class="text-gold text-[10px] sm:text-xs tracking-[0.35em] uppercase font-bold mb-2 sm:mb-4 text-center">
+            Tân Lang & Tân Nương
+          </h2>
+        </Reveal>
+
+        <Reveal delay="0.2s" className="mb-4 sm:mb-6">
+          <div class="flex items-center justify-between gap-4 w-full">
+            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-sm shrink-0">
+              {firstName}
+            </h1>
+            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-sm shrink-0">
+              {secondName}
+            </h1>
+          </div>
+        </Reveal>
+
+        <Reveal delay="0.5s">
+          <div class="flex flex-col items-center gap-2 sm:gap-4 w-full">
+            <p class="text-gold text-[10px] sm:text-xs tracking-[0.25em] uppercase font-semibold">
+              Save the date
+            </p>
+            <div class="h-px w-16 sm:w-24 bg-gold mx-auto" aria-hidden="true"></div>
+            <div class="px-4 sm:px-6 py-2.5 sm:py-4 w-full max-w-sm text-center">
+              <p class="text-gold text-base sm:text-xl lg:text-2xl font-heading font-bold tracking-wide">
+                {data.ceremony.solarDateLabel}
+              </p>
+              <p class="text-gold text-xs sm:text-sm font-heading mt-1">{data.ceremony.lunarDateLabel}</p>
+            </div>
+          </div>
+        </Reveal>
+
+        <div class="absolute bottom-6 right-4 opacity-40">
+           <svg class="w-8 h-8 sm:w-10 sm:h-10 text-gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* ========== DESKTOP ========== */}
+  <div class="hidden lg:flex min-h-screen items-center justify-center px-8 py-14 bg-burgundy">
+    <div class="w-full max-w-5xl overflow-hidden rounded-[40px] border border-gold/25 shadow-2xl relative">
+      <div class="flex min-h-[68vh] relative">
+        {/* Ảnh bên trái */}
+        <div class="w-[52%] min-w-0 relative shrink-0">
+          <img
+            src={heroImage || ""}
+            alt="Wedding Background"
+            class="w-full h-full object-cover object-center"
+            loading="lazy"
+          />
+        </div>
+
+        {/* Panel phải nền tối – chữ vàng */}
+        <div class="relative flex-1 min-w-[380px] flex flex-col justify-center px-10 xl:px-16 py-12 bg-burgundy-dark text-gold overflow-visible">
+          <Reveal>
+            <div class="mb-4 text-center">
+              <svg class="w-10 h-10 text-gold fill-gold/20 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </div>
+          </Reveal>
+
+          <Reveal delay="0.1s">
+            <h2 class="text-gold/90 text-xs tracking-[0.4em] uppercase font-bold mb-6 text-center">
+              Tân Lang & Tân Nương
+            </h2>
+          </Reveal>
+
+          <Reveal delay="0.2s" className="mb-8">
+            <div class="flex items-center justify-between gap-6 w-full min-w-0">
+              <h1 class="text-3xl xl:text-4xl font-script text-gold font-bold leading-tight shrink-0 text-left">
+                {firstName}
+              </h1>
+              <h1 class="text-3xl xl:text-4xl font-script text-gold font-bold leading-tight shrink-0 text-right">
+                {secondName}
+              </h1>
+            </div>
+          </Reveal>
+
+          <Reveal delay="0.4s">
+            <div class="flex flex-col items-center gap-3 w-full">
+              <p class="text-gold/90 text-xs tracking-[0.3em] uppercase font-semibold">
+                Save the date
+              </p>
+              <div class="h-px w-20 bg-gold/60 mx-auto" aria-hidden="true"></div>
+              <div class="py-4 w-full max-w-sm text-center">
+                <p class="text-gold text-xl xl:text-2xl font-heading font-bold tracking-wide">
+                  {data.ceremony.solarDateLabel}
+                </p>
+                <p class="text-gold/80 text-sm font-heading mt-1">{data.ceremony.lunarDateLabel}</p>
+              </div>
+            </div>
+          </Reveal>
+
+          <div class="absolute bottom-8 right-8 opacity-30">
+            <svg class="w-10 h-10 text-gold" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

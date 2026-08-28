@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { validateImageMime, validateFileSize } from "@/lib/file-storage";
-import { parseVNPayIpnBody } from "@/lib/payment";
 import { galleryIndexForSlotKey } from "@/lib/wedding-image-slots";
 import { allowRateLimit } from "@/lib/auth-rate-limit";
 
@@ -23,30 +22,6 @@ describe("wedding-image-slots", () => {
     expect(galleryIndexForSlotKey("cb-hero")).toBe(0);
     expect(galleryIndexForSlotKey("cb-album-0")).toBe(6);
     expect(galleryIndexForSlotKey("unknown")).toBeNull();
-  });
-});
-
-describe("parseVNPayIpnBody", () => {
-  it("đọc form-urlencoded", async () => {
-    const body = "vnp_Amount=100&vnp_ResponseCode=00";
-    const req = new Request("http://localhost/ipn", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
-    });
-    const q = await parseVNPayIpnBody(req);
-    expect(q.vnp_Amount).toBe("100");
-    expect(q.vnp_ResponseCode).toBe("00");
-  });
-
-  it("đọc JSON", async () => {
-    const req = new Request("http://localhost/ipn", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ vnp_TxnRef: "abc" }),
-    });
-    const q = await parseVNPayIpnBody(req);
-    expect(q.vnp_TxnRef).toBe("abc");
   });
 });
 

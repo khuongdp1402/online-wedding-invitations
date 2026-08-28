@@ -1,0 +1,75 @@
+---
+import type { WeddingData } from "@/lib/template-registry";
+import Reveal from "./Reveal.astro";
+import { Clock, MapPin, Heart } from "lucide-react";
+
+interface Props {
+  wedding: WeddingData;
+  mode: "groom" | "bride";
+}
+const { wedding, mode } = Astro.props;
+const isBrideMode = mode === "bride";
+
+const events = [
+  {
+    time: "08:00",
+    title: "Lễ Thành Hôn",
+    description: "Lễ rước dâu và làm lễ tại gia đình",
+    icon: "Heart",
+  },
+  {
+    time: "10:00",
+    title: "Đón Khách",
+    description: "Chào đón quý quan khách tại sảnh tiệc",
+    icon: "Clock",
+  },
+  {
+    time: "11:00",
+    title: "Khai Tiệc",
+    description: "Nâng ly chúc mừng hạnh phúc lứa đôi",
+    icon: "Clock",
+  },
+];
+---
+<Reveal y={20}>
+  <div class="space-y-12">
+    <div class="text-center">
+      <p class="text-sm uppercase tracking-[0.3em] opacity-40 mb-2">Schedule</p>
+      <h2 class="font-script text-4xl text-[var(--primary)]">Chương trình tiệc</h2>
+    </div>
+
+    <div class="relative">
+      {/* Vertical Line */}
+      <div class="absolute left-[17px] top-4 bottom-4 w-px bg-[color-mix(in_srgb,var(--secondary)_30%,transparent)]"></div>
+
+      <div class="space-y-10">
+        {events.map((item) => (
+          <div class="flex gap-6 items-start relative">
+            <div class="w-9 h-9 rounded-full bg-white border border-[color-mix(in_srgb,var(--secondary)_30%,transparent)] flex items-center justify-center z-10 text-[var(--secondary)] shrink-0 shadow-sm">
+              {item.icon === 'Heart' ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              )}
+            </div>
+            <div class="flex-1 pt-1">
+              <p class="text-sm font-bold text-[var(--secondary)] tracking-widest">{item.time}</p>
+              <h3 class="text-lg font-bold text-[var(--primary)] mt-1">{item.title}</h3>
+              <p class="text-sm opacity-60 italic mt-1">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    {/* Location teaser */}
+    <div class="p-6 bg-[color-mix(in_srgb,var(--primary)_5%,transparent)] rounded-xl border border-[color-mix(in_srgb,var(--primary)_5%,transparent)] text-center space-y-3">
+      <div class="flex justify-center text-[var(--secondary)] mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <p class="text-sm font-bold opacity-80 uppercase tracking-widest">Địa điểm tổ chức</p>
+      <p class="text-sm font-bold">{isBrideMode ? wedding.brideCeremony.venue : wedding.groomCeremony.venue}</p>
+      <p class="text-xs opacity-60 italic">{isBrideMode ? wedding.brideCeremony.address : wedding.groomCeremony.address}</p>
+    </div>
+  </div>
+</Reveal>

@@ -1,0 +1,144 @@
+---
+// Port từ components/templates/classic-burgundy/index.tsx.
+// EditOverlayContext bị bỏ hoàn toàn — trang public không cần edit-mode.
+import "../static/classic-burgundy.css";
+import "../static/reveal.css";
+import InvitationHeaderStatic from "../static/InvitationHeaderStatic.astro";
+import WeddingInfoStatic from "../static/WeddingInfoStatic.astro";
+import CountdownStatic from "../static/CountdownStatic.astro";
+import QuoteStatic from "../static/QuoteStatic.astro";
+import GalleryStatic from "../static/GalleryStatic.astro";
+import LocationStatic from "../static/LocationStatic.astro";
+import WishesStatic from "../static/WishesStatic.astro";
+import FooterStatic from "../static/FooterStatic.astro";
+import ModeSwitcherStatic from "../static/ModeSwitcherStatic.astro";
+import WeddingCardOpeningIsland from "../islands/WeddingCardOpeningIsland";
+import BackgroundMusicIsland from "../islands/BackgroundMusicIsland";
+import GuestViewTrackerIsland from "../islands/GuestViewTrackerIsland";
+import { resolveClassicBurgundyStructureGallery } from "@/lib/classic-burgundy-sample-gallery";
+import { CLASSIC_BURGUNDY_ALBUM_START_INDEX } from "@/lib/wedding-image-slots";
+import { visibleSectionKeys } from "@/lib/section-config";
+import type { StaticSiteInput } from "@/lib/static-site/types";
+
+interface Props {
+  input: StaticSiteInput;
+}
+const { input } = Astro.props;
+const { wedding, mode, googleFontsUrl, headingFont, bodyFont, scriptFont } = input;
+// guestName/guestSalutation là cá nhân hoá theo TỪNG KHÁCH qua URL
+// (?name=...&salutation=...) — HTML này build 1 lần, dùng chung cho mọi
+// khách, nên KHÔNG thể nhận 2 giá trị đó qua props build-time. Mọi nơi cần
+// chúng đọc thẳng window.location.search lúc hydrate (WeddingCardOpeningIsland,
+// GuestViewTrackerIsland) hoặc qua script nhỏ thay text (QuoteStatic).
+const isBrideMode = mode === "bride";
+
+const rawGallery = wedding.gallery ?? [];
+const structure = resolveClassicBurgundyStructureGallery(rawGallery);
+const albumUrls = rawGallery
+  .slice(CLASSIC_BURGUNDY_ALBUM_START_INDEX)
+  .map((u) => String(u || "").trim())
+  .filter(Boolean);
+const weddingWithSamples = { ...wedding, gallery: [...structure, ...albumUrls] };
+
+const themeVars = [
+  `--cb-primary:${wedding.primaryColor ?? "#800020"}`,
+  `--cb-accent:${wedding.accentColor ?? "#d4a853"}`,
+  `--cb-bg:${wedding.backgroundColor ?? "#FDFBF7"}`,
+  `--cb-text:${wedding.textColor ?? "#4A4A4A"}`,
+  `--font-heading:${headingFont}`,
+  `--font-body:${bodyFont}`,
+  `--font-script:${scriptFont}`,
+].join(";");
+
+const DEFAULT_SECTIONS = ["header", "wedding-info", "countdown", "quote", "gallery", "location", "wishes", "footer"];
+const order = visibleSectionKeys(wedding.sectionOrder, DEFAULT_SECTIONS);
+---
+<!DOCTYPE html>
+<html lang="vi" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thiệp Cưới {wedding.groomName} & {wedding.brideName}</title>
+    {googleFontsUrl && <link href={googleFontsUrl} rel="stylesheet" />}
+  </head>
+  <body>
+    <div
+      class="cb-template min-h-screen antialiased overflow-x-hidden"
+      style={`${themeVars};background-color:var(--cb-bg);color:var(--cb-text);font-family:var(--font-body)`}
+    >
+      <WeddingCardOpeningIsland
+        client:load
+        groomName={wedding.groomName}
+        brideName={wedding.brideName}
+        isBrideMode={isBrideMode}
+      />
+
+      <ModeSwitcherStatic mode={mode} />
+
+      <main>
+        {order.map((id) => {
+          switch (id) {
+            case "header":
+              return (
+                <div data-section={id}>
+                  <InvitationHeaderStatic wedding={weddingWithSamples} mode={mode} />
+                </div>
+              );
+            case "wedding-info":
+              return (
+                <div data-section={id}>
+                  <WeddingInfoStatic wedding={weddingWithSamples} mode={mode} />
+                </div>
+              );
+            case "countdown":
+              return (
+                <div data-section={id}>
+                  <CountdownStatic wedding={weddingWithSamples} mode={mode} />
+                </div>
+              );
+            case "quote":
+              return (
+                <div data-section={id}>
+                  <QuoteStatic wedding={weddingWithSamples} mode={mode} />
+                </div>
+              );
+            case "gallery":
+              return albumUrls.length > 0 ? (
+                <div data-section={id}>
+                  <GalleryStatic gallery={albumUrls} />
+                </div>
+              ) : null;
+            case "location":
+              return (
+                <div data-section={id}>
+                  <LocationStatic wedding={weddingWithSamples} mode={mode} />
+                </div>
+              );
+            case "wishes":
+              return (
+                <div data-section={id}>
+                  <WishesStatic weddingId={wedding.id} />
+                </div>
+              );
+            case "footer":
+              return (
+                <div data-section={id}>
+                  <FooterStatic wedding={weddingWithSamples} mode={mode} />
+                </div>
+              );
+            default:
+              return null;
+          }
+        })}
+      </main>
+
+      {wedding.backgroundMusic && (
+        <BackgroundMusicIsland client:load musicUrl={wedding.backgroundMusic} />
+      )}
+
+      <GuestViewTrackerIsland client:load weddingSlug={wedding.slug} />
+    </div>
+    <script src="../static/reveal-observer.js"></script>
+    <script src="../static/guest-personalize.js"></script>
+  </body>
+</html>

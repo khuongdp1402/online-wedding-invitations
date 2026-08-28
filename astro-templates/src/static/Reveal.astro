@@ -1,0 +1,21 @@
+---
+/**
+ * Thay thế components/templates/classic-burgundy/Reveal.tsx (framer-motion
+ * whileInView) bằng CSS animation thuần + IntersectionObserver nhẹ — 0 JS
+ * framework, chỉ 1 script nhỏ dùng chung cho mọi `.cb-reveal` trên trang
+ * (đăng ký 1 lần ở layout, xem WeddingLayout.astro).
+ */
+interface Props {
+  class?: string;
+  delay?: number;
+  y?: number;
+  x?: number;
+}
+const { class: className = "", delay = 0, y = 14, x = 0 } = Astro.props;
+---
+<div
+  class={`cb-reveal ${className}`}
+  style={`--cb-reveal-delay:${delay}s; --cb-reveal-y:${y}px; --cb-reveal-x:${x}px;`}
+>
+  <slot />
+</div>

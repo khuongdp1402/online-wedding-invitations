@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateTransferContent } from "@/lib/payment";
-import { completeVnPayIfPending } from "@/lib/vnpay-complete";
+import { completePaymentIfPending } from "@/lib/payment-complete";
+import { generateStaticWeddingSite } from "@/lib/static-site/generate";
+import { sendTelegramMessage } from "@/lib/telegram";
 
 /**
  * Webhook nhận biến động số dư ngân hàng (Casso).
@@ -83,6 +85,12 @@ export async function POST(request: Request) {
 
       if (!payment) {
         skipped.push("payment_not_found");
+        sendTelegramMessage(
+          `⚠️ <b>Casso: giao dịch không khớp payment nào</b>\n` +
+            `Nội dung CK: <code>${desc}</code>\n` +
+            `Số tiền: ${(txn.amount ?? 0).toLocaleString("vi-VN")}đ\n` +
+            `Cần admin kiểm tra tay.`
+        ).catch(() => {});
         continue;
       }
 
@@ -93,17 +101,35 @@ export async function POST(request: Request) {
           `[Casso] Thiếu tiền cho payment ${payment.id}: nhận ${paidAmount} / cần ${payment.amount}`
         );
         skipped.push("insufficient_amount");
+        sendTelegramMessage(
+          `⚠️ <b>Casso: thiếu tiền</b>\n` +
+            `Payment: <code>${payment.id}</code>\n` +
+            `Nhận: ${paidAmount.toLocaleString("vi-VN")}đ / Cần: ${payment.amount.toLocaleString("vi-VN")}đ\n` +
+            `Còn thiếu: ${(payment.amount - paidAmount).toLocaleString("vi-VN")}đ\n` +
+            `Cần admin kiểm tra tay.`
+        ).catch(() => {});
         continue;
       }
 
       // Dùng lại luồng hoàn tất chung: idempotent, chạy trong $transaction và
       // tự tính hạn sử dụng theo loại giao dịch (PUBLISH/RENEW/TEMPLATE_CHANGE).
-      const result = await completeVnPayIfPending(
+      const result = await completePaymentIfPending(
         prisma,
         payment.id,
         `casso-${Date.now()}`
       );
-      if (result.ok && !result.wasAlreadyCompleted) processed++;
+      if (result.ok && !result.wasAlreadyCompleted) {
+        processed++;
+        generateStaticWeddingSite(result.weddingId).catch((err) =>
+          console.error("generateStaticWeddingSite failed:", err)
+        );
+        sendTelegramMessage(
+          `✅ <b>Đã xác nhận thanh toán tự động</b>\n` +
+            `Payment: <code>${payment.id}</code>\n` +
+            `Số tiền: ${paidAmount.toLocaleString("vi-VN")}đ\n` +
+            `Loại: ${payment.type}`
+        ).catch(() => {});
+      }
     }
 
     return NextResponse.json({ success: true, processed, skipped });

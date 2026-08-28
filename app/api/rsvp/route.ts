@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isWeddingExpired } from "@/lib/payment";
 
 /**
  * Public RSVP submission endpoint
@@ -20,14 +21,16 @@ export async function POST(request: Request) {
     // Verify wedding exists and is active
     const wedding = await prisma.wedding.findUnique({
       where: { id: weddingId },
-      select: { id: true, status: true },
+      select: { id: true, status: true, expiresAt: true },
     });
 
     if (!wedding) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    if (wedding.status === "EXPIRED") {
+    // `status` trong DB không tự chuyển "EXPIRED" khi `expiresAt` trôi qua
+    // (không có cron) — phải tính hiệu lực thực tế on-the-fly.
+    if (wedding.status === "EXPIRED" || isWeddingExpired(wedding)) {
       return NextResponse.json(
         { error: "Thiệp cưới đã hết hạn" },
         { status: 410 }
