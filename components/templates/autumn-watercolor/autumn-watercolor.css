@@ -1,97 +1,31 @@
-/*
- * Không @import Google Fonts ở đây: TemplateRenderer đã nạp font theo lựa chọn
- * của người dùng và cấp qua --font-heading/--font-body/--font-script.
- * Cũng không hard-code màu: index.tsx gán --primary/--secondary/--bg-cream từ
- * wedding.primaryColor/accentColor/backgroundColor. Giá trị dưới đây chỉ là
- * fallback khi thiếu dữ liệu.
- */
-.autumn-watercolor-root {
-  --primary: #422114;
-  --secondary: #b9856f;
-  --bg-cream: #f7f1eb;
-  --bg-white: #ffffff;
-
-  font-family: var(--font-body, 'Playfair Display', serif);
-  background-color: var(--bg-cream);
-  color: var(--primary);
-  overflow-x: hidden;
+﻿/* ================================================================
+   AUTUMN WATERCOLOR — "Watercolor Romance" Template
+   ================================================================ */
+.aw-root {
+  --aw-bg: #FBF8F4;
+  --aw-rust: #B85030;
+  --aw-amber: #D4892A;
+  --aw-mauve: #8A5A72;
+  --aw-text: #2A1A12;
+  --aw-muted: #7A6555;
 }
-
-/* Giới hạn trong template để không đè utility .font-script toàn cục của Tailwind */
-.autumn-watercolor-root .font-script {
-  font-family: var(--font-script, 'Pinyon Script', cursive);
-}
-
-.autumn-watercolor-root h1,
-.autumn-watercolor-root h2,
-.autumn-watercolor-root h3 {
-  font-family: var(--font-heading, 'Playfair Display', serif);
-}
-
-/* Falling Leaves Animation */
-.leaves-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.leaf {
-  position: absolute;
-  display: block;
-  width: 20px;
-  height: 20px;
-  background-color: var(--secondary);
-  opacity: 0.3;
-  border-radius: 50% 0 50% 0;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  0% {
-    transform: translateY(-100px) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.3;
-  }
-  90% {
-    opacity: 0.3;
-  }
-  100% {
-    transform: translateY(110vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-.leaf:nth-child(1) { left: 10%; animation-duration: 8s; animation-delay: 0s; }
-.leaf:nth-child(2) { left: 25%; animation-duration: 12s; animation-delay: 2s; }
-.leaf:nth-child(3) { left: 40%; animation-duration: 10s; animation-delay: 4s; }
-.leaf:nth-child(4) { left: 60%; animation-duration: 14s; animation-delay: 1s; }
-.leaf:nth-child(5) { left: 80%; animation-duration: 9s; animation-delay: 5s; }
-.leaf:nth-child(6) { left: 90%; animation-duration: 11s; animation-delay: 3s; }
-
-/* Polaroid Frames */
-.polaroid-frame {
-  background: white;
-  padding: 10px 10px 30px 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-/* Section Decor */
-.watercolor-decor {
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-/* Wishes Slider Customization */
-.wishes-slider .slick-dots li button:before {
-  color: var(--primary);
-}
-.wishes-slider .slick-prev:before, .wishes-slider .slick-next:before {
-  color: var(--primary);
-}
+@keyframes aw-watercolor-splash { 0% { transform:scale(0); opacity:0; filter:blur(20px); } 50% { opacity:0.8; filter:blur(5px); } 100% { transform:scale(1); opacity:1; filter:blur(0); } }
+.aw-splash { animation:aw-watercolor-splash 1.8s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes aw-ink-trail { from { stroke-dashoffset:600; } to { stroke-dashoffset:0; } }
+.aw-ink-stroke { stroke-dasharray:600; animation:aw-ink-trail 2.5s cubic-bezier(0.16,1,0.3,1) 0.4s forwards; }
+@keyframes aw-name-brush { 0% { opacity:0; transform:translateX(-20px) rotate(-3deg); filter:blur(6px); } 100% { opacity:1; transform:translateX(0) rotate(0); filter:blur(0); } }
+.aw-name { animation:aw-name-brush 1.6s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+.aw-name-2 { animation:aw-name-brush 1.6s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
+@keyframes aw-fade-up { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+.aw-reveal { opacity:0; }
+.aw-reveal.aw-in-view { animation:aw-fade-up 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes aw-leaf-flutter { 0%,100% { transform:rotate(-8deg) scale(1); } 50% { transform:rotate(8deg) scale(1.05); } }
+.aw-leaf { animation:aw-leaf-flutter 5s ease-in-out infinite; display:inline-block; transform-origin:center bottom; }
+@keyframes aw-bleed { from { opacity:0; width:0; } to { opacity:1; width:100%; } }
+.aw-bleed-line { animation:aw-bleed 1.5s cubic-bezier(0.16,1,0.3,1) forwards; overflow:hidden; }
+.aw-photo { transition:transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; overflow:hidden; }
+.aw-photo:hover { box-shadow:0 24px 60px rgba(184,80,48,0.3); transform:scale(1.02); }
+.aw-photo img { transition:transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.aw-photo:hover img { transform:scale(1.05); }
+@keyframes aw-scroll-cue { 0%,100% { opacity:0.4; transform:translateY(0); } 50% { opacity:1; transform:translateY(6px); } }
+.aw-scroll-cue { animation:aw-scroll-cue 2s ease-in-out infinite; }

@@ -1,0 +1,211 @@
+.sweet-sakura-root {
+  --ss-primary: #E05A7A;
+  --ss-accent: #F8B4C4;
+  --ss-bg: #FFF7F9;
+  --ss-card-bg: #FFFFFF;
+  --ss-text: #382329;
+  --ss-border: #F6D6DF;
+  --ss-bg: #FFF0F5;
+  --ss-dark: #3D1A26;
+  --ss-soft: #FFD6E7;
+  --ss-cream: #FFFBFC;
+}
+
+/* ── Sakura Petal Rain ──────────────────────────────────────── */
+@keyframes ss-petal-fall {
+  0%   { transform: translateY(-60px) translateX(0px) rotate(0deg) scale(1); opacity: 0; }
+  10%  { opacity: 0.9; }
+  80%  { opacity: 0.7; }
+  100% { transform: translateY(110vh) translateX(80px) rotate(720deg) scale(0.5); opacity: 0; }
+}
+
+@keyframes ss-petal-sway {
+  0%   { margin-left: 0; }
+  25%  { margin-left: 20px; }
+  75%  { margin-left: -20px; }
+  100% { margin-left: 0; }
+}
+
+/* ── Hero Bloom Ripple ─────────────────────────────────────── */
+@keyframes ss-bloom-ripple {
+  0%   { transform: scale(0); opacity: 0.7; }
+  100% { transform: scale(5); opacity: 0; }
+}
+
+.ss-bloom-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(248, 180, 196, 0.6);
+  animation: ss-bloom-ripple 3s ease-out infinite;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* ── Shimmer text effect ───────────────────────────────────── */
+@keyframes ss-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.ss-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #D4456B 0%,
+    #F8B4C4 30%,
+    #FFD6E7 50%,
+    #F8B4C4 70%,
+    #D4456B 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: ss-shimmer 4s linear infinite;
+}
+
+/* ── Hero entrance ────────────────────────────────────────── */
+@keyframes ss-hero-name-in {
+  0%   { opacity: 0; transform: translateY(30px) scale(0.9); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+.ss-hero-name {
+  animation: ss-hero-name-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ss-hero-name-2 {
+  animation: ss-hero-name-in 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.ss-hero-sub {
+  animation: ss-hero-name-in 1s ease-out 0.8s both;
+}
+
+/* ── 3D Chapter Card Flip ─────────────────────────────────── */
+@keyframes ss-card-flip-in {
+  0%   { transform: perspective(1000px) rotateY(-90deg) scale(0.8); opacity: 0; }
+  60%  { transform: perspective(1000px) rotateY(8deg) scale(1.02); opacity: 1; }
+  100% { transform: perspective(1000px) rotateY(0deg) scale(1); opacity: 1; }
+}
+
+.ss-chapter-card {
+  opacity: 0;
+  transform: perspective(1000px) rotateY(-90deg) scale(0.8);
+}
+
+.ss-chapter-card.ss-in-view {
+  animation: ss-card-flip-in 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ── Instax Photo float ─────────────────────────────────────── */
+@keyframes ss-float-1 {
+  0%, 100% { transform: rotate(-4deg) translateY(0px); }
+  50%       { transform: rotate(-4deg) translateY(-8px); }
+}
+
+@keyframes ss-float-2 {
+  0%, 100% { transform: rotate(4deg) translateY(-6px); }
+  50%       { transform: rotate(4deg) translateY(2px); }
+}
+
+.ss-instax-1 {
+  animation: ss-float-1 5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.ss-instax-2 {
+  animation: ss-float-2 6.5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+/* ── Scroll Reveal utility ─────────────────────────────────── */
+@keyframes ss-reveal-up {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ss-reveal-scale {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.ss-reveal-up {
+  opacity: 0;
+}
+
+.ss-reveal-up.ss-in-view {
+  animation: ss-reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ss-reveal-scale.ss-in-view {
+  animation: ss-reveal-scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ── Gallery circle hover ────────────────────────────────── */
+.ss-gallery-img {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.ss-gallery-img:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 16px 48px rgba(212, 69, 107, 0.3);
+  z-index: 10;
+}
+
+/* ── Countdown pulse ─────────────────────────────────────── */
+@keyframes ss-count-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+
+.ss-count-seconds {
+  animation: ss-count-pulse 1s ease-in-out infinite;
+}
+
+/* ── Heartbeat icon ────────────────────────────────── */
+@keyframes ss-heartbeat {
+  0%, 100% { transform: scale(1); }
+  15%       { transform: scale(1.3); }
+  30%       { transform: scale(1); }
+  45%       { transform: scale(1.18); }
+  60%       { transform: scale(1); }
+}
+
+.ss-heartbeat {
+  animation: ss-heartbeat 2.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ── Branch sway ─────────────────────────────────────── */
+@keyframes ss-branch-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50%       { transform: rotate(3deg); }
+}
+
+.ss-branch-deco {
+  animation: ss-branch-sway 10s ease-in-out infinite;
+  transform-origin: bottom center;
+  pointer-events: none;
+}
+
+/* ── Opening entrance ─────────────────────────────── */
+@keyframes ss-opening-pop {
+  0%   { transform: scale(0.65) rotate(-6deg); opacity: 0; }
+  65%  { transform: scale(1.05) rotate(1.5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.ss-opening-card {
+  animation: ss-opening-pop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ── Wish confetti petal ─────────────────────────── */
+@keyframes ss-petal-fly {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100px) rotate(540deg); opacity: 0; }
+}
+
+.ss-fly-petal {
+  animation: ss-petal-fly 1.2s ease-out forwards;
+  pointer-events: none;
+}

@@ -1,1 +1,0 @@
-import{r as s}from"./index.CVf8TyFT.js";function r({weddingSlug:t}){return s.useEffect(()=>{const e=new URLSearchParams(window.location.search),a=e.get("guest")||e.get("name")||void 0;a&&t&&fetch("/api/guests",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({weddingSlug:t,guestName:a})}).catch(()=>{})},[t]),null}export{r as default};

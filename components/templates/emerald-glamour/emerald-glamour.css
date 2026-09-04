@@ -1,0 +1,33 @@
+﻿/* ================================================================
+   EMERALD GLAMOUR — "The Gatsby" Template
+   ================================================================ */
+.eg-root {
+  --eg-bg: #0A120A;
+  --eg-emerald: #1A5C2A;
+  --eg-gold: #C9A84C;
+  --eg-bright: #2E8B4A;
+  --eg-cream: #F5F0E0;
+  --eg-dark: #060E06;
+}
+@keyframes eg-shimmer-h { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
+.eg-shimmer-text { background:linear-gradient(90deg,#1A5C2A 0%,#C9A84C 35%,#F5F0E0 50%,#C9A84C 65%,#1A5C2A 100%); background-size:200% auto; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:eg-shimmer-h 5s linear infinite; }
+@keyframes eg-art-deco-fan { from { transform:scaleX(0); opacity:0; } to { transform:scaleX(1); opacity:1; } }
+.eg-fan-line { transform-origin:center; animation:eg-art-deco-fan 1.2s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes eg-name-in { 0% { opacity:0; transform:translateY(30px) scale(0.9); letter-spacing:0.5em; } 100% { opacity:1; transform:translateY(0) scale(1); letter-spacing:0.05em; } }
+.eg-name { animation:eg-name-in 1.5s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+.eg-name-2 { animation:eg-name-in 1.5s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
+@keyframes eg-fade-up { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+.eg-reveal { opacity:0; }
+.eg-reveal.eg-in-view { animation:eg-fade-up 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes eg-diamond-spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+.eg-diamond { display:inline-block; animation:eg-diamond-spin 8s linear infinite; }
+@keyframes eg-gold-glow { 0%,100% { text-shadow:0 0 10px rgba(201,168,76,0.4); } 50% { text-shadow:0 0 30px rgba(201,168,76,0.8),0 0 60px rgba(201,168,76,0.3); } }
+.eg-gold-glow { animation:eg-gold-glow 3s ease-in-out infinite; }
+@keyframes eg-art-frame { 0%,100% { box-shadow:0 0 0 2px rgba(201,168,76,0.3); } 50% { box-shadow:0 0 0 3px rgba(201,168,76,0.8),0 0 30px rgba(201,168,76,0.2); } }
+.eg-frame { animation:eg-art-frame 3s ease-in-out infinite; }
+.eg-photo { transition:transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; overflow:hidden; }
+.eg-photo:hover { box-shadow:0 24px 60px rgba(201,168,76,0.3); transform:scale(1.02); }
+.eg-photo img { transition:transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.eg-photo:hover img { transform:scale(1.06); }
+@keyframes eg-scroll-cue { 0%,100% { opacity:0.4; transform:translateY(0); } 50% { opacity:1; transform:translateY(6px); } }
+.eg-scroll-cue { animation:eg-scroll-cue 2s ease-in-out infinite; }

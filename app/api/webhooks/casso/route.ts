@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateTransferContent } from "@/lib/payment";
 import { completePaymentIfPending } from "@/lib/payment-complete";
-import { generateStaticWeddingSite } from "@/lib/static-site/generate";
 import { sendTelegramMessage } from "@/lib/telegram";
 
 /**
@@ -120,9 +119,6 @@ export async function POST(request: Request) {
       );
       if (result.ok && !result.wasAlreadyCompleted) {
         processed++;
-        generateStaticWeddingSite(result.weddingId).catch((err) =>
-          console.error("generateStaticWeddingSite failed:", err)
-        );
         sendTelegramMessage(
           `✅ <b>Đã xác nhận thanh toán tự động</b>\n` +
             `Payment: <code>${payment.id}</code>\n` +

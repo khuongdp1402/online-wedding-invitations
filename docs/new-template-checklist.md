@@ -42,10 +42,7 @@ sẽ báo lỗi rõ ràng và dừng lại thay vì âm thầm ghi đè code đa
       đăng ký (`lib/template-registry.ts` và `prisma/template-defs.cjs`) cho
       khớp đúng thiết kế thật — script chỉ điền giá trị placeholder.
 - [ ] Chạy `npm run db:seed` để upsert record `Template` vào DB.
-- [ ] (Tuỳ chọn) Kiểm tra `lib/section-config.ts` và
-      `lib/static-site/eligibility.ts` nếu template có yêu cầu đặc biệt —
-      thường không cần đụng vì Astro đang tắt, mọi template mặc định chạy
-      React (xem `lib/static-site/eligibility.ts`).
+- [ ] (Tuỳ chọn) Kiểm tra `lib/section-config.ts` nếu template có yêu cầu section đặc biệt.
 
 ## Lưu ý quan trọng — lỗi đã từng xảy ra trong dự án
 

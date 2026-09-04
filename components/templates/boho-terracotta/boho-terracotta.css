@@ -1,0 +1,31 @@
+﻿/* ================================================================
+   BOHO TERRACOTTA — "Desert Sunset" Template
+   ================================================================ */
+.bt-root {
+  --bt-bg: #1A0E08;
+  --bt-terra: #C4622A;
+  --bt-warm: #E8996A;
+  --bt-sand: #D4B896;
+  --bt-cream: #F8F0E8;
+  --bt-dark: #2D1508;
+}
+@keyframes bt-sunrise { from { opacity:0; transform:scaleX(0); transform-origin:left; } to { opacity:1; transform:scaleX(1); } }
+.bt-sunrise-line { animation: bt-sunrise 1.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes bt-name-rise { from { opacity:0; transform:translateY(40px) rotate(-2deg); } to { opacity:1; transform:translateY(0) rotate(0); } }
+.bt-name { animation: bt-name-rise 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+.bt-name-2 { animation: bt-name-rise 1.4s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
+@keyframes bt-fade-up { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+.bt-reveal { opacity:0; }
+.bt-reveal.bt-in-view { animation: bt-fade-up 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+@keyframes bt-sun-glow { 0%,100% { box-shadow:0 0 30px rgba(196,98,42,0.4); } 50% { box-shadow:0 0 60px rgba(232,153,106,0.6), 0 0 100px rgba(196,98,42,0.3); } }
+.bt-sun { animation: bt-sun-glow 4s ease-in-out infinite; }
+@keyframes bt-sand-drift { 0%,100% { opacity:0.3; transform:translateX(0); } 50% { opacity:0.7; transform:translateX(8px); } }
+.bt-deco { animation: bt-sand-drift 5s ease-in-out infinite; }
+.bt-photo { transition:transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; overflow:hidden; }
+.bt-photo:hover { box-shadow:0 24px 60px rgba(196,98,42,0.4); transform:scale(1.02); }
+.bt-photo img { transition:transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+.bt-photo:hover img { transform:scale(1.06); }
+@keyframes bt-flicker { 0%,100% { opacity:0.7; } 50% { opacity:1; } }
+.bt-flicker { animation: bt-flicker 3s ease-in-out infinite; }
+@keyframes bt-scroll-cue { 0%,100% { opacity:0.4; transform:translateY(0); } 50% { opacity:1; transform:translateY(6px); } }
+.bt-scroll-cue { animation: bt-scroll-cue 2s ease-in-out infinite; }

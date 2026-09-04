@@ -150,6 +150,30 @@ export const SECTIONS: Record<string, SectionDef> = {
     description: "Trình chiếu ảnh dạng băng chuyền",
     icon: "GalleryHorizontal",
   },
+  calendar: {
+    key: "calendar",
+    label: "Lịch cưới tương tác",
+    description: "Khối lịch tháng khoanh tròn ngày trọng đại",
+    icon: "Calendar",
+  },
+  proclamation: {
+    key: "proclamation",
+    label: "Chiếu báo hỷ",
+    description: "Thông cáo hôn ước trang trọng",
+    icon: "Scroll",
+  },
+  dresscode: {
+    key: "dresscode",
+    label: "Gợi ý trang phục",
+    description: "Bảng mã màu trang phục (Dress Code) dành cho khách mời",
+    icon: "Palette",
+  },
+  programme: {
+    key: "programme",
+    label: "Chương trình dạ tiệc",
+    description: "Lịch trình dạ hội và tiệc mừng chi tiết",
+    icon: "Clock",
+  },
 };
 
 /** Fallback cho key lạ để UI không bao giờ hiện slug thô. */

@@ -1,0 +1,77 @@
+﻿/* ================================================================
+   MINIMAL KOREAN — Editorial Mono Template
+   ================================================================ */
+
+.mk-root {
+  --mk-bg: #F8F7F4;
+  --mk-black: #0D0D0D;
+  --mk-gray: #888888;
+  --mk-sage: #7A8C72;
+  --mk-blush: #D4A09A;
+  --mk-border: #E0DDD8;
+  background-color: var(--mk-bg);
+  color: var(--mk-black);
+}
+
+@keyframes mk-ink-draw {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+.mk-ink-line { animation: mk-ink-draw 1.2s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+@keyframes mk-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mk-reveal { opacity: 0; }
+.mk-reveal.mk-in-view { animation: mk-fade-up 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+@keyframes mk-slide-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes mk-slide-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.mk-reveal.mk-from-left.mk-in-view { animation: mk-slide-left 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+.mk-reveal.mk-from-right.mk-in-view { animation: mk-slide-right 0.9s cubic-bezier(0.16,1,0.3,1) forwards; }
+
+@keyframes mk-stamp-in {
+  0%   { transform: scale(1.3); opacity: 0; filter: blur(10px); }
+  100% { transform: scale(1); opacity: 1; filter: blur(0); }
+}
+.mk-name-stamp  { animation: mk-stamp-in 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s both; }
+.mk-name-stamp-2 { animation: mk-stamp-in 1.4s cubic-bezier(0.16,1,0.3,1) 0.6s both; }
+
+@keyframes mk-scan-label {
+  from { opacity: 0; letter-spacing: 0.5em; }
+  to   { opacity: 1; letter-spacing: 0.25em; }
+}
+.mk-scan-label { animation: mk-scan-label 1s cubic-bezier(0.16,1,0.3,1) 0.9s both; }
+
+.mk-photo-frame { transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease; overflow: hidden; }
+.mk-photo-frame img { transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.mk-photo-frame:hover img { transform: scale(1.06); }
+.mk-photo-frame:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+
+@keyframes mk-dot-trail {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1; transform: scale(1.2); }
+}
+.mk-dot-1 { animation: mk-dot-trail 2s ease-in-out 0s infinite; }
+.mk-dot-2 { animation: mk-dot-trail 2s ease-in-out 0.3s infinite; }
+.mk-dot-3 { animation: mk-dot-trail 2s ease-in-out 0.6s infinite; }
+
+@keyframes mk-scroll-cue {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50%       { opacity: 1; transform: translateY(5px); }
+}
+.mk-scroll-cue { animation: mk-scroll-cue 2s ease-in-out infinite; }
+
+.mk-gallery-item { overflow: hidden; transition: box-shadow 0.3s ease; }
+.mk-gallery-item:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+.mk-gallery-item img { transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.mk-gallery-item:hover img { transform: scale(1.07); }
+
+.mk-issue-badge { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }

@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Template Dynamic Animations: Sakura, Leaves, Golden Sparkles, Sun Flare
+   ========================================================================== */
+
+/* 1. Sweet Sakura: Falling Cherry Blossom Petals */
+@keyframes sakura-fall {
+  0% {
+    transform: translate3d(0, -10px, 0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(120px, 100vh, 0) rotate(360deg) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes sakura-sway {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(25px) rotate(15deg);
+  }
+}
+
+.animate-sakura-petal {
+  position: absolute;
+  top: -20px;
+  pointer-events: none;
+  z-index: 20;
+  animation: sakura-fall linear infinite;
+  will-change: transform, opacity;
+}
+
+/* 2. Vintage Botanical: Drifting Olive Leaves */
+@keyframes leaf-drift {
+  0% {
+    transform: translate3d(0, -10px, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(80px, 100vh, 0) rotate(270deg);
+    opacity: 0;
+  }
+}
+
+.animate-botanical-leaf {
+  position: absolute;
+  top: -20px;
+  pointer-events: none;
+  z-index: 20;
+  animation: leaf-drift ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* 3. Luxury Royal Gold & Emerald Glamour: Shimmer & Sparkles */
+@keyframes gold-sparkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3) rotate(45deg);
+  }
+}
+
+@keyframes gold-shimmer-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-gold-sparkle {
+  animation: gold-sparkle 3s ease-in-out infinite;
+}
+
+.gold-metallic-text {
+  background: linear-gradient(
+    90deg,
+    #b8860b 0%,
+    #ffd700 25%,
+    #fff8dc 50%,
+    #ffd700 75%,
+    #b8860b 100%
+  );
+  background-size: 200% auto;
+  color: #000;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer-sweep 4s linear infinite;
+}
+
+/* 4. Boho Terracotta: Sunburst Pulse */
+@keyframes sunburst-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.75;
+  }
+}
+
+.animate-sunburst {
+  animation: sunburst-pulse 6s ease-in-out infinite;
+}
+
+/* 5. Minimal Korean: Float Gentle */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 4s ease-in-out infinite;
+}

@@ -16,6 +16,8 @@ import { GiftingSection } from "./GiftingSection";
 import { EditOverlayContext } from "@/components/templates/shared/EditOverlayContext";
 import { visibleSectionKeys } from "@/lib/section-config";
 
+import { TraditionalCeremonySection } from "./TraditionalCeremonySection";
+
 import type { InvitationData } from "./lib/invitation";
 
 export default function Template1Wrapper({ wedding, mode, guestName, editOverlay }: WeddingTemplateProps) {
@@ -58,7 +60,6 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
     },
     quote: wedding.quote || "Hạnh phúc là có bạn bên cạnh trong ngày trọng đại.",
     gallery: wedding.gallery?.map((src, idx) => {
-      // Create some masonry-like class distribution
       const classes = [
         "col-span-12 md:col-span-7 row-span-2",
         "col-span-12 md:col-span-5 row-span-1",
@@ -94,8 +95,6 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
     }
   };
 
-  // Structure image slots (index cố định, giống classic-burgundy):
-  // 0=hero, 1=countdown, 2&3=wedding-info couple photos, 4&5=quote photos
   const structureImages = {
     hero: wedding.gallery?.[0] || "",
     countdown: wedding.gallery?.[1] || "",
@@ -105,9 +104,8 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
     quoteB: wedding.gallery?.[5] || "",
   };
 
-  // Section rendering loop based on wedding.sectionOrder (bật/tắt của người dùng)
   const defaultOrder = [
-    "header", "wedding-info", "countdown", "quote", "gallery", "location", "rsvp", "wishes", "gifting", "footer"
+    "header", "wedding-info", "ceremony-rituals", "countdown", "quote", "gallery", "location", "rsvp", "wishes", "gifting", "footer"
   ];
   const order = visibleSectionKeys(wedding.sectionOrder, defaultOrder);
 
@@ -133,6 +131,9 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
                 isBrideMode={isBrideMode}
               />
             );
+            break;
+          case "ceremony-rituals":
+            content = <TraditionalCeremonySection />;
             break;
           case "countdown":
             content = <CountdownSection data={mappedData} image={structureImages.countdown} />;

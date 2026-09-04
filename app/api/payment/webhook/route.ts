@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { applyCompletedPayment } from "@/lib/payment-completion";
 import { auth } from "@/lib/auth";
-import { generateStaticWeddingSite } from "@/lib/static-site/generate";
 
 /**
  * Manual payment confirmation webhook (for bank transfer)
@@ -50,13 +49,6 @@ export async function POST(request: Request) {
         });
         await applyCompletedPayment(tx, updated);
       });
-
-      // Build lại HTML tĩnh (nếu template đã port sang Astro) — SAU KHI
-      // transaction đã commit, không chặn response, lỗi build không rollback
-      // thanh toán (xem lib/static-site/generate.ts).
-      generateStaticWeddingSite(payment.weddingId).catch((err) =>
-        console.error("generateStaticWeddingSite failed:", err)
-      );
 
       return NextResponse.json({ success: true, status: "COMPLETED" });
     }

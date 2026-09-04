@@ -19,15 +19,23 @@ export function InvitationHeaderSection({ data, heroImage, isBrideMode }: Invita
   const secondNameSlot = isBrideMode ? "cb-groom-name" : "cb-bride-name";
 
   const namesRow = (
-    <div className="flex items-center justify-between gap-4 w-full pointer-events-auto">
+    <div className="flex items-center justify-between gap-3 sm:gap-6 w-full pointer-events-auto">
       <h1
-        className={editSlotClass(edit, firstNameSlot, "text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-sm shrink-0")}
+        className={editSlotClass(edit, firstNameSlot, "text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-md shrink-0 hover:scale-105 transition-transform duration-300")}
         onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(firstNameSlot, e.currentTarget); }}
       >
         {data.groom.name}
       </h1>
+
+      {/* Royal Chữ Hỷ (Double Happiness) Emblem */}
+      <div className="flex flex-col items-center justify-center shrink-0 px-2 py-1 bg-gold/15 rounded-full border border-gold/40 shadow-inner">
+        <span className="text-xl sm:text-2xl lg:text-3xl text-gold font-serif select-none animate-pulse">
+          囍
+        </span>
+      </div>
+
       <h1
-        className={editSlotClass(edit, secondNameSlot, "text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-sm shrink-0")}
+        className={editSlotClass(edit, secondNameSlot, "text-2xl sm:text-4xl lg:text-5xl font-script text-gold font-bold leading-tight drop-shadow-md shrink-0 hover:scale-105 transition-transform duration-300")}
         onClick={(e) => { e.stopPropagation(); edit?.onSlotClick?.(secondNameSlot, e.currentTarget); }}
       >
         {data.bride.name}

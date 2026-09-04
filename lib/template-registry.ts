@@ -73,6 +73,36 @@ const AutumnWatercolorTemplate = dynamic(
   { ssr: false }
 );
 
+const MinimalKoreanTemplate = dynamic(
+  () => import("@/components/templates/minimal-korean"),
+  { ssr: false }
+);
+
+const LuxuryRoyalGoldTemplate = dynamic(
+  () => import("@/components/templates/luxury-royal-gold"),
+  { ssr: false }
+);
+
+const VintageBotanicalTemplate = dynamic(
+  () => import("@/components/templates/vintage-botanical"),
+  { ssr: false }
+);
+
+const BohoTerracottaTemplate = dynamic(
+  () => import("@/components/templates/boho-terracotta"),
+  { ssr: false }
+);
+
+const SweetSakuraTemplate = dynamic(
+  () => import("@/components/templates/sweet-sakura"),
+  { ssr: false }
+);
+
+const EmeraldGlamourTemplate = dynamic(
+  () => import("@/components/templates/emerald-glamour"),
+  { ssr: false }
+);
+
 // ==================== Template Registry ====================
 
 export const templates: Record<string, TemplateConfig> = {
@@ -81,7 +111,7 @@ export const templates: Record<string, TemplateConfig> = {
     name: "Classic Elegance",
     slug: "classic-elegance",
     description:
-      "Thiệp cưới mang phong cách truyền thống Việt Nam, tông màu đỏ burgundy & vàng gold thanh lịch.",
+      "Thiệp cưới mang phong cách Á Đông truyền thống Việt Nam, sơn son thếp vàng với Tứ Lễ Giao Duyên và Chữ Hỷ hoàng gia.",
     thumbnail: "/templates/template1-preview.png",
     category: "classic",
     isPremium: false,
@@ -95,6 +125,7 @@ export const templates: Record<string, TemplateConfig> = {
     sections: [
       "header",
       "wedding-info",
+      "ceremony-rituals",
       "countdown",
       "quote",
       "gallery",
@@ -186,6 +217,7 @@ export const templates: Record<string, TemplateConfig> = {
     sections: [
       "header",
       "info",
+      "story",
       "gallery",
       "timeline",
       "wishes",
@@ -195,6 +227,193 @@ export const templates: Record<string, TemplateConfig> = {
     imageSlots: AUTUMN_WATERCOLOR_STRUCTURE_SLOTS,
     textSlots: [],
     albumStartIndex: AUTUMN_WATERCOLOR_ALBUM_START_INDEX,
+  },
+  "minimal-korean": {
+    id: "minimal-korean",
+    name: "Minimal Korean",
+    slug: "minimal-korean",
+    description:
+      "Phong cách tối giản Hàn Quốc, tinh tế, trang nhã với tone màu be và font chữ thanh lịch.",
+    thumbnail: "/templates/minimal-korean-preview.png",
+    category: "minimal",
+    isPremium: true,
+    minPlan: "BASIC",
+    component: MinimalKoreanTemplate as ComponentType<WeddingTemplateProps>,
+    defaultColors: {
+      primary: "#2C3E50",
+      accent: "#B39D82",
+      background: "#FAF9F5",
+    },
+    sections: [
+      "header",
+      "info",
+      "calendar",
+      "timeline",
+      "countdown",
+      "gallery",
+      "dresscode",
+      "wishes",
+      "gifting",
+      "footer",
+    ],
+    imageSlots: [],
+    textSlots: [],
+    albumStartIndex: 0,
+  },
+  "luxury-royal-gold": {
+    id: "luxury-royal-gold",
+    name: "Luxury Royal Gold",
+    slug: "luxury-royal-gold",
+    description:
+      "Thiệp cưới phong cách hoàng gia quý phái với họa tiết nhũ vàng gold và sắc đỏ ruby thượng lưu.",
+    thumbnail: "/templates/luxury-royal-gold-preview.png",
+    category: "luxury",
+    isPremium: true,
+    minPlan: "BASIC",
+    component: LuxuryRoyalGoldTemplate as ComponentType<WeddingTemplateProps>,
+    defaultColors: {
+      primary: "#8B0000",
+      accent: "#E5A93C",
+      background: "#FFFDF9",
+    },
+    sections: [
+      "header",
+      "proclamation",
+      "info",
+      "timeline",
+      "countdown",
+      "gallery",
+      "wishes",
+      "gifting",
+      "footer",
+    ],
+    imageSlots: [],
+    textSlots: [],
+    albumStartIndex: 0,
+  },
+  "vintage-botanical": {
+    id: "vintage-botanical",
+    name: "Vintage Botanical",
+    slug: "vintage-botanical",
+    description:
+      "Thiệp cưới phong cách thực vật thảo mộc cổ điển, sắc xanh sage thanh tao và hòa hợp với thiên nhiên.",
+    thumbnail: "/templates/vintage-botanical-preview.png",
+    category: "vintage",
+    isPremium: true,
+    minPlan: "BASIC",
+    component: VintageBotanicalTemplate as ComponentType<WeddingTemplateProps>,
+    defaultColors: {
+      primary: "#3D5A45",
+      accent: "#8A9A5B",
+      background: "#F8FAF6",
+    },
+    sections: [
+      "header",
+      "info",
+      "timeline",
+      "dresscode",
+      "countdown",
+      "gallery",
+      "letter",
+      "wishes",
+      "gifting",
+      "footer",
+    ],
+    imageSlots: [],
+    textSlots: [],
+    albumStartIndex: 0,
+  },
+  "boho-terracotta": {
+    id: "boho-terracotta",
+    name: "Boho Terracotta",
+    slug: "boho-terracotta",
+    description:
+      "Phong cách Bohemian phóng khoáng với mái vòm terracotta ấm áp, cỏ lau và hoàng hôn lãng mạn.",
+    thumbnail: "/templates/boho-terracotta-preview.png",
+    category: "modern",
+    isPremium: true,
+    minPlan: "BASIC",
+    component: BohoTerracottaTemplate as ComponentType<WeddingTemplateProps>,
+    defaultColors: {
+      primary: "#C25E42",
+      accent: "#DDA15E",
+      background: "#FDF8F5",
+    },
+    sections: [
+      "header",
+      "journey",
+      "info",
+      "dresscode",
+      "countdown",
+      "gallery",
+      "wishes",
+      "gifting",
+      "footer",
+    ],
+    imageSlots: [],
+    textSlots: [],
+    albumStartIndex: 0,
+  },
+  "sweet-sakura": {
+    id: "sweet-sakura",
+    name: "Sweet Sakura",
+    slug: "sweet-sakura",
+    description:
+      "Thiệp cưới tone hồng phấn hoa anh đào ngọt ngào, bay bổng và đầy cảm xúc tình yêu đôi lứa.",
+    thumbnail: "/templates/sweet-sakura-preview.png",
+    category: "classic",
+    isPremium: true,
+    minPlan: "BASIC",
+    component: SweetSakuraTemplate as ComponentType<WeddingTemplateProps>,
+    defaultColors: {
+      primary: "#E05A7A",
+      accent: "#F8B4C4",
+      background: "#FFF7F9",
+    },
+    sections: [
+      "header",
+      "story",
+      "info",
+      "countdown",
+      "gallery",
+      "wishes",
+      "gifting",
+      "footer",
+    ],
+    imageSlots: [],
+    textSlots: [],
+    albumStartIndex: 0,
+  },
+  "emerald-glamour": {
+    id: "emerald-glamour",
+    name: "Emerald Glamour",
+    slug: "emerald-glamour",
+    description:
+      "Phong cách tiệc đêm lộng lẫy Art Deco với tone ngọc lục bảo sâu lắng và viền hoàng kim quyền quý.",
+    thumbnail: "/templates/emerald-glamour-preview.png",
+    category: "luxury",
+    isPremium: true,
+    minPlan: "BASIC",
+    component: EmeraldGlamourTemplate as ComponentType<WeddingTemplateProps>,
+    defaultColors: {
+      primary: "#0E3B2E",
+      accent: "#D4AF37",
+      background: "#F7FAF8",
+    },
+    sections: [
+      "header",
+      "info",
+      "programme",
+      "dresscode",
+      "countdown",
+      "gallery",
+      "wishes",
+      "gifting",
+      "footer",
+    ],
+    imageSlots: [],
+    textSlots: [],
+    albumStartIndex: 0,
   },
 };
 

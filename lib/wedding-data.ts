@@ -4,8 +4,7 @@ import { getEffectiveWeddingStatus } from "@/lib/payment";
 
 /**
  * Transform 1 record Prisma `Wedding` sang `WeddingData` (shape dùng bởi mọi
- * template component). Tách ra từ `app/w/[slug]/page.tsx` để dùng chung với
- * `lib/static-site/generate.ts` (build tĩnh) — tránh 2 nơi transform lệch nhau.
+ * template component).
  */
 export function toWeddingData(wedding: Wedding): WeddingData {
   const effectiveStatus = getEffectiveWeddingStatus(wedding);

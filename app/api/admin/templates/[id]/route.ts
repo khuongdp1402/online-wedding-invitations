@@ -3,8 +3,8 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 /**
- * Sửa giá/khuyến mãi của một template. Admin-only — đây là nơi duy nhất
- * đổi giá bán mà không cần sửa code/deploy lại.
+ * Sửa thông tin mẫu thiệp, giá và khuyến mãi của một template.
+ * Admin-only — cập nhật dữ liệu template trực tiếp trong DB.
  */
 export async function PATCH(
   request: Request,
@@ -17,7 +17,17 @@ export async function PATCH(
     }
 
     const body = await request.json();
-    const { price, salePrice, saleStartsAt, saleEndsAt } = body;
+    const {
+      name,
+      description,
+      category,
+      thumbnail,
+      config,
+      price,
+      salePrice,
+      saleStartsAt,
+      saleEndsAt,
+    } = body;
 
     if (price !== undefined && (typeof price !== "number" || price < 0)) {
       return NextResponse.json({ error: "Giá không hợp lệ" }, { status: 400 });
@@ -59,6 +69,11 @@ export async function PATCH(
     const template = await prisma.template.update({
       where: { id: params.id },
       data: {
+        ...(name !== undefined && { name: String(name).trim() }),
+        ...(description !== undefined && { description: String(description).trim() }),
+        ...(category !== undefined && { category: String(category).trim() }),
+        ...(thumbnail !== undefined && { thumbnail: String(thumbnail).trim() }),
+        ...(config !== undefined && { config }),
         ...(price !== undefined && { price }),
         ...(salePrice !== undefined && { salePrice }),
         ...(saleStartsAt !== undefined && {
@@ -72,7 +87,7 @@ export async function PATCH(
 
     return NextResponse.json({ template });
   } catch (error) {
-    console.error("Error updating template pricing:", error);
+    console.error("Error updating template:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

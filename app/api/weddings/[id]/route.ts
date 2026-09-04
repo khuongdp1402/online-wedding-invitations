@@ -3,10 +3,6 @@ import { auth } from "@/lib/auth";
 import { deleteStoredObject } from "@/lib/file-storage";
 import { prisma } from "@/lib/prisma";
 import { resolveTemplatePrice } from "@/lib/template-pricing";
-import {
-  generateStaticWeddingSite,
-  deleteStaticWeddingSite,
-} from "@/lib/static-site/generate";
 
 export async function GET(
   _request: Request,
@@ -181,16 +177,6 @@ export async function PUT(
       include: { template: true },
     });
 
-    // Sửa nội dung sau khi đã PUBLISHED cũng phải build lại HTML tĩnh — `status`
-    // không đổi ở request này (chỉ payment mới đổi được), nhưng ảnh/text/section
-    // có thể vừa thay đổi. `generateStaticWeddingSite` tự bỏ qua nếu template
-    // chưa port sang Astro hoặc wedding chưa PUBLISHED.
-    if (wedding.status === "PUBLISHED") {
-      generateStaticWeddingSite(wedding.id).catch((err) =>
-        console.error("generateStaticWeddingSite failed:", err)
-      );
-    }
-
     return NextResponse.json({ wedding });
   } catch (error) {
     console.error("Error updating wedding:", error);
@@ -224,9 +210,6 @@ export async function DELETE(
     });
     await prisma.wedding.delete({ where: { id: params.id } });
     await Promise.all(files.map((f) => deleteStoredObject(f.storageKey)));
-    deleteStaticWeddingSite(existing.slug).catch((err) =>
-      console.error("deleteStaticWeddingSite failed:", err)
-    );
 
     return NextResponse.json({ success: true });
   } catch (error) {
