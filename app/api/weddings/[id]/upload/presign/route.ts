@@ -6,15 +6,11 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { createS3ClientForSigning } from "@/lib/s3-client";
-
-const ALLOWED_MIME: Record<string, string[]> = {
-  image: ["image/jpeg", "image/png", "image/webp", "image/gif"],
-  audio: ["audio/mpeg"],
-};
-const MAX_SIZE: Record<string, number> = {
-  image: 10 * 1024 * 1024, // 10MB
-  audio: 20 * 1024 * 1024, // 20MB
-};
+import {
+  ALLOWED_MIME_TYPES as ALLOWED_MIME,
+  MAX_FILE_SIZE_BYTES as MAX_SIZE,
+  MAX_FILES_PER_WEDDING,
+} from "@/lib/upload-limits";
 
 const PresignSchema = z.object({
   slotKey: z.string().regex(/^[a-zA-Z0-9_-]+$/, "slotKey không hợp lệ"),
@@ -44,8 +40,11 @@ export async function POST(
     const fileCount = await prisma.fileManagement.count({
       where: { weddingId: params.id },
     });
-    if (fileCount >= 50)
-      return NextResponse.json({ error: "Đã đạt giới hạn 50 file/thiệp" }, { status: 429 });
+    if (fileCount >= MAX_FILES_PER_WEDDING)
+      return NextResponse.json(
+        { error: `Đã đạt giới hạn ${MAX_FILES_PER_WEDDING} file/thiệp` },
+        { status: 429 }
+      );
 
     // Validate body
     const parsed = PresignSchema.safeParse(await request.json());

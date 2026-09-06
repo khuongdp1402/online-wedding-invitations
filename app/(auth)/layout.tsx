@@ -1,5 +1,5 @@
-import { Heart } from "lucide-react";
 import Link from "next/link";
+import { WingloveLogo } from "@/components/marketing/WingloveLogo";
 
 export default function AuthLayout({
   children,
@@ -7,12 +7,11 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-rose-50 via-white to-amber-50">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-winglove-red-tint/40 via-winglove-ivory to-winglove-gold-soft/40">
       {/* Header */}
       <header className="p-6">
-        <Link href="/" className="flex items-center gap-2 w-fit">
-          <Heart className="w-6 h-6 text-rose-600 fill-rose-600" />
-          <span className="text-lg font-bold text-gray-900">Thiệp Cưới Online</span>
+        <Link href="/" className="flex items-center w-fit">
+          <WingloveLogo size={26} />
         </Link>
       </header>
 
@@ -23,7 +22,7 @@ export default function AuthLayout({
 
       {/* Footer */}
       <footer className="p-6 text-center text-sm text-gray-400">
-        <p>&copy; {new Date().getFullYear()} Thiệp Cưới Online. Tất cả quyền được bảo lưu.</p>
+        <p>&copy; {new Date().getFullYear()} Winglove. Tất cả quyền được bảo lưu.</p>
       </footer>
     </div>
   );

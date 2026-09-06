@@ -23,7 +23,9 @@ export function TemplatePreviewModal({
   onClose,
 }: TemplatePreviewModalProps) {
   const [mode, setMode] = useState<"groom" | "bride">("groom");
-  const [viewDevice, setViewDevice] = useState<"mobile" | "tablet" | "desktop">("mobile");
+  // Mặc định xem như website thật (desktop, không khung mock) — có thể bật
+  // chế độ mobile nếu muốn kiểm tra giao diện điện thoại.
+  const [viewDevice, setViewDevice] = useState<"mobile" | "desktop">("desktop");
 
   if (!templateSlug) return null;
 
@@ -75,32 +77,8 @@ export function TemplatePreviewModal({
               </button>
             </div>
 
-            {/* Device Switcher (Mobile vs Tablet vs Desktop) */}
-            <div className="hidden sm:flex bg-neutral-800 p-0.5 rounded-lg text-xs">
-              <button
-                type="button"
-                onClick={() => setViewDevice("mobile")}
-                className={`p-1.5 rounded-md transition-all ${
-                  viewDevice === "mobile"
-                    ? "bg-neutral-700 text-white"
-                    : "text-neutral-400 hover:text-white"
-                }`}
-                title="Xem dạng điện thoại (430px)"
-              >
-                <Smartphone className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewDevice("tablet")}
-                className={`p-1.5 rounded-md transition-all ${
-                  viewDevice === "tablet"
-                    ? "bg-neutral-700 text-white"
-                    : "text-neutral-400 hover:text-white"
-                }`}
-                title="Xem dạng máy tính bảng (768px)"
-              >
-                <Monitor className="w-4 h-4" />
-              </button>
+            {/* Device Switcher: mặc định desktop (website thật), có thể bật mobile để kiểm tra */}
+            <div className="flex bg-neutral-800 p-0.5 rounded-lg text-xs">
               <button
                 type="button"
                 onClick={() => setViewDevice("desktop")}
@@ -109,9 +87,21 @@ export function TemplatePreviewModal({
                     ? "bg-neutral-700 text-white"
                     : "text-neutral-400 hover:text-white"
                 }`}
-                title="Xem dạng rộng (Toàn màn hình)"
+                title="Xem như website thật (mặc định)"
               >
-                <ExternalLink className="w-4 h-4" />
+                <Monitor className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewDevice("mobile")}
+                className={`p-1.5 rounded-md transition-all ${
+                  viewDevice === "mobile"
+                    ? "bg-neutral-700 text-white"
+                    : "text-neutral-400 hover:text-white"
+                }`}
+                title="Xem dạng điện thoại (mô phỏng khung 430px)"
+              >
+                <Smartphone className="w-4 h-4" />
               </button>
             </div>
           </div>
@@ -148,15 +138,14 @@ export function TemplatePreviewModal({
           </div>
         </div>
 
-        {/* Preview viewport */}
+        {/* Preview viewport: mặc định full-bleed như website thật trong modal,
+            chỉ khi bật mobile mới thu vào khung mô phỏng điện thoại. */}
         <div className="flex-1 overflow-y-auto bg-neutral-900 flex justify-center p-2 sm:p-4">
           <div
-            className={`transition-all duration-300 bg-white text-gray-900 rounded-xl overflow-hidden shadow-2xl relative ${
+            className={`transition-all duration-300 bg-white text-gray-900 shadow-2xl relative ${
               viewDevice === "mobile"
-                ? "w-full max-w-[430px] border-[6px] border-neutral-800 rounded-[32px] my-auto min-h-[720px] max-h-[85vh] overflow-y-auto"
-                : viewDevice === "tablet"
-                ? "w-full max-w-[768px] border-[6px] border-neutral-800 rounded-2xl my-auto min-h-[800px] max-h-[85vh] overflow-y-auto"
-                : "w-full max-w-5xl rounded-lg h-full overflow-y-auto"
+                ? "w-full max-w-[430px] border-[6px] border-neutral-800 rounded-[32px] overflow-hidden my-auto min-h-[720px] max-h-[85vh] overflow-y-auto"
+                : "w-full h-full rounded-lg overflow-y-auto"
             }`}
           >
             <TemplateRenderer

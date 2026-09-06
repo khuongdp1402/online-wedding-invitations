@@ -2,6 +2,8 @@
 
 // Chú ý: file này chỉ dùng ở Client Component ("use client")
 
+import { validateUploadFile } from "@/lib/upload-limits";
+
 type FileType = "image" | "audio";
 
 export type UploadResult = {
@@ -20,6 +22,13 @@ export async function uploadFilePresigned(
   file: File,
   fileType: FileType
 ): Promise<UploadResult> {
+  // Bước 0: Validate file ngay trên client (mirror giới hạn server) để
+  // không tốn round-trip API cho file sai định dạng/quá lớn.
+  const validation = validateUploadFile(file, fileType);
+  if (!validation.ok) {
+    throw new Error(validation.message);
+  }
+
   // Bước 1: Xin Presigned URL từ API
   const presignRes = await fetch(`/api/weddings/${weddingId}/upload/presign`, {
     method: "POST",

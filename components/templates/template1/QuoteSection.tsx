@@ -24,48 +24,44 @@ export function QuoteSection({ data, photo1, photo2 }: QuoteSectionProps) {
   return (
     <Section className="relative sm:py-40 overflow-hidden">
       <div className="container mx-auto max-w-7xl px-4 relative z-10">
-        {/* Mobile: 2 ảnh hiển thị trên khối chữ */}
-        {(photo1 || photo2) && (
-          <div className="lg:hidden grid grid-cols-2 gap-4 sm:gap-6 max-w-sm mx-auto mb-8 sm:mb-10">
-            <Reveal x={-20}>
+        {/* Mobile: 2 ảnh hiển thị trên khối chữ — luôn hiển thị như bản gốc */}
+        <div className="lg:hidden grid grid-cols-2 gap-4 sm:gap-6 max-w-sm mx-auto mb-8 sm:mb-10">
+          <Reveal x={-20}>
+            <div
+              className={editSlotClass(edit, "cb-quote-a", "relative aspect-[3/4] rounded-2xl overflow-hidden border-[4px] border-white shadow-xl rotate-[-3deg]")}
+              data-wedding-slot="cb-quote-a"
+              onClick={(e) => edit?.onSlotClick?.("cb-quote-a", e.currentTarget)}
+              role={edit?.onSlotClick ? "button" : undefined}
+            >
+              <ImageWithFallback src={photo1 || ""} alt="Ảnh cưới" className="w-full h-full object-cover" />
+            </div>
+          </Reveal>
+          <Reveal x={20}>
+            <div
+              className={editSlotClass(edit, "cb-quote-b", "relative aspect-[3/4] rounded-2xl overflow-hidden border-[4px] border-white shadow-xl rotate-[3deg] mt-6")}
+              data-wedding-slot="cb-quote-b"
+              onClick={(e) => edit?.onSlotClick?.("cb-quote-b", e.currentTarget)}
+              role={edit?.onSlotClick ? "button" : undefined}
+            >
+              <ImageWithFallback src={photo2 || ""} alt="Cô dâu" className="w-full h-full object-cover" />
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="relative grid grid-cols-12 gap-8 items-center">
+          {/* Desktop: Ảnh trái — luôn hiển thị như bản gốc */}
+          <div className="hidden lg:block lg:col-span-4">
+            <Reveal x={-40}>
               <div
-                className={editSlotClass(edit, "cb-quote-a", "relative aspect-[3/4] rounded-2xl overflow-hidden border-[4px] border-white shadow-xl rotate-[-3deg]")}
+                className={editSlotClass(edit, "cb-quote-a", "relative aspect-[3/4] rounded-full overflow-hidden border-[6px] border-white shadow-2xl rotate-[-2deg] grayscale-[0.2] hover:grayscale-0 transition-all duration-700")}
                 data-wedding-slot="cb-quote-a"
                 onClick={(e) => edit?.onSlotClick?.("cb-quote-a", e.currentTarget)}
                 role={edit?.onSlotClick ? "button" : undefined}
               >
-                <ImageWithFallback src={photo1 || ""} alt="Ảnh cưới" className="w-full h-full object-cover" />
-              </div>
-            </Reveal>
-            <Reveal x={20}>
-              <div
-                className={editSlotClass(edit, "cb-quote-b", "relative aspect-[3/4] rounded-2xl overflow-hidden border-[4px] border-white shadow-xl rotate-[3deg] mt-6")}
-                data-wedding-slot="cb-quote-b"
-                onClick={(e) => edit?.onSlotClick?.("cb-quote-b", e.currentTarget)}
-                role={edit?.onSlotClick ? "button" : undefined}
-              >
-                <ImageWithFallback src={photo2 || ""} alt="Cô dâu" className="w-full h-full object-cover" />
+                <ImageWithFallback src={photo1 || ""} alt="Ảnh cưới" className="w-full h-full object-cover scale-110" />
               </div>
             </Reveal>
           </div>
-        )}
-
-        <div className="relative grid grid-cols-12 gap-8 items-center">
-          {/* Desktop: Ảnh trái */}
-          {photo1 && (
-            <div className="hidden lg:block lg:col-span-4">
-              <Reveal x={-40}>
-                <div
-                  className={editSlotClass(edit, "cb-quote-a", "relative aspect-[3/4] rounded-full overflow-hidden border-[6px] border-white shadow-2xl rotate-[-2deg] grayscale-[0.2] hover:grayscale-0 transition-all duration-700")}
-                  data-wedding-slot="cb-quote-a"
-                  onClick={(e) => edit?.onSlotClick?.("cb-quote-a", e.currentTarget)}
-                  role={edit?.onSlotClick ? "button" : undefined}
-                >
-                  <ImageWithFallback src={photo1} alt="Ảnh cưới" className="w-full h-full object-cover scale-110" />
-                </div>
-              </Reveal>
-            </div>
-          )}
 
           {/* Main Quote Content – Trân trọng kính mời trên, quote dưới */}
           <div className="col-span-12 lg:col-span-4 text-center px-4 space-y-6 sm:space-y-8">
@@ -94,21 +90,19 @@ export function QuoteSection({ data, photo1, photo2 }: QuoteSectionProps) {
             </Reveal>
           </div>
 
-          {/* Desktop: Ảnh phải */}
-          {photo2 && (
-            <div className="hidden lg:block lg:col-span-4">
-              <Reveal x={40}>
-                <div
-                  className={editSlotClass(edit, "cb-quote-b", "relative aspect-[3/4] rounded-t-full overflow-hidden border-[6px] border-white shadow-2xl rotate-[2deg] grayscale-[0.2] hover:grayscale-0 transition-all duration-700 mt-12")}
-                  data-wedding-slot="cb-quote-b"
-                  onClick={(e) => edit?.onSlotClick?.("cb-quote-b", e.currentTarget)}
-                  role={edit?.onSlotClick ? "button" : undefined}
-                >
-                  <ImageWithFallback src={photo2} alt="Cô dâu" className="w-full h-full object-cover scale-110" />
-                </div>
-              </Reveal>
-            </div>
-          )}
+          {/* Desktop: Ảnh phải — luôn hiển thị như bản gốc */}
+          <div className="hidden lg:block lg:col-span-4">
+            <Reveal x={40}>
+              <div
+                className={editSlotClass(edit, "cb-quote-b", "relative aspect-[3/4] rounded-t-full overflow-hidden border-[6px] border-white shadow-2xl rotate-[2deg] grayscale-[0.2] hover:grayscale-0 transition-all duration-700 mt-12")}
+                data-wedding-slot="cb-quote-b"
+                onClick={(e) => edit?.onSlotClick?.("cb-quote-b", e.currentTarget)}
+                role={edit?.onSlotClick ? "button" : undefined}
+              >
+                <ImageWithFallback src={photo2 || ""} alt="Cô dâu" className="w-full h-full object-cover scale-110" />
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
 

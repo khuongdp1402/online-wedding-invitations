@@ -116,3 +116,36 @@
 .clip-envelope-front {
   clip-path: polygon(0 0, 50% 40%, 100% 0, 100% 100%, 0 100%);
 }
+
+/* ============ Winglove landing (trang chủ mới) — cánh hoa trôi trong hero ============ */
+@keyframes wg-petal-drift {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(480px) translateX(24px) rotate(200deg);
+    opacity: 0;
+  }
+}
+.wg-petal {
+  animation: wg-petal-drift 11s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wg-petal {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Ẩn thanh cuộn của device-viewport trong hero stage nhưng vẫn cuộn được. */
+.wg-device-viewport {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.wg-device-viewport::-webkit-scrollbar {
+  display: none;
+}

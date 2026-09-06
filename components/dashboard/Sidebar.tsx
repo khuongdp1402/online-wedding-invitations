@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
-  Heart,
   LayoutDashboard,
   ScrollText,
   Plus,
@@ -19,6 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { WingloveLogo } from "@/components/marketing/WingloveLogo";
 
 const navigation = [
   {
@@ -69,9 +69,8 @@ export function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
   const SidebarContent = () => (
     <>
       {/* Logo */}
-      <div className="flex items-center gap-2 px-6 py-5 border-b">
-        <Heart className="w-6 h-6 text-rose-600 fill-rose-600" />
-        <span className="text-lg font-bold text-gray-900">Thiệp Cưới</span>
+      <div className="flex items-center px-6 py-5 border-b">
+        <WingloveLogo size={24} />
       </div>
 
       {/* Navigation */}
@@ -90,7 +89,7 @@ export function Sidebar({ isAdmin = false }: { isAdmin?: boolean }) {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-rose-50 text-rose-700"
+                  ? "bg-winglove-red-tint text-winglove-red-deep"
                   : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
               )}
             >

@@ -29,3 +29,44 @@
 .bt-flicker { animation: bt-flicker 3s ease-in-out infinite; }
 @keyframes bt-scroll-cue { 0%,100% { opacity:0.4; transform:translateY(0); } 50% { opacity:1; transform:translateY(6px); } }
 .bt-scroll-cue { animation: bt-scroll-cue 2s ease-in-out infinite; }
+
+/* ---------------------------------------------------------------
+   Signature Gallery: continuous horizontal photo marquee
+   --------------------------------------------------------------- */
+@keyframes bt-marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes bt-marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.bt-marquee-anim-left {
+  animation: bt-marquee-left 36s linear infinite;
+}
+.bt-marquee-anim-right {
+  animation: bt-marquee-right 42s linear infinite;
+}
+/* Pause on hover/focus so guests can linger on a photo (desktop) */
+.bt-marquee-row:hover .bt-marquee-track,
+.bt-marquee-row:focus-within .bt-marquee-track {
+  animation-play-state: paused;
+}
+.bt-marquee-row {
+  touch-action: pan-y;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, black 6%, black 94%, transparent 100%);
+}
+.bt-marquee-card {
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+}
+.bt-marquee-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 20px 45px rgba(196,94,66,0.28);
+}
+@media (prefers-reduced-motion: reduce) {
+  .bt-marquee-anim-left,
+  .bt-marquee-anim-right {
+    animation-duration: 160s;
+  }
+}

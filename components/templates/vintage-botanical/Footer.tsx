@@ -22,7 +22,7 @@ export function Footer({ wedding, isDemo }: FooterProps) {
         <div className="flex items-center justify-center gap-1.5 text-xs text-[#EAF0E7]/60">
           <span>Created with love by</span>
           <Heart className="w-3.5 h-3.5 text-[#8A9A5B] fill-current" />
-          <span className="font-serif">Online Wedding</span>
+          <span className="font-serif">Winglove</span>
         </div>
 
         {isDemo && (

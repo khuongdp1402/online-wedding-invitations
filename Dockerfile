@@ -31,13 +31,13 @@ RUN adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
-COPY --from=builder /app/node_modules/bcryptjs ./node_modules/bcryptjs
-COPY --from=builder /app/scripts ./scripts
-COPY --from=builder /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/prisma ./node_modules/prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/bcryptjs ./node_modules/bcryptjs
+COPY --from=builder --chown=nextjs:nodejs /app/scripts ./scripts
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
 USER nextjs
 
@@ -47,4 +47,4 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 # Mặc định: migrate deploy (production). Dev nhanh: PRISMA_USE_DB_PUSH=true → db push.
-CMD ["sh", "-c", "if [ \"$PRISMA_USE_DB_PUSH\" = \"true\" ]; then node node_modules/prisma/build/index.js db push --accept-data-loss; else node node_modules/prisma/build/index.js migrate deploy; fi && node scripts/seed-docker.cjs && node server.js"]
+CMD ["sh", "-c", "if [ \"$PRISMA_USE_DB_PUSH\" = \"true\" ]; then node node_modules/prisma/build/index.js db push --accept-data-loss --skip-generate; else node node_modules/prisma/build/index.js migrate deploy; fi && node scripts/seed-docker.cjs && node server.js"]

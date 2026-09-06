@@ -95,7 +95,7 @@ export function TemplateShowcase() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-rose-300 text-4xl">
+                  <div className="w-full h-full flex items-center justify-center text-winglove-gold/60 text-4xl">
                     ♥
                   </div>
                 )}
@@ -128,7 +128,7 @@ export function TemplateShowcase() {
                   <Link href={createHref} className="w-full max-w-[160px]">
                     <Button
                       size="sm"
-                      className="w-full bg-rose-600 hover:bg-rose-700 text-white shadow-md text-xs"
+                      className="w-full bg-winglove-red hover:bg-winglove-red-deep text-white shadow-md text-xs"
                     >
                       <Heart className="w-3.5 h-3.5 mr-1.5 fill-current" />
                       Dùng Mẫu Này
@@ -137,7 +137,7 @@ export function TemplateShowcase() {
                 </div>
 
                 {priceInfo.isOnSale && (
-                  <Badge className="absolute top-3 right-3 bg-rose-600 hover:bg-rose-600 text-white gap-1 shadow-md">
+                  <Badge className="absolute top-3 right-3 bg-winglove-red hover:bg-winglove-red text-white gap-1 shadow-md">
                     <Sparkles className="w-3 h-3" /> Khuyến mãi
                   </Badge>
                 )}
@@ -183,7 +183,7 @@ export function TemplateShowcase() {
                     <button
                       type="button"
                       onClick={() => setPreviewTemplate(template)}
-                      className="text-xs text-rose-600 hover:text-rose-700 font-medium inline-flex items-center gap-1"
+                      className="text-xs text-winglove-red hover:text-winglove-red-deep font-medium inline-flex items-center gap-1"
                     >
                       <Eye className="w-3.5 h-3.5" /> Xem trước
                     </button>
@@ -203,7 +203,7 @@ export function TemplateShowcase() {
         <Link href={ctaBaseHref}>
           <Button
             size="lg"
-            className="bg-rose-600 hover:bg-rose-700 rounded-full px-8 shadow-lg shadow-rose-200"
+            className="bg-winglove-red hover:bg-winglove-red-deep rounded-full px-8 shadow-lg shadow-winglove-gold-soft"
           >
             <Heart className="w-5 h-5 mr-2" />
             Bắt Đầu Tạo Thiệp Cưới

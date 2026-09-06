@@ -13,7 +13,7 @@ export function WatermarkBadge({ className }: WatermarkBadgeProps) {
         rel="noopener noreferrer"
         className="underline underline-offset-2 hover:opacity-100"
       >
-        ThiepCuoiOnline.vn
+        Winglove
       </a>
     </p>
   );

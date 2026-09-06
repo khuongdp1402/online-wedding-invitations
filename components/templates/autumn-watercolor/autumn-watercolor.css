@@ -29,3 +29,14 @@
 .aw-photo:hover img { transform:scale(1.05); }
 @keyframes aw-scroll-cue { 0%,100% { opacity:0.4; transform:translateY(0); } 50% { opacity:1; transform:translateY(6px); } }
 .aw-scroll-cue { animation:aw-scroll-cue 2s ease-in-out infinite; }
+
+/* Scattered floating gallery — photos drifting like autumn leaves */
+@keyframes aw-photo-drift { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-9px); } }
+.aw-scatter-drift { animation:aw-photo-drift 7.2s ease-in-out infinite; will-change:transform; }
+@media (prefers-reduced-motion: reduce) {
+  .aw-scatter-drift { animation:none; }
+}
+.aw-scatter-photo {
+  -webkit-mask-image: radial-gradient(120% 120% at 50% 50%, #000 74%, transparent 100%);
+  mask-image: radial-gradient(120% 120% at 50% 50%, #000 74%, transparent 100%);
+}

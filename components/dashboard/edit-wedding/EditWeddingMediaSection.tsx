@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { albumSlotKey } from "@/lib/wedding-image-slots";
 import { cn } from "@/lib/utils";
 import { uploadFilePresigned, uploadFilesPresigned, persistGalleryReorder } from "@/lib/upload-client";
+import { validateUploadFile } from "@/lib/upload-limits";
 import { DRAFT_MAX_PHOTOS } from "@/lib/payment";
 import {
   DndContext,
@@ -40,6 +41,15 @@ type Props = {
   albumStartIndex: number;
   /** Thiệp đã xuất bản: không giới hạn số ảnh. Chưa xuất bản: giới hạn nhẹ. */
   isPublished?: boolean;
+  /**
+   * Tiêu đề/mô tả hiển thị trên panel — mặc định "Bộ ảnh kỷ niệm". Một số
+   * template (vd. Modern Cinematic) dùng chung 1 album cho nhiều khối nội
+   * dung khác nhau (Câu chuyện tình yêu, Hành trình, Lễ Hằng Thuận, Khoảnh
+   * khắc cưới...), nên cần truyền tiêu đề đúng khối đang chọn để không gây
+   * nhầm lẫn "chọn 1 khối lại hiện tên khối khác".
+   */
+  title?: string;
+  description?: string;
 };
 
 function AlbumThumb({
@@ -118,6 +128,8 @@ export function EditWeddingMediaSection({
   onBackgroundMusicChange,
   albumStartIndex,
   isPublished,
+  title = "Bộ ảnh kỷ niệm",
+  description,
 }: Props) {
   const { toast } = useToast();
   const [uploadingSlot, setUploadingSlot] = useState<string | null>(null);
@@ -163,13 +175,37 @@ export function EditWeddingMediaSection({
   const nextAlbumSlot = albumSlotKey(albumCount);
 
   async function uploadMultipleToAlbum(files: FileList) {
-    const list = Array.from(files);
-    if (list.length === 0) return;
+    const all = Array.from(files);
+    if (all.length === 0) return;
 
-    const slotKeys = list.map((_, i) => albumSlotKey(albumCount + i));
-    setBatchProgress({ done: 0, total: list.length });
+    // Validate từng file trước khi upload: file nào sai định dạng/quá lớn
+    // bị loại ngay, nhưng vẫn tiếp tục upload các file hợp lệ còn lại
+    // thay vì huỷ cả batch.
+    const valid: File[] = [];
+    const rejected: string[] = [];
+    for (const f of all) {
+      const result = validateUploadFile(f, "image");
+      if (result.ok) {
+        valid.push(f);
+      } else {
+        rejected.push(`${f.name}: ${result.message}`);
+      }
+    }
+
+    if (rejected.length > 0) {
+      toast({
+        title: `${rejected.length} ảnh bị từ chối`,
+        description: rejected.join("; "),
+        variant: "destructive",
+      });
+    }
+
+    if (valid.length === 0) return;
+
+    const slotKeys = valid.map((_, i) => albumSlotKey(albumCount + i));
+    setBatchProgress({ done: 0, total: valid.length });
     try {
-      const results = await uploadFilesPresigned(weddingId, slotKeys, list, (done, total) =>
+      const results = await uploadFilesPresigned(weddingId, slotKeys, valid, (done, total) =>
         setBatchProgress({ done, total })
       );
       const last = results[results.length - 1];
@@ -229,10 +265,11 @@ export function EditWeddingMediaSection({
       <CardHeader>
         <CardTitle className="text-lg flex items-center gap-2">
           <ImageIcon className="w-5 h-5 text-rose-600" />
-          Bộ ảnh kỷ niệm
+          {title}
         </CardTitle>
         <p className="text-sm text-gray-500 font-normal">
-          Thêm nhiều ảnh cùng lúc hoặc kéo thả để sắp xếp lại thứ tự hiển thị trong album.
+          {description ||
+            "Thêm nhiều ảnh cùng lúc hoặc kéo thả để sắp xếp lại thứ tự hiển thị trong album."}
         </p>
       </CardHeader>
       <CardContent className="space-y-4">

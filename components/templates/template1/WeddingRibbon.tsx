@@ -1,17 +1,25 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const RIBBON_CONTENT = [
-    { id: "top", text: "Thanh Tùng • Hương Giang" },
-    { id: "thong-tin", text: "Thứ Sáu • 13 • 02 • 2026" },
-    { id: "countdown", text: "Hạnh phúc là có nhau" },
-    { id: "anh", text: "Vị ngọt tình yêu" },
-    { id: "loi-chuc", text: "Trân trọng kính mời" },
-];
+type WeddingRibbonProps = {
+    groomName?: string;
+    brideName?: string;
+    dateLabel?: string;
+};
 
-export function WeddingRibbon() {
+export function WeddingRibbon({ groomName, brideName, dateLabel }: WeddingRibbonProps) {
+    const RIBBON_CONTENT = useMemo(
+        () => [
+            { id: "top", text: `${groomName || "Chú Rể"} • ${brideName || "Cô Dâu"}` },
+            { id: "thong-tin", text: dateLabel || "Trân trọng kính mời" },
+            { id: "countdown", text: "Hạnh phúc là có nhau" },
+            { id: "anh", text: "Vị ngọt tình yêu" },
+            { id: "loi-chuc", text: "Trân trọng kính mời" },
+        ],
+        [groomName, brideName, dateLabel]
+    );
     const [activeText, setActiveText] = useState(RIBBON_CONTENT[0].text);
     const { scrollYProgress } = useScroll();
 
@@ -39,7 +47,7 @@ export function WeddingRibbon() {
 
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [RIBBON_CONTENT]);
 
     return (
         <div className="fixed left-4 sm:left-8 top-0 h-screen w-12 sm:w-16 z-50 pointer-events-none hidden md:flex items-center justify-center overflow-hidden">

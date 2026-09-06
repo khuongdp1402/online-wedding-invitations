@@ -24,7 +24,8 @@ export function EditWeddingPreviewPanel({
   onFieldChange,
   onGalleryChange,
 }: Props) {
-  const [deviceMode, setDeviceMode] = useState<"desktop" | "mobile">("mobile");
+  // Mặc định xem như website thật (desktop) — có thể bật mobile để kiểm tra giao diện điện thoại.
+  const [deviceMode, setDeviceMode] = useState<"desktop" | "mobile">("desktop");
   
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);

@@ -15,8 +15,12 @@ import { RSVPSection } from "./RSVPSection";
 import { GiftingSection } from "./GiftingSection";
 import { EditOverlayContext } from "@/components/templates/shared/EditOverlayContext";
 import { visibleSectionKeys } from "@/lib/section-config";
+import { CLASSIC_BURGUNDY_ALBUM_START_INDEX } from "@/lib/wedding-image-slots";
 
 import { TraditionalCeremonySection } from "./TraditionalCeremonySection";
+import { WeddingCardOpening } from "./WeddingCardOpening";
+import AnimatedBackground from "./AnimatedBackground";
+import { WeddingRibbon } from "./WeddingRibbon";
 
 import type { InvitationData } from "./lib/invitation";
 
@@ -59,7 +63,10 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
       startsAtISO: ceremony.date || new Date().toISOString()
     },
     quote: wedding.quote || "Hạnh phúc là có bạn bên cạnh trong ngày trọng đại.",
-    gallery: wedding.gallery?.map((src, idx) => {
+    // gallery[0..5] đã dùng riêng cho hero/countdown/wedding-info/quote (xem
+    // structureImages bên dưới) — lưới "Bộ ảnh kỷ niệm" chỉ lấy ảnh từ
+    // albumStartIndex trở đi để không lặp lại đúng những ảnh đã hiển thị.
+    gallery: wedding.gallery?.slice(CLASSIC_BURGUNDY_ALBUM_START_INDEX).map((src, idx) => {
       const classes = [
         "col-span-12 md:col-span-7 row-span-2",
         "col-span-12 md:col-span-5 row-span-1",
@@ -110,7 +117,21 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
   const order = visibleSectionKeys(wedding.sectionOrder, defaultOrder);
 
   const inner = (
-    <main className="bg-paper min-h-screen">
+    // Chrome toàn site như bản gốc: màn mở phong bì (WeddingCardOpening), nền
+    // sparkle bay (AnimatedBackground), dải ruy băng cuộn trang (WeddingRibbon)
+    // — trước đây 3 component này tồn tại trong thư mục nhưng không được gắn
+    // vào render nên hoàn toàn không xuất hiện trên trang thật.
+    <div className="relative overflow-hidden min-h-screen min-h-[100dvh]">
+      <Suspense fallback={null}>
+        <WeddingCardOpening groomName={wedding.groomName} brideName={wedding.brideName} />
+      </Suspense>
+      <AnimatedBackground />
+      <WeddingRibbon
+        groomName={wedding.groomName}
+        brideName={wedding.brideName}
+        dateLabel={mappedData.ceremony.solarDateLabel}
+      />
+      <main className="relative z-10 bg-paper min-h-screen">
       {order.map((sectionKey) => {
         let content = null;
         switch (sectionKey) {
@@ -146,7 +167,7 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
             );
             break;
           case "gallery":
-            if (wedding.gallery?.length) {
+            if (mappedData.gallery?.length) {
               content = <GallerySection data={mappedData} />;
             }
             break;
@@ -191,7 +212,8 @@ export default function Template1Wrapper({ wedding, mode, guestName, editOverlay
         );
       })}
       {wedding.backgroundMusic && <BackgroundMusic url={wedding.backgroundMusic} />}
-    </main>
+      </main>
+    </div>
   );
 
   if (editOverlay?.onSlotClick) {

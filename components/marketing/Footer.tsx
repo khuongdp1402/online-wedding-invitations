@@ -1,5 +1,5 @@
-import { Heart } from "lucide-react";
 import Link from "next/link";
+import { WingloveLogo } from "@/components/marketing/WingloveLogo";
 
 export function Footer() {
   return (
@@ -8,11 +8,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <Heart className="w-5 h-5 text-rose-500 fill-rose-500" />
-              <span className="text-lg font-bold text-white">
-                Thiệp Cưới Online
-              </span>
+            <div className="mb-4">
+              <WingloveLogo size={26} variant="dark" />
             </div>
             <p className="text-sm leading-relaxed max-w-sm">
               Nền tảng tạo thiệp cưới online đẹp và chuyên nghiệp. Giúp bạn
@@ -53,7 +50,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm">
-          <p>© 2026 Thiệp Cưới Online. All rights reserved.</p>
+          <p>© 2026 Winglove. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="/" className="hover:text-white transition-colors">
               Điều Khoản

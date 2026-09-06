@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Heart, Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { WingloveLogo } from "@/components/marketing/WingloveLogo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,11 +51,8 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Heart className="w-6 h-6 text-rose-600 fill-rose-600" />
-            <span className="text-xl font-bold bg-gradient-to-r from-rose-600 to-amber-600 bg-clip-text text-transparent">
-              Thiệp Cưới Online
-            </span>
+          <Link href="/" className="flex items-center">
+            <WingloveLogo size={28} />
           </Link>
 
           {/* Desktop nav */}
@@ -76,7 +74,7 @@ export function Navbar() {
               <div className="flex items-center gap-4">
                 {session?.user?.role === "ADMIN" && (
                   <Link href="/admin">
-                    <Button variant="ghost" size="sm" className="text-amber-600 hover:text-amber-700 hover:bg-amber-50">
+                    <Button variant="ghost" size="sm" className="text-winglove-gold hover:text-winglove-red hover:bg-winglove-gold-soft">
                       <Shield className="w-4 h-4 mr-1.5" />
                       Admin
                     </Button>
@@ -88,7 +86,7 @@ export function Navbar() {
                     <Button variant="ghost" className="relative h-9 rounded-full pl-2 pr-4 flex items-center gap-2 hover:bg-gray-100 outline-none">
                       <Avatar className="h-7 w-7">
                         <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User"} />
-                        <AvatarFallback className="bg-rose-100 text-rose-700 text-xs">
+                        <AvatarFallback className="bg-winglove-red-tint text-winglove-red-deep text-xs">
                           {(session?.user?.name || "U").charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -131,7 +129,7 @@ export function Navbar() {
                 <Link href="/login">
                   <Button
                     size="sm"
-                    className="bg-rose-600 hover:bg-rose-700 text-white"
+                    className="bg-winglove-red hover:bg-winglove-red-deep text-white"
                   >
                     Tạo Thiệp Miễn Phí
                   </Button>
@@ -180,7 +178,7 @@ export function Navbar() {
                     <div className="px-4 py-3 bg-gray-50 rounded-lg flex items-center gap-3 mb-2 mt-2">
                       <Avatar className="h-10 w-10 border shadow-sm">
                         <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User"} />
-                        <AvatarFallback className="bg-rose-100 text-rose-700">
+                        <AvatarFallback className="bg-winglove-red-tint text-winglove-red-deep">
                           {(session?.user?.name || "U").charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -194,7 +192,7 @@ export function Navbar() {
 
                     {session?.user?.role === "ADMIN" && (
                       <Link href="/admin" className="block" onClick={() => setMobileOpen(false)}>
-                        <Button variant="outline" className="w-full text-amber-600 justify-start" size="sm">
+                        <Button variant="outline" className="w-full text-winglove-gold justify-start" size="sm">
                           <Shield className="w-4 h-4 mr-2" />
                           Admin Dashboard
                         </Button>
@@ -231,7 +229,7 @@ export function Navbar() {
                     </Link>
                     <Link href="/login" className="block">
                       <Button
-                        className="w-full bg-rose-600 hover:bg-rose-700"
+                        className="w-full bg-winglove-red hover:bg-winglove-red-deep"
                         size="sm"
                       >
                         Tạo Thiệp Miễn Phí

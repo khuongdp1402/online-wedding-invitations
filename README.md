@@ -63,7 +63,10 @@ Mở http://localhost:3000 (hoặc port Next in báo).
 | `npm run db:seed` | Seed TypeScript |
 | `npm test` | Chạy test (Vitest) |
 
-## Tài liệu chuẩn & agent
+## Tài liệu kiến trúc & agent
 
+- **[Sơ đồ Code Graph & Kiến trúc hệ thống (Mermaid)](docs/CODE_GRAPH.md)**
+- [Bộ tài liệu đặc tả kỹ thuật (Specs)](docs/specs/README.md)
+- [Hướng dẫn phát triển Template](docs/TEMPLATE_GUIDE.md)
 - [AGENTS.md](AGENTS.md)
 - [docs/standards/CODE_STYLE.md](docs/standards/CODE_STYLE.md)

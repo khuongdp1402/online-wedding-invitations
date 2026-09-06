@@ -6,6 +6,7 @@ import {
   type WeddingTemplateProps,
 } from "@/lib/template-registry";
 import { resolveTemplateFonts } from "@/lib/template-fonts";
+import { DemoWatermark } from "@/components/templates/shared/DemoWatermark";
 
 type TemplateRendererProps = {
   templateSlug: string;
@@ -69,6 +70,7 @@ export function TemplateRenderer({
       guestSalutation={guestSalutation}
       editOverlay={editOverlay}
     />
+    {isDemo && <DemoWatermark />}
     </div>
   );
 }

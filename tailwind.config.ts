@@ -68,6 +68,27 @@ const config: Config = {
           dark: "#2A2A2A",
         },
         paper: "#FDFBF7",
+        winglove: {
+          ivory: "#FBF3EA",
+          "ivory-deep": "#F3E4CB",
+          red: "#B3242E",
+          "red-deep": "#8C1C24",
+          "red-tint": "#F7DEDD",
+          gold: "#C99A44",
+          "gold-soft": "#F1E0B8",
+          pine: "#3F6E52",
+          "pine-tint": "#E1EBE3",
+          ink: "#2B1E15",
+          "ink-soft": "#7C6A57",
+          "ink-faint": "#B7A488",
+          line: "#E9D9BA",
+          surface: "#FFFFFF",
+          "surface-sunken": "#F6EAD6",
+          band: "#1D1410",
+          "band-deep": "#150E0B",
+          "band-ink": "#F5E9D8",
+          "band-ink-soft": "#C9B49C",
+        },
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -81,6 +102,11 @@ const config: Config = {
         // template2 dùng `font-serif` ở 75 chỗ. Trỏ về --font-heading để font
         // người dùng chọn có tác dụng, thay vì rơi về serif mặc định của Tailwind.
         serif: ['var(--font-heading)', 'Georgia', 'serif'],
+        // Font riêng cho trang chủ mới (Winglove landing) — khác với
+        // `heading`/`body` ở trên vốn dùng cho font do người dùng chọn theo
+        // từng mẫu thiệp (xem TemplateRenderer).
+        "wg-display": ['var(--font-wg-display)', 'Georgia', 'serif'],
+        "wg-body": ['var(--font-wg-body)', '-apple-system', 'sans-serif'],
   		},
       boxShadow: {
         card: "0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -5px rgba(128, 0, 32, 0.02)",

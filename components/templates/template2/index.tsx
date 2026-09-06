@@ -5,6 +5,60 @@ import { weddingData as staticWeddingData } from "./config/weddingData";
 import { visibleSectionKeys } from "@/lib/section-config";
 import { EditOverlayContext } from "@/components/templates/shared/EditOverlayContext";
 
+// Tỉ lệ số ảnh mỗi chương nên nhận, phỏng theo bộ ảnh gốc (tham khảo
+// components/templates/template2/config/weddingData.ts): chapter-1-meet=14,
+// chapter-2-journey=8, chapter-3-invitation=2, chapter-6-1-mousetrail=20,
+// chapter-6-2-carousel=26. Ảnh của khách được chia theo đúng tỉ lệ này,
+// KHÔNG chồng lấn giữa các chương — tránh lặp ảnh và tránh phải fallback
+// về ảnh cứng của cặp đôi mẫu khác khi khách chưa upload đủ ảnh.
+const CHAPTER_IMAGE_WEIGHTS: Record<string, number> = {
+  "chapter-1-meet": 14,
+  "chapter-2-journey": 8,
+  "chapter-3-invitation": 2,
+  "chapter-6-1-mousetrail": 20,
+  "chapter-6-2-carousel": 26,
+};
+const CHAPTER_IMAGE_ORDER = Object.keys(CHAPTER_IMAGE_WEIGHTS);
+
+function allocateGalleryToChapters(gallery: string[] | undefined) {
+  const clean = (gallery || []).filter(Boolean);
+  const empty: Record<string, string[]> = {};
+  CHAPTER_IMAGE_ORDER.forEach((key) => (empty[key] = []));
+  if (clean.length === 0) {
+    return { hero: undefined, rsvp: undefined, byChapter: empty };
+  }
+
+  const hero = clean[0];
+  const rsvp = clean.length > 1 ? clean[clean.length - 1] : clean[0];
+  // Phần ảnh còn lại (loại bỏ ảnh hero/ảnh đóng) dùng để chia theo tỉ lệ.
+  const pool =
+    clean.length > 2 ? clean.slice(1, clean.length - 1) : clean.slice(0);
+
+  const byChapter: Record<string, string[]> = {};
+  let cursor = 0;
+  CHAPTER_IMAGE_ORDER.forEach((key, i) => {
+    const remainingWeight = CHAPTER_IMAGE_ORDER.slice(i).reduce(
+      (sum, k) => sum + CHAPTER_IMAGE_WEIGHTS[k],
+      0
+    );
+    const remainingPool = pool.length - cursor;
+    const isLast = i === CHAPTER_IMAGE_ORDER.length - 1;
+    const take = isLast
+      ? remainingPool
+      : Math.min(
+          remainingPool,
+          Math.round((CHAPTER_IMAGE_WEIGHTS[key] / remainingWeight) * remainingPool)
+        );
+    const slice = pool.slice(cursor, cursor + take);
+    // Gallery quá ít ảnh (chỉ đủ cho hero/rsvp) — vẫn hiển thị ảnh của
+    // chính cặp đôi (hero) thay vì để trống hoặc mượn ảnh người khác.
+    byChapter[key] = slice.length > 0 ? slice : [hero];
+    cursor += take;
+  });
+
+  return { hero, rsvp, byChapter };
+}
+
 export default function Template2Wrapper({ wedding, mode, editOverlay }: WeddingTemplateProps) {
   const side = mode === "bride" ? "nhagai" : "nhatrai";
   
@@ -86,75 +140,78 @@ export default function Template2Wrapper({ wedding, mode, editOverlay }: Wedding
       }
     },
     gallery: wedding.gallery || [],
-    storyChapters: [
-      {
-        id: "chapter-0-hero",
-        title: "The Beginning",
-        theme: wedding.backgroundColor || "#000000",
-        layoutType: "hero",
-        images: wedding.gallery?.length ? [wedding.gallery[0]] : ["/images/banner.jpg"],
-        quote: "Every love story begins with a single moment.",
-      },
-      {
-        id: "chapter-1-meet",
-        title: "The First Glance",
-        theme: "#FFF8F0",
-        layoutType: "asymmetric-left",
-        images: wedding.gallery && wedding.gallery.length > 2
-          ? wedding.gallery.slice(1, 10)
-          : staticWeddingData.storyChapters?.find(c => c.id === "chapter-1-meet")?.images || [],
-        parallaxSpeed: [0.8, 1.2, 0.9, 1.1, 0.85, 1.15],
-        quote: wedding.quote || "Ánh mắt chạm nhau, và thế giới như dừng lại.",
-      },
-      {
-        id: "chapter-2-journey",
-        title: "Our Journey",
-        theme: "#FFF8F0",
-        layoutType: "coverflow-journey",
-        images: wedding.gallery && wedding.gallery.length > 5
-          ? wedding.gallery.slice(0, 8)
-          : staticWeddingData.storyChapters?.find(c => c.id === "chapter-2-journey")?.images || [],
-        quote: "Mỗi khoảnh khắc bên nhau là một trang truyện đẹp.",
-      },
-      {
-        id: "chapter-3-invitation",
-        title: "Lời Mời Trân Trọng",
-        theme: "#FDFCF8",
-        layoutType: "editorial-invitation",
-        images: wedding.gallery && wedding.gallery.length > 2
-          ? wedding.gallery.slice(0, 2)
-          : staticWeddingData.storyChapters?.find(c => c.id === "chapter-3-invitation")?.images || [],
-      },
-      {
-        id: "chapter-6-1-mousetrail",
-        title: "Lễ Hằng Thuận",
-        theme: "#FDFDFD",
-        layoutType: "mousetrail-gallery",
-        images: wedding.gallery && wedding.gallery.length > 10
-          ? wedding.gallery.slice(10, 20)
-          : staticWeddingData.storyChapters?.find(c => c.id === "chapter-6-1-mousetrail")?.images || [],
-        quote: "Sự thiêng liêng trong ngày Hằng Thuận",
-      },
-      {
-        id: "chapter-6-2-carousel",
-        title: "Khoảnh khắc",
-        quote: "Chút tình gửi gió ngàn mây",
-        theme: "#E8E4DB",
-        layoutType: "horizontal-marquee",
-        images: wedding.gallery && wedding.gallery.length > 15
-          ? wedding.gallery.slice(15, 30)
-          : staticWeddingData.storyChapters?.find(c => c.id === "chapter-6-2-carousel")?.images || [],
-      },
-      {
-        id: "chapter-6-rsvp",
-        title: "Hồi Âm & Lời Chúc",
-        theme: "#111111",
-        layoutType: "editorial-rsvp",
-        images: wedding.gallery?.length
-          ? [wedding.gallery[wedding.gallery.length - 1]]
-          : staticWeddingData.storyChapters.find(c => c.id === "chapter-6-rsvp")?.images || [],
-      }
-    ]
+    storyChapters: (() => {
+      const { hero, rsvp, byChapter } = allocateGalleryToChapters(wedding.gallery);
+      const fallback = (id: string) =>
+        staticWeddingData.storyChapters?.find((c) => c.id === id)?.images || [];
+      return [
+        {
+          id: "chapter-0-hero",
+          title: "The Beginning",
+          theme: wedding.backgroundColor || "#000000",
+          layoutType: "hero",
+          images: hero ? [hero] : ["/images/banner.jpg"],
+          quote: "Every love story begins with a single moment.",
+        },
+        {
+          id: "chapter-1-meet",
+          title: "The First Glance",
+          theme: "#FFF8F0",
+          layoutType: "asymmetric-left",
+          images: byChapter["chapter-1-meet"].length
+            ? byChapter["chapter-1-meet"]
+            : fallback("chapter-1-meet"),
+          parallaxSpeed: [0.8, 1.2, 0.9, 1.1, 0.85, 1.15],
+          quote: wedding.quote || "Ánh mắt chạm nhau, và thế giới như dừng lại.",
+        },
+        {
+          id: "chapter-2-journey",
+          title: "Our Journey",
+          theme: "#FFF8F0",
+          layoutType: "coverflow-journey",
+          images: byChapter["chapter-2-journey"].length
+            ? byChapter["chapter-2-journey"]
+            : fallback("chapter-2-journey"),
+          quote: "Mỗi khoảnh khắc bên nhau là một trang truyện đẹp.",
+        },
+        {
+          id: "chapter-3-invitation",
+          title: "Lời Mời Trân Trọng",
+          theme: "#FDFCF8",
+          layoutType: "editorial-invitation",
+          images: byChapter["chapter-3-invitation"].length
+            ? byChapter["chapter-3-invitation"]
+            : fallback("chapter-3-invitation"),
+        },
+        {
+          id: "chapter-6-1-mousetrail",
+          title: "Lễ Hằng Thuận",
+          theme: "#FDFDFD",
+          layoutType: "mousetrail-gallery",
+          images: byChapter["chapter-6-1-mousetrail"].length
+            ? byChapter["chapter-6-1-mousetrail"]
+            : fallback("chapter-6-1-mousetrail"),
+          quote: "Sự thiêng liêng trong ngày Hằng Thuận",
+        },
+        {
+          id: "chapter-6-2-carousel",
+          title: "Khoảnh khắc",
+          quote: "Chút tình gửi gió ngàn mây",
+          theme: "#E8E4DB",
+          layoutType: "horizontal-marquee",
+          images: byChapter["chapter-6-2-carousel"].length
+            ? byChapter["chapter-6-2-carousel"]
+            : fallback("chapter-6-2-carousel"),
+        },
+        {
+          id: "chapter-6-rsvp",
+          title: "Hồi Âm & Lời Chúc",
+          theme: "#111111",
+          layoutType: "editorial-rsvp",
+          images: rsvp ? [rsvp] : fallback("chapter-6-rsvp"),
+        },
+      ];
+    })(),
   };
 
   // Lọc chương theo khối đang bật + gói. Template này dùng mô hình

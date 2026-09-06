@@ -193,11 +193,11 @@ export function WishesSection({ weddingId, guestName }: Props) {
                 <div className="mt-16 grid gap-8">
                   <div className="flex items-center gap-4">
                     <div className="h-px flex-1 bg-gold/20" />
-                    <p className="text-[10px] tracking-[0.5em] uppercase text-burgundy font-bold">Lời chúc gần đây</p>
+                    <p className="text-[10px] tracking-[0.5em] uppercase text-burgundy font-bold">Lời chúc ({wishes.length})</p>
                     <div className="h-px flex-1 bg-gold/20" />
                   </div>
-                  <div className="grid gap-6">
-                    {wishes.slice(0, 8).map((wish) => (
+                  <div className="grid gap-6 max-h-[720px] overflow-y-auto pr-1">
+                    {wishes.map((wish) => (
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

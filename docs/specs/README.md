@@ -8,14 +8,15 @@ Tài liệu này là trung tâm đặc tả kỹ thuật (Single Source of Truth
 
 | Mã Module | Tài Liệu Đặc Tả | Phạm Vi & Chức Năng |
 | :--- | :--- | :--- |
-| **01** | [01-system-overview.md](file:///e:/Project/online%20wedding%20invitations/online-wedding-invitations/docs/specs/01-system-overview.md) | Tổng quan kiến trúc hệ thống, Tech stack (Next.js 14 App Router, PostgreSQL, Tailwind), triết lý Clean Architecture, bảo mật & luồng dữ liệu. |
-| **02** | [02-database-spec.md](file:///e:/Project/online%20wedding%20invitations/online-wedding-invitations/docs/specs/02-database-spec.md) | Chi tiết lược đồ cơ sở dữ liệu (Prisma Schema), các bảng thực thể (User, Wedding, Template, Guest, Wish, Payment, Coupon), quan hệ và chiến lược Index. |
-| **03** | [03-templates-spec.md](file:///e:/Project/online%20wedding%20invitations/online-wedding-invitations/docs/specs/03-templates-spec.md) | Hệ thống Template Engine: Template Registry, cấu trúc ImageSlots & TextSlots, Dynamic Fonts/Colors, đặc tả chi tiết 4 template hiện hữu và hướng dẫn mở rộng. |
-| **04** | [04-creation-and-editor-spec.md](file:///e:/Project/online%20wedding%20invitations/online-wedding-invitations/docs/specs/04-creation-and-editor-spec.md) | Luồng tạo thiệp (Wizard 4 bước), kiến trúc Bộ soạn thảo trực quan (Live Customizer), cơ chế đồng bộ Form-Preview qua `window.postMessage`, Inline Popover. |
-| **05** | [05-invitation-public-view-spec.md](file:///e:/Project/online%20wedding%20invitations/online-wedding-invitations/docs/specs/05-invitation-public-view-spec.md) | Trang thiệp công khai `/w/[slug]`: Chế độ Nhà Trai / Nhà Gái, cá nhân hóa khách mời, hiệu ứng mở phong bì, nhạc nền, Countdown, RSVP, Lời chúc, Mừng cưới QR. |
-| **06** | [06-payment-and-casso-spec.md](file:///e:/Project/online%20wedding%20invitations/online-wedding-invitations/docs/specs/06-payment-and-casso-spec.md) | Hệ thống thanh toán tự động qua Casso (VietQR): Quy chuẩn cú pháp `TC<shortId>`, Webhook bảo mật `x-api-key`, Idempotency, Kích hoạt & Gia hạn thiệp, Hướng dẫn tích hợp tài khoản Casso. |
-| **07** | [07-api-reference.md](file:///e:/Project/online%20wedding%20invitations/online-wedding-invitations/docs/specs/07-api-reference.md) | Danh mục chuẩn toàn bộ REST API Endpoints: Auth, Weddings, Templates, Guests, RSVP, Wishes, Payment, Webhooks, Upload. |
-| **08** | [08-admin-and-operations.md](file:///e:/Project/online%20wedding%20invitations/online-wedding-invitations/docs/specs/08-admin-and-operations.md) | Phân quyền ADMIN vs USER, Dashboard quản trị, Thống kê doanh thu, Quản lý Template & Mã giảm giá (Coupons), Quy trình sao lưu & Vận hành. |
+| **Graph** | [CODE_GRAPH.md](../CODE_GRAPH.md) | **Sơ đồ Code Graph & Kiến trúc hệ thống**: Trực quan hóa toàn diện bằng Mermaid: Layered Architecture, ERD, Template Engine, Data Flows. |
+| **01** | [01-system-overview.md](01-system-overview.md) | Tổng quan kiến trúc hệ thống, Tech stack (Next.js 14 App Router, PostgreSQL, Tailwind), triết lý Clean Architecture, bảo mật & luồng dữ liệu. |
+| **02** | [02-database-spec.md](02-database-spec.md) | Chi tiết lược đồ cơ sở dữ liệu (Prisma Schema), các bảng thực thể (User, Wedding, Template, Guest, Wish, Payment, Coupon), quan hệ và chiến lược Index. |
+| **03** | [03-templates-spec.md](03-templates-spec.md) | Hệ thống Template Engine: Template Registry, cấu trúc ImageSlots & TextSlots, Dynamic Fonts/Colors, đặc tả chi tiết 4 template hiện hữu và hướng dẫn mở rộng. |
+| **04** | [04-creation-and-editor-spec.md](04-creation-and-editor-spec.md) | Luồng tạo thiệp (Wizard 4 bước), kiến trúc Bộ soạn thảo trực quan (Live Customizer), cơ chế đồng bộ Form-Preview qua `window.postMessage`, Inline Popover. |
+| **05** | [05-invitation-public-view-spec.md](05-invitation-public-view-spec.md) | Trang thiệp công khai `/w/[slug]`: Chế độ Nhà Trai / Nhà Gái, cá nhân hóa khách mời, hiệu ứng mở phong bì, nhạc nền, Countdown, RSVP, Lời chúc, Mừng cưới QR. |
+| **06** | [06-payment-and-casso-spec.md](06-payment-and-casso-spec.md) | Hệ thống thanh toán tự động qua Casso (VietQR): Quy chuẩn cú pháp `TC<shortId>`, Webhook bảo mật `x-api-key`, Idempotency, Kích hoạt & Gia hạn thiệp, Hướng dẫn tích hợp tài khoản Casso. |
+| **07** | [07-api-reference.md](07-api-reference.md) | Danh mục chuẩn toàn bộ REST API Endpoints: Auth, Weddings, Templates, Guests, RSVP, Wishes, Payment, Webhooks, Upload. |
+| **08** | [08-admin-and-operations.md](08-admin-and-operations.md) | Phân quyền ADMIN vs USER, Dashboard quản trị, Thống kê doanh thu, Quản lý Template & Mã giảm giá (Coupons), Quy trình sao lưu & Vận hành. |
 
 ---
 

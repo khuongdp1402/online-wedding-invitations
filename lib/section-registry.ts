@@ -174,6 +174,24 @@ export const SECTIONS: Record<string, SectionDef> = {
     description: "Lịch trình dạ hội và tiệc mừng chi tiết",
     icon: "Clock",
   },
+  letter: {
+    key: "letter",
+    label: "Bức thư tình",
+    description: "Lời nhắn gửi trang trọng tới khách mời",
+    icon: "Mail",
+  },
+  journal: {
+    key: "journal",
+    label: "Nhật ký tình yêu",
+    description: "Trang nhật ký kể lại câu chuyện của cặp đôi",
+    icon: "BookHeart",
+  },
+  vippass: {
+    key: "vippass",
+    label: "Vé mời VIP",
+    description: "Vé mời dạ tiệc phong cách vé VIP",
+    icon: "Ticket",
+  },
 };
 
 /** Fallback cho key lạ để UI không bao giờ hiện slug thô. */

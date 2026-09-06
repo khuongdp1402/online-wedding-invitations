@@ -97,7 +97,8 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
 
   // Step 3: Interactive preview controls
   const [previewMode, setPreviewMode] = useState<"groom" | "bride">("groom");
-  const [previewDevice, setPreviewDevice] = useState<"mobile" | "desktop">("mobile");
+  // Mặc định xem như website thật (desktop) — có thể bật mobile để kiểm tra giao diện điện thoại.
+  const [previewDevice, setPreviewDevice] = useState<"mobile" | "desktop">("desktop");
   const [previewTab, setPreviewTab] = useState<"live" | "summary">("live");
 
   // Step 4: Slug
@@ -619,7 +620,7 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
                 className={`transition-all duration-300 bg-white text-gray-900 rounded-xl overflow-hidden shadow-2xl relative ${
                   previewDevice === "mobile"
                     ? "w-full max-w-[420px] border-[6px] border-neutral-800 rounded-[32px] min-h-[700px] max-h-[78vh] overflow-y-auto"
-                    : "w-full max-w-4xl rounded-lg min-h-[700px] max-h-[78vh] overflow-y-auto"
+                    : "w-full rounded-lg min-h-[700px] max-h-[78vh] overflow-y-auto"
                 }`}
               >
                 {selectedTemplate && (

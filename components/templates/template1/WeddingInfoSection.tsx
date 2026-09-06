@@ -100,27 +100,26 @@ export function WeddingInfoSection({ data, photo1, photo2, isBrideMode }: Weddin
         <div className="max-w-4xl mx-auto">
           <Reveal y={30}>
             <div className="text-center space-y-6 relative">
-              {/* Overlapping Images Style */}
-              {(photo1 || photo2) && (
-                <div className="relative h-64 sm:h-80 mb-8 mx-auto w-full max-w-md">
-                  <div
-                    className={editSlotClass(edit, "cb-wedding-a", "absolute top-0 left-0 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white -rotate-6 z-0 transition-transform hover:z-20 hover:scale-105 duration-500")}
-                    data-wedding-slot="cb-wedding-a"
-                    onClick={(e) => edit?.onSlotClick?.("cb-wedding-a", e.currentTarget)}
-                    role={edit?.onSlotClick ? "button" : undefined}
-                  >
-                    <ImageWithFallback src={photo1 || ""} alt="Wedding 1" className="w-full h-full object-cover" />
-                  </div>
-                  <div
-                    className={editSlotClass(edit, "cb-wedding-b", "absolute top-10 right-0 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white rotate-6 z-10 transition-transform hover:z-20 hover:scale-105 duration-500")}
-                    data-wedding-slot="cb-wedding-b"
-                    onClick={(e) => edit?.onSlotClick?.("cb-wedding-b", e.currentTarget)}
-                    role={edit?.onSlotClick ? "button" : undefined}
-                  >
-                    <ImageWithFallback src={photo2 || ""} alt="Wedding 2" className="w-full h-full object-cover" />
-                  </div>
+              {/* Overlapping Images Style — luôn hiển thị như bản gốc, kể cả khi
+                  thiếu ảnh (ImageWithFallback tự vẽ placeholder gradient) */}
+              <div className="relative h-64 sm:h-80 mb-8 mx-auto w-full max-w-md">
+                <div
+                  className={editSlotClass(edit, "cb-wedding-a", "absolute top-0 left-0 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white -rotate-6 z-0 transition-transform hover:z-20 hover:scale-105 duration-500")}
+                  data-wedding-slot="cb-wedding-a"
+                  onClick={(e) => edit?.onSlotClick?.("cb-wedding-a", e.currentTarget)}
+                  role={edit?.onSlotClick ? "button" : undefined}
+                >
+                  <ImageWithFallback src={photo1 || ""} alt="Wedding 1" className="w-full h-full object-cover" />
                 </div>
-              )}
+                <div
+                  className={editSlotClass(edit, "cb-wedding-b", "absolute top-10 right-0 w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white rotate-6 z-10 transition-transform hover:z-20 hover:scale-105 duration-500")}
+                  data-wedding-slot="cb-wedding-b"
+                  onClick={(e) => edit?.onSlotClick?.("cb-wedding-b", e.currentTarget)}
+                  role={edit?.onSlotClick ? "button" : undefined}
+                >
+                  <ImageWithFallback src={photo2 || ""} alt="Wedding 2" className="w-full h-full object-cover" />
+                </div>
+              </div>
 
               <div className="space-y-5">
                 <div className="flex flex-col gap-3 w-full max-w-4xl mx-auto">
@@ -153,6 +152,9 @@ export function WeddingInfoSection({ data, photo1, photo2, isBrideMode }: Weddin
                 <div className="gold-divider w-32 mx-auto opacity-60" />
 
                 <div className="space-y-4 mt-4">
+                  <p className="text-2xl sm:text-3xl font-script text-burgundy font-bold">
+                    {data.ceremony.title}
+                  </p>
                   <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
                     <div className="text-center">
                       <p className="text-ink/70 text-xs sm:text-sm uppercase tracking-wider font-semibold mb-0.5">Giờ làm lễ</p>

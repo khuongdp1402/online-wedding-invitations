@@ -16,7 +16,8 @@ type Props = {
 
 export function PreviewClient({ weddingData, templateSlug, weddingId }: Props) {
   const [mode, setMode] = useState<"bride" | "groom">("groom");
-  const [device, setDevice] = useState<"desktop" | "mobile">("mobile");
+  // Mặc định xem như website thật (desktop) — có thể bật mobile để kiểm tra giao diện điện thoại.
+  const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -89,7 +90,7 @@ export function PreviewClient({ weddingData, templateSlug, weddingId }: Props) {
           className={`bg-white shadow-2xl overflow-auto transition-all duration-300 ${
             device === "mobile"
               ? "w-[390px] max-h-[844px] rounded-[2.5rem] ring-8 ring-gray-800"
-              : "w-full max-w-5xl rounded-lg"
+              : "w-full rounded-lg"
           }`}
           style={device === "mobile" ? { height: "844px" } : undefined}
         >

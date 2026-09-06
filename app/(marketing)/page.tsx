@@ -1,79 +1,52 @@
-"use client";
-
 import { Navbar } from "@/components/marketing/Navbar";
-import { Hero } from "@/components/marketing/Hero";
-import { Features } from "@/components/marketing/Features";
-import { HowItWorks } from "@/components/marketing/HowItWorks";
-import { TemplateShowcase } from "@/components/marketing/TemplateShowcase";
-import { PricingCards } from "@/components/marketing/PricingCards";
-import { CTA } from "@/components/marketing/CTA";
 import { Footer } from "@/components/marketing/Footer";
-import { motion } from "framer-motion";
+import { HeroSection } from "@/components/marketing/winglove/HeroSection";
+import { ProcessSection } from "@/components/marketing/winglove/ProcessSection";
+import { TemplatesSection } from "@/components/marketing/winglove/TemplatesSection";
+import { StatsBand } from "@/components/marketing/winglove/StatsBand";
+import { Testimonials } from "@/components/marketing/winglove/Testimonials";
+import { FaqSection } from "@/components/marketing/winglove/FaqSection";
+import { CtaBand } from "@/components/marketing/winglove/CtaBand";
+import { RailTimeline } from "@/components/marketing/winglove/RailTimeline";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Winglove",
+  url: "https://winglove.vn",
+  logo: "https://winglove.vn/winglove-mark.svg",
+  description:
+    "Winglove là nền tảng tạo thiệp cưới online với 10 phong cách thiệp, quản lý khách mời, RSVP, lời chúc và mừng cưới QR — thuộc hệ sinh thái KWings.",
+  sameAs: [],
+};
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-winglove-ivory font-wg-body text-winglove-ink">
       <Navbar />
 
-      {/* Hero */}
-      <Hero />
+      <div className="pt-16">
+        <HeroSection />
 
-      {/* Features */}
-      <Features />
+        <RailTimeline
+          items={[
+            { icon: "①", content: <ProcessSection /> },
+            { icon: "♡", content: <TemplatesSection /> },
+            { icon: "✦", content: <StatsBand /> },
+            { icon: "❝", content: <Testimonials /> },
+            { icon: "?", content: <FaqSection /> },
+          ]}
+        />
 
-      {/* How it works */}
-      <HowItWorks />
+        <CtaBand />
+      </div>
 
-      {/* Template Showcase */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Mẫu Thiệp <span className="text-rose-600">Đẹp & Đa Dạng</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Từ cổ điển đến hiện đại, từ đơn giản đến sang trọng — chọn phong
-              cách phù hợp với bạn.
-            </p>
-          </motion.div>
-          <TemplateShowcase />
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Bảng Giá{" "}
-              <span className="text-rose-600">Minh Bạch & Hợp Lý</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Mỗi mẫu thiệp một giá cố định. Chỉnh sửa thoải mái, chỉ thanh
-              toán khi bạn xuất bản.
-            </p>
-          </motion.div>
-          <PricingCards />
-        </div>
-      </section>
-
-      {/* CTA */}
-      <CTA />
-
-      {/* Footer */}
       <Footer />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
     </div>
   );
 }

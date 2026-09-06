@@ -6,7 +6,12 @@ import { useSearchParams } from "next/navigation";
 import { Heart } from "lucide-react";
 import { getInviteeFromSearchParams } from "./lib/invitee";
 
-export function WeddingCardOpening() {
+type WeddingCardOpeningProps = {
+    groomName?: string;
+    brideName?: string;
+};
+
+export function WeddingCardOpening({ groomName, brideName }: WeddingCardOpeningProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [displayName, setDisplayName] = useState<string | null>(null);
     const searchParams = useSearchParams();
@@ -111,9 +116,9 @@ export function WeddingCardOpening() {
                                     <div className="h-px w-24 bg-gold/40 mx-auto mb-6" />
 
                                     <div className="mb-8 space-y-2">
-                                        <p className="text-3xl sm:text-4xl font-script text-burgundy font-bold">Thanh Tùng</p>
+                                        <p className="text-3xl sm:text-4xl font-script text-burgundy font-bold">{groomName || "Chú Rể"}</p>
                                         <p className="text-xl sm:text-2xl font-script text-gold">&</p>
-                                        <p className="text-3xl sm:text-4xl font-script text-burgundy font-bold">Hương Giang</p>
+                                        <p className="text-3xl sm:text-4xl font-script text-burgundy font-bold">{brideName || "Cô Dâu"}</p>
                                     </div>
 
                                     <h2 className="text-lg sm:text-xl font-heading text-ink-dark/60 italic mb-8">

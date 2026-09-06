@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Pencil, X, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { type WeddingData, getTemplate } from "@/lib/template-registry";
 import { EditWeddingPreviewPanel } from "@/components/dashboard/edit-wedding/EditWeddingPreviewPanel";
@@ -16,8 +16,12 @@ import { PublishPriceBar } from "@/components/dashboard/edit-wedding/PublishPric
 import { SaveStatusIndicator, worstSaveStatus } from "@/components/dashboard/edit-wedding/SaveStatusIndicator";
 import { ContactRequestDialog } from "@/components/dashboard/ContactRequestDialog";
 import { HEADING_FONTS, BODY_FONTS, SCRIPT_FONTS, COLOR_PRESETS } from "@/lib/font-catalog";
-import { textFieldForSlotKey, type WeddingTextField } from "@/lib/wedding-slots";
-import { galleryIndexForSlotKey } from "@/lib/wedding-image-slots";
+import { textFieldForSlotKey, type WeddingTextField, type WeddingTextSlot } from "@/lib/wedding-slots";
+import {
+  galleryIndexForSlotKey,
+  parseAlbumSlotKey,
+  type WeddingImageSlot,
+} from "@/lib/wedding-image-slots";
 import { resolveSections, type SectionConfig } from "@/lib/section-config";
 import { SECTIONS, getSectionDef } from "@/lib/section-registry";
 import { resolveBankBin } from "@/lib/vietqr";
@@ -99,6 +103,78 @@ function cleanGifting(g: GiftingState): GiftingState | null {
   return { ...(groom && { groom }), ...(bride && { bride }) };
 }
 
+/**
+ * Mọi id khối (section-group) mà panel giữa (form chỉnh sửa) biết hiển thị —
+ * khớp đúng các điều kiện `activeSectionGroup === '...'` bên dưới. Dùng làm
+ * "trạm dừng cuối" khi ánh xạ 1 slot key bất kỳ (từ preview/album/structure
+ * image) về đúng khối cần mở trong sidebar.
+ */
+const SUPPORTED_SECTION_GROUPS = new Set([
+  "global",
+  "wedding-info",
+  "info",
+  "header",
+  "location",
+  "gallery",
+  "quote",
+  "wishes",
+  "countdown",
+  "footer",
+  "gifting",
+  "rsvp",
+  "timeline",
+  "card-opening",
+  "hero",
+  "story",
+  "journey",
+  "invitation",
+  "mousetrail",
+  "carousel",
+  "letter",
+  "journal",
+  "vippass",
+  "calendar",
+  "dresscode",
+  "programme",
+  "proclamation",
+]);
+
+/**
+ * Ánh xạ 1 slot key BẤT KỲ (khớp `SLOT_CLICK` từ iframe preview, hoặc key
+ * `album-N`/slot ảnh cấu trúc từ sidebar) sang section-group sở hữu nó, để
+ * mở đúng panel chỉnh sửa trong sidebar giữa — tách biệt khỏi `highlightSlot`
+ * (dùng riêng để cuộn/khoanh vùng phần tử trong iframe).
+ *
+ * Dữ liệu lấy trực tiếp từ trường `section` đã có sẵn trên từng
+ * `WeddingTextSlot`/`WeddingImageSlot` (xem lib/wedding-slots*.ts,
+ * lib/wedding-image-slots.ts) — không hard-code theo từng template.
+ *
+ * Trả về `null` khi không xác định được (ví dụ slot key lạ) — nơi gọi nên
+ * giữ nguyên section-group hiện tại thay vì collapse về panel trống.
+ */
+function sectionGroupForSlotKey(
+  slotKey: string,
+  textSlots: WeddingTextSlot[],
+  imageSlots: WeddingImageSlot[]
+): string | null {
+  // Slot key CHÍNH LÀ 1 section-group hợp lệ — ví dụ khi bấm mục "Bộ ảnh"
+  // ở sidebar trái, hoặc panel gửi thẳng key khối (không phải slot ảnh/text
+  // chi tiết).
+  if (SUPPORTED_SECTION_GROUPS.has(slotKey)) return slotKey;
+
+  // Ảnh trong "Bộ ảnh kỷ niệm" (album-N, hoặc cb-album-N kiểu cũ) luôn
+  // thuộc khối gallery, bất kể template nào.
+  if (parseAlbumSlotKey(slotKey) !== null) return "gallery";
+
+  const textSlot = textSlots.find((s) => s.key === slotKey);
+  if (textSlot) return textSlot.section;
+
+  const imageSlot = imageSlots.find((s) => s.key === slotKey);
+  if (imageSlot) return imageSlot.section;
+
+  return null;
+}
+
 function normalizeGallery(g: unknown): string[] {
   const arr = Array.isArray(g) ? g.map((x) => String(x ?? "")) : [];
   while (arr.length < 6) arr.push("");
@@ -107,7 +183,18 @@ function normalizeGallery(g: unknown): string[] {
 
 export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
   const { toast } = useToast();
+  // `highlightSlot`: slot chi tiết cần cuộn tới/khoanh vùng bên trong iframe
+  // preview (vd. "cb-groom-venue", "album-3"). `activeSectionGroup`: khối
+  // đang mở trong panel chỉnh sửa ở giữa (vd. "wedding-info", "gallery").
+  // Trước đây dùng chung 1 state nên bấm ảnh/slot chi tiết trong preview
+  // hoặc chọn ảnh trong "Bộ ảnh kỷ niệm" làm panel giữa sập về rỗng vì key
+  // chi tiết không khớp điều kiện nào — tách riêng để 2 việc không đụng nhau.
   const [highlightSlot, setHighlightSlot] = useState<string>("global");
+  const [activeSectionGroup, setActiveSectionGroup] = useState<string>("global");
+  // Điều khiển overlay chỉnh sửa full-màn hình trên mobile/tablet (< lg) —
+  // desktop (`lg:` trở lên) không quan tâm state này. 'list': đang chọn khối
+  // cần sửa; 'panel': đang sửa nội dung khối đã chọn.
+  const [mobileEditorStep, setMobileEditorStep] = useState<"closed" | "list" | "panel">("closed");
   const [pendingFocusField, setPendingFocusField] = useState<WeddingTextField | null>(null);
   const inputRefs = useRef<Partial<Record<WeddingTextField, HTMLInputElement | HTMLTextAreaElement | null>>>({});
 
@@ -144,6 +231,24 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
 
   // Load default sections from template registry instead of hardcoding
   const templateConfig = getTemplate(templateSlug);
+
+  /**
+   * Điểm gọi DUY NHẤT nên dùng thay cho `setHighlightSlot` thô ở khắp nơi:
+   * đặt slot cuộn/khoanh vùng trong iframe VÀ (nếu xác định được) mở đúng
+   * khối tương ứng ở panel giữa — atomically, cùng 1 lượt render. Khi không
+   * xác định được khối sở hữu slot key (slot lạ/chưa biết), giữ nguyên
+   * `activeSectionGroup` hiện tại thay vì sập panel về rỗng.
+   */
+  function setHighlightSlotAndSection(slotKey: string) {
+    setHighlightSlot(slotKey);
+    const group = sectionGroupForSlotKey(
+      slotKey,
+      templateConfig?.textSlots || [],
+      templateConfig?.imageSlots || []
+    );
+    if (group) setActiveSectionGroup(group);
+  }
+
   const DEFAULT_SECTION_ORDER = useMemo(
     () =>
       templateConfig?.sections ?? [
@@ -424,7 +529,7 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
   }, [overallStatus]);
 
   function handleSlotClick(slotKey: string) {
-    setHighlightSlot(slotKey);
+    setHighlightSlotAndSection(slotKey);
     const textField = textFieldForSlotKey(slotKey, templateConfig?.textSlots || []);
     if (textField) {
       setPendingFocusField(textField);
@@ -482,7 +587,7 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
         hint={slot.hint}
         url={gallery[galleryIndex]?.trim() || ""}
         active={highlightSlot === slot.key}
-        onSelect={() => setHighlightSlot(slot.key)}
+        onSelect={() => setHighlightSlotAndSection(slot.key)}
         onUploaded={setGallery}
       />
     );
@@ -607,6 +712,44 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
   }
 
 
+  /**
+   * Nội dung "Các khối hiển thị" (ô Cài đặt chung + danh sách khối kéo-thả) —
+   * dùng chung cho sidebar trái ở desktop VÀ bước 'list' của overlay mobile.
+   * `onSelected` (tuỳ chọn) chạy SAU khi đã gọi `setHighlightSlotAndSection`
+   * — mobile dùng để tự chuyển sang bước 'panel', desktop không truyền nên
+   * hành vi giữ nguyên như trước.
+   */
+  function renderSectionListContent(onSelected?: () => void) {
+    function handleSelect(key: string) {
+      setHighlightSlotAndSection(key);
+      onSelected?.();
+    }
+    return (
+      <>
+        <div
+          className={`p-3 rounded-lg border cursor-pointer transition-all ${activeSectionGroup === 'global' ? 'border-rose-500 bg-rose-50 ring-1 ring-rose-200' : 'bg-white hover:bg-gray-50 border-gray-200'}`}
+          onClick={() => handleSelect('global')}
+        >
+          <div className={`font-medium text-sm ${activeSectionGroup === 'global' ? 'text-rose-700' : 'text-gray-800'}`}>Cài đặt chung</div>
+          <div className="text-xs text-gray-500 mt-1">Đường dẫn, Màu sắc, Font, Nhạc</div>
+        </div>
+
+        <div>
+          <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-1">
+            Các khối hiển thị
+          </div>
+          <SortableSectionList
+            items={sections}
+            onChange={setSections}
+            activeSection={activeSectionGroup}
+            onSelect={handleSelect}
+            unsupported={unsupportedSections}
+          />
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="flex h-[calc(100vh-4rem)] -mx-4 sm:-mx-6 lg:-mx-8 -my-8 overflow-hidden bg-gray-100 font-sans">
       {/* Left Sidebar: Section Manager */}
@@ -622,26 +765,7 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
-          <div 
-            className={`p-3 rounded-lg border cursor-pointer transition-all ${highlightSlot === 'global' ? 'border-rose-500 bg-rose-50 ring-1 ring-rose-200' : 'bg-white hover:bg-gray-50 border-gray-200'}`}
-            onClick={() => setHighlightSlot('global')}
-          >
-            <div className={`font-medium text-sm ${highlightSlot === 'global' ? 'text-rose-700' : 'text-gray-800'}`}>Cài đặt chung</div>
-            <div className="text-xs text-gray-500 mt-1">Đường dẫn, Màu sắc, Font, Nhạc</div>
-          </div>
-          
-          <div>
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-1">
-              Các khối hiển thị
-            </div>
-            <SortableSectionList
-              items={sections}
-              onChange={setSections}
-              activeSection={highlightSlot}
-              onSelect={setHighlightSlot}
-              unsupported={unsupportedSections}
-            />
-          </div>
+          {renderSectionListContent()}
         </div>
 
         <PublishPriceBar
@@ -671,24 +795,114 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
           onGalleryChange={setGallery}
         />
         {/* Mobile bottom actions */}
-        <div className="lg:hidden p-4 border-t bg-white flex items-center gap-3 z-10 shrink-0">
-          <Link href={`/dashboard/weddings/${wedding.id}`} className="flex-1">
-            <Button variant="outline" className="w-full">Quay lại</Button>
+        <div className="lg:hidden p-3 border-t bg-white flex items-center gap-2 z-10 shrink-0">
+          <Link href={`/dashboard/weddings/${wedding.id}`} className="shrink-0">
+            <Button variant="outline" size="sm">Quay lại</Button>
           </Link>
+          <Button
+            size="sm"
+            className="flex-1 bg-rose-600 hover:bg-rose-700 text-white"
+            onClick={() => setMobileEditorStep('list')}
+          >
+            <Pencil className="w-4 h-4 mr-1.5" /> Chỉnh sửa
+          </Button>
           <SaveStatusIndicator status={overallStatus} className="shrink-0" />
         </div>
+      </div>
+
+      {/* Mobile editor overlay: chọn khối ('list') rồi chỉnh nội dung ('panel').
+          Luôn nằm trong DOM (ẩn bằng translate + pointer-events-none khi
+          'closed') để chuyển động trượt lên/xuống mượt bằng CSS transition
+          thuần, không cần thư viện animation. Chỉ tồn tại dưới `lg`, không
+          ảnh hưởng layout desktop. */}
+      <div
+        className={`lg:hidden fixed inset-0 z-50 bg-white flex flex-col transition-transform duration-300 ease-out ${
+          mobileEditorStep === 'closed' ? 'translate-y-full pointer-events-none' : 'translate-y-0'
+        }`}
+        aria-hidden={mobileEditorStep === 'closed'}
+      >
+        {mobileEditorStep === 'list' && (
+          <>
+            <div className="p-4 border-b bg-gray-50 flex items-center justify-between shrink-0">
+              <h3 className="font-semibold text-gray-800">Chỉnh sửa thiệp</h3>
+              <button
+                type="button"
+                onClick={() => setMobileEditorStep('closed')}
+                className="p-1.5 rounded-full hover:bg-gray-200 text-gray-500"
+                aria-label="Đóng"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto overscroll-contain p-4 space-y-6">
+              {renderSectionListContent(() => setMobileEditorStep('panel'))}
+            </div>
+          </>
+        )}
+
+        {mobileEditorStep === 'panel' && (
+          <>
+            <div className="p-4 border-b bg-gray-50 flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => setMobileEditorStep('list')}
+                className="p-1.5 -ml-1.5 rounded-full hover:bg-gray-200 text-gray-500 shrink-0"
+                aria-label="Quay lại danh sách khối"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <h3 className="font-semibold text-gray-800 flex-1 truncate">
+                {activeSectionGroup === 'global' ? 'Cài đặt chung' : getSectionDef(activeSectionGroup).label}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setMobileEditorStep('closed')}
+                className="p-1.5 rounded-full hover:bg-gray-200 text-gray-500 shrink-0"
+                aria-label="Đóng"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto overscroll-contain p-4">
+              {renderEditorPanelContent()}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Middle: Editor */}
       <div className="w-80 bg-white border-r flex flex-col flex-shrink-0 z-20 shadow-xl hidden lg:flex order-2">
         <div className="p-4 border-b bg-gray-50 shrink-0">
           <h3 className="font-semibold text-gray-800 flex items-center gap-2">
-            {highlightSlot === 'global' ? 'Cài đặt chung' : getSectionDef(highlightSlot).label}
+            {activeSectionGroup === 'global' ? 'Cài đặt chung' : getSectionDef(activeSectionGroup).label}
           </h3>
         </div>
-        
+
         <div className="flex-1 overflow-y-auto p-4">
-          {highlightSlot === 'global' && (
+          {renderEditorPanelContent()}
+        </div>
+      </div>
+
+      <ContactRequestDialog
+        open={contactOpen}
+        onOpenChange={setContactOpen}
+        weddingId={wedding.id}
+        templateSlug={templateSlug}
+        enabledSections={sections.filter((s) => s.visible).map((s) => s.key)}
+      />
+    </div>
+  );
+
+  /**
+   * Nội dung panel chỉnh sửa của khối đang chọn (`activeSectionGroup`) — dùng
+   * chung cho panel giữa ở desktop VÀ bước 'panel' của overlay mobile. Tách
+   * riêng thành hàm (không phải component JSX) để không tạo boundary mount
+   * mới mỗi lần render — tránh input mất focus khi gõ.
+   */
+  function renderEditorPanelContent() {
+    return (
+      <>
+      {activeSectionGroup === 'global' && (
             <div className="space-y-6">
               <div>
                 <label className="text-sm font-medium text-gray-700">Đường dẫn (/w/...)</label>
@@ -852,7 +1066,7 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
             </div>
           )}
 
-          {(highlightSlot === 'wedding-info' || highlightSlot === 'info' || highlightSlot === 'header' || highlightSlot === 'hero') && (
+          {(activeSectionGroup === 'wedding-info' || activeSectionGroup === 'info' || activeSectionGroup === 'header' || activeSectionGroup === 'hero') && (
             <div className="space-y-6">
               {renderImageField("cb-hero")}
               {renderImageField("mc-hero")}
@@ -938,7 +1152,7 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
             </div>
           )}
 
-          {(highlightSlot === 'location' || highlightSlot === 'invitation') && (
+          {(activeSectionGroup === 'location' || activeSectionGroup === 'invitation') && (
             <div className="space-y-6">
               {renderImageField("mc-invitation")}
               <div className="space-y-3 pb-4 border-b">
@@ -1059,25 +1273,39 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
             </div>
           )}
 
-          {(highlightSlot === 'gallery' || highlightSlot === 'journey' || highlightSlot === 'mousetrail' || highlightSlot === 'carousel' || highlightSlot === 'story') && (
+          {(activeSectionGroup === 'gallery' || activeSectionGroup === 'journey' || activeSectionGroup === 'mousetrail' || activeSectionGroup === 'carousel' || activeSectionGroup === 'story') && (
             <div className="-mx-4 -my-4">
               <EditWeddingMediaSection
                 weddingId={wedding.id}
                 gallery={gallery}
                 onGalleryChange={setGallery}
                 highlightSlot={highlightSlot}
-                onHighlightSlot={(key) => setHighlightSlot(key || 'gallery')}
+                onHighlightSlot={(key) => setHighlightSlotAndSection(key || 'gallery')}
                 backgroundMusic={backgroundMusic}
                 onBackgroundMusicChange={setBackgroundMusic}
                 albumStartIndex={templateConfig?.albumStartIndex || 0}
                 // Không giới hạn ảnh khi thiệp ĐÃ xuất bản — đang soạn thảo
                 // (DRAFT) thì áp giới hạn nhẹ, khớp với chặn phía server.
                 isPublished={wedding.status === "PUBLISHED"}
+                // Modern Cinematic dùng CHUNG 1 album cho nhiều khối nội dung
+                // (Câu chuyện tình yêu, Hành trình, Lễ Hằng Thuận, Khoảnh khắc
+                // cưới...) — hiện đúng tên khối đang chọn thay vì luôn ghi
+                // "Bộ ảnh kỷ niệm", kèm giải thích để không gây nhầm lẫn.
+                title={
+                  activeSectionGroup === 'gallery'
+                    ? undefined
+                    : getSectionDef(activeSectionGroup).label
+                }
+                description={
+                  activeSectionGroup === 'gallery'
+                    ? undefined
+                    : "Khối này dùng chung ảnh với các khối kể chuyện khác trong thiệp — ảnh được tự động chia theo đúng thứ tự bạn tải lên."
+                }
               />
             </div>
           )}
 
-          {(highlightSlot === 'quote') && (
+          {(activeSectionGroup === 'quote') && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 {renderImageField("cb-quote-a")}
@@ -1095,7 +1323,7 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
             </div>
           )}
 
-          {(highlightSlot === 'countdown') && (
+          {(activeSectionGroup === 'countdown') && (
             <div className="space-y-4">
               {renderImageField("cb-countdown")}
               <p className="text-sm text-gray-500 text-center py-4">
@@ -1104,7 +1332,7 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
             </div>
           )}
 
-          {highlightSlot === 'gifting' && (
+          {activeSectionGroup === 'gifting' && (
             <div className="space-y-6">
               <p className="text-xs text-gray-500 leading-relaxed">
                 Nhập tài khoản để khách gửi mừng cưới. Mã QR sẽ tự sinh theo
@@ -1158,7 +1386,7 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
             </div>
           )}
 
-          {highlightSlot === 'rsvp' && (
+          {activeSectionGroup === 'rsvp' && (
             <div className="space-y-4">
               {renderImageField("mc-rsvp")}
               <p className="text-sm text-gray-500 text-center py-4">
@@ -1167,27 +1395,30 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
             </div>
           )}
 
-          {['wishes', 'footer'].includes(highlightSlot) && (
+          {[
+            'wishes',
+            'footer',
+            'letter',
+            'journal',
+            'vippass',
+            'calendar',
+            'dresscode',
+            'programme',
+            'proclamation',
+          ].includes(activeSectionGroup) && (
             <div className="text-sm text-gray-500 text-center py-8">
-              Khối này hiển thị tự động và không cần cấu hình thêm nội dung.
+              {activeSectionGroup === 'dresscode'
+                ? 'Bảng màu trang phục của khối này được thiết kế cố định theo giao diện mẫu. Muốn đổi tông màu chủ đạo, vào "Cài đặt chung → Màu sắc".'
+                : 'Khối này hiển thị tự động và không cần cấu hình thêm nội dung.'}
             </div>
           )}
-          
-          {!['global', 'wedding-info', 'info', 'header', 'location', 'gallery', 'quote', 'wishes', 'countdown', 'footer', 'gifting', 'rsvp', 'timeline', 'card-opening', 'hero', 'story', 'journey', 'invitation', 'mousetrail', 'carousel'].includes(highlightSlot) && (
+
+          {!SUPPORTED_SECTION_GROUPS.has(activeSectionGroup) && (
             <div className="text-sm text-gray-500 text-center py-8">
               Chọn khối khác để chỉnh sửa.
             </div>
           )}
-        </div>
-      </div>
-
-      <ContactRequestDialog
-        open={contactOpen}
-        onOpenChange={setContactOpen}
-        weddingId={wedding.id}
-        templateSlug={templateSlug}
-        enabledSections={sections.filter((s) => s.visible).map((s) => s.key)}
-      />
-    </div>
-  );
+      </>
+    );
+  }
 }
