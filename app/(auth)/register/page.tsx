@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Heart, Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -140,22 +141,34 @@ export default function RegisterPage() {
               />
             </div>
             {error && (
-              <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-md">
+              <p className="text-sm text-red-600 bg-red-50 border border-red-200 px-3 py-2 rounded-md">
                 {error}
               </p>
             )}
             <Button
               type="submit"
-              className="w-full h-11 bg-rose-600 hover:bg-rose-700"
+              className="w-full h-11 bg-winglove-red hover:bg-winglove-red-deep text-white font-medium shadow-sm transition-all"
               disabled={loading}
             >
-              {loading ? "Đang đăng ký..." : "Đăng ký"}
+              {loading ? "Đang đăng ký..." : "Đăng ký tài khoản"}
             </Button>
           </form>
 
-          <p className="text-center text-sm text-gray-600 mt-6">
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-stone-200" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-3 text-stone-500 font-medium">Hoặc đăng ký nhanh với</span>
+            </div>
+          </div>
+
+          {/* Đăng ký nhanh với Google (Gmail) */}
+          <GoogleAuthButton callbackUrl="/dashboard" mode="register" />
+
+          <p className="text-center text-sm text-stone-600 mt-6">
             Đã có tài khoản?{" "}
-            <Link href="/login" className="font-medium text-rose-600 hover:underline">
+            <Link href="/login" className="font-semibold text-winglove-red hover:underline">
               Đăng nhập
             </Link>
           </p>

@@ -14,6 +14,7 @@ type TemplatePreviewModalProps = {
   templateName?: string;
   category?: string;
   onClose: () => void;
+  onSelectTemplate?: (slug: string) => void;
 };
 
 export function TemplatePreviewModal({
@@ -21,6 +22,7 @@ export function TemplatePreviewModal({
   templateName,
   category,
   onClose,
+  onSelectTemplate,
 }: TemplatePreviewModalProps) {
   const [mode, setMode] = useState<"groom" | "bride">("groom");
   // Mặc định xem như website thật (desktop, không khung mock) — có thể bật
@@ -119,15 +121,26 @@ export function TemplatePreviewModal({
               <span className="hidden sm:inline">Mở Tab Mới</span>
             </Link>
 
-            <Link href={`/dashboard/weddings/new?template=${templateSlug}`}>
+            {onSelectTemplate ? (
               <Button
                 size="sm"
-                className="bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-full px-4"
+                onClick={() => onSelectTemplate(templateSlug)}
+                className="bg-[#8C1C24] hover:bg-[#70161D] text-white font-medium rounded-full px-4"
               >
                 <Heart className="w-4 h-4 mr-1.5 fill-current" />
                 Dùng Mẫu Này
               </Button>
-            </Link>
+            ) : (
+              <Link href={`/dashboard/weddings/new?template=${templateSlug}`}>
+                <Button
+                  size="sm"
+                  className="bg-[#8C1C24] hover:bg-[#70161D] text-white font-medium rounded-full px-4"
+                >
+                  <Heart className="w-4 h-4 mr-1.5 fill-current" />
+                  Dùng Mẫu Này
+                </Button>
+              </Link>
+            )}
             <button
               type="button"
               onClick={onClose}

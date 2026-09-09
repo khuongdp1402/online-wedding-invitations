@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut } from "next-auth/react";
+import { useAuthModal } from "@/components/auth/AuthModalContext";
 
 const links = [
   { href: "/", label: "Trang Chủ" },
@@ -34,6 +35,7 @@ interface CustomSession {
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [session, setSession] = useState<CustomSession | null>(null);
+  const { openAuth } = useAuthModal();
 
   useEffect(() => {
     fetch("/api/auth/session")
@@ -121,19 +123,20 @@ export function Navbar() {
               </div>
             ) : (
               <>
-                <Link href="/login">
-                  <Button variant="ghost" size="sm">
-                    Đăng Nhập
-                  </Button>
-                </Link>
-                <Link href="/login">
-                  <Button
-                    size="sm"
-                    className="bg-winglove-red hover:bg-winglove-red-deep text-white"
-                  >
-                    Tạo Thiệp Miễn Phí
-                  </Button>
-                </Link>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => openAuth({ mode: "login" })}
+                >
+                  Đăng Nhập
+                </Button>
+                <Button
+                  size="sm"
+                  className="bg-winglove-red hover:bg-winglove-red-deep text-white"
+                  onClick={() => openAuth({ mode: "register", callbackUrl: "/dashboard/weddings/new" })}
+                >
+                  Tạo Thiệp Miễn Phí
+                </Button>
               </>
             )}
           </div>
@@ -222,19 +225,27 @@ export function Navbar() {
                   </>
                 ) : (
                   <>
-                    <Link href="/login" className="block">
-                      <Button variant="outline" className="w-full" size="sm">
-                        Đăng Nhập
-                      </Button>
-                    </Link>
-                    <Link href="/login" className="block">
-                      <Button
-                        className="w-full bg-winglove-red hover:bg-winglove-red-deep"
-                        size="sm"
-                      >
-                        Tạo Thiệp Miễn Phí
-                      </Button>
-                    </Link>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      size="sm"
+                      onClick={() => {
+                        setMobileOpen(false);
+                        openAuth({ mode: "login" });
+                      }}
+                    >
+                      Đăng Nhập
+                    </Button>
+                    <Button
+                      className="w-full bg-winglove-red hover:bg-winglove-red-deep"
+                      size="sm"
+                      onClick={() => {
+                        setMobileOpen(false);
+                        openAuth({ mode: "register", callbackUrl: "/dashboard/weddings/new" });
+                      }}
+                    >
+                      Tạo Thiệp Miễn Phí
+                    </Button>
                   </>
                 )}
               </div>

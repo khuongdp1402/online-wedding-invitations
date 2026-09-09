@@ -1,14 +1,20 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { HelpCircle } from "lucide-react";
 import { Eyebrow } from "@/components/marketing/winglove/Eyebrow";
 import { Reveal } from "@/components/marketing/winglove/Reveal";
+import { BgIcon } from "@/components/marketing/winglove/BgIcon";
 import { cn } from "@/lib/utils";
 
 const faqs = [
   {
     q: "Winglove có miễn phí không?",
-    a: "Mẫu Classic Elegance dùng miễn phí trọn đời. Các mẫu còn lại có phí một lần theo mẫu, không thu phí hàng tháng, không giới hạn lượt khách xem thiệp.",
+    a: "Tạo, chỉnh sửa và xem trước hoàn toàn miễn phí — không cần thẻ, không giới hạn thời gian. Chỉ trả phí một lần khi bạn thật sự muốn xuất bản link để gửi cho khách.",
+  },
+  {
+    q: "Chi phí xuất bản 1 thiệp là bao nhiêu?",
+    a: "Từ 500.000đ đến 1.000.000đ tuỳ mẫu (mẫu càng nhiều hiệu ứng, giá càng cao) — trả một lần duy nhất, không thu phí hàng tháng, không giới hạn lượt khách xem thiệp.",
   },
   {
     q: "Gửi thiệp rồi vẫn sửa được thông tin chứ?",
@@ -46,12 +52,17 @@ export function FaqSection() {
   const bodyRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   return (
-    <section id="faq" className="py-[70px] pb-10">
-      <div className="mx-auto max-w-[1180px] px-8">
-        <Reveal className="mx-auto mb-11 max-w-[600px] text-center">
+    <section id="faq" className="relative overflow-hidden py-12 pb-8 md:py-14">
+      <BgIcon
+        icon={HelpCircle}
+        size={170}
+        className="-left-8 top-4 hidden text-winglove-gold/[0.07] lg:block"
+      />
+      <div className="relative mx-auto max-w-[1180px] px-8">
+        <Reveal className="mx-auto mb-9 max-w-[600px] text-center">
           <Eyebrow center>Câu hỏi thường gặp</Eyebrow>
           <h2 className="font-wg-display text-[clamp(1.8rem,3vw,2.3rem)] font-semibold text-winglove-ink">
-            Mọi thứ bạn cần biết trước khi bắt đầu
+            Thắc mắc hay gặp, giải đáp trong một nốt nhạc
           </h2>
         </Reveal>
 

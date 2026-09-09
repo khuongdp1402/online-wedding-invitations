@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/marketing/Navbar";
 import { Footer } from "@/components/marketing/Footer";
 import { HeroSection } from "@/components/marketing/winglove/HeroSection";
-import { ProcessSection } from "@/components/marketing/winglove/ProcessSection";
+import { FeaturedTemplatesSection } from "@/components/marketing/winglove/FeaturedTemplatesSection";
 import { TemplatesSection } from "@/components/marketing/winglove/TemplatesSection";
 import { StatsBand } from "@/components/marketing/winglove/StatsBand";
 import { Testimonials } from "@/components/marketing/winglove/Testimonials";
@@ -30,7 +30,7 @@ export default function HomePage() {
 
         <RailTimeline
           items={[
-            { icon: "①", content: <ProcessSection /> },
+            { icon: "▶", content: <FeaturedTemplatesSection /> },
             { icon: "♡", content: <TemplatesSection /> },
             { icon: "✦", content: <StatsBand /> },
             { icon: "❝", content: <Testimonials /> },

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { resolveTemplatePrice } from "@/lib/template-pricing";
 import { TemplatePreviewModal } from "@/components/marketing/TemplatePreviewModal";
+import { useAuthModal } from "@/components/auth/AuthModalContext";
 
 type TemplatePreview = {
   id: string;
@@ -33,7 +34,8 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 export function TemplateShowcase() {
   const { data: session } = useSession();
-  const ctaBaseHref = session ? "/dashboard/weddings/new" : "/login";
+  const { openAuth } = useAuthModal();
+  const ctaBaseHref = "/dashboard/weddings/new";
 
   const [templates, setTemplates] = useState<TemplatePreview[] | null>(null);
   const [previewTemplate, setPreviewTemplate] = useState<TemplatePreview | null>(null);
@@ -62,10 +64,12 @@ export function TemplateShowcase() {
     );
   }
 
+  const visibleTemplates = templates.slice(0, 10);
+
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {templates.map((template, index) => {
+      <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
+        {visibleTemplates.map((template, index) => {
           const priceInfo = resolveTemplatePrice({
             price: template.price,
             salePrice: template.salePrice,
@@ -73,9 +77,7 @@ export function TemplateShowcase() {
             saleEndsAt: template.saleEndsAt ? new Date(template.saleEndsAt) : null,
           });
 
-          const createHref = session
-            ? `/dashboard/weddings/new?template=${template.slug}`
-            : `/login?callbackUrl=${encodeURIComponent(`/dashboard/weddings/new?template=${template.slug}`)}`;
+          const createHref = `/dashboard/weddings/new?template=${template.slug}`;
 
           return (
             <motion.div
@@ -125,15 +127,26 @@ export function TemplateShowcase() {
                       Mở Tab Mới
                     </Button>
                   </Link>
-                  <Link href={createHref} className="w-full max-w-[160px]">
+                  {session ? (
+                    <Link href={createHref} className="w-full max-w-[160px]">
+                      <Button
+                        size="sm"
+                        className="w-full bg-winglove-red hover:bg-winglove-red-deep text-white shadow-md text-xs"
+                      >
+                        <Heart className="w-3.5 h-3.5 mr-1.5 fill-current" />
+                        Dùng Mẫu Này
+                      </Button>
+                    </Link>
+                  ) : (
                     <Button
                       size="sm"
-                      className="w-full bg-winglove-red hover:bg-winglove-red-deep text-white shadow-md text-xs"
+                      className="w-full max-w-[160px] bg-winglove-red hover:bg-winglove-red-deep text-white shadow-md text-xs"
+                      onClick={() => openAuth({ mode: "register", callbackUrl: createHref })}
                     >
                       <Heart className="w-3.5 h-3.5 mr-1.5 fill-current" />
                       Dùng Mẫu Này
                     </Button>
-                  </Link>
+                  )}
                 </div>
 
                 {priceInfo.isOnSale && (
@@ -198,17 +211,28 @@ export function TemplateShowcase() {
       {/* CTA */}
       <div className="text-center mt-12">
         <p className="text-gray-500 mb-4">
-          Nhiều mẫu thiệp đẹp hơn đang được cập nhật liên tục...
+          Xem trước thoải mái, miễn phí — ưng mẫu nào thì bắt đầu mẫu đó.
         </p>
-        <Link href={ctaBaseHref}>
+        {session ? (
+          <Link href={ctaBaseHref}>
+            <Button
+              size="lg"
+              className="bg-winglove-red hover:bg-winglove-red-deep rounded-full px-8 shadow-lg shadow-winglove-gold-soft"
+            >
+              <Heart className="w-5 h-5 mr-2" />
+              Bắt Đầu Tạo Thiệp Cưới
+            </Button>
+          </Link>
+        ) : (
           <Button
             size="lg"
             className="bg-winglove-red hover:bg-winglove-red-deep rounded-full px-8 shadow-lg shadow-winglove-gold-soft"
+            onClick={() => openAuth({ mode: "register", callbackUrl: ctaBaseHref })}
           >
             <Heart className="w-5 h-5 mr-2" />
             Bắt Đầu Tạo Thiệp Cưới
           </Button>
-        </Link>
+        )}
       </div>
 
       {/* Preview Modal */}

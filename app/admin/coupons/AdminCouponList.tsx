@@ -84,7 +84,7 @@ export function AdminCouponList({ coupons, templates }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
-        <Button onClick={() => setCreating(true)} className="bg-rose-600 hover:bg-rose-700">
+        <Button onClick={() => setCreating(true)} className="bg-winglove-red hover:bg-winglove-red-deep text-white shadow-xs">
           <Plus className="w-4 h-4 mr-1.5" /> Tạo mã mới
         </Button>
       </div>
@@ -96,7 +96,7 @@ export function AdminCouponList({ coupons, templates }: Props) {
           {coupons.map((c) => {
             const status = couponStatus(c);
             return (
-              <Card key={c.id}>
+              <Card key={c.id} className="border border-amber-900/10 shadow-xs bg-white rounded-xl hover:shadow-sm transition-shadow">
                 <CardContent className="pt-4 pb-4 flex flex-wrap items-center gap-4">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
@@ -289,7 +289,7 @@ function CreateCouponDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleCreate} disabled={saving} className="bg-rose-600 hover:bg-rose-700">
+          <Button onClick={handleCreate} disabled={saving} className="bg-winglove-red hover:bg-winglove-red-deep text-white shadow-xs">
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : "Tạo mã"}
           </Button>
         </DialogFooter>

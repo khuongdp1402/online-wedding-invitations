@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { resolveTemplatePrice } from "@/lib/template-pricing";
 import { TemplateRenderer } from "@/components/templates/TemplateRenderer";
 import { TemplatePreviewModal } from "@/components/marketing/TemplatePreviewModal";
+import { cn } from "@/lib/utils";
 import type { WeddingData } from "@/types/template";
 import {
   Check,
@@ -24,7 +25,6 @@ import {
   Sparkles,
   Smartphone,
   Monitor,
-  Heart,
 } from "lucide-react";
 
 type Template = {
@@ -59,7 +59,6 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
   const [step, setStep] = useState(1);
   const [saving, setSaving] = useState(false);
 
-  // Step 1: Template
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>(() => {
     if (initialTemplateSlug) {
       const found = templates.find((t) => t.slug === initialTemplateSlug);
@@ -68,6 +67,16 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
     return "";
   });
   const [previewModalTemplate, setPreviewModalTemplate] = useState<Template | null>(null);
+
+  // Đồng bộ selectedTemplateId khi initialTemplateSlug thay đổi từ URL
+  useEffect(() => {
+    if (initialTemplateSlug) {
+      const found = templates.find((t) => t.slug === initialTemplateSlug);
+      if (found) {
+        setSelectedTemplateId(found.id);
+      }
+    }
+  }, [initialTemplateSlug, templates]);
 
   // Step 2: Wedding info
   const [groomName, setGroomName] = useState("");
@@ -283,30 +292,73 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
     <div>
       {/* Step indicator */}
       <div className="flex items-center justify-center mb-10">
-        {STEPS.map((s, i) => (
-          <div key={s.id} className="flex items-center">
-            <button
-              type="button"
-              disabled={step < s.id}
-              onClick={() => {
-                if (s.id < step || canGoNext()) setStep(s.id);
-              }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                step === s.id
-                  ? "bg-rose-600 text-white shadow"
-                  : step > s.id
-                  ? "bg-rose-100 text-rose-700 hover:bg-rose-200 cursor-pointer"
-                  : "bg-gray-100 text-gray-400 cursor-not-allowed"
-              }`}
-            >
-              {step > s.id ? <Check className="w-4 h-4" /> : <s.icon className="w-4 h-4" />}
-              <span className="hidden sm:inline">{s.label}</span>
-            </button>
-            {i < STEPS.length - 1 && (
-              <div className={`w-8 md:w-16 h-0.5 mx-1 ${step > s.id ? "bg-rose-300" : "bg-gray-200"}`} />
-            )}
-          </div>
-        ))}
+        {STEPS.map((s, i) => {
+          const isCurrent = step === s.id;
+          const isPassed = step > s.id;
+          return (
+            <div key={s.id} className="flex items-center">
+              <button
+                type="button"
+                onClick={() => {
+                  if (s.id === 1) {
+                    setStep(1);
+                  } else if (s.id === 2) {
+                    if (!selectedTemplateId) {
+                      toast({
+                        title: "Vui lòng chọn mẫu thiệp",
+                        description: "Nhấp chọn một mẫu thiệp bên dưới trước khi qua bước nhập thông tin.",
+                      });
+                      return;
+                    }
+                    setStep(2);
+                  } else if (s.id === 3) {
+                    if (!selectedTemplateId) {
+                      toast({ title: "Chưa chọn mẫu thiệp", description: "Vui lòng chọn một mẫu thiệp trước." });
+                      return;
+                    }
+                    if (!groomName.trim() || !brideName.trim()) {
+                      toast({
+                        title: "Chưa nhập thông tin cặp đôi",
+                        description: "Vui lòng nhập tên Chú Rể và Cô Dâu trước khi xem trước.",
+                      });
+                      return;
+                    }
+                    setStep(3);
+                  } else if (s.id === 4) {
+                    if (!selectedTemplateId || !groomName.trim() || !brideName.trim()) {
+                      toast({
+                        title: "Chưa hoàn thành thông tin",
+                        description: "Vui lòng hoàn thành chọn mẫu và thông tin cặp đôi trước.",
+                      });
+                      return;
+                    }
+                    if (!slug) setSlug(generateSlug());
+                    setStep(4);
+                  }
+                }}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-150 cursor-pointer",
+                  isCurrent
+                    ? "bg-[#8C1C24] text-white shadow-md"
+                    : isPassed
+                    ? "bg-[#F7DEDD] text-[#8C1C24] hover:bg-[#F2CECC]"
+                    : "bg-stone-100 text-stone-500 hover:bg-stone-200"
+                )}
+              >
+                {isPassed ? <Check className="w-4 h-4" /> : <s.icon className="w-4 h-4" />}
+                <span className="hidden sm:inline">{s.label}</span>
+              </button>
+              {i < STEPS.length - 1 && (
+                <div
+                  className={cn(
+                    "w-8 md:w-16 h-0.5 mx-1 transition-colors",
+                    isPassed ? "bg-[#8C1C24]/30" : "bg-stone-200"
+                  )}
+                />
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* Step 1: Template Picker */}
@@ -319,6 +371,14 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
                 Khám phá và chọn phong cách thiệp cưới mà bạn ưng ý nhất.
               </p>
             </div>
+            {selectedTemplate && (
+              <Button
+                onClick={handleNext}
+                className="bg-[#8C1C24] hover:bg-[#70161D] text-white text-xs sm:text-sm font-medium shadow-sm"
+              >
+                Tiếp tục: Nhập thông tin <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
+            )}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {templates.map((t) => (
@@ -326,10 +386,14 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
                 key={t.id}
                 className={`cursor-pointer transition-all hover:shadow-lg relative overflow-hidden flex flex-col justify-between ${
                   selectedTemplateId === t.id
-                    ? "ring-2 ring-rose-500 shadow-lg border-rose-500"
-                    : "hover:ring-1 hover:ring-gray-200"
+                    ? "ring-2 ring-[#8C1C24] shadow-lg border-[#8C1C24] bg-rose-50/10"
+                    : "hover:ring-1 hover:ring-stone-300"
                 }`}
                 onClick={() => setSelectedTemplateId(t.id)}
+                onDoubleClick={() => {
+                  setSelectedTemplateId(t.id);
+                  handleNext();
+                }}
               >
                 <CardContent className="p-4 flex-1 flex flex-col justify-between">
                   <div>
@@ -412,23 +476,56 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
                       );
                     })()}
 
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="ghost"
-                      className="h-7 text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50 px-2"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setPreviewModalTemplate(t);
-                      }}
-                    >
-                      <Eye className="w-3.5 h-3.5 mr-1" /> Xem thử
-                    </Button>
+                    <div className="flex items-center gap-1">
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="ghost"
+                        className="h-7 text-xs text-[#8C1C24] hover:text-[#70161D] hover:bg-rose-50 px-2"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPreviewModalTemplate(t);
+                        }}
+                      >
+                        <Eye className="w-3.5 h-3.5 mr-1" /> Xem thử
+                      </Button>
+                      {selectedTemplateId === t.id && (
+                        <Button
+                          type="button"
+                          size="sm"
+                          className="h-7 text-xs bg-[#8C1C24] hover:bg-[#70161D] text-white px-2.5"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleNext();
+                          }}
+                        >
+                          Dùng mẫu này →
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
+
+          {/* Floating action bar for Step 1 when a template is selected */}
+          {selectedTemplate && (
+            <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-stone-900/95 backdrop-blur-md text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 border border-stone-700 animate-in fade-in slide-in-from-bottom-4 duration-200">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Đã chọn: <strong className="text-amber-300 font-serif">{selectedTemplate.name}</strong></span>
+              </div>
+              <Button
+                size="sm"
+                onClick={handleNext}
+                className="bg-[#8C1C24] hover:bg-[#A8222C] text-white rounded-full px-4 h-8 text-xs font-semibold shadow"
+              >
+                Tiếp tục: Nhập thông tin
+                <ChevronRight className="w-3.5 h-3.5 ml-1" />
+              </Button>
+            </div>
+          )}
 
           {/* Modal xem thử nhanh */}
           {previewModalTemplate && (
@@ -437,6 +534,14 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
               templateName={previewModalTemplate.name}
               category={previewModalTemplate.category}
               onClose={() => setPreviewModalTemplate(null)}
+              onSelectTemplate={(slug) => {
+                const found = templates.find((t) => t.slug === slug);
+                if (found) {
+                  setSelectedTemplateId(found.id);
+                  setStep(2);
+                }
+                setPreviewModalTemplate(null);
+              }}
             />
           )}
         </div>
@@ -668,6 +773,29 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
               </CardContent>
             </Card>
           )}
+
+          {/* Floating action bar for Step 3 */}
+          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-stone-900/95 backdrop-blur-md text-white px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-3 border border-stone-700 animate-in fade-in slide-in-from-bottom-4 duration-200">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setStep(2)}
+              className="text-stone-300 hover:text-white text-xs h-8 px-3 hover:bg-stone-800 rounded-full"
+            >
+              <ChevronLeft className="w-4 h-4 mr-1" /> Quay lại
+            </Button>
+            <div className="w-[1px] h-4 bg-stone-700" />
+            <Button
+              type="button"
+              size="sm"
+              onClick={handleNext}
+              className="bg-[#8C1C24] hover:bg-[#A8222C] text-white rounded-full px-4 h-8 text-xs font-semibold shadow"
+            >
+              Tiếp tục: Chọn đường dẫn thiệp
+              <ChevronRight className="w-3.5 h-3.5 ml-1" />
+            </Button>
+          </div>
         </div>
       )}
 
@@ -711,11 +839,11 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
           <ChevronLeft className="w-4 h-4 mr-1" /> Quay lại
         </Button>
         {step < 4 ? (
-          <Button onClick={handleNext} disabled={!canGoNext()} className="bg-rose-600 hover:bg-rose-700">
+          <Button onClick={handleNext} disabled={!canGoNext()} className="bg-[#8C1C24] hover:bg-[#70161D] text-white">
             Tiếp theo <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
         ) : (
-          <Button onClick={handleSave} disabled={!canGoNext() || saving} className="bg-rose-600 hover:bg-rose-700">
+          <Button onClick={handleSave} disabled={!canGoNext() || saving} className="bg-[#8C1C24] hover:bg-[#70161D] text-white">
             {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Check className="w-4 h-4 mr-2" />}
             {saving ? "Đang tạo thiệp..." : "Tạo Thiệp Cưới"}
           </Button>

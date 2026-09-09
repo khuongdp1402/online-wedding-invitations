@@ -149,3 +149,42 @@
 .wg-device-viewport::-webkit-scrollbar {
   display: none;
 }
+
+/* ============ Testimonials — 2 hàng carousel chạy ngược chiều ============ */
+@keyframes wg-marquee-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes wg-marquee-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.wg-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.wg-marquee-track--left {
+  animation: wg-marquee-left 42s linear infinite;
+}
+.wg-marquee-track--right {
+  animation: wg-marquee-right 42s linear infinite;
+}
+.wg-marquee-row:hover .wg-marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wg-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+}

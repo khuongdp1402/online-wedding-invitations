@@ -3,14 +3,16 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Reveal } from "@/components/marketing/winglove/Reveal";
+import { useAuthModal } from "@/components/auth/AuthModalContext";
 
 /** Dải CTA tối cuối trang — port từ `.cta-band`/`.cta-inner`. */
 export function CtaBand() {
   const { data: session } = useSession();
-  const ctaBaseHref = session ? "/dashboard/weddings/new" : "/login";
+  const { openAuth } = useAuthModal();
+  const ctaBaseHref = "/dashboard/weddings/new";
 
   return (
-    <section className="py-[90px] pb-[100px]">
+    <section className="py-14 pb-16 md:py-16">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
           <div className="relative overflow-hidden rounded-[32px] border border-white/[0.14] bg-gradient-to-br from-winglove-band-deep to-winglove-band to-70% px-6 py-16 text-center text-winglove-band-ink sm:px-12">
@@ -43,13 +45,34 @@ export function CtaBand() {
                   placeholder="Tên hai bạn, vd. Thanh Tùng & Hương Giang"
                   className="min-w-[220px] flex-1 rounded-full border border-white/[0.14] bg-white/[0.06] px-5 py-3.5 font-wg-body text-[0.92rem] text-winglove-band-ink placeholder:text-winglove-band-ink-soft focus:outline-none"
                 />
-                <Link
-                  href={ctaBaseHref}
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-winglove-gold px-6 py-3.5 text-[0.94rem] font-bold text-winglove-band-deep transition-colors hover:bg-winglove-gold-soft"
-                >
-                  Bắt đầu →
-                </Link>
+                {session ? (
+                  <Link
+                    href={ctaBaseHref}
+                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-winglove-gold px-6 py-3.5 text-[0.94rem] font-bold text-winglove-band-deep transition-colors hover:bg-winglove-gold-soft"
+                  >
+                    Bắt đầu →
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => openAuth({ mode: "register", callbackUrl: ctaBaseHref })}
+                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-winglove-gold px-6 py-3.5 text-[0.94rem] font-bold text-winglove-band-deep transition-colors hover:bg-winglove-gold-soft"
+                  >
+                    Bắt đầu →
+                  </button>
+                )}
               </form>
+
+              <p className="mt-6 text-[0.85rem] text-winglove-band-ink-soft">
+                Có ý tưởng khác biệt, muốn thiệp riêng theo ý mình? Đừng ngại —{" "}
+                <a
+                  href="mailto:khuongdp1402@gmail.com"
+                  className="font-bold text-winglove-gold underline-offset-4 hover:underline"
+                >
+                  nhắn ngay cho tụi mình
+                </a>{" "}
+                để được tư vấn miễn phí.
+              </p>
             </div>
           </div>
         </Reveal>

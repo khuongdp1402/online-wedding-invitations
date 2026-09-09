@@ -1,331 +1,221 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
 
-type HeroTemplateKey = "classic" | "cinematic" | "sakura";
-
-type HeroTemplateData = {
-  key: HeroTemplateKey;
-  slug: string;
-  label: string;
-  /** Vị trí xếp chồng cố định (0 = trái, 1 = giữa, 2 = phải) — không đổi
-   * theo mẫu nào đang active, chỉ mẫu active mới nổi lên giữa/trên cùng. */
-  slot: 0 | 1 | 2;
-  line: string;
-  barBg: string;
-  urlBg: string;
-  urlColor: string;
-  urlBorder: string;
-  viewportBg: string;
-  heroBlockBg: string;
-  tag: string;
-  coupleName: string;
-  tagColor: string;
-  ringColor: string;
-  h3Color: string;
-  countdown: { d: string; h: string; m: string } | null;
-  countdownNBg: string;
-  countdownColor: string;
-  galleryTag: string;
-  galleryGradients: [string, string, string];
-  quote: string;
-  quoteColor: string;
-  rsvpYesBg: string;
-  rsvpNoBg: string;
-  rsvpNoColor: string;
-  rsvpNoBorder: string;
-};
-
-const HERO_TEMPLATES: HeroTemplateData[] = [
+const TEMPLATES = [
   {
-    key: "classic",
-    slug: "classic-elegance",
-    label: "Classic Elegance",
-    slot: 1,
-    line: "#EEDDBF",
-    barBg: "#FBF3E6",
-    urlBg: "#FFFFFF",
-    urlColor: "#B7A488",
-    urlBorder: "#E9D9BA",
-    viewportBg: "#FFFFFF",
-    heroBlockBg: "linear-gradient(165deg,#F7E4E9,#FFFFFF 80%)",
-    tag: "Trân trọng kính mời",
-    coupleName: "Thanh Tùng & Hương Giang",
-    tagColor: "#D4A853",
-    ringColor: "#D4A853",
-    h3Color: "#4A1620",
-    countdown: { d: "12", h: "08", m: "45" },
-    countdownNBg: "#F6EAD6",
-    countdownColor: "#800020",
-    galleryTag: "Bộ ảnh kỷ niệm",
-    galleryGradients: [
-      "linear-gradient(140deg,#800020,#a3324c)",
-      "linear-gradient(140deg,#D4A853,#b8862e)",
-      "linear-gradient(140deg,#4A1620,#800020)",
-    ],
-    quote: '"Trăm năm tình viên mãn."',
-    quoteColor: "#7C6A57",
-    rsvpYesBg: "#800020",
-    rsvpNoBg: "#F6EAD6",
-    rsvpNoColor: "#7C6A57",
-    rsvpNoBorder: "#E9D9BA",
+    image: "/videos/live-templates/classic-elegance-mobile-scroll.jpg",
+    title: "Thiệp của Thanh Tùng & Hương Giang — Classic Elegance",
   },
   {
-    key: "cinematic",
-    slug: "modern-cinematic",
-    label: "Modern Cinematic",
-    slot: 2,
-    line: "#33332B",
-    barBg: "#111111",
-    urlBg: "#1A1A1A",
-    urlColor: "#A99A6B",
-    urlBorder: "#333333",
-    viewportBg: "#0A0A0A",
-    heroBlockBg: "linear-gradient(165deg,#161616,#0a0a0a 80%)",
-    tag: "The Beginning",
-    coupleName: "Phú Khương & Cẩm Hiền",
-    tagColor: "#C9B98A",
-    ringColor: "#D4AF37",
-    h3Color: "#F3E9C9",
-    countdown: null,
-    countdownNBg: "#1C1C1C",
-    countdownColor: "#D4AF37",
-    galleryTag: "Our Journey",
-    galleryGradients: [
-      "linear-gradient(140deg,#D4AF37,#8a7423)",
-      "linear-gradient(140deg,#3a3a3a,#111)",
-      "linear-gradient(140deg,#8a7423,#D4AF37)",
-    ],
-    quote: '"Every love story begins with a moment."',
-    quoteColor: "#C9B98A",
-    rsvpYesBg: "#D4AF37",
-    rsvpNoBg: "#1C1C1C",
-    rsvpNoColor: "#A99A6B",
-    rsvpNoBorder: "#333333",
-  },
-  {
-    key: "sakura",
-    slug: "sweet-sakura",
-    label: "Sweet Sakura",
-    slot: 0,
-    line: "#F7DCE4",
-    barBg: "#FFF1F5",
-    urlBg: "#FFFFFF",
-    urlColor: "#B7A488",
-    urlBorder: "#E9D9BA",
-    viewportBg: "#FFFFFF",
-    heroBlockBg: "linear-gradient(165deg,#FFE4EC,#FFFFFF 80%)",
-    tag: "Kính mời",
-    coupleName: "Minh Anh & Gia Bảo",
-    tagColor: "#D4456B",
-    ringColor: "#D4456B",
-    h3Color: "#7A2D40",
-    countdown: null,
-    countdownNBg: "#F6EAD6",
-    countdownColor: "#D4456B",
-    galleryTag: "Khoảnh khắc",
-    galleryGradients: [
-      "linear-gradient(140deg,#F8B4C4,#D4456B)",
-      "linear-gradient(140deg,#FFE4EC,#F8B4C4)",
-      "linear-gradient(140deg,#D4456B,#a3324c)",
-    ],
-    quote: '"Anh đào nở, đôi ta nên duyên."',
-    quoteColor: "#7C6A57",
-    rsvpYesBg: "#D4456B",
-    rsvpNoBg: "#F6EAD6",
-    rsvpNoColor: "#7C6A57",
-    rsvpNoBorder: "#E9D9BA",
+    image: "/videos/live-templates/modern-cinematic-mobile-scroll.jpg",
+    title: "Thiệp của Phú Khương & Cẩm Hiền — Modern Cinematic",
   },
 ];
 
-const RESUME_DELAY_MS = 2200;
-const SCROLL_STEP = 0.5;
+/** Thời gian (giây) 1 thiệp tự cuộn hết từ đầu tới cuối trước khi đổi lượt —
+ * khớp tốc độ với `LaptopMockup` (DeviceMockups.tsx) ở section desktop bên dưới. */
+const SWEEP_SECONDS = 65;
+/** Chờ bao lâu sau khi 1 thiệp cuộn xong rồi mới đổi sang thiệp kia. */
+const HANDOFF_DELAY_MS = 2000;
 
-function getSlotTransformClass(slot: 0 | 1 | 2, isActive: boolean) {
-  if (isActive) {
-    return "translate-x-0 -translate-y-[14px] rotate-0 scale-[1.05]";
-  }
-  if (slot === 0) {
-    return "-translate-x-[96px] translate-y-[16px] -rotate-[11deg] scale-[.94]";
-  }
-  if (slot === 1) {
-    return "translate-x-[4px] -translate-y-[8px] rotate-[4deg] scale-[.96]";
-  }
-  return "translate-x-[96px] translate-y-[20px] rotate-[14deg] scale-[.94]";
-}
+/**
+ * Visual chính của hero — 2 mẫu thiệp thật (điện thoại) luân phiên nhau:
+ * thiệp đang active nổi lên trước, tự cuộn hết từ đầu tới cuối; 2s sau đổi
+ * lượt, thiệp kia nổi lên và tự cuộn, cứ thế lặp lại. Khoá tương tác —
+ * khách không cuộn/bấm được 2 màn hình này (bản demo desktop bên dưới mới
+ * cho tương tác).
+ */
+export function HeroStage() {
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const tiltEnabledRef = useRef(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-/** Nội dung bên trong 1 "điện thoại" xem trước — render 2 lần (bản gốc +
- * bản sao `hidden`) để tạo vòng lặp cuộn liền mạch. */
-function DeviceBlocks({ t, hidden }: { t: HeroTemplateData; hidden?: boolean }) {
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    tiltEnabledRef.current = window.matchMedia("(pointer: fine)").matches && !reducedMotion;
+  }, []);
+
+  const handleSweepComplete = useCallback((finishedIndex: number) => {
+    window.setTimeout(() => {
+      setActiveIndex((current) => (current === finishedIndex ? (finishedIndex + 1) % TEMPLATES.length : current));
+    }, HANDOFF_DELAY_MS);
+  }, []);
+
+  // Khách bấm vào thẻ đang nằm phía sau — đưa nó lên trước & chạy luôn,
+  // thẻ đang active thì lùi ra sau (reset về đầu, theo đúng logic sẵn có).
+  const handleSelect = useCallback((index: number) => {
+    setActiveIndex(index);
+  }, []);
+
+  function handlePointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (!tiltEnabledRef.current) return;
+    const stage = stageRef.current;
+    if (!stage) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    const maxDeg = 6;
+    stage.style.transform = `perspective(1000px) rotateX(${(-py * maxDeg).toFixed(2)}deg) rotateY(${(px * maxDeg).toFixed(2)}deg)`;
+  }
+
+  function handlePointerLeave() {
+    const stage = stageRef.current;
+    if (!stage) return;
+    stage.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+  }
+
   return (
-    <>
+    <div
+      className="relative mt-2.5 h-[400px] md:mt-0 md:h-[460px]"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
+      <span
+        aria-hidden="true"
+        className="wg-petal absolute left-[4%] top-[-20px] z-0 block h-[18px] w-[14px] rounded-[70%_0_70%_0]"
+        style={{
+          background: "linear-gradient(140deg,#F1E0B8,#C99A44)",
+          animationDuration: "9s",
+          animationDelay: "0s",
+        }}
+      />
+      <span
+        aria-hidden="true"
+        className="wg-petal absolute left-[90%] top-[-35px] z-0 block h-[13px] w-[10px] rounded-[70%_0_70%_0]"
+        style={{
+          background: "linear-gradient(140deg,#F7DEDD,#B3242E)",
+          animationDuration: "9.5s",
+          animationDelay: "3.3s",
+        }}
+      />
+
+      <span
+        aria-hidden="true"
+        className="absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-winglove-red/15 via-winglove-gold/15 to-transparent blur-3xl md:h-[380px] md:w-[380px]"
+      />
+
       <div
-        aria-hidden={hidden || undefined}
-        className="flex flex-col items-center gap-[9px] border-b border-dashed px-[18px] pb-[26px] pt-[30px] text-center"
-        style={{ borderColor: t.line, background: t.heroBlockBg }}
+        ref={stageRef}
+        className="absolute inset-0 [transform-style:preserve-3d] transition-transform duration-300 ease-out will-change-transform [backface-visibility:hidden]"
+        style={{ transform: "translate3d(0,0,0)" }}
       >
-        <span
-          className="text-[0.6rem] font-extrabold uppercase tracking-[.15em]"
-          style={{ color: t.tagColor }}
-        >
-          {t.tag}
+        {TEMPLATES.map((t, index) => (
+          <AlternatingPhone
+            key={t.image}
+            image={t.image}
+            title={t.title}
+            isActive={activeIndex === index}
+            onSweepComplete={() => handleSweepComplete(index)}
+            onSelect={() => handleSelect(index)}
+          />
+        ))}
+      </div>
+
+      <span className="absolute right-[8%] top-0 z-[6] hidden items-center gap-1.5 rounded-full border border-winglove-line bg-white px-3 py-1.5 text-[0.68rem] font-bold text-winglove-ink-soft shadow-[0_12px_28px_-16px_rgba(43,30,21,0.22)] sm:inline-flex">
+        <span aria-hidden="true" className="text-winglove-gold">
+          ✦
         </span>
-        <h3
-          className="font-wg-display text-[1.28rem] font-medium italic"
-          style={{ color: t.h3Color }}
-        >
-          {t.coupleName}
-        </h3>
-        <span
-          className="mt-0.5 h-6 w-6 rounded-full border-[2.5px]"
-          style={{ borderColor: t.ringColor }}
-        />
-      </div>
-
-      {t.countdown && (
-        <div
-          aria-hidden={hidden || undefined}
-          className="flex flex-col gap-[9px] border-b border-dashed px-[18px] py-[22px]"
-          style={{ borderColor: t.line }}
-        >
-          <span
-            className="self-center text-[0.6rem] font-extrabold uppercase tracking-[.15em]"
-            style={{ color: t.tagColor }}
-          >
-            Đếm ngược ngày cưới
-          </span>
-          <div className="flex justify-center gap-2">
-            {[
-              { n: t.countdown.d, u: "Ngày" },
-              { n: t.countdown.h, u: "Giờ" },
-              { n: t.countdown.m, u: "Phút" },
-            ].map((item) => (
-              <div key={item.u}>
-                <span
-                  className="block min-w-[38px] rounded-[9px] px-2.5 py-[5px] text-center font-wg-display text-[1.3rem] font-semibold tabular-nums"
-                  style={{ background: t.countdownNBg, color: t.countdownColor }}
-                >
-                  {item.n}
-                </span>
-                <span className="mt-[3px] block text-center text-[0.56rem] uppercase tracking-[.07em] text-winglove-ink-faint">
-                  {item.u}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div
-        aria-hidden={hidden || undefined}
-        className="flex flex-col gap-[9px] border-b border-dashed px-[18px] py-[22px]"
-        style={{ borderColor: t.line }}
-      >
-        <span
-          className="self-center text-[0.6rem] font-extrabold uppercase tracking-[.15em]"
-          style={{ color: t.tagColor }}
-        >
-          {t.galleryTag}
+        10 phong cách khác biệt
+      </span>
+      <span className="absolute bottom-2 left-0 z-[6] hidden items-center gap-1.5 rounded-full border border-winglove-line bg-white px-3 py-1.5 text-[0.68rem] font-bold text-winglove-ink-soft shadow-[0_12px_28px_-16px_rgba(43,30,21,0.22)] sm:inline-flex">
+        <span aria-hidden="true" className="text-winglove-red">
+          ❤
         </span>
-        <div className="grid grid-cols-3 gap-[5px]">
-          {t.galleryGradients.map((gradient, i) => (
-            <span
-              key={i}
-              className="block aspect-square rounded-[7px]"
-              style={{ background: gradient }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div
-        aria-hidden={hidden || undefined}
-        className="flex flex-col gap-[9px] border-b border-dashed px-[18px] py-[22px]"
-        style={{ borderColor: t.line }}
-      >
-        <p
-          className="px-1 text-center font-wg-display text-[0.94rem] italic"
-          style={{ color: t.quoteColor }}
-        >
-          {t.quote}
-        </p>
-        <div className="flex justify-center gap-[7px]">
-          <span
-            className="rounded-full px-3.5 py-[7px] text-[0.68rem] font-bold text-white"
-            style={{ background: t.rsvpYesBg }}
-          >
-            Tôi sẽ đến
-          </span>
-          <span
-            className="rounded-full border px-3.5 py-[7px] text-[0.68rem] font-bold"
-            style={{
-              background: t.rsvpNoBg,
-              color: t.rsvpNoColor,
-              borderColor: t.rsvpNoBorder,
-            }}
-          >
-            Xin vắng
-          </span>
-        </div>
-      </div>
-    </>
+        1.240+ cặp đôi đã dùng
+      </span>
+    </div>
   );
 }
 
 /**
- * Hero stage: 3 "điện thoại" xem trước mẫu thiệp xếp chồng nhau — bấm vào
- * 1 mẫu (hoặc pill bên dưới), mẫu đó nổi lên trên cùng và tự cuộn xem nội
- * dung, 2 mẫu còn lại đứng yên, mờ đi ở phía sau. Port từ `.tpl-stage` +
- * script cuối trang trong mockup tĩnh.
+ * 1 thẻ điện thoại trong cặp luân phiên — khi `isActive`, nổi lên vị trí
+ * trước và tự cuộn từ đầu tới cuối ảnh trong `SWEEP_SECONDS` giây rồi báo
+ * `onSweepComplete`; khi không active, lùi ra sau (mờ, nghiêng) và đứng
+ * yên ở đầu ảnh. Khoá cuộn/wheel hoàn toàn — chỉ nhận 1 thao tác duy nhất:
+ * bấm vào thẻ đang nằm sau để chủ động đưa nó lên trước.
  */
-export function HeroStage() {
-  const [activeKey, setActiveKey] = useState<HeroTemplateKey>("classic");
-  const activeKeyRef = useRef(activeKey);
-  const viewportRefs = useRef<Partial<Record<HeroTemplateKey, HTMLDivElement | null>>>({});
-  const pausedRef = useRef(false);
-  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+function AlternatingPhone({
+  image,
+  title,
+  isActive,
+  onSweepComplete,
+  onSelect,
+}: {
+  image: string;
+  title: string;
+  isActive: boolean;
+  onSweepComplete: () => void;
+  onSelect: () => void;
+}) {
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const maxOffsetRef = useRef(0);
   const rafRef = useRef<number | null>(null);
-  const reducedMotionRef = useRef(false);
+  const startTimeRef = useRef<number | null>(null);
+  const notifiedRef = useRef(false);
 
-  useEffect(() => {
-    activeKeyRef.current = activeKey;
-  }, [activeKey]);
-
-  const selectTemplate = useCallback((key: HeroTemplateKey) => {
-    setActiveKey(key);
-    const vp = viewportRefs.current[key];
-    if (vp) vp.scrollTop = 0;
+  const applyOffset = useCallback((y: number) => {
+    const img = imgRef.current;
+    if (img) img.style.transform = `translateY(-${y}px)`;
   }, []);
 
-  const pauseThenResume = useCallback(() => {
-    pausedRef.current = true;
-    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-    resumeTimerRef.current = setTimeout(() => {
-      pausedRef.current = false;
-    }, RESUME_DELAY_MS);
+  const recomputeMax = useCallback(() => {
+    const wrapper = wrapperRef.current;
+    const img = imgRef.current;
+    if (!wrapper || !img || !img.naturalWidth) return;
+    const displayedHeight = wrapper.clientWidth * (img.naturalHeight / img.naturalWidth);
+    maxOffsetRef.current = Math.max(0, displayedHeight - wrapper.clientHeight);
   }, []);
 
-  // Vòng lặp tự cuộn — chỉ chạy trên viewport của mẫu đang active, tạm
-  // dừng sau khi người dùng tự thao tác, tôn trọng prefers-reduced-motion.
   useEffect(() => {
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    reducedMotionRef.current = mql.matches;
-    const handleChange = () => {
-      reducedMotionRef.current = mql.matches;
-    };
-    mql.addEventListener?.("change", handleChange);
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const ro = new ResizeObserver(() => recomputeMax());
+    ro.observe(wrapper);
+    return () => ro.disconnect();
+  }, [recomputeMax]);
 
-    function tick() {
-      if (!pausedRef.current && !reducedMotionRef.current) {
-        const vp = viewportRefs.current[activeKeyRef.current];
-        if (vp) {
-          const half = vp.scrollHeight / 2;
-          vp.scrollTop += SCROLL_STEP;
-          if (vp.scrollTop >= half) {
-            vp.scrollTop -= half;
-          }
+  useEffect(() => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    startTimeRef.current = null;
+    notifiedRef.current = false;
+
+    if (!isActive) {
+      applyOffset(0); // lùi ra sau thì luôn đứng yên ở đầu ảnh
+      return;
+    }
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function tick(now: number) {
+      const max = maxOffsetRef.current;
+      if (startTimeRef.current === null) startTimeRef.current = now;
+      if (max <= 0) {
+        // Ảnh chưa load xong nên chưa biết chiều cao thật — cứ chờ khung
+        // hình sau, KHÔNG được coi là "đã cuộn xong" (nếu không sẽ đổi
+        // lượt giả ngay khi vừa mount, trước khi ảnh kịp hiện).
+        startTimeRef.current = now; // giữ mốc bắt đầu luôn cập nhật tới khi ảnh sẵn sàng
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+      if (reducedMotion) {
+        applyOffset(max);
+        if (!notifiedRef.current) {
+          notifiedRef.current = true;
+          onSweepComplete();
         }
+        return;
+      }
+      const elapsed = (now - startTimeRef.current) / 1000;
+      const progress = Math.min(1, elapsed / SWEEP_SECONDS);
+      applyOffset(progress * max);
+      if (progress >= 1) {
+        if (!notifiedRef.current) {
+          notifiedRef.current = true;
+          onSweepComplete();
+        }
+        return; // dừng hẳn ở cuối ảnh, chờ đổi lượt
       }
       rafRef.current = requestAnimationFrame(tick);
     }
@@ -333,123 +223,60 @@ export function HeroStage() {
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-      mql.removeEventListener?.("change", handleChange);
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive, applyOffset]);
 
   return (
-    <div>
-      <div className="relative mt-2.5 h-[400px] md:mt-0 md:h-[460px]">
+    <div
+      role="button"
+      tabIndex={isActive ? -1 : 0}
+      aria-label={isActive ? undefined : `Xem ${title}`}
+      onClick={isActive ? undefined : onSelect}
+      onKeyDown={(e) => {
+        if (!isActive && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
+      className={
+        "absolute left-1/2 top-1/2 -ml-[105px] -mt-[170px] w-[210px] transition-all duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] md:-ml-[125px] md:-mt-[196px] md:w-[250px] " +
+        (isActive
+          // pointer-events-none: thẻ trước không cần bấm, và để click xuyên
+          // qua tới thẻ sau ở vùng 2 thẻ chồng lấn hình học (dù z-index thấp
+          // hơn, thẻ sau vẫn nằm "dưới" thẻ trước tại đúng chỗ đó).
+          ? "z-[2] translate-x-0 translate-y-0 rotate-0 scale-100 opacity-100 pointer-events-none"
+          : "z-[1] translate-x-[70px] translate-y-[30px] rotate-[7deg] scale-[0.94] cursor-pointer opacity-70 hover:opacity-90")
+      }
+    >
+      {isActive && (
+        <span className="absolute -top-3 right-4 z-20 inline-flex items-center gap-1 rounded-full border border-winglove-line bg-white px-2 py-0.5 text-[0.58rem] font-extrabold uppercase tracking-[.06em] text-winglove-ink-soft shadow-sm">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-winglove-pine opacity-75" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-winglove-pine" />
+          </span>
+          Đang chạy thực tế
+        </span>
+      )}
+      <div className="relative flex aspect-[9/19.5] w-full flex-col rounded-[2.2rem] border-[6px] border-[#1a1a1a] bg-[#1a1a1a] shadow-[0_24px_48px_-24px_rgba(43,30,21,0.30)] [backface-visibility:hidden] will-change-transform">
         <span
           aria-hidden="true"
-          className="wg-petal absolute left-[4%] top-[-20px] z-0 block h-[18px] w-[14px] rounded-[70%_0_70%_0]"
-          style={{
-            background: "linear-gradient(140deg,#F1E0B8,#C99A44)",
-            animationDuration: "9s",
-            animationDelay: "0s",
-          }}
+          className="absolute left-1/2 top-0 z-20 h-[16px] w-[86px] -translate-x-1/2 rounded-b-xl bg-[#1a1a1a]"
         />
-        <span
-          aria-hidden="true"
-          className="wg-petal absolute left-[90%] top-[-35px] z-0 block h-[13px] w-[10px] rounded-[70%_0_70%_0]"
-          style={{
-            background: "linear-gradient(140deg,#F7DEDD,#B3242E)",
-            animationDuration: "9.5s",
-            animationDelay: "3.3s",
-          }}
-        />
-
-        {HERO_TEMPLATES.map((t) => {
-          const isActive = t.key === activeKey;
-          return (
-            <div
-              key={t.key}
-              role="button"
-              tabIndex={0}
-              aria-label={`Xem mẫu ${t.label}`}
-              aria-pressed={isActive}
-              onClick={() => selectTemplate(t.key)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  selectTemplate(t.key);
-                }
-              }}
-              className={cn(
-                "absolute left-1/2 top-1/2 -ml-[105px] -mt-[170px] flex h-[340px] w-[210px] cursor-pointer flex-col rounded-3xl border border-winglove-line bg-white transition-all duration-300 ease-out md:-ml-[125px] md:-mt-[196px] md:h-[392px] md:w-[250px]",
-                getSlotTransformClass(t.slot, isActive),
-                isActive
-                  ? "z-[5] opacity-100 shadow-[0_24px_48px_-24px_rgba(43,30,21,0.30)]"
-                  : "z-[1] opacity-[.62] saturate-[.75] brightness-[.98] shadow-[0_12px_28px_-16px_rgba(43,30,21,0.22)] hover:opacity-[.88]"
-              )}
-            >
-              <div
-                className="flex shrink-0 items-center gap-[9px] rounded-t-3xl border-b px-3.5 py-3"
-                style={{ background: t.barBg, borderColor: t.line }}
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-winglove-red" />
-                <span className="h-1.5 w-1.5 rounded-full bg-winglove-gold" />
-                <span className="h-1.5 w-1.5 rounded-full bg-winglove-pine" />
-                <span
-                  className="ml-[5px] flex-1 truncate rounded-full border px-2.5 py-0.5 text-[0.62rem] font-semibold"
-                  style={{ background: t.urlBg, color: t.urlColor, borderColor: t.urlBorder }}
-                >
-                  {`winglove.vn/w/${t.slug}`}
-                </span>
-              </div>
-              <div
-                ref={(el) => {
-                  viewportRefs.current[t.key] = el;
-                }}
-                onPointerDown={pauseThenResume}
-                onWheel={pauseThenResume}
-                onTouchStart={pauseThenResume}
-                className={cn(
-                  "wg-device-viewport relative flex-1 rounded-b-3xl",
-                  isActive ? "overflow-y-auto overflow-x-hidden" : "overflow-hidden"
-                )}
-                style={{
-                  background: t.viewportBg,
-                  WebkitMaskImage:
-                    "linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%)",
-                  maskImage:
-                    "linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%)",
-                }}
-              >
-                <div className="flex flex-col">
-                  <DeviceBlocks t={t} />
-                  <DeviceBlocks t={t} hidden />
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        <div
+          ref={wrapperRef}
+          className="relative flex-1 overflow-hidden rounded-[1.65rem] bg-black"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={imgRef}
+            src={image}
+            onLoad={recomputeMax}
+            alt={title}
+            className="pointer-events-none absolute left-0 top-0 w-full will-change-transform"
+          />
+        </div>
       </div>
-
-      <div className="relative z-[6] mt-5 flex flex-wrap justify-center gap-2.5">
-        {HERO_TEMPLATES.map((t) => (
-          <button
-            key={t.key}
-            type="button"
-            onClick={() => selectTemplate(t.key)}
-            className={cn(
-              "rounded-full border px-4 py-2 text-[0.78rem] font-bold transition-colors",
-              t.key === activeKey
-                ? "border-winglove-red bg-winglove-red text-white"
-                : "border-winglove-line bg-white text-winglove-ink-soft hover:border-winglove-red"
-            )}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-      <p className="mt-2.5 text-center text-[0.78rem] text-winglove-ink-faint">
-        + 7 phong cách khác —{" "}
-        <a href="#templates" className="font-bold text-winglove-red-deep no-underline">
-          xem toàn bộ 10 mẫu ↓
-        </a>
-      </p>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { resolveTemplatePrice } from "@/lib/template-pricing";
+import { useAuthModal } from "@/components/auth/AuthModalContext";
 
 type TemplateForPricing = {
   id: string;
@@ -39,6 +40,7 @@ const CATEGORY_LABELS: Record<string, string> = {
  */
 export function PricingCards() {
   const { data: session } = useSession();
+  const { openAuth } = useAuthModal();
   const [templates, setTemplates] = useState<TemplateForPricing[] | null>(null);
   const [error, setError] = useState(false);
 
@@ -60,7 +62,7 @@ export function PricingCards() {
     };
   }, []);
 
-  const ctaHref = session ? "/dashboard/weddings/new" : "/login";
+  const ctaHref = "/dashboard/weddings/new";
 
   if (error) {
     return (
@@ -162,11 +164,20 @@ export function PricingCards() {
                   ))}
                 </ul>
 
-                <Link href={ctaHref} className="mt-auto">
-                  <Button className="w-full bg-rose-600 hover:bg-rose-700 text-white">
+                {session ? (
+                  <Link href={ctaHref} className="mt-auto">
+                    <Button className="w-full bg-rose-600 hover:bg-rose-700 text-white">
+                      Chọn mẫu này
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button
+                    className="mt-auto w-full bg-rose-600 hover:bg-rose-700 text-white"
+                    onClick={() => openAuth({ mode: "register", callbackUrl: ctaHref })}
+                  >
                     Chọn mẫu này
                   </Button>
-                </Link>
+                )}
               </div>
             </motion.div>
           );

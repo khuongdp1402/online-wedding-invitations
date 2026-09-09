@@ -118,7 +118,7 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
   const [day, month, year] = solarDateStr.includes('/') ? solarDateStr.split('/') : ["19", "07", "2026"];
 
   const handleWaxSealClick = useCallback(() => {
-    if (hasStarted || isAnimating || !audioRef?.current) return;
+    if (hasStarted || isAnimating) return;
     setIsAnimating(true);
 
     const isDesktop = window.innerWidth >= 768;
@@ -276,7 +276,8 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
             {/* Layer 1: Card Base */}
             <div 
               ref={envelopeRef} 
-              className="absolute inset-0 m-auto z-10 w-[95vw] md:w-[55vh] aspect-square max-w-lg bg-[#FAF5EC] shadow-[0_40px_80px_-15px_rgba(0,0,0,0.9),0_20px_40px_rgba(0,0,0,0.6),-10px_-10px_30px_rgba(255,255,255,0.1)] rounded-sm"
+              onClick={handleWaxSealClick}
+              className="absolute inset-0 m-auto z-10 w-[95vw] md:w-[55vh] aspect-square max-w-lg bg-[#FAF5EC] shadow-[0_40px_80px_-15px_rgba(0,0,0,0.9),0_20px_40px_rgba(0,0,0,0.6),-10px_-10px_30px_rgba(255,255,255,0.1)] rounded-sm cursor-pointer group"
             >
               <img src="/bia/bia-thiep.jpg" alt="Envelope Card" fetchpriority="high" className="absolute inset-0 w-full h-full object-cover rounded-sm z-0" />
               
@@ -313,13 +314,16 @@ export default function HeroSection({ chapter, hasStarted, setHasStarted }) {
                 </div>
               </div>
 
-              {/* Layer 3: Wax Seal */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 cursor-pointer group flex items-center justify-center" onClick={handleWaxSealClick}>
+              {/* Layer 3: Wax Seal & Prompt */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 cursor-pointer group flex flex-col items-center justify-center pointer-events-auto">
                 <TransparentWaxSeal 
                   ref={waxSealRef}
                   src="/bia/dau-an-transparent.png" 
-                  className="w-16 md:w-24 h-16 md:h-24 object-contain animate-pulse-seal transition-transform hover:scale-105 drop-shadow-2xl" 
+                  className="w-16 md:w-24 h-16 md:h-24 object-contain animate-pulse-seal transition-transform group-hover:scale-110 drop-shadow-2xl" 
                 />
+                <span className="mt-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-amber-300/40 text-amber-200 text-[10px] sm:text-xs font-sans font-medium animate-pulse shadow-xl tracking-wide whitespace-nowrap">
+                  Chạm để mở thiệp ✉️
+                </span>
               </div>
             </div>
           </div>

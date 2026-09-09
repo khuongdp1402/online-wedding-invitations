@@ -217,7 +217,7 @@ export function AdminTemplateList({ templates, registeredSlugs }: Props) {
         <Button
           onClick={handleSync}
           disabled={syncing}
-          className="bg-stone-900 hover:bg-stone-800 text-white text-xs flex items-center gap-2"
+          className="bg-winglove-red hover:bg-winglove-red-deep text-white text-xs flex items-center gap-2 shadow-xs"
         >
           {syncing ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -236,10 +236,10 @@ export function AdminTemplateList({ templates, registeredSlugs }: Props) {
           const weddingCount = t._count?.weddings || 0;
 
           return (
-            <Card key={t.id} className="transition-shadow hover:shadow-md">
+            <Card key={t.id} className="transition-shadow hover:shadow-md border border-amber-900/10 rounded-xl bg-white shadow-xs">
               <CardContent className="pt-4 pb-4 flex flex-wrap items-center gap-4">
                 {/* Thumbnail */}
-                <div className="w-16 h-20 rounded-lg bg-gray-100 overflow-hidden shrink-0 border border-gray-200 shadow-2xs relative">
+                <div className="w-16 h-20 rounded-lg bg-stone-100 overflow-hidden shrink-0 border border-stone-200/80 shadow-xs relative">
                   {t.thumbnail ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={t.thumbnail} alt="" className="w-full h-full object-cover" />

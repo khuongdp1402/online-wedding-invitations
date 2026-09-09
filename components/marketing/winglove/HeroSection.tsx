@@ -2,44 +2,62 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { Eyebrow } from "@/components/marketing/winglove/Eyebrow";
 import { HeroStage } from "@/components/marketing/winglove/HeroStage";
+import { useAuthModal } from "@/components/auth/AuthModalContext";
 
 export function HeroSection() {
   const { data: session } = useSession();
-  const ctaBaseHref = session ? "/dashboard/weddings/new" : "/login";
+  const { openAuth } = useAuthModal();
+  const ctaBaseHref = "/dashboard/weddings/new";
 
   return (
-    <header className="overflow-hidden pt-16 pb-10 md:pt-24">
-      <div className="mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-14 px-8 md:grid-cols-[1.05fr_0.95fr]">
+    <header className="flex min-h-[calc(100vh-4rem)] items-center overflow-hidden py-10">
+      <div className="mx-auto grid w-full max-w-[1180px] grid-cols-1 items-center gap-14 px-8 md:grid-cols-[1.05fr_0.95fr]">
         <div>
-          <Eyebrow>10 phong cách · Ra mắt trong 5 phút</Eyebrow>
+          <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-winglove-line bg-white px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-[.1em] text-winglove-ink-soft">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-winglove-gold" />
+            Chuẩn thiệp cưới cho couple hiện đại
+          </span>
+
           <h1 className="font-wg-display text-[clamp(2.5rem,4.6vw,3.6rem)] font-semibold leading-[1.1] text-winglove-ink">
-            Thiệp cưới đẹp như một{" "}
+            Một thiệp cưới đẹp, sang —{" "}
             <em className="font-wg-display italic text-winglove-red">
-              câu chuyện tình yêu
+              trọn vẹn chỉ trong 5 phút
             </em>
             .
           </h1>
           <p className="my-[22px] max-w-[52ch] text-[1.08rem] leading-[1.7] text-winglove-ink-soft">
-            Chọn 1 trong 10 mẫu thiệp, điền tên hai bạn, ngày cưới và vài tấm
-            ảnh — có ngay đường link thiệp riêng để gửi cho họ hàng, bạn bè.
-            Không cần biết thiết kế, không cần chờ thợ.
+            RSVP, ảnh cưới, chỉ đường, mừng cưới QR — gói gọn trong 1 link. Tạo
+            và xem trước hoàn toàn miễn phí, không cần đặt cọc — chỉ thanh
+            toán khi bạn thật sự hài lòng và sẵn sàng xuất bản.
           </p>
 
-          <div className="mb-[34px] flex flex-wrap gap-4">
-            <Link
-              href={ctaBaseHref}
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-br from-winglove-red to-winglove-red-deep px-[26px] py-[13px] text-[0.94rem] font-bold text-white shadow-[0_12px_28px_-16px_rgba(43,30,21,0.22)] transition-transform hover:-translate-y-0.5 hover:shadow-[0_24px_48px_-24px_rgba(43,30,21,0.30)]"
+          <div className="mb-[34px] flex flex-wrap items-center gap-5">
+            {session ? (
+              <Link
+                href={ctaBaseHref}
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-br from-winglove-ink to-winglove-red-deep px-[26px] py-[13px] text-[0.94rem] font-bold text-white shadow-[0_12px_28px_-16px_rgba(43,30,21,0.30)] transition-transform hover:-translate-y-0.5 hover:shadow-[0_24px_48px_-24px_rgba(43,30,21,0.38)]"
+              >
+                Tạo thiệp miễn phí →
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={() => openAuth({ mode: "register", callbackUrl: ctaBaseHref })}
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-br from-winglove-ink to-winglove-red-deep px-[26px] py-[13px] text-[0.94rem] font-bold text-white shadow-[0_12px_28px_-16px_rgba(43,30,21,0.30)] transition-transform hover:-translate-y-0.5 hover:shadow-[0_24px_48px_-24px_rgba(43,30,21,0.38)]"
+              >
+                Tạo thiệp miễn phí →
+              </button>
+            )}
+            <a
+              href="#featured-templates"
+              className="inline-flex items-center gap-2 text-[0.94rem] font-bold text-winglove-ink-soft transition-colors hover:text-winglove-red-deep"
             >
-              Tạo thiệp miễn phí →
-            </Link>
-            <Link
-              href="#templates"
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-winglove-line px-[26px] py-[13px] text-[0.94rem] font-bold text-winglove-ink transition-all hover:-translate-y-0.5 hover:border-winglove-red hover:text-winglove-red-deep"
-            >
-              Xem 10 mẫu thiệp
-            </Link>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-winglove-line text-[0.65rem] text-winglove-red-deep">
+                ▶
+              </span>
+              Xem demo trực tiếp
+            </a>
           </div>
 
           <div className="flex items-center gap-3.5">
