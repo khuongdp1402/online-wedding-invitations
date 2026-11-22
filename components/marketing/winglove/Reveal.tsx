@@ -4,10 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Hook cuộn-để-hiện (scroll reveal) — port từ IntersectionObserver trong
- * mockup tĩnh (`.reveal` / `.in-view`). An toàn khi JS tắt/chưa chạy: phần
- * tử luôn hiển thị (opacity 1) cho tới khi hook kịp gắn observer và ẩn nó
- * đi, ngay sau đó observer sẽ trả nó về trạng thái hiện khi vào viewport.
+ * Hook cuộn-để-hiện (scroll reveal). An toàn khi JS tắt/chưa chạy: phần tử
+ * luôn hiển thị (opacity 1) cho tới khi hook kịp gắn theo dõi và ẩn nó đi,
+ * ngay sau đó trả nó về trạng thái hiện khi vào viewport.
+ *
+ * Dùng sự kiện `scroll`/`resize` thật (throttle qua rAF) làm cơ chế chính,
+ * không chỉ dựa vào IntersectionObserver — trên trang dài nhiều section
+ * lồng trong CSS Grid, có lúc callback đầu tiên của IntersectionObserver
+ * báo sai (không giao nhau dù phần tử đang thật sự trong viewport) và
+ * không có callback nào tới sau đó nữa, khiến nội dung kẹt vô hình vĩnh
+ * viễn. IntersectionObserver vẫn được gắn thêm vì đa số trường hợp nó báo
+ * đúng và nhạy hơn (không cần đợi sự kiện scroll kế tiếp).
  */
 export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T | null>(null);
@@ -19,24 +26,53 @@ export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>() {
     const el = ref.current;
     if (!el) return;
 
-    if (typeof IntersectionObserver === "undefined") {
+    let revealed = false;
+    let ticking = false;
+
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
       setInView(true);
-      return;
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      io?.disconnect();
+    };
+
+    const checkNow = () => {
+      ticking = false;
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (r.top < vh - 60 && r.bottom > 0) reveal();
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(checkNow);
+    };
+
+    let io: IntersectionObserver | undefined;
+    if (typeof IntersectionObserver !== "undefined") {
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) reveal();
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+      );
+      io.observe(el);
     }
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setInView(true);
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    checkNow(); // kiểm tra ngay — có thể phần tử đã trong viewport từ đầu
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      io?.disconnect();
+    };
   }, []);
 
   return { ref, ready, inView };

@@ -61,3 +61,45 @@ export async function POST(request: Request) {
     );
   }
 }
+
+const UpdateContactSchema = z.object({
+  id: z.string().min(1),
+  status: z.enum(["NEW", "CONTACTED", "CLOSED"]),
+});
+
+export async function PATCH(request: Request) {
+  try {
+    const session = await auth();
+    const isAdmin = session?.user?.role === "ADMIN";
+    const isStaffWithPerm =
+      session?.user?.role === "STAFF" &&
+      Array.isArray(session.user.permissions) &&
+      session.user.permissions.includes("MANAGE_CONTACTS");
+
+    if (!isAdmin && !isStaffWithPerm) {
+      return NextResponse.json({ error: "Không có quyền cập nhật" }, { status: 403 });
+    }
+
+    const body = await request.json();
+    const parsed = UpdateContactSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.issues[0]?.message ?? "Dữ liệu không hợp lệ" },
+        { status: 400 }
+      );
+    }
+
+    const updated = await prisma.contactRequest.update({
+      where: { id: parsed.data.id },
+      data: { status: parsed.data.status },
+    });
+
+    return NextResponse.json({ success: true, contactRequest: updated });
+  } catch (error) {
+    console.error("Error updating contact request:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}

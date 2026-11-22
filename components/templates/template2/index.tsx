@@ -236,7 +236,7 @@ export default function Template2Wrapper({ wedding, mode, editOverlay }: Wedding
   );
 
   const inner = (
-    <div className="w-full h-full bg-black font-sans text-white/90 overflow-hidden"
+    <div className="w-full h-full bg-black font-sans text-white/90 relative isolate overflow-hidden [transform:translateZ(0)]"
       style={{
         '--font-calligraphy': 'var(--font-script)',
         '--font-serif-display': 'var(--font-heading)',

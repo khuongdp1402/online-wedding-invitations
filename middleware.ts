@@ -94,8 +94,14 @@ export async function middleware(req: NextRequest) {
       loginUrl.searchParams.set("callbackUrl", `${pathname}${req.nextUrl.search}`);
       return NextResponse.redirect(loginUrl);
     }
-    if (token.role !== "ADMIN") {
+    if (token.role !== "ADMIN" && token.role !== "STAFF") {
       return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
+    }
+    if (pathname.startsWith("/admin/users")) {
+      const perms = (token.permissions as string[]) || [];
+      if (token.role !== "ADMIN" && !perms.includes("MANAGE_USERS")) {
+        return NextResponse.redirect(new URL("/admin", req.nextUrl.origin));
+      }
     }
     return NextResponse.next();
   }

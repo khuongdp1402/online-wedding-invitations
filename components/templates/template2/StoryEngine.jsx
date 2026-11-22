@@ -133,7 +133,7 @@ export default function StoryEngine({ side = "nhatrai", guestName = "Quý Khách
 
             <div
               ref={bgRef}
-              className="fixed inset-0 z-0"
+              className="absolute inset-0 z-0 pointer-events-none"
               style={{ backgroundColor: "#000000" }}
             />
 

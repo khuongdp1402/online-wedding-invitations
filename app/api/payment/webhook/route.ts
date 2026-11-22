@@ -17,7 +17,10 @@ export async function POST(request: Request) {
     const session = await auth();
 
     const isAdminByKey = expectedKey && apiKey === expectedKey;
-    const isAdminBySession = session?.user?.role === "ADMIN";
+    const isAdminBySession =
+      session?.user?.role === "ADMIN" ||
+      (session?.user?.role === "STAFF" &&
+        session.user.permissions?.includes("MANAGE_PAYMENTS"));
 
     if (!isAdminByKey && !isAdminBySession) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

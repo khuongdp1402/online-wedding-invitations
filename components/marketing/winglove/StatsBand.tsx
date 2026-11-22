@@ -1,5 +1,7 @@
+import { Award } from "lucide-react";
 import { Eyebrow } from "@/components/marketing/winglove/Eyebrow";
 import { Reveal } from "@/components/marketing/winglove/Reveal";
+import { BgIcon } from "@/components/marketing/winglove/BgIcon";
 import { cn } from "@/lib/utils";
 
 const stats = [
@@ -12,9 +14,14 @@ const stats = [
 /** Dải nền tối điểm nhấn giữa trang — port từ `.band-dark`/`.stats-band`. */
 export function StatsBand() {
   return (
-    <section className="bg-gradient-to-b from-winglove-band to-winglove-band-deep py-[76px] text-winglove-band-ink">
-      <div className="mx-auto max-w-[1180px] px-8">
-        <Reveal className="mx-auto mb-12 max-w-[560px] text-center">
+    <section className="relative overflow-hidden bg-gradient-to-b from-winglove-band to-winglove-band-deep py-14 text-winglove-band-ink md:py-16">
+      <BgIcon
+        icon={Award}
+        size={180}
+        className="-left-10 bottom-0 hidden text-winglove-gold/[0.06] lg:block"
+      />
+      <div className="relative mx-auto max-w-[1180px] px-8">
+        <Reveal className="mx-auto mb-10 max-w-[560px] text-center">
           <Eyebrow center className="justify-center text-winglove-gold">
             Vài con số
           </Eyebrow>

@@ -51,12 +51,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (!ok) return null;
 
         const role = (user as { role?: string }).role ?? "USER";
+        const permissions = (user as { permissions?: string[] }).permissions ?? [];
         return {
           id: user.id,
           name: user.name,
           email: user.email,
           image: user.image,
           role,
+          permissions,
         };
       },
     }),
@@ -73,7 +75,23 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id;
         token.email = user.email;
-        token.role = (user as { role?: string }).role;
+        token.role = (user as { role?: string }).role ?? "USER";
+        token.permissions = (user as { permissions?: string[] }).permissions ?? [];
+      }
+      // Luôn đồng bộ role & permissions từ database để cập nhật ngay khi được phân quyền
+      if (token.id) {
+        try {
+          const dbUser = await prisma.user.findUnique({
+            where: { id: token.id as string },
+            select: { role: true, permissions: true },
+          });
+          if (dbUser) {
+            token.role = dbUser.role;
+            token.permissions = dbUser.permissions ?? [];
+          }
+        } catch (e) {
+          console.error("[Auth] Error refreshing role and permissions in jwt:", e);
+        }
       }
       return token;
     },
@@ -81,12 +99,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
+        session.user.permissions = (token.permissions as string[]) ?? [];
       }
       return session;
     },
-    // Cho Credentials: link user đã tồn tại trong DB để adapter không tạo duplicate
+    // Cho Credentials / Google: link user đã tồn tại trong DB để adapter không tạo duplicate
     async signIn({ user, account }) {
-      if (account?.provider === "credentials" && user?.email) {
+      if (user?.email) {
         const existing = await prisma.user.findUnique({
           where: { email: user.email },
         });

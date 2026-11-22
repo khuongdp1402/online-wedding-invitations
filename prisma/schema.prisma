@@ -57,7 +57,8 @@ model User {
   image         String?
   phone         String?
   password      String?   // Bcrypt hash cho đăng nhập email/mật khẩu
-  role          Role      @default(USER) // USER | ADMIN
+  role          Role      @default(USER) // USER | STAFF | ADMIN
+  permissions   String[]  @default([])
 
   accounts         Account[]
   sessions         Session[]
@@ -356,5 +357,6 @@ enum PaymentStatus {
 
 enum Role {
   USER
+  STAFF
   ADMIN
 }

@@ -9,9 +9,9 @@ import { TemplateShowcase } from "@/components/marketing/TemplateShowcase";
  */
 export function TemplatesSection() {
   return (
-    <section id="templates" className="py-[88px] pb-10">
+    <section id="templates" className="py-14 pb-8 md:py-16">
       <div className="mx-auto max-w-[1180px] px-8">
-        <Reveal className="mb-11 flex flex-wrap items-end justify-between gap-6">
+        <Reveal className="mb-9 flex flex-wrap items-end justify-between gap-6">
           <div>
             <Eyebrow>Kho mẫu thiệp</Eyebrow>
             <h2 className="max-w-[20ch] font-wg-display text-[clamp(1.8rem,3.2vw,2.5rem)] font-semibold text-winglove-ink">
