@@ -65,9 +65,10 @@ export function getEffectiveWeddingStatus(wedding: {
  * động — xem docs/setup-payment-notify.md.
  */
 export const BANK_TRANSFER_INFO = {
-  bankName: process.env.BANK_NAME || "",
-  accountNumber: process.env.BANK_ACCOUNT_NUMBER || "",
-  accountHolder: process.env.BANK_ACCOUNT_HOLDER || "",
+  bankName: process.env.BANK_NAME || "MBBank",
+  accountNumber: process.env.BANK_ACCOUNT_NUMBER || "0987654321",
+  accountHolder:
+    process.env.BANK_ACCOUNT_HOLDER || "CONG TY THIEP CUOI WINGLOVE",
 };
 
 /**

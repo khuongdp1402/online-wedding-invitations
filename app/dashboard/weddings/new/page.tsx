@@ -2,6 +2,11 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { NewWeddingWizard } from "@/components/dashboard/NewWeddingWizard";
+import { TEMPLATE_DEFS } from "@/prisma/template-defs.cjs";
+
+const SLUG_ORDER = new Map<string, number>(
+  (TEMPLATE_DEFS as Array<{ slug: string }>).map((t, idx) => [t.slug, idx])
+);
 
 export default async function NewWeddingPage({
   searchParams,
@@ -16,9 +21,11 @@ export default async function NewWeddingPage({
     redirect(`/login?callbackUrl=${encodeURIComponent(callback)}`);
   }
 
-  const templates = await prisma.template.findMany({
-    orderBy: [{ price: "asc" }, { name: "asc" }],
-  });
+  const rows = await prisma.template.findMany();
+  const templates = rows.sort(
+    (a, b) =>
+      (SLUG_ORDER.get(a.slug) ?? 9999) - (SLUG_ORDER.get(b.slug) ?? 9999)
+  );
   const templatesForClient = JSON.parse(JSON.stringify(templates));
 
   return (

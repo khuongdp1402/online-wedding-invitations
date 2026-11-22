@@ -45,6 +45,7 @@ export type WeddingData = {
     heading?: string;
     body?: string;
     script?: string;
+    thiepOnlineContent?: Record<string, any>;
   };
   backgroundColor?: string;
   textColor?: string;

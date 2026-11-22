@@ -32,7 +32,8 @@ export const SAMPLE_WEDDING_DATA: WeddingData = {
     address: "25 Lê Lợi, TP. Biên Hòa, Đồng Nai",
     googleMapsUrl: "https://maps.google.com/?q=10.9509,106.8241",
   },
-  quote: "Cảm ơn bạn đã đến và chứng kiến khoảnh khắc hạnh phúc nhất của Thanh Tùng & Hương Giang.",
+  quote:
+    "Cảm ơn bạn đã đến và chứng kiến khoảnh khắc hạnh phúc nhất của Thanh Tùng & Hương Giang.",
   gallery: [
     "/templates/classic-burgundy/samples/01.jpg",
     "/templates/classic-burgundy/samples/02.jpg",
@@ -69,6 +70,7 @@ export function getSampleWeddingForTemplate(templateSlug: string): WeddingData {
     ...SAMPLE_WEDDING_DATA,
     primaryColor: config?.defaultColors?.primary || SAMPLE_WEDDING_DATA.primaryColor,
     accentColor: config?.defaultColors?.accent || SAMPLE_WEDDING_DATA.accentColor,
-    backgroundColor: config?.defaultColors?.background || SAMPLE_WEDDING_DATA.backgroundColor,
+    backgroundColor:
+      config?.defaultColors?.background || SAMPLE_WEDDING_DATA.backgroundColor,
   };
 }

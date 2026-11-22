@@ -7,24 +7,24 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    q: "Winglove có miễn phí không?",
-    a: "Mẫu Classic Elegance dùng miễn phí trọn đời. Các mẫu còn lại có phí một lần theo mẫu, không thu phí hàng tháng, không giới hạn lượt khách xem thiệp.",
+    q: "Các gói giá thiệp cưới và thời hạn tồn tại của web là bao lâu?",
+    a: "Bạn được tạo bản nháp và chỉnh sửa thử miễn phí 0đ không giới hạn thời gian. Khi xuất bản công khai, 123 mẫu hiện đại/sang trọng có giá trọn gói 239.000đ/30 ngày và 2 mẫu truyền thống đặc biệt có giá 500.000đ – 1.000.000đ/30 ngày (hỗ trợ gia hạn cộng dồn thêm 30 ngày bất cứ lúc nào). Sau khi hết hạn, toàn bộ lời chúc và danh sách RSVP vẫn lưu vĩnh viễn trong Dashboard.",
   },
   {
-    q: "Gửi thiệp rồi vẫn sửa được thông tin chứ?",
-    a: "Được. Bạn chỉnh trực tiếp trên trang quản lý, thay đổi hiển thị ngay trên link đã gửi — không cần tạo thiệp mới hay gửi lại link khác.",
+    q: "Xem lời chúc và danh sách xác nhận tham dự (RSVP) ở đâu?",
+    a: "Sau khi đăng nhập, bạn vào mục 'Thiệp Của Tôi' (/dashboard/weddings) -> bấm vào thiệp của bạn để mở trang Quản lý chi tiết. Tại đây có đủ 6 tab: Thông tin, Khách mời, Lời chúc (xem/duyệt/xuất Excel lời chúc), RSVP (xem số người tham dự & đi cùng), Chia sẻ và Thống kê.",
   },
   {
-    q: "Khách mời xác nhận tham dự (RSVP) như thế nào?",
-    a: "Ngay trên thiệp có khối RSVP để khách chọn tham dự hay không, kèm số lượng người đi cùng — bạn theo dõi danh sách trong trang quản lý theo thời gian thực.",
+    q: "Gửi thiệp rồi vẫn sửa được thông tin hoặc đổi mẫu khác chứ?",
+    a: "Hoàn toàn được! Bạn chỉnh trực tiếp trên trang Chỉnh sửa thiệp, mọi thay đổi hiển thị ngay trên đường dẫn /w/[slug] đã gửi. Bạn cũng có thể bấm 'Đổi mẫu' để chuyển sang mẫu khác mà vẫn giữ nguyên 100% thông tin và ảnh đã tải lên.",
   },
   {
-    q: "Thiệp có hiển thị đẹp trên điện thoại không?",
-    a: "Có — cả 10 mẫu đều thiết kế ưu tiên cho điện thoại trước, vì phần lớn khách mời sẽ mở link ngay trên Zalo hoặc Messenger.",
+    q: "Làm sao để gửi thiệp có hiện tên riêng của từng khách mời?",
+    a: "Trong tab 'Khách mời' hoặc 'Chia sẻ' của trang Quản lý thiệp, bạn nhập tên khách mời và bấm Sao chép link mời. Đường dẫn sẽ có dạng /w/ten-thiep?guest=Anh+Minh&salutation=Thân+mời — khi khách mở thiệp sẽ thấy lời mời trang trọng kèm tên mình ngay trên phong bì.",
   },
   {
-    q: "Mừng cưới online hoạt động ra sao?",
-    a: "Nhập số tài khoản ngân hàng của hai gia đình, Winglove tự tạo mã QR VietQR để khách quét chuyển khoản trực tiếp trên thiệp.",
+    q: "Mừng cưới online qua mã QR hoạt động ra sao?",
+    a: "Bạn chỉ cần chọn Ngân hàng và nhập Số tài khoản của Chú Rể / Cô Dâu trong mục Hộp mừng cưới. Hệ thống tự tạo mã QR VietQR để khách quét chuyển khoản trực tiếp vào tài khoản của hai bạn (không qua trung gian).",
   },
 ];
 

@@ -36,9 +36,6 @@ export async function POST(
     }
 
     const idx = galleryIndexForSlotKey(slotKey);
-    if (idx === null) {
-      return NextResponse.json({ error: "slotKey không hợp lệ" }, { status: 400 });
-    }
 
     const mimeType = file.type || "application/octet-stream";
     if (!validateImageMime(mimeType)) {
@@ -68,41 +65,46 @@ export async function POST(
     const prev: string[] = Array.isArray(rawGallery)
       ? rawGallery.map((x) => String(x || ""))
       : [];
-    while (prev.length <= idx) prev.push("");
-    prev[idx] = publicUrl;
+    if (idx !== null) {
+      while (prev.length <= idx) prev.push("");
+      prev[idx] = publicUrl;
+    }
 
-    await prisma.$transaction([
-      prisma.fileManagement.upsert({
-        where: {
-          weddingId_slotKey: { weddingId: wedding.id, slotKey },
-        },
-        create: {
-          weddingId: wedding.id,
-          userId: session.user.id,
-          slotKey,
-          publicUrl,
-          storageKey,
-          originalName: file.name || null,
-          mimeType,
-          sizeBytes: buf.length,
-        },
-        update: {
-          publicUrl,
-          storageKey,
-          originalName: file.name || null,
-          mimeType,
-          sizeBytes: buf.length,
-        },
-      }),
-      prisma.wedding.update({
+    await prisma.fileManagement.upsert({
+      where: {
+        weddingId_slotKey: { weddingId: wedding.id, slotKey },
+      },
+      create: {
+        weddingId: wedding.id,
+        userId: session.user.id,
+        slotKey,
+        publicUrl,
+        storageKey,
+        originalName: file.name || null,
+        mimeType,
+        sizeBytes: buf.length,
+      },
+      update: {
+        publicUrl,
+        storageKey,
+        originalName: file.name || null,
+        mimeType,
+        sizeBytes: buf.length,
+      },
+    });
+
+    if (idx !== null) {
+      await prisma.wedding.update({
         where: { id: wedding.id },
         data: { gallery: prev },
-      }),
-    ]);
+      });
+    }
 
     return NextResponse.json({
       ok: true,
       url: publicUrl,
+      publicUrl,
+      storageKey,
       slotKey,
       galleryIndex: idx,
       gallery: prev,

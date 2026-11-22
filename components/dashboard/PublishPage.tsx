@@ -31,6 +31,7 @@ type Props = {
     groomName: string;
     brideName: string;
   };
+  isAdmin?: boolean;
 };
 
 type BankInfo = {
@@ -70,7 +71,7 @@ const COUPON_REASON_LABEL: Record<string, string> = {
   wrong_template: "Mã giảm giá không áp dụng cho mẫu thiệp này",
 };
 
-export function PublishPage({ wedding }: Props) {
+export function PublishPage({ wedding, isAdmin = false }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { toast } = useToast();
@@ -176,6 +177,14 @@ export function PublishPage({ wedding }: Props) {
       }
 
       const data = await res.json();
+      if (data.completed) {
+        toast({
+          title: "Xuất bản thiệp thành công!",
+          description: "Thiệp cưới của bạn đã được kích hoạt công khai.",
+        });
+        router.push(`/dashboard/weddings/${wedding.id}?payment=success`);
+        return;
+      }
       setBankInfo(data.bankInfo);
       setPaymentId(data.payment.id);
       setStep("bank-transfer");
@@ -449,7 +458,7 @@ export function PublishPage({ wedding }: Props) {
                   thẳng /api/webhooks/casso — route đó nay đã yêu cầu secret
                   phía server nên không thể gọi từ trình duyệt.
                 */}
-                {process.env.NODE_ENV !== "production" && pollStatus !== "COMPLETED" && paymentId && (
+                {(isAdmin || process.env.NODE_ENV !== "production") && pollStatus !== "COMPLETED" && paymentId && (
                   <Button
                     variant="secondary"
                     size="sm"
@@ -463,7 +472,12 @@ export function PublishPage({ wedding }: Props) {
                           body: JSON.stringify({ paymentId, action: "confirm" })
                         });
                         if (res.ok) {
-                          toast({ title: "Đã xác nhận thanh toán (dev)" });
+                          setPollStatus("COMPLETED");
+                          toast({
+                            title: "Đã xác nhận thanh toán & xuất bản thiệp!",
+                            description: "Đang chuyển đến trang quản lý thiệp...",
+                          });
+                          router.push(`/dashboard/weddings/${wedding.id}?payment=success`);
                         } else {
                           const err = await res.json().catch(() => ({}));
                           toast({
@@ -473,13 +487,13 @@ export function PublishPage({ wedding }: Props) {
                           });
                         }
                       } catch {
-                        toast({ title: "Lỗi giả lập webhook", variant: "destructive" });
+                        toast({ title: "Lỗi xác nhận thanh toán", variant: "destructive" });
                       }
                       setMocking(false);
                     }}
                   >
                     {mocking ? <Loader2 className="w-3 h-3 mr-2 animate-spin" /> : <Sparkles className="w-3 h-3 mr-2 text-rose-500" />}
-                    Xác nhận thủ công (dev)
+                    Xác nhận &amp; Xuất bản ngay (Admin)
                   </Button>
                 )}
               </div>

@@ -5,6 +5,7 @@ import {
   generateTransferContent,
   BANK_TRANSFER_INFO,
 } from "@/lib/payment";
+import { applyCompletedPayment } from "@/lib/payment-completion";
 import { buildVietQrUrl } from "@/lib/vietqr";
 import { resolveTemplatePrice, applyCoupon } from "@/lib/template-pricing";
 
@@ -108,6 +109,25 @@ export async function POST(request: Request) {
         status: "PENDING",
       },
     });
+
+    if (finalAmount <= 0) {
+      await prisma.$transaction(async (tx) => {
+        const completedPayment = await tx.payment.update({
+          where: { id: payment.id },
+          data: {
+            status: "COMPLETED",
+            transactionId: `FREE-${Date.now()}`,
+            paidAt: new Date(),
+          },
+        });
+        await applyCompletedPayment(tx, completedPayment);
+      });
+
+      return NextResponse.json({
+        completed: true,
+        payment: { id: payment.id, method: "free", status: "COMPLETED" },
+      });
+    }
 
     if (method === "bank_transfer") {
       const transferContent = generateTransferContent(weddingId, type);

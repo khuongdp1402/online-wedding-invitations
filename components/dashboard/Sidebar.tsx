@@ -14,6 +14,7 @@ import {
   Shield,
   Tag,
   Ticket,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
@@ -35,6 +36,11 @@ const navigation = [
     name: "Tạo Thiệp Mới",
     href: "/dashboard/weddings/new",
     icon: Plus,
+  },
+  {
+    name: "Hướng Dẫn Sử Dụng",
+    href: "/dashboard/guide",
+    icon: BookOpen,
   },
   {
     name: "Tài Khoản",

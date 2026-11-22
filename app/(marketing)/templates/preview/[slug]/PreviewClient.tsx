@@ -44,7 +44,7 @@ export function PreviewClient({ slug }: PreviewClientProps) {
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col">
       {/* Floating Sticky Top Bar */}
-      <header className="sticky top-0 z-50 bg-stone-900/90 backdrop-blur-md border-b border-stone-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      <header className="sticky top-0 z-[100] bg-stone-900/95 backdrop-blur-md border-b border-stone-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
         {/* Left: Back and Template Title */}
         <div className="flex items-center gap-3">
           <Link
@@ -151,15 +151,17 @@ export function PreviewClient({ slug }: PreviewClientProps) {
         </main>
       ) : (
         <main className="flex-1 flex justify-center items-start p-2 sm:p-6 bg-stone-900 overflow-y-auto">
-          <div className="w-full max-w-[430px] rounded-[36px] border-[8px] border-stone-800 my-4 min-h-[800px] overflow-hidden bg-white text-stone-900 shadow-2xl relative">
-            <TemplateRenderer
-              templateSlug={slug}
-              wedding={sampleWedding}
-              mode={mode}
-              isDemo={true}
-              guestName="Khách Quý"
-              guestSalutation="Kính mời"
-            />
+          <div className="w-full max-w-[430px] h-[85vh] min-h-[720px] rounded-[36px] border-[8px] border-stone-800 my-2 overflow-hidden bg-white text-stone-900 shadow-2xl relative [transform:translateZ(0)]">
+            <div className="w-full h-full overflow-y-auto">
+              <TemplateRenderer
+                templateSlug={slug}
+                wedding={sampleWedding}
+                mode={mode}
+                isDemo={true}
+                guestName="Khách Quý"
+                guestSalutation="Kính mời"
+              />
+            </div>
           </div>
         </main>
       )}

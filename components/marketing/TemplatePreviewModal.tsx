@@ -38,7 +38,7 @@ export function TemplatePreviewModal({
           {templateName || "Xem thử mẫu thiệp"}
         </DialogTitle>
         {/* Top bar */}
-        <div className="flex items-center justify-between px-4 py-3 bg-neutral-950 border-b border-neutral-800 shrink-0 z-20">
+        <div className="flex items-center justify-between px-4 py-3 bg-neutral-950 border-b border-neutral-800 shrink-0 z-[100]">
           <div className="flex items-center gap-3">
             <h3 className="font-semibold text-lg text-white">
               {templateName || "Xem Thử Mẫu Thiệp"}
@@ -140,22 +140,24 @@ export function TemplatePreviewModal({
 
         {/* Preview viewport: mặc định full-bleed như website thật trong modal,
             chỉ khi bật mobile mới thu vào khung mô phỏng điện thoại. */}
-        <div className="flex-1 overflow-y-auto bg-neutral-900 flex justify-center p-2 sm:p-4">
+        <div className="flex-1 overflow-hidden bg-neutral-900 flex justify-center p-2 sm:p-4">
           <div
-            className={`transition-all duration-300 bg-white text-gray-900 shadow-2xl relative ${
+            className={`transition-all duration-300 bg-white text-gray-900 shadow-2xl relative overflow-hidden [transform:translateZ(0)] ${
               viewDevice === "mobile"
-                ? "w-full max-w-[430px] border-[6px] border-neutral-800 rounded-[32px] overflow-hidden my-auto min-h-[720px] max-h-[85vh] overflow-y-auto"
-                : "w-full h-full rounded-lg overflow-y-auto"
+                ? "w-full max-w-[430px] border-[6px] border-neutral-800 rounded-[32px] my-auto h-[84vh] min-h-[680px]"
+                : "w-full h-full rounded-lg"
             }`}
           >
-            <TemplateRenderer
-              templateSlug={templateSlug}
-              wedding={sampleWedding}
-              mode={mode}
-              isDemo={true}
-              guestName="Khách Quý"
-              guestSalutation="Bạn"
-            />
+            <div className="w-full h-full overflow-y-auto">
+              <TemplateRenderer
+                templateSlug={templateSlug}
+                wedding={sampleWedding}
+                mode={mode}
+                isDemo={true}
+                guestName="Khách Quý"
+                guestSalutation="Bạn"
+              />
+            </div>
           </div>
         </div>
       </DialogContent>

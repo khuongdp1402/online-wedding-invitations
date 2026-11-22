@@ -1,0 +1,1 @@
+import{j as s}from"./config-B8ccdOKb.js";function m(r){return!!r?.trim()}function d({address:r,className:t,style:i,children:e}){const o=r.trim();if(!o)return null;const n=e(o);return n?t||i?s.jsx("div",{className:t,style:i,children:n}):n:null}export{d as F,m as h};

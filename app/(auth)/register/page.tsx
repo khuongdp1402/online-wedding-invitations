@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,8 +15,10 @@ import {
 import { Heart, Mail, Lock, User } from "lucide-react";
 import Link from "next/link";
 
-export default function RegisterPage() {
+function RegisterForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,11 +43,12 @@ export default function RegisterPage() {
     }
     setLoading(true);
     try {
+      const normalizedEmail = email.trim().toLowerCase();
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: email.trim().toLowerCase(),
+          email: normalizedEmail,
           password,
           name: name.trim() || undefined,
         }),
@@ -55,7 +59,20 @@ export default function RegisterPage() {
         setLoading(false);
         return;
       }
-      router.push("/login?registered=1");
+      const loginRes = await signIn("credentials", {
+        email: normalizedEmail,
+        password,
+        callbackUrl,
+        redirect: false,
+      });
+      if (!loginRes?.error) {
+        router.push(callbackUrl);
+        router.refresh();
+        return;
+      }
+      router.push(
+        `/login?registered=1&callbackUrl=${encodeURIComponent(callbackUrl)}`
+      );
       router.refresh();
     } catch {
       setError("Đăng ký thất bại. Vui lòng thử lại.");
@@ -155,12 +172,37 @@ export default function RegisterPage() {
 
           <p className="text-center text-sm text-gray-600 mt-6">
             Đã có tài khoản?{" "}
-            <Link href="/login" className="font-medium text-rose-600 hover:underline">
+            <Link
+              href={
+                callbackUrl && callbackUrl !== "/dashboard"
+                  ? `/login?callbackUrl=${encodeURIComponent(callbackUrl)}`
+                  : "/login"
+              }
+              className="font-medium text-rose-600 hover:underline"
+            >
               Đăng nhập
             </Link>
           </p>
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="w-full max-w-md mx-4">
+          <Card className="shadow-xl border-0">
+            <CardContent className="flex items-center justify-center py-20">
+              <div className="animate-pulse text-gray-400">Đang tải...</div>
+            </CardContent>
+          </Card>
+        </div>
+      }
+    >
+      <RegisterForm />
+    </Suspense>
   );
 }

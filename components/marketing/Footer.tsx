@@ -32,6 +32,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/huong-dan" className="hover:text-white transition-colors">
+                  Hướng Dẫn Sử Dụng
+                </Link>
+              </li>
+              <li>
                 <Link href="/login" className="hover:text-white transition-colors">
                   Tạo Thiệp
                 </Link>

@@ -13,6 +13,7 @@ type TemplateRendererProps = {
   wedding: WeddingData;
   mode: "bride" | "groom";
   isDemo: boolean;
+  isPreview?: boolean;
   guestName?: string;
   guestSalutation?: string;
   editOverlay?: WeddingTemplateProps["editOverlay"];
@@ -23,6 +24,7 @@ export function TemplateRenderer({
   wedding,
   mode,
   isDemo,
+  isPreview,
   guestName,
   guestSalutation,
   editOverlay,
@@ -63,13 +65,14 @@ export function TemplateRenderer({
         <link href={googleFontsUrl} rel="stylesheet" />
       )}
       <Component
-      wedding={wedding}
-      mode={mode}
-      isDemo={isDemo}
-      guestName={guestName}
-      guestSalutation={guestSalutation}
-      editOverlay={editOverlay}
-    />
+        wedding={wedding}
+        mode={mode}
+        isDemo={isDemo}
+        isPreview={isPreview}
+        guestName={guestName}
+        guestSalutation={guestSalutation}
+        editOverlay={editOverlay}
+      />
     {isDemo && <DemoWatermark />}
     </div>
   );

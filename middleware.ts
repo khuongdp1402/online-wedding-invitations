@@ -61,23 +61,37 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const secret = process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET;
+  const secret =
+    process.env.NEXTAUTH_SECRET ||
+    process.env.AUTH_SECRET ||
+    process.env.JWT_SECRET ||
+    "winglove-default-nextauth-secret-key-2026";
 
   if (pathname.startsWith("/dashboard")) {
-    const token = await getToken({ req, secret });
+    let token = null;
+    try {
+      token = await getToken({ req, secret });
+    } catch {
+      token = null;
+    }
     if (!token) {
       const loginUrl = new URL("/login", req.nextUrl.origin);
-      loginUrl.searchParams.set("callbackUrl", pathname);
+      loginUrl.searchParams.set("callbackUrl", `${pathname}${req.nextUrl.search}`);
       return NextResponse.redirect(loginUrl);
     }
     return NextResponse.next();
   }
 
   if (pathname.startsWith("/admin")) {
-    const token = await getToken({ req, secret });
+    let token = null;
+    try {
+      token = await getToken({ req, secret });
+    } catch {
+      token = null;
+    }
     if (!token) {
       const loginUrl = new URL("/login", req.nextUrl.origin);
-      loginUrl.searchParams.set("callbackUrl", pathname);
+      loginUrl.searchParams.set("callbackUrl", `${pathname}${req.nextUrl.search}`);
       return NextResponse.redirect(loginUrl);
     }
     if (token.role !== "ADMIN") {

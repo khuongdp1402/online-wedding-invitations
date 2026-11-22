@@ -108,6 +108,7 @@ export default function PreviewPage() {
         wedding={data.wedding}
         mode={data.mode}
         isDemo={true}
+        isPreview={true}
         editOverlay={{
           highlightSlot: data.highlightSlot,
           onSlotClick: handleSlotClick,

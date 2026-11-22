@@ -16,7 +16,7 @@ const organizationSchema = {
   url: "https://winglove.vn",
   logo: "https://winglove.vn/winglove-mark.svg",
   description:
-    "Winglove là nền tảng tạo thiệp cưới online với 10 phong cách thiệp, quản lý khách mời, RSVP, lời chúc và mừng cưới QR — thuộc hệ sinh thái KWings.",
+    "Winglove là nền tảng tạo thiệp cưới online với 2 phong cách thiệp độc bản, quản lý khách mời, RSVP, lời chúc và mừng cưới QR — thuộc hệ sinh thái KWings.",
   sameAs: [],
 };
 

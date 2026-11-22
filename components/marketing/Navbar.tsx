@@ -20,6 +20,7 @@ const links = [
   { href: "/", label: "Trang Chủ" },
   { href: "/templates", label: "Mẫu Thiệp" },
   { href: "/pricing", label: "Bảng Giá" },
+  { href: "/huong-dan", label: "Hướng Dẫn Sử Dụng" },
 ];
 
 interface CustomSession {

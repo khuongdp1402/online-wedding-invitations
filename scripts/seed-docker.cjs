@@ -8,7 +8,6 @@ const { TEMPLATE_DEFS } = require("../prisma/template-defs.cjs");
 
 const prisma = new PrismaClient();
 
-// Cho phép override qua env để không dùng tài khoản mặc định trên môi trường thật.
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@example.com";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "Admin@123";
 
@@ -36,9 +35,10 @@ async function main() {
   }
 
   const templates = TEMPLATE_DEFS;
+  const seededRecords = {};
 
   for (const t of templates) {
-    await prisma.template.upsert({
+    const record = await prisma.template.upsert({
       where: { slug: t.slug },
       update: {
         name: t.name,
@@ -55,7 +55,29 @@ async function main() {
       },
       create: t,
     });
+    seededRecords[t.slug] = record;
   }
+
+  // Keep only the 2 active flagship templates in the DB; reassign any weddings using legacy templates
+  const activeSlugs = templates.map((t) => t.slug);
+  const legacyTemplates = await prisma.template.findMany({
+    where: { slug: { notIn: activeSlugs } },
+  });
+
+  if (legacyTemplates.length > 0 && seededRecords["classic-elegance"]) {
+    for (const oldTpl of legacyTemplates) {
+      const targetId =
+        oldTpl.slug === "song-hy-red" && seededRecords["song-hy-do"]
+          ? seededRecords["song-hy-do"].id
+          : seededRecords["classic-elegance"].id;
+      await prisma.wedding.updateMany({
+        where: { templateId: oldTpl.id },
+        data: { templateId: targetId },
+      });
+      await prisma.template.delete({ where: { id: oldTpl.id } });
+    }
+  }
+
   console.log("[Docker] Templates seeded. Done.");
 }
 

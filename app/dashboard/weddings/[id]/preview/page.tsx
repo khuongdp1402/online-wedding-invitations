@@ -2,7 +2,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect, notFound } from "next/navigation";
 import { PreviewClient } from "./PreviewClient";
-import type { WeddingData } from "@/lib/template-registry";
+import { toWeddingData } from "@/lib/wedding-data";
 
 export default async function PreviewPage({
   params,
@@ -19,26 +19,7 @@ export default async function PreviewPage({
 
   if (!wedding) notFound();
 
-  const weddingData: WeddingData = {
-    id: wedding.id,
-    slug: wedding.slug,
-    groomName: wedding.groomName,
-    brideName: wedding.brideName,
-    groomParents: wedding.groomParents as WeddingData["groomParents"],
-    brideParents: wedding.brideParents as WeddingData["brideParents"],
-    groomCeremony: wedding.groomCeremony as WeddingData["groomCeremony"],
-    brideCeremony: wedding.brideCeremony as WeddingData["brideCeremony"],
-    quote: wedding.quote || undefined,
-    gallery: (wedding.gallery as string[]) || [],
-    gifting: wedding.gifting as WeddingData["gifting"],
-    primaryColor: wedding.primaryColor || undefined,
-    accentColor: wedding.accentColor || undefined,
-    fontFamily: wedding.fontFamily || undefined,
-    backgroundColor: wedding.backgroundColor || undefined,
-    sectionOrder: wedding.sectionOrder as string[] | undefined,
-    backgroundMusic: wedding.backgroundMusic || undefined,
-    status: wedding.status as WeddingData["status"],
-  };
+  const weddingData = toWeddingData(wedding);
 
   return (
     <PreviewClient

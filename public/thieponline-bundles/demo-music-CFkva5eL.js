@@ -1,0 +1,1 @@
+import{B as d}from"./brand-DICvTjSV.js";const a=`${d.MusicCdn}/birthday`,p={party:`${a}/bd-cc0-happy-birthday-remix.mp3`,musicBox:`${a}/bd-cc0-happy-birthday-music-box.mp3`,aspiration:`${a}/bd-ai-birthday-birthday-hey.mp3`,graduation:`${d.MusicCdn}/graduation/grad-pd-pomp-and-circumstance-1.mp3`,event:`${a}/bd-ai-ngay-dep-nhat-la-hom-nay.mp3`};export{p as B};

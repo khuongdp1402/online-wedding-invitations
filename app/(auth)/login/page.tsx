@@ -41,19 +41,12 @@ function LoginForm() {
         callbackUrl,
         redirect: false,
       });
-      // NextAuth v5 có thể trả về URL string hoặc object { ok, error, url }
-      if (typeof res === "string") {
-        router.push(res || callbackUrl);
-        router.refresh();
-        return;
-      }
       if (res?.error) {
         setError(typeof res.error === "string" ? res.error : "Email hoặc mật khẩu không đúng");
         setLoading(false);
         return;
       }
-      const url = res?.url ?? callbackUrl;
-      router.push(url);
+      router.push(callbackUrl);
       router.refresh();
     } catch (err) {
       console.error("Login error:", err);
@@ -162,7 +155,14 @@ function LoginForm() {
 
           <p className="text-center text-sm text-gray-600">
             Chưa có tài khoản?{" "}
-            <Link href="/register" className="font-medium text-rose-600 hover:underline">
+            <Link
+              href={
+                callbackUrl && callbackUrl !== "/dashboard"
+                  ? `/register?callbackUrl=${encodeURIComponent(callbackUrl)}`
+                  : "/register"
+              }
+              className="font-medium text-rose-600 hover:underline"
+            >
               Đăng ký ngay
             </Link>
           </p>

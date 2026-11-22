@@ -3,15 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-type HeroTemplateKey = "classic" | "cinematic" | "sakura";
+type HeroTemplateKey = "classic" | "cinematic";
 
 type HeroTemplateData = {
   key: HeroTemplateKey;
   slug: string;
   label: string;
-  /** Vị trí xếp chồng cố định (0 = trái, 1 = giữa, 2 = phải) — không đổi
+  /** Vị trí xếp chồng cố định (0 = trái, 1 = phải) — không đổi
    * theo mẫu nào đang active, chỉ mẫu active mới nổi lên giữa/trên cùng. */
-  slot: 0 | 1 | 2;
+  slot: 0 | 1;
   line: string;
   barBg: string;
   urlBg: string;
@@ -42,7 +42,7 @@ const HERO_TEMPLATES: HeroTemplateData[] = [
     key: "classic",
     slug: "classic-elegance",
     label: "Classic Elegance",
-    slot: 1,
+    slot: 0,
     line: "#EEDDBF",
     barBg: "#FBF3E6",
     urlBg: "#FFFFFF",
@@ -75,7 +75,7 @@ const HERO_TEMPLATES: HeroTemplateData[] = [
     key: "cinematic",
     slug: "modern-cinematic",
     label: "Modern Cinematic",
-    slot: 2,
+    slot: 1,
     line: "#33332B",
     barBg: "#111111",
     urlBg: "#1A1A1A",
@@ -104,55 +104,19 @@ const HERO_TEMPLATES: HeroTemplateData[] = [
     rsvpNoColor: "#A99A6B",
     rsvpNoBorder: "#333333",
   },
-  {
-    key: "sakura",
-    slug: "sweet-sakura",
-    label: "Sweet Sakura",
-    slot: 0,
-    line: "#F7DCE4",
-    barBg: "#FFF1F5",
-    urlBg: "#FFFFFF",
-    urlColor: "#B7A488",
-    urlBorder: "#E9D9BA",
-    viewportBg: "#FFFFFF",
-    heroBlockBg: "linear-gradient(165deg,#FFE4EC,#FFFFFF 80%)",
-    tag: "Kính mời",
-    coupleName: "Minh Anh & Gia Bảo",
-    tagColor: "#D4456B",
-    ringColor: "#D4456B",
-    h3Color: "#7A2D40",
-    countdown: null,
-    countdownNBg: "#F6EAD6",
-    countdownColor: "#D4456B",
-    galleryTag: "Khoảnh khắc",
-    galleryGradients: [
-      "linear-gradient(140deg,#F8B4C4,#D4456B)",
-      "linear-gradient(140deg,#FFE4EC,#F8B4C4)",
-      "linear-gradient(140deg,#D4456B,#a3324c)",
-    ],
-    quote: '"Anh đào nở, đôi ta nên duyên."',
-    quoteColor: "#7C6A57",
-    rsvpYesBg: "#D4456B",
-    rsvpNoBg: "#F6EAD6",
-    rsvpNoColor: "#7C6A57",
-    rsvpNoBorder: "#E9D9BA",
-  },
 ];
 
 const RESUME_DELAY_MS = 2200;
 const SCROLL_STEP = 0.5;
 
-function getSlotTransformClass(slot: 0 | 1 | 2, isActive: boolean) {
+function getSlotTransformClass(slot: 0 | 1, isActive: boolean) {
   if (isActive) {
     return "translate-x-0 -translate-y-[14px] rotate-0 scale-[1.05]";
   }
   if (slot === 0) {
-    return "-translate-x-[96px] translate-y-[16px] -rotate-[11deg] scale-[.94]";
+    return "-translate-x-[72px] translate-y-[14px] -rotate-[8deg] scale-[.95]";
   }
-  if (slot === 1) {
-    return "translate-x-[4px] -translate-y-[8px] rotate-[4deg] scale-[.96]";
-  }
-  return "translate-x-[96px] translate-y-[20px] rotate-[14deg] scale-[.94]";
+  return "translate-x-[72px] translate-y-[14px] rotate-[8deg] scale-[.95]";
 }
 
 /** Nội dung bên trong 1 "điện thoại" xem trước — render 2 lần (bản gốc +
@@ -445,9 +409,9 @@ export function HeroStage() {
         ))}
       </div>
       <p className="mt-2.5 text-center text-[0.78rem] text-winglove-ink-faint">
-        + 7 phong cách khác —{" "}
+        2 mẫu thiệp cao cấp được hoàn thiện tỉ mỉ từng chi tiết —{" "}
         <a href="#templates" className="font-bold text-winglove-red-deep no-underline">
-          xem toàn bộ 10 mẫu ↓
+          xem chi tiết mẫu ↓
         </a>
       </p>
     </div>

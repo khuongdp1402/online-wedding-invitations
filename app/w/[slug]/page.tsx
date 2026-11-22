@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
@@ -82,11 +83,14 @@ export default async function PublicWeddingPage({
     notFound();
   }
 
-  // Thiệp DRAFT chưa phát hành: chỉ chủ sở hữu xem được.
+  // Thiệp DRAFT chưa phát hành: chỉ chủ sở hữu hoặc ADMIN xem được.
   // DEMO vẫn công khai (kèm watermark) để khách chia sẻ bản dùng thử.
+  let isOwnerDraftPreview = false;
   if (wedding.status === "DRAFT") {
     const session = await auth();
-    if (session?.user?.id !== wedding.userId) {
+    const isOwnerOrAdmin =
+      session?.user?.id === wedding.userId || session?.user?.role === "ADMIN";
+    if (!isOwnerOrAdmin) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-amber-50">
           <div className="text-center max-w-md mx-auto px-4">
@@ -101,6 +105,7 @@ export default async function PublicWeddingPage({
         </div>
       );
     }
+    isOwnerDraftPreview = true;
   }
 
   // Increment view count (fire and forget)
@@ -182,6 +187,24 @@ export default async function PublicWeddingPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {isOwnerDraftPreview && (
+        <div className="fixed top-3 left-1/2 -translate-x-1/2 z-[9999] flex flex-wrap items-center gap-2 rounded-full bg-gray-900/90 text-white px-4 py-2 text-xs shadow-lg backdrop-blur border border-white/15">
+          <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          <span className="font-medium">Bản xem trước (Nháp — Chỉ mình bạn thấy)</span>
+          <Link
+            href={`/dashboard/weddings/${wedding.id}/edit`}
+            className="ml-1 rounded-full bg-white/15 hover:bg-white/25 px-3 py-1 font-medium transition-colors"
+          >
+            Chỉnh sửa
+          </Link>
+          <Link
+            href={`/dashboard/weddings/${wedding.id}/publish`}
+            className="rounded-full bg-rose-600 hover:bg-rose-500 px-3 py-1 font-semibold transition-colors"
+          >
+            Xuất bản công khai
+          </Link>
+        </div>
+      )}
       <WeddingPageClient
         templateSlug={wedding.template.slug}
         wedding={weddingData}

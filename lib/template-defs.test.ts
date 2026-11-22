@@ -17,9 +17,9 @@ const defs = TEMPLATE_DEFS as TemplateDef[];
  * là vỡ trang) và bỏ sót 3 mẫu đang chạy. Các test này chặn tình huống đó tái diễn.
  */
 describe("Định nghĩa template dùng chung", () => {
-  it("đúng 10 mẫu, slug không trùng", () => {
-    expect(defs).toHaveLength(10);
-    expect(new Set(defs.map((t) => t.slug)).size).toBe(10);
+  it("đầy đủ 125 mẫu (2 mẫu gốc trên banner + 123 mẫu thieponline.app), slug không trùng", () => {
+    expect(defs).toHaveLength(125);
+    expect(new Set(defs.map((t) => t.slug)).size).toBe(125);
   });
 
   it("mọi mẫu đều khớp slug trong lib/template-registry.ts", async () => {

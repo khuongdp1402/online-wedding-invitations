@@ -29,6 +29,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
+RUN mkdir -p /app/public/uploads && chown -R nextjs:nodejs /app/public/uploads
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
@@ -46,5 +47,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Mặc định: migrate deploy (production). Dev nhanh: PRISMA_USE_DB_PUSH=true → db push.
-CMD ["sh", "-c", "if [ \"$PRISMA_USE_DB_PUSH\" = \"true\" ]; then node node_modules/prisma/build/index.js db push --accept-data-loss --skip-generate; else node node_modules/prisma/build/index.js migrate deploy; fi && node scripts/seed-docker.cjs && node server.js"]
+# Tự động đồng bộ schema (db push hoặc migrate deploy), seed tài khoản + 74 mẫu thiệp, rồi chạy server.js
+CMD ["sh", "-c", "(node node_modules/prisma/build/index.js db push --accept-data-loss --skip-generate || node node_modules/prisma/build/index.js migrate deploy) && node scripts/seed-docker.cjs && node server.js"]

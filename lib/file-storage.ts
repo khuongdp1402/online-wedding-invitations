@@ -40,7 +40,7 @@ export async function uploadWeddingImage(params: {
   const bucket = process.env.S3_BUCKET;
   const publicBase = process.env.S3_PUBLIC_URL?.replace(/\/$/, "");
 
-  // Nếu cấu hình S3 đầy đủ thì dùng S3Adapter
+  // Nếu cấu hình S3 đầy đủ thì thử dùng S3Adapter, nếu MinIO/S3 không chạy thì tự động fallback về local public/uploads
   if (
     process.env.S3_ENDPOINT &&
     bucket &&
@@ -48,17 +48,21 @@ export async function uploadWeddingImage(params: {
     process.env.S3_SECRET_ACCESS_KEY &&
     publicBase
   ) {
-    await s3Adapter.upload({
-      bucket,
-      key: objectName,
-      body: buffer,
-      contentType: mimeType,
-    });
+    try {
+      await s3Adapter.upload({
+        bucket,
+        key: objectName,
+        body: buffer,
+        contentType: mimeType,
+      });
 
-    return {
-      publicUrl: `${publicBase}/${bucket}/${objectName}`,
-      storageKey: `s3:${bucket}/${objectName}`,
-    };
+      return {
+        publicUrl: `${publicBase}/${bucket}/${objectName}`,
+        storageKey: `s3:${bucket}/${objectName}`,
+      };
+    } catch (err) {
+      console.warn("[file-storage] S3 upload failed, falling back to local storage:", err);
+    }
   }
 
   // Fallback về local storage

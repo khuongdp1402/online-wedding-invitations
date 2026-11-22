@@ -26,6 +26,11 @@ import { resolveSections, type SectionConfig } from "@/lib/section-config";
 import { SECTIONS, getSectionDef } from "@/lib/section-registry";
 import { resolveBankBin } from "@/lib/vietqr";
 import { useAutosaveField } from "@/hooks/useAutosaveField";
+import { convertSolarToLunar } from "@/lib/lunar";
+import { POPULAR_WEDDING_TRACKS } from "@/lib/wedding-music";
+import { VIETNAMESE_BANKS } from "@/lib/banks";
+import { THIEPONLINE_BY_SLUG } from "@/lib/thieponline-catalog";
+import { ThiepOnlineEditor } from "@/components/dashboard/ThiepOnlineEditor";
 
 type Props = {
   templateSlug: string;
@@ -182,6 +187,19 @@ function normalizeGallery(g: unknown): string[] {
 }
 
 export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
+  if (THIEPONLINE_BY_SLUG[templateSlug]) {
+    return (
+      <ThiepOnlineEditor
+        wedding={wedding}
+        templateSlug={templateSlug}
+        template={template}
+      />
+    );
+  }
+  return <ClassicEditWeddingForm wedding={wedding} templateSlug={templateSlug} template={template} />;
+}
+
+function ClassicEditWeddingForm({ wedding, templateSlug, template }: Props) {
   const { toast } = useToast();
   // `highlightSlot`: slot chi tiết cần cuộn tới/khoanh vùng bên trong iframe
   // preview (vd. "cb-groom-venue", "album-3"). `activeSectionGroup`: khối
@@ -1002,8 +1020,38 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
                 </div>
               </div>
               <div>
-                 <label className="text-sm font-medium text-gray-700">Nhạc nền (URL MP3)</label>
-                 <Input value={backgroundMusic} onChange={(e) => setBackgroundMusic(e.target.value)} className="mt-1 text-sm" placeholder="https://..." />
+                <label className="text-sm font-medium text-gray-700">Nhạc nền thiệp cưới</label>
+                <div className="mt-1 space-y-2">
+                  <select
+                    value={
+                      POPULAR_WEDDING_TRACKS.some((t) => t.url === backgroundMusic)
+                        ? backgroundMusic
+                        : backgroundMusic
+                        ? "custom"
+                        : ""
+                    }
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      if (val === "custom") return;
+                      setBackgroundMusic(val);
+                    }}
+                    className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  >
+                    <option value="">Không sử dụng nhạc nền</option>
+                    {POPULAR_WEDDING_TRACKS.map((track) => (
+                      <option key={track.id} value={track.url}>
+                        🎵 {track.title} - {track.artist} ({track.duration})
+                      </option>
+                    ))}
+                    <option value="custom">Nhập link MP3 tùy chỉnh...</option>
+                  </select>
+                  <Input
+                    value={backgroundMusic}
+                    onChange={(e) => setBackgroundMusic(e.target.value)}
+                    className="text-xs"
+                    placeholder="Link file MP3 trực tiếp (https://...)"
+                  />
+                </div>
               </div>
 
               {/* Quyết định thiệp trông thế nào khi chia sẻ lên Zalo/Facebook.
@@ -1158,23 +1206,30 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
               <div className="space-y-3 pb-4 border-b">
                 <h4 className="font-semibold text-rose-700 text-sm">Nhà Trai (Lễ Tân Hôn)</h4>
                 <div>
-                  <label className="text-xs font-medium text-gray-700">Ngày cưới</label>
+                  <label className="text-xs font-medium text-gray-700">Ngày cưới (Dương lịch)</label>
                   <Input
                     ref={(el) => { inputRefs.current["groomCeremony.date"] = el; }}
                     value={gcDate}
-                    onChange={(e) => setGcDate(e.target.value)}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setGcDate(val);
+                      const lunar = convertSolarToLunar(val);
+                      if (lunar) setGcLunarDate(lunar.formattedString);
+                    }}
                     onFocus={() => setHighlightSlot("cb-groom-date")}
+                    placeholder="Ví dụ: 2026-11-22 hoặc 22/11/2026"
                     className="mt-1 h-8 text-sm"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-gray-700">Ngày âm lịch</label>
+                  <label className="text-xs font-medium text-gray-700">Ngày âm lịch (tự động tính)</label>
                   <Input
                     ref={(el) => { inputRefs.current["groomCeremony.lunarDate"] = el; }}
                     value={gcLunarDate}
                     onChange={(e) => setGcLunarDate(e.target.value)}
                     onFocus={() => setHighlightSlot("cb-groom-lunar-date")}
-                    className="mt-1 h-8 text-sm"
+                    placeholder="Ví dụ: (Tức ngày 14 tháng 10 năm Bính Ngọ)"
+                    className="mt-1 h-8 text-sm bg-amber-50/50"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -1216,23 +1271,30 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
               <div className="space-y-3">
                 <h4 className="font-semibold text-rose-700 text-sm">Nhà Gái (Lễ Vu Quy)</h4>
                 <div>
-                  <label className="text-xs font-medium text-gray-700">Ngày cưới</label>
+                  <label className="text-xs font-medium text-gray-700">Ngày cưới (Dương lịch)</label>
                   <Input
                     ref={(el) => { inputRefs.current["brideCeremony.date"] = el; }}
                     value={bcDate}
-                    onChange={(e) => setBcDate(e.target.value)}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setBcDate(val);
+                      const lunar = convertSolarToLunar(val);
+                      if (lunar) setBcLunarDate(lunar.formattedString);
+                    }}
                     onFocus={() => setHighlightSlot("cb-bride-date")}
+                    placeholder="Ví dụ: 2026-11-21 hoặc 21/11/2026"
                     className="mt-1 h-8 text-sm"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-medium text-gray-700">Ngày âm lịch</label>
+                  <label className="text-xs font-medium text-gray-700">Ngày âm lịch (tự động tính)</label>
                   <Input
                     ref={(el) => { inputRefs.current["brideCeremony.lunarDate"] = el; }}
                     value={bcLunarDate}
                     onChange={(e) => setBcLunarDate(e.target.value)}
                     onFocus={() => setHighlightSlot("cb-bride-lunar-date")}
-                    className="mt-1 h-8 text-sm"
+                    placeholder="Ví dụ: (Tức ngày 13 tháng 10 năm Bính Ngọ)"
+                    className="mt-1 h-8 text-sm bg-amber-50/50"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
@@ -1347,12 +1409,37 @@ export function EditWeddingForm({ wedding, templateSlug, template }: Props) {
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Ngân hàng</label>
-                    <Input
-                      value={gifting[side]?.bankName || ""}
-                      onChange={(e) => updateGifting(side, "bankName", e.target.value)}
-                      placeholder="VD: Vietcombank, MB Bank, Techcombank"
-                      className="mt-1 text-sm"
-                    />
+                    <div className="mt-1 space-y-1">
+                      <select
+                        value={
+                          VIETNAMESE_BANKS.some((b) => b.shortName.toLowerCase() === (gifting[side]?.bankName || "").toLowerCase())
+                            ? VIETNAMESE_BANKS.find((b) => b.shortName.toLowerCase() === (gifting[side]?.bankName || "").toLowerCase())?.shortName
+                            : gifting[side]?.bankName
+                            ? "custom"
+                            : ""
+                        }
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (val === "custom") return;
+                          updateGifting(side, "bankName", val);
+                        }}
+                        className="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                      >
+                        <option value="">-- Chọn ngân hàng --</option>
+                        {VIETNAMESE_BANKS.map((b) => (
+                          <option key={b.shortName} value={b.shortName}>
+                            {b.shortName} - {b.name}
+                          </option>
+                        ))}
+                        <option value="custom">Ngân hàng khác...</option>
+                      </select>
+                      <Input
+                        value={gifting[side]?.bankName || ""}
+                        onChange={(e) => updateGifting(side, "bankName", e.target.value)}
+                        placeholder="Tên ngân hàng (VD: Vietcombank, MB, BIDV)"
+                        className="text-xs h-7"
+                      />
+                    </div>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700">Số tài khoản</label>

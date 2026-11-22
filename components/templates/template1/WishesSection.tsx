@@ -142,11 +142,31 @@ export function WishesSection({ weddingId, guestName }: Props) {
                     </label>
 
                     <label className="grid gap-2">
-                      <span className="text-xs sm:text-sm tracking-[0.32em] uppercase text-ink/60 font-bold ml-2">Lời chúc yêu thương</span>
+                      <div className="flex items-center justify-between ml-2">
+                        <span className="text-xs sm:text-sm tracking-[0.32em] uppercase text-ink/60 font-bold">Lời chúc yêu thương</span>
+                        <span className="text-[11px] text-burgundy font-semibold">Gợi ý lời chúc:</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 mb-1">
+                        {[
+                          "Trăm năm tình viên mãn, bạc đầu nghĩa phu thê! 💍",
+                          "Chúc mừng hạnh phúc hai bạn! Mãi ngọt ngào nhé! ❤️",
+                          "Chúc tổ ấm nhỏ luôn ngập tràn tiếng cười và yêu thương! 🥂",
+                          "Chúc hai bạn đồng lòng xây dựng tương lai tươi sáng! ✨",
+                        ].map((suggestion) => (
+                          <button
+                            key={suggestion}
+                            type="button"
+                            onClick={() => setMessage(suggestion)}
+                            className="text-xs px-2.5 py-1 rounded-full bg-gold/10 hover:bg-gold/20 text-ink-dark transition-colors border border-gold/20 text-left"
+                          >
+                            {suggestion}
+                          </button>
+                        ))}
+                      </div>
                       <textarea
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        className="min-h-[160px] rounded-2xl border border-gold/10 bg-white/50 px-6 py-4 text-base outline-none focus:border-burgundy/30 transition-all shadow-sm resize-none font-medium"
+                        className="min-h-[140px] rounded-2xl border border-gold/10 bg-white/50 px-6 py-4 text-base outline-none focus:border-burgundy/30 transition-all shadow-sm resize-none font-medium"
                         placeholder="Gửi một lời chúc thật ấm áp..."
                       />
                     </label>

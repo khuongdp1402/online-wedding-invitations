@@ -5,10 +5,16 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+export const AUTH_SECRET =
+  process.env.NEXTAUTH_SECRET ||
+  process.env.AUTH_SECRET ||
+  process.env.JWT_SECRET ||
+  "winglove-default-nextauth-secret-key-2026";
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   trustHost: true, // Cần thiết khi chạy sau proxy hoặc port khác
-  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET, // Tránh lỗi Configuration khi chạy Docker
+  secret: AUTH_SECRET, // Tránh lỗi Configuration / MissingSecret khi chạy Docker
   providers: [
     // Google chỉ bật khi đã cấu hình OAuth trong Google Cloud Console
     ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET

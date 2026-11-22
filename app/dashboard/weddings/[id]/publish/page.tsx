@@ -11,8 +11,9 @@ export default async function WeddingPublishPage({
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
+  const isAdmin = session.user.role === "ADMIN";
   const wedding = await prisma.wedding.findFirst({
-    where: { id: params.id, userId: session.user.id },
+    where: isAdmin ? { id: params.id } : { id: params.id, userId: session.user.id },
     select: {
       id: true,
       slug: true,
@@ -34,7 +35,7 @@ export default async function WeddingPublishPage({
       <p className="text-gray-500 mb-8">
         {wedding.groomName} & {wedding.brideName}
       </p>
-      <PublishPage wedding={weddingData} />
+      <PublishPage wedding={weddingData} isAdmin={isAdmin} />
     </div>
   );
 }
