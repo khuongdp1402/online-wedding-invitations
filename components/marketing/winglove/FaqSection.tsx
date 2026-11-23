@@ -4,11 +4,12 @@ import { useRef, useState } from "react";
 import { Eyebrow } from "@/components/marketing/winglove/Eyebrow";
 import { Reveal } from "@/components/marketing/winglove/Reveal";
 import { cn } from "@/lib/utils";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const faqs = [
   {
     q: "Các gói giá thiệp cưới và thời hạn tồn tại của web là bao lâu?",
-    a: "Bạn được tạo bản nháp và chỉnh sửa thử miễn phí 0đ không giới hạn thời gian. Khi xuất bản công khai, 123 mẫu hiện đại/sang trọng có giá trọn gói 239.000đ/30 ngày và 2 mẫu truyền thống đặc biệt có giá 500.000đ – 1.000.000đ/30 ngày (hỗ trợ gia hạn cộng dồn thêm 30 ngày bất cứ lúc nào). Sau khi hết hạn, toàn bộ lời chúc và danh sách RSVP vẫn lưu vĩnh viễn trong Dashboard.",
+    a: "Bạn được tạo bản nháp và chỉnh sửa thử miễn phí 0đ không giới hạn thời gian. Khi xuất bản công khai, 18 mẫu được xuất bản miễn phí (gồm các mẫu sinh nhật, thôi nôi, tốt nghiệp, sự kiện), 105 mẫu hiện đại/sang trọng có giá trọn gói 199.000đ/30 ngày và 2 mẫu truyền thống đặc biệt có giá 399.000đ/30 ngày (hỗ trợ gia hạn cộng dồn thêm 30 ngày bất cứ lúc nào). Sau khi hết hạn, toàn bộ lời chúc và danh sách RSVP vẫn lưu vĩnh viễn trong Dashboard.",
   },
   {
     q: "Xem lời chúc và danh sách xác nhận tham dự (RSVP) ở đâu?",
@@ -103,7 +104,7 @@ export function FaqSection() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqSchema) }}
       />
     </section>
   );

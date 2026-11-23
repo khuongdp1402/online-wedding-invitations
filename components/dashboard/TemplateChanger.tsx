@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { formatTemplatePrice } from "@/lib/format-price";
 import { Check, Loader2, ArrowLeft, Search, Eye } from "lucide-react";
 import Link from "next/link";
 
@@ -196,7 +197,7 @@ export function TemplateChanger({ weddingId, currentTemplateId, templates }: Pro
               <h3 className="font-semibold text-sm text-gray-900 truncate">{t.name}</h3>
               <p className="text-xs text-gray-500 line-clamp-1 mt-0.5">{t.description}</p>
               <p className="text-xs font-semibold text-rose-600 mt-1.5">
-                {t.price.toLocaleString("vi-VN")}đ
+                {formatTemplatePrice(t.price)}
               </p>
             </CardContent>
           </Card>

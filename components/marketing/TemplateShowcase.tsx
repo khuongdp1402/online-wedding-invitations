@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { formatTemplatePrice } from "@/lib/format-price";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -705,7 +706,7 @@ export function TemplateShowcase() {
                   <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-base font-bold text-gray-900">
-                        {priceInfo.effectivePrice.toLocaleString("vi-VN")}đ
+                        {formatTemplatePrice(priceInfo.effectivePrice)}
                       </span>
                       {priceInfo.isOnSale && (
                         <span className="text-xs text-gray-400 line-through">
@@ -801,8 +802,7 @@ export function TemplateShowcase() {
       {/* CTA */}
       <div className="mt-12 text-center">
         <p className="mb-4 text-gray-500">
-          Đã sẵn sàng trọn bộ {templates.length} mẫu thiệp (2 mẫu gốc + 123 mẫu
-          từ thieponline.app)
+          Đã sẵn sàng trọn bộ {templates.length} mẫu thiệp cho mọi phong cách
         </p>
         <Link href={ctaBaseHref}>
           <Button

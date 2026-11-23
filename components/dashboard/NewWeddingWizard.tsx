@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { resolveTemplatePrice } from "@/lib/template-pricing";
+import { formatTemplatePrice } from "@/lib/format-price";
 import { TemplateRenderer } from "@/components/templates/TemplateRenderer";
 import { TemplatePreviewModal } from "@/components/marketing/TemplatePreviewModal";
 import { convertSolarToLunar } from "@/lib/lunar";
@@ -595,7 +596,7 @@ export function NewWeddingWizard({ templates, initialTemplateSlug }: WizardProps
                             });
                             return (
                               <p className="text-xs text-gray-700 font-semibold">
-                                {effectivePrice.toLocaleString("vi-VN")}đ
+                                {formatTemplatePrice(effectivePrice)}
                                 {isOnSale && (
                                   <span className="line-through text-gray-400 font-normal ml-1">
                                     {t.price.toLocaleString("vi-VN")}đ

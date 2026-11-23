@@ -593,10 +593,10 @@ export function UserGuideContent({ isDashboard = false }: { isDashboard?: boolea
               </CardContent>
             </Card>
 
-            {/* Tier 2: Standard 239k */}
+            {/* Tier 2: Standard 199k */}
             <Card className="border-2 border-rose-500 shadow-lg relative flex flex-col">
               <div className="absolute -top-3 right-4 rounded-full bg-rose-600 px-3 py-0.5 text-[11px] font-bold text-white shadow">
-                Phổ biến nhất (123 mẫu)
+                Phổ biến nhất (105 mẫu)
               </div>
               <CardHeader>
                 <Badge className="w-fit bg-rose-100 text-rose-700 hover:bg-rose-100 mb-1">
@@ -604,7 +604,7 @@ export function UserGuideContent({ isDashboard = false }: { isDashboard?: boolea
                 </Badge>
                 <CardTitle className="text-xl">Mẫu Hiện Đại &amp; Sang Trọng</CardTitle>
                 <div className="mt-2">
-                  <span className="text-3xl font-bold text-rose-600">239.000đ</span>
+                  <span className="text-3xl font-bold text-rose-600">199.000đ</span>
                   <span className="text-xs text-gray-500 ml-1">/ 30 ngày xuất bản công khai</span>
                 </div>
               </CardHeader>
@@ -612,7 +612,7 @@ export function UserGuideContent({ isDashboard = false }: { isDashboard?: boolea
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    Áp dụng cho <strong>123 mẫu thiệp</strong> (Hiện đại, Hàn Quốc, Tối giản, Lãng mạn, Luxury, Phong bì sáp...)
+                    Áp dụng cho <strong>105 mẫu thiệp</strong> (thêm 18 mẫu miễn phí 0đ) (Hiện đại, Hàn Quốc, Tối giản, Lãng mạn, Luxury, Phong bì sáp...)
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -643,7 +643,7 @@ export function UserGuideContent({ isDashboard = false }: { isDashboard?: boolea
                 </Badge>
                 <CardTitle className="text-xl">Mẫu Truyền Thống Đặc Biệt</CardTitle>
                 <div className="mt-2">
-                  <span className="text-2xl font-bold text-gray-900">500.000đ – 1.000.000đ</span>
+                  <span className="text-2xl font-bold text-gray-900">399.000đ</span>
                   <span className="text-xs text-gray-500 block mt-0.5">/ 30 ngày xuất bản công khai</span>
                 </div>
               </CardHeader>
@@ -651,7 +651,7 @@ export function UserGuideContent({ isDashboard = false }: { isDashboard?: boolea
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                    Mẫu <strong>Hồng Sắc Hỷ</strong> (500.000đ) &amp; <strong>Trầu Cau Đỏ — Song Hỷ</strong> (1.000.000đ)
+                    Mẫu <strong>Hồng Sắc Hỷ</strong> &amp; <strong>Trầu Cau Đỏ — Song Hỷ</strong> (đồng giá 399.000đ)
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />

@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { resolveTemplatePrice } from "@/lib/template-pricing";
+import { formatTemplatePrice } from "@/lib/format-price";
 import { useAuthModal } from "@/components/auth/AuthModalContext";
 
 type TemplateForPricing = {
@@ -139,7 +140,7 @@ export function PricingCards() {
                 <div className="mb-4">
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl font-bold text-gray-900">
-                      {priceInfo.effectivePrice.toLocaleString("vi-VN")}đ
+                      {formatTemplatePrice(priceInfo.effectivePrice)}
                     </span>
                     {priceInfo.isOnSale && (
                       <span className="text-sm text-gray-400 line-through">

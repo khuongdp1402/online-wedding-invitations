@@ -55,9 +55,10 @@ describe("Định nghĩa template dùng chung", () => {
     }
   });
 
-  it("mọi mẫu đều có price > 0", () => {
+  it("mọi mẫu đều có giá hợp lệ (0 = miễn phí)", () => {
     for (const def of defs) {
-      expect(def.price, `Mẫu "${def.slug}" thiếu giá xuất bản`).toBeGreaterThan(0);
+      expect(Number.isInteger(def.price), `Mẫu "${def.slug}" thiếu giá xuất bản`).toBe(true);
+      expect(def.price, `Mẫu "${def.slug}" có giá âm`).toBeGreaterThanOrEqual(0);
     }
   });
 });

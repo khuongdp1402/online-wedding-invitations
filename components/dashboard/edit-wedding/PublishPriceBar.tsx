@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Sparkles, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { resolveTemplatePrice } from "@/lib/template-pricing";
+import { formatTemplatePrice } from "@/lib/format-price";
 
 type Props = {
   weddingId: string;
@@ -46,7 +47,7 @@ export function PublishPriceBar({
             <p className="text-xs text-sky-900 leading-relaxed">
               {isPublished ? (
                 <>Gia hạn thêm 30 ngày với giá{" "}
-                <strong>{effectivePrice.toLocaleString("vi-VN")}đ</strong>
+                <strong>{formatTemplatePrice(effectivePrice)}</strong>
                 {isOnSale && (
                   <>
                     {" "}(giảm từ{" "}
@@ -56,7 +57,7 @@ export function PublishPriceBar({
               ) : (
                 <>Bạn có thể sửa/thêm/xoá thoải mái. Khi xuất bản, giá của mẫu
                 thiệp này là{" "}
-                <strong>{effectivePrice.toLocaleString("vi-VN")}đ</strong>
+                <strong>{formatTemplatePrice(effectivePrice)}</strong>
                 {isOnSale && (
                   <>
                     {" "}(giảm từ{" "}

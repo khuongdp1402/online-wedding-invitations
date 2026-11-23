@@ -49,7 +49,7 @@ export default function PricingPage() {
                 <Sparkles className="w-3.5 h-3.5" /> Phổ Biến Nhất (123 Mẫu)
               </span>
               <h3 className="text-lg font-bold text-gray-900 mt-1">Mẫu Hiện Đại &amp; Sang Trọng</h3>
-              <p className="text-2xl font-bold text-rose-600 mt-2">239.000đ / 30 ngày</p>
+              <p className="text-2xl font-bold text-rose-600 mt-2">199.000đ / 30 ngày</p>
               <p className="text-xs text-gray-700 mt-2 leading-relaxed">
                 Mở khóa 100% tính năng, không giới hạn ảnh album &amp; khách mời, đầy đủ nhạc nền, VietQR mừng cưới, Sổ lưu bút &amp; thống kê RSVP.
               </p>
