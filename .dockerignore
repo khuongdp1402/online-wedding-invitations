@@ -13,3 +13,14 @@ npm-debug.log*
 brain
 .system_generated
 scratch
+
+# Asset template da dua len MinIO (scripts/upload-assets-to-minio.cjs)
+# Server phai dat ASSETS_BASE_URL (hoac proxy nginx) — xem docs/MINIO_ASSETS.md
+public/images/themes
+public/images/template-previews
+public/images/giftbox
+public/images/envelope
+public/music
+public/font
+public/assets
+public/thieponline-assets

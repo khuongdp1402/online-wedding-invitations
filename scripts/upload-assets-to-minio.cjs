@@ -7,7 +7,7 @@
  *
  * Tuy chon:
  *   --dry-run          In ke hoach (so file, dung luong theo thu muc), khong can credentials.
- *   --concurrency=N    So upload song song (mac dinh 8).
+ *   --concurrency=N    So upload song song (mac dinh 4; MinIO sau Cloudflare de bi chan neu qua cao).
  *   --force            Upload lai ca object da ton tai cung kich thuoc.
  *   --skip-setup       Bo qua buoc tao bucket / policy / CORS.
  *   --no-dockerignore  Khong tu them thu muc asset vao .dockerignore khi upload xong.
@@ -17,11 +17,11 @@
  * Sau do server BAT BUOC dat ASSETS_BASE_URL (hoac proxy nginx) — xem docs/MINIO_ASSETS.md.
  *
  * Env (doc tu .env neu co):
- *   ASSETS_S3_ENDPOINT          vd. https://winglove.phukhuong.io.vn
+ *   ASSETS_S3_ENDPOINT          vd. https://wingloveminio.phukhuong.io.vn
  *   ASSETS_S3_REGION            mac dinh us-east-1
  *   ASSETS_S3_ACCESS_KEY_ID
  *   ASSETS_S3_SECRET_ACCESS_KEY
- *   ASSETS_S3_BUCKET            mac dinh wedding-assets
+ *   ASSETS_S3_BUCKET            mac dinh wedding-uploads
  *
  * Object key = duong dan tuong doi voi public/ (dau "/"), vd. images/themes/x/hero.webp
  * => URL cong khai: <endpoint>/<bucket>/images/themes/x/hero.webp
@@ -40,7 +40,7 @@ try {
 
 const PUBLIC_DIR = path.join(__dirname, "..", "public");
 const CACHE_CONTROL = "public, max-age=31536000, immutable";
-const MAX_RETRIES = 4;
+const MAX_RETRIES = 6;
 const IGNORED_FILES = new Set([".DS_Store", "Thumbs.db", "desktop.ini", ".gitkeep"]);
 
 const CONTENT_TYPES = {
@@ -74,7 +74,7 @@ function contentTypeFor(file) {
 }
 
 function parseArgs(argv) {
-  const args = { dryRun: false, concurrency: 8, force: false, skipSetup: false, dockerignore: true };
+  const args = { dryRun: false, concurrency: 4, force: false, skipSetup: false, dockerignore: true };
   for (const a of argv) {
     if (a === "--dry-run") args.dryRun = true;
     else if (a === "--no-dockerignore") args.dockerignore = false;
@@ -176,12 +176,21 @@ async function withRetry(label, fn) {
     } catch (err) {
       lastErr = err;
       const status = err && err.$metadata && err.$metadata.httpStatusCode;
-      // Loi 4xx (tru 408/429) khong retry: sai quyen, sai bucket...
-      if (status && status >= 400 && status < 500 && status !== 408 && status !== 429) break;
-      if (attempt < MAX_RETRIES) await sleep(500 * 2 ** (attempt - 1));
+      // 403 khong co x-minio-error-code = bi proxy (Cloudflare...) chan tam thoi khi
+      // ban nhieu request => retry. 403 cua chinh MinIO (sai key/quyen) thi dung.
+      const minioCode = err && err.$response && err.$response.headers
+        ? err.$response.headers["x-minio-error-code"]
+        : undefined;
+      const proxyBlocked = status === 403 && !minioCode;
+      // Loi 4xx khac (tru 408/429) khong retry: sai quyen, sai bucket...
+      if (status && status >= 400 && status < 500 && status !== 408 && status !== 429 && !proxyBlocked) break;
+      if (attempt < MAX_RETRIES) await sleep((proxyBlocked ? 2000 : 500) * 2 ** (attempt - 1));
     }
   }
-  throw new Error(`${label}: ${(lastErr && (lastErr.name || lastErr.message)) || lastErr}`);
+  const st = lastErr && lastErr.$metadata && lastErr.$metadata.httpStatusCode;
+  throw new Error(
+    `${label}: ${(lastErr && (lastErr.name || lastErr.message)) || lastErr}${st ? ` (HTTP ${st})` : ""}`
+  );
 }
 
 function isNotFound(err) {
@@ -195,7 +204,7 @@ function requireEnv() {
     region: (process.env.ASSETS_S3_REGION || "us-east-1").trim(),
     accessKeyId: (process.env.ASSETS_S3_ACCESS_KEY_ID || "").trim(),
     secretAccessKey: (process.env.ASSETS_S3_SECRET_ACCESS_KEY || "").trim(),
-    bucket: (process.env.ASSETS_S3_BUCKET || "wedding-assets").trim(),
+    bucket: (process.env.ASSETS_S3_BUCKET || "wedding-uploads").trim(),
   };
   const missing = [];
   if (!cfg.endpoint) missing.push("ASSETS_S3_ENDPOINT");
@@ -277,7 +286,7 @@ async function runPool(items, concurrency, worker) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const { files, missing } = collectFiles();
-  const bucketName = (process.env.ASSETS_S3_BUCKET || "wedding-assets").trim();
+  const bucketName = (process.env.ASSETS_S3_BUCKET || "wedding-uploads").trim();
 
   console.log(`Nguon: ${PUBLIC_DIR}`);
   console.log(`Bucket dich: ${bucketName}${process.env.ASSETS_S3_ENDPOINT ? ` @ ${process.env.ASSETS_S3_ENDPOINT}` : ""}`);

@@ -15,7 +15,7 @@
  * Bien moi truong (doc tu .env neu co) — giong script upload:
  *   ASSETS_S3_ENDPOINT, ASSETS_S3_REGION (mac dinh us-east-1),
  *   ASSETS_S3_ACCESS_KEY_ID, ASSETS_S3_SECRET_ACCESS_KEY,
- *   ASSETS_S3_BUCKET (mac dinh wedding-assets)
+ *   ASSETS_S3_BUCKET (mac dinh wedding-uploads)
  * Can quyen s3:ListBucket + s3:GetObject (bucket public chi cho GetObject, nen
  * phai dung access key).
  */
@@ -60,7 +60,7 @@ function readConfig() {
     region: (process.env.ASSETS_S3_REGION || "us-east-1").trim(),
     accessKeyId: (process.env.ASSETS_S3_ACCESS_KEY_ID || "").trim(),
     secretAccessKey: (process.env.ASSETS_S3_SECRET_ACCESS_KEY || "").trim(),
-    bucket: (process.env.ASSETS_S3_BUCKET || "wedding-assets").trim(),
+    bucket: (process.env.ASSETS_S3_BUCKET || "wedding-uploads").trim(),
   };
   const missing = [];
   if (!cfg.endpoint) missing.push("ASSETS_S3_ENDPOINT");

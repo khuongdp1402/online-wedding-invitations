@@ -40,18 +40,18 @@ Nếu **không** cấu hình S3, ảnh upload ghi vào `public/uploads/...` (tro
 
 Asset template (~550 MB, ~2.700 file) nằm trong `public/`: `images/themes`, `images/template-previews`, `images/giftbox`, `images/envelope`, `music`, `font`, `assets`, `thieponline-assets` (danh sách gốc: [`lib/asset-dirs.json`](lib/asset-dirs.json)). Code và bundle chỉ dùng đường dẫn tương đối (`/images/themes/...`, `/music/...`, `/font/...`), nên có thể chuyển sang MinIO mà không sửa code/DB.
 
-Bucket riêng cho asset (mặc định `wedding-assets`), tách khỏi bucket ảnh người dùng `wedding-uploads`.
+**Đã upload (23/11/2026):** 2.702 file / 551 MB lên `https://wingloveminio.phukhuong.io.vn`, bucket `wedding-uploads` (dùng chung với ảnh người dùng, khác prefix: asset ở `images/`, `music/`, `font/`…, ảnh khách ở `weddings/`). Server phải đặt `ASSETS_BASE_URL="https://wingloveminio.phukhuong.io.vn/wedding-uploads"`.
 
 **Các bước:**
 
 1. Điền vào `.env` (không commit file này):
 
    ```bash
-   ASSETS_S3_ENDPOINT="https://winglove.phukhuong.io.vn"
+   ASSETS_S3_ENDPOINT="https://wingloveminio.phukhuong.io.vn"
    ASSETS_S3_REGION="us-east-1"
    ASSETS_S3_ACCESS_KEY_ID="..."
    ASSETS_S3_SECRET_ACCESS_KEY="..."
-   ASSETS_S3_BUCKET="wedding-assets"
+   ASSETS_S3_BUCKET="wedding-uploads"
    ```
 
    Access key chỉ cần quyền trên bucket này (CreateBucket nếu để script tự tạo, PutBucketPolicy, PutBucketCors, HeadObject, PutObject).
@@ -71,12 +71,12 @@ Bucket riêng cho asset (mặc định `wedding-assets`), tách khỏi bucket �
 
    Nếu MinIO báo không hỗ trợ `PutBucketCors`, script in ra lệnh `mc` tương đương (`mc admin config set <alias> api cors_allow_origin="*"`). MinIO mặc định đã cho phép mọi origin.
 
-4. Kiểm tra một file: mở `https://winglove.phukhuong.io.vn/wedding-assets/images/themes/song-hy-red/couple.webp` trên trình duyệt.
+4. Kiểm tra một file: mở `https://wingloveminio.phukhuong.io.vn/wedding-uploads/images/themes/song-hy-red/couple.webp` trên trình duyệt.
 
 5. Bật chuyển hướng trong app: thêm vào `.env` của server rồi **restart** (không cần build lại image):
 
    ```bash
-   ASSETS_BASE_URL="https://winglove.phukhuong.io.vn/wedding-assets"
+   ASSETS_BASE_URL="https://wingloveminio.phukhuong.io.vn/wedding-uploads"
    docker compose up -d app   # hoặc restart process `next start`
    ```
 
@@ -87,12 +87,12 @@ Bucket riêng cho asset (mặc định `wedding-assets`), tách khỏi bucket �
 **Production nên dùng reverse proxy (khuyến nghị):** cho nginx/Caddy trước app chuyển thẳng các prefix asset sang bucket. Trình duyệt vẫn ở cùng origin → không mất một vòng redirect, không cần CORS. Khi đã cấu hình proxy thì không cần đặt `ASSETS_BASE_URL` (request không còn tới Next). Ví dụ nginx:
 
 ```nginx
-# Asset template -> MinIO bucket wedding-assets (đặt trước location / proxy tới Next)
+# Asset template -> MinIO bucket wedding-uploads (đặt trước location / proxy tới Next)
 location ~ ^/(images/themes|images/template-previews|images/giftbox|images/envelope|music|font|assets|thieponline-assets)/ {
-    # /images/themes/x.webp -> /wedding-assets/images/themes/x.webp trên MinIO
-    rewrite ^(.*)$ /wedding-assets$1 break;
-    proxy_pass https://winglove.phukhuong.io.vn;
-    proxy_set_header Host winglove.phukhuong.io.vn;
+    # /images/themes/x.webp -> /wedding-uploads/images/themes/x.webp trên MinIO
+    rewrite ^(.*)$ /wedding-uploads$1 break;
+    proxy_pass https://wingloveminio.phukhuong.io.vn;
+    proxy_set_header Host wingloveminio.phukhuong.io.vn;
     proxy_ssl_server_name on;
     proxy_http_version 1.1;
     proxy_set_header Authorization "";
@@ -105,7 +105,7 @@ location ~ ^/(images/themes|images/template-previews|images/giftbox|images/envel
 
 (Object đã có sẵn `Cache-Control: public, max-age=31536000, immutable` do script đặt khi upload. Nếu MinIO chạy cùng máy, có thể thay `proxy_pass` bằng `http://127.0.0.1:9000` và `Host` tương ứng.)
 
-Caddy tương đương: `handle_path` không dùng được vì cần giữ path, dùng `@assets path_regexp ...` + `rewrite * /wedding-assets{uri}` + `reverse_proxy https://winglove.phukhuong.io.vn { header_up Host {upstream_hostport} }`.
+Caddy tương đương: `handle_path` không dùng được vì cần giữ path, dùng `@assets path_regexp ...` + `rewrite * /wedding-uploads{uri}` + `reverse_proxy https://wingloveminio.phukhuong.io.vn { header_up Host {upstream_hostport} }`.
 
 **Git / Docker:** các thư mục asset mới đã được thêm vào `.gitignore` (trừ những file đã được commit từ trước). Khi upload MinIO **thành công 100%**, script `upload-assets-to-minio.cjs` **tự thêm** các thư mục dưới đây vào `.dockerignore` (tắt bằng `--no-dockerignore`) — nhớ commit `.dockerignore` và đặt `ASSETS_BASE_URL` (hoặc proxy) trên server trước khi build lại image, nếu không thiệp sẽ thiếu ảnh/nhạc/font:
 

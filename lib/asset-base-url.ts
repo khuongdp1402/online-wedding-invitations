@@ -1,7 +1,7 @@
 /**
  * Chuyển hướng asset template (ảnh theme, nhạc, font...) sang MinIO/S3 lúc RUNTIME.
  *
- * - Đọc `ASSETS_BASE_URL` (vd. https://winglove.phukhuong.io.vn/wedding-assets)
+ * - Đọc `ASSETS_BASE_URL` (vd. https://wingloveminio.phukhuong.io.vn/wedding-uploads)
  *   mỗi lần gọi → đổi env + restart container là đủ, không cần build lại image.
  * - Không đặt env → trả về null → Next phục vụ file trong public/ như cũ.
  * - Edge-safe (middleware dùng), không import gì của Node.

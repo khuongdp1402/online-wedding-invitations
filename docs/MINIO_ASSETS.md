@@ -2,15 +2,23 @@
 
 Tài liệu này mô tả cách lưu ảnh, nhạc, font của các mẫu thiệp trên MinIO, cách upload, và cách triển khai lại trên một máy khác.
 
+## Trạng thái hiện tại
+
+- **Đã upload thành công ngày 23/11/2026:** 2.702 file (551 MB), 0 lỗi.
+- **Nơi lưu:** MinIO `https://wingloveminio.phukhuong.io.vn`, bucket `wedding-uploads`.
+- **Đã kiểm tra:** người dùng ẩn danh tải được file (đúng Content-Type, có cache 1 năm, có CORS), nhưng **không** liệt kê, ghi hay xoá được.
+- **Đã ignore khỏi image Docker:** các thư mục asset đã được thêm vào `.dockerignore`. Server **bắt buộc** phải đặt:
+  `ASSETS_BASE_URL="https://wingloveminio.phukhuong.io.vn/wedding-uploads"`
+
 ## 1. Tổng quan
 
 | Thành phần | Nằm ở đâu | Có trong git? |
 |---|---|---|
 | Code, bundle mẫu (`public/thieponline-bundles/`), ảnh nhỏ của web | Repo git | Có |
-| Asset template (~550 MB, ~2.700 file): ảnh theme, ảnh xem trước, nhạc, font | MinIO, bucket `wedding-assets` | **Không** (đã `.gitignore`) |
-| Ảnh khách upload (thiệp của từng cặp đôi) | MinIO, bucket `wedding-uploads` (biến `S3_*`) | Không |
+| Asset template (~550 MB, ~2.700 file): ảnh theme, ảnh xem trước, nhạc, font | MinIO, bucket `wedding-uploads`, các thư mục `images/`, `music/`, `font/`, `assets/`, `thieponline-assets/` | **Không** (đã `.gitignore` và `.dockerignore`) |
+| Ảnh khách upload (thiệp của từng cặp đôi) | MinIO, bucket `wedding-uploads`, thư mục `weddings/<id>/...` (biến `S3_*`) | Không |
 
-Asset template và ảnh khách upload nằm ở **hai bucket riêng**. Bucket `wedding-assets` chỉ chứa file tĩnh của mẫu thiệp, không chứa dữ liệu khách hàng.
+Asset template và ảnh khách upload **dùng chung bucket `wedding-uploads`**, nhưng nằm ở các thư mục (prefix) khác nhau nên không đè lên nhau. Muốn tách ra bucket riêng sau này: đổi `ASSETS_S3_BUCKET`, chạy lại script upload, rồi đổi `ASSETS_BASE_URL`.
 
 Các thư mục asset (danh sách gốc nằm ở [`lib/asset-dirs.json`](../lib/asset-dirs.json)):
 
@@ -30,12 +38,12 @@ public/thieponline-assets/       ảnh demo và file lẻ
 ```
 public/images/themes/song-hy-red/couple.webp
   → key:  images/themes/song-hy-red/couple.webp
-  → URL:  https://winglove.phukhuong.io.vn/wedding-assets/images/themes/song-hy-red/couple.webp
+  → URL:  https://wingloveminio.phukhuong.io.vn/wedding-uploads/images/themes/song-hy-red/couple.webp
 ```
 
 Code và database chỉ lưu đường dẫn tương đối như `/images/themes/...`, `/music/...`, `/font/...`. Vì vậy đổi nơi lưu trữ không cần sửa code hay dữ liệu.
 
-**Bucket `wedding-assets` được cấu hình:**
+**Bucket `wedding-uploads` được cấu hình (script đặt khi upload):**
 - Ai cũng tải được từng file (`s3:GetObject`), nhưng **không ai liệt kê được** danh sách file.
 - Cho phép CORS GET/HEAD, để trình duyệt tải được font từ domain khác.
 - Mỗi file có header `Cache-Control: public, max-age=31536000, immutable`, nên trình duyệt cache 1 năm.
@@ -46,20 +54,20 @@ Code và database chỉ lưu đường dẫn tương đối như `/images/themes
 
 ```env
 # Dùng cho script upload/download (cần access key)
-ASSETS_S3_ENDPOINT="https://winglove.phukhuong.io.vn"   # S3 API endpoint, không phải trang console
+ASSETS_S3_ENDPOINT="https://wingloveminio.phukhuong.io.vn"   # S3 API endpoint, không phải trang console
 ASSETS_S3_REGION="us-east-1"
 ASSETS_S3_ACCESS_KEY_ID="..."
 ASSETS_S3_SECRET_ACCESS_KEY="..."
-ASSETS_S3_BUCKET="wedding-assets"
+ASSETS_S3_BUCKET="wedding-uploads"
 
 # Dùng cho app khi chạy (không cần access key)
-ASSETS_BASE_URL="https://winglove.phukhuong.io.vn/wedding-assets"
+ASSETS_BASE_URL="https://wingloveminio.phukhuong.io.vn/wedding-uploads"
 ```
 
 - **`ASSETS_S3_*`:** chỉ cần trên máy chạy script upload hoặc download.
 - **`ASSETS_BASE_URL`:** chỉ cần trên server chạy app. App đọc biến này **lúc chạy**, không phải lúc build, nên image Docker build ở đâu cũng dùng được.
 
-> **Lưu ý về endpoint:** MinIO thường có hai cổng, một cho S3 API (mặc định 9000) và một cho trang console (mặc định 9001). `ASSETS_S3_ENDPOINT` phải là địa chỉ **S3 API**. Nếu `winglove.phukhuong.io.vn` đang trỏ vào trang console thì cần dùng subdomain hoặc cổng của API.
+> **Lưu ý về endpoint:** MinIO thường có hai cổng, một cho S3 API (mặc định 9000) và một cho trang console (mặc định 9001). `ASSETS_S3_ENDPOINT` phải là địa chỉ **S3 API**. Nếu `wingloveminio.phukhuong.io.vn` đang trỏ vào trang console thì cần dùng subdomain hoặc cổng của API.
 
 Access key cần các quyền: `CreateBucket`, `PutBucketPolicy`, `PutBucketCors`, `HeadBucket`, `ListBucket`, `GetObject`, `HeadObject`, `PutObject`.
 
@@ -80,7 +88,7 @@ node scripts/upload-assets-to-minio.cjs --dry-run
 node scripts/upload-assets-to-minio.cjs
 
 # 4. Kiểm tra một file
-curl -I https://winglove.phukhuong.io.vn/wedding-assets/images/themes/song-hy-red/couple.webp
+curl -I https://wingloveminio.phukhuong.io.vn/wedding-uploads/images/themes/song-hy-red/couple.webp
 #    → HTTP 200, Content-Type: image/webp
 ```
 
@@ -116,7 +124,7 @@ Không muốn script tự sửa `.dockerignore` thì thêm `--no-dockerignore`.
 Trên server, thêm vào `.env` rồi restart app hoặc container:
 
 ```env
-ASSETS_BASE_URL="https://winglove.phukhuong.io.vn/wedding-assets"
+ASSETS_BASE_URL="https://wingloveminio.phukhuong.io.vn/wedding-uploads"
 ```
 
 **Cách hoạt động:** với các request có đường dẫn bắt đầu bằng thư mục asset (ví dụ `/images/themes/...`, `/music/...`), `middleware.ts` trả về redirect 307 sang `ASSETS_BASE_URL` cộng đường dẫn đó. Các request khác vẫn do app phục vụ bình thường.
@@ -136,11 +144,11 @@ git clone https://github.com/khuongdp1402/online-wedding-invitations.git
 cd online-wedding-invitations
 cp .env.example .env
 # Điền NEXTAUTH_SECRET, ADMIN_PASSWORD, DATABASE_URL..., và:
-#   ASSETS_BASE_URL="https://winglove.phukhuong.io.vn/wedding-assets"
+#   ASSETS_BASE_URL="https://wingloveminio.phukhuong.io.vn/wedding-uploads"
 docker compose up --build -d
 ```
 
-Điều kiện: bucket `wedding-assets` đã được upload (mục 3).
+Điều kiện: asset đã được upload lên bucket `wedding-uploads` (mục 3). Việc này **đã xong**.
 
 ### Trường hợp B: máy khác cần upload lên một MinIO hoặc bucket khác
 
@@ -193,7 +201,7 @@ Chạy `node scripts/download-assets-from-minio.cjs` để có file trong `publi
 
 ## 8. Checklist khi deploy
 
-- [ ] Bucket `wedding-assets` đã upload đủ (`--dry-run` của script download báo "Can tai: 0" trên máy có đủ file)
+- [x] Asset đã upload đủ lên bucket `wedding-uploads` (23/11/2026) (`--dry-run` của script download báo "Can tai: 0" trên máy có đủ file)
 - [ ] `curl -I` một file asset trả về 200
 - [ ] Server có `ASSETS_BASE_URL` (hoặc đã cấu hình nginx)
 - [ ] `.dockerignore` đã có khối "Asset template da dua len MinIO" và đã được commit (script tự thêm khi upload thành công)
