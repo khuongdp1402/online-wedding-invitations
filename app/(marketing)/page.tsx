@@ -8,6 +8,7 @@ import { Testimonials } from "@/components/marketing/winglove/Testimonials";
 import { FaqSection } from "@/components/marketing/winglove/FaqSection";
 import { CtaBand } from "@/components/marketing/winglove/CtaBand";
 import { RailTimeline } from "@/components/marketing/winglove/RailTimeline";
+import { safeJsonLd } from "@/lib/json-ld";
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -45,7 +46,7 @@ export default function HomePage() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(organizationSchema) }}
       />
     </div>
   );

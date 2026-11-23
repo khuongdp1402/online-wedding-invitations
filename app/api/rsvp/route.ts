@@ -1,27 +1,60 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 import { isWeddingExpired } from "@/lib/payment";
+import { rsvpInputSchema } from "@/lib/public-input-schemas";
+import { checkRateLimits } from "@/lib/public-rate-limit";
+import { getClientIp } from "@/lib/security-utils";
+
+const TEN_MINUTES = 10 * 60 * 1000;
 
 /**
  * Public RSVP submission endpoint
  * Guests can confirm/decline attendance
+ *
+ * - Validate bằng zod (tên ≤ 100, numberOfGuests nguyên 1–20).
+ * - Rate limit theo IP, IP + thiệp, và theo thiệp (in-memory).
+ * - Chỉ nhận cho thiệp PUBLISHED còn hạn; DRAFT chỉ chủ thiệp/ADMIN (xem trước).
  */
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
-    const { weddingId, guestName, attendance, numberOfGuests } = body;
+    const ip = getClientIp(request.headers);
+    const ipLimited = checkRateLimits([
+      { key: `rsvp:ip:${ip}`, max: 30, windowMs: TEN_MINUTES },
+    ]);
+    if (ipLimited) return ipLimited;
 
-    if (!weddingId || !guestName || !attendance) {
+    const body = await request.json().catch(() => null);
+    const parsed = rsvpInputSchema.safeParse(body);
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: "Missing required fields" },
+        {
+          error: "Dữ liệu không hợp lệ",
+          issues: parsed.error.issues.map((i) => ({
+            path: i.path.join("."),
+            message: i.message,
+          })),
+        },
         { status: 400 }
       );
     }
+    const {
+      weddingId,
+      guestName,
+      attendance: rsvpStatus,
+      numberOfGuests,
+    } = parsed.data;
+
+    const limited = checkRateLimits([
+      { key: `rsvp:ipw:${ip}:${weddingId}`, max: 10, windowMs: TEN_MINUTES },
+      { key: `rsvp:w:${weddingId}`, max: 200, windowMs: TEN_MINUTES },
+    ]);
+    if (limited) return limited;
 
     // Verify wedding exists and is active
     const wedding = await prisma.wedding.findUnique({
       where: { id: weddingId },
-      select: { id: true, status: true, expiresAt: true },
+      select: { id: true, status: true, expiresAt: true, userId: true },
     });
 
     if (!wedding) {
@@ -37,10 +70,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const rsvpStatus =
-      attendance === "accept" || attendance === "Tham dự"
-        ? "ACCEPTED"
-        : "DECLINED";
+    if (wedding.status !== "PUBLISHED") {
+      // Bản nháp: cho phép chủ thiệp/ADMIN thử gửi khi xem trước.
+      const session = wedding.status === "DRAFT" ? await auth() : null;
+      const isOwnerOrAdmin =
+        !!session?.user &&
+        (session.user.id === wedding.userId || session.user.role === "ADMIN");
+      if (!isOwnerOrAdmin) {
+        return NextResponse.json(
+          { error: "Thiệp cưới chưa được phát hành" },
+          { status: 403 }
+        );
+      }
+    }
 
     // Try to find existing guest by name (case-insensitive)
     const existingGuest = await prisma.guest.findFirst({
@@ -57,7 +99,7 @@ export async function POST(request: Request) {
         data: {
           rsvpStatus,
           rsvpAt: new Date(),
-          numberOfGuests: numberOfGuests || existingGuest.numberOfGuests,
+          numberOfGuests: numberOfGuests ?? existingGuest.numberOfGuests,
         },
       });
 
@@ -75,7 +117,7 @@ export async function POST(request: Request) {
         name: guestName,
         rsvpStatus,
         rsvpAt: new Date(),
-        numberOfGuests: numberOfGuests || 1,
+        numberOfGuests: numberOfGuests ?? 1,
       },
     });
 

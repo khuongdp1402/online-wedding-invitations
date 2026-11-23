@@ -12,10 +12,6 @@ export default async function DashboardLayout({
     <div className="min-h-screen bg-[#FAF7F2] text-stone-900 font-sans">
       <Sidebar
         isAdmin={session?.user?.role === "ADMIN" || session?.user?.role === "STAFF"}
-        role={session?.user?.role}
-        permissions={session?.user?.permissions}
-        userName={session?.user?.name}
-        userEmail={session?.user?.email}
       />
       <div className="lg:pl-72">
         <main className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">{children}</main>

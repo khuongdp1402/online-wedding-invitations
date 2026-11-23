@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { deleteStoredObject } from "@/lib/file-storage";
 import { prisma } from "@/lib/prisma";
 import { resolveTemplatePrice } from "@/lib/template-pricing";
+import { SLUG_RE, WeddingUpdateSchema } from "@/lib/wedding-update-schema";
 
 export async function GET(
   _request: Request,
@@ -54,9 +56,27 @@ export async function PUT(
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
-    const body = await request.json();
+    const rawBody = await request.json().catch(() => null);
+    const parsed = WeddingUpdateSchema.safeParse(rawBody);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Dữ liệu không hợp lệ", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+    const body = parsed.data;
 
-    // If changing slug, check uniqueness
+    // If changing slug, validate format + check uniqueness. Slug giữ nguyên thì
+    // không check định dạng (slug cũ có thể tạo trước khi có quy tắc này).
+    if (body.slug !== undefined && body.slug !== existing.slug && !SLUG_RE.test(body.slug)) {
+      return NextResponse.json(
+        {
+          error: "Slug chỉ gồm chữ thường a-z, số và dấu gạch ngang (3–60 ký tự)",
+          details: { formErrors: [], fieldErrors: { slug: ["Slug không hợp lệ"] } },
+        },
+        { status: 400 }
+      );
+    }
     if (body.slug && body.slug !== existing.slug) {
       const slugExists = await prisma.wedding.findUnique({
         where: { slug: body.slug },
@@ -110,12 +130,14 @@ export async function PUT(
     if (body.sectionOrder !== undefined && body.sectionOrder !== null) {
       const valid =
         Array.isArray(body.sectionOrder) &&
+        body.sectionOrder.length <= 50 &&
         body.sectionOrder.every(
           (item: unknown) =>
-            typeof item === "string" ||
+            (typeof item === "string" && item.length <= 64) ||
             (typeof item === "object" &&
               item !== null &&
-              typeof (item as { key?: unknown }).key === "string")
+              typeof (item as { key?: unknown }).key === "string" &&
+              (item as { key: string }).key.length <= 64)
         );
       if (!valid) {
         return NextResponse.json(
@@ -132,20 +154,22 @@ export async function PUT(
         ...(body.groomName !== undefined && { groomName: body.groomName }),
         ...(body.brideName !== undefined && { brideName: body.brideName }),
         ...(body.groomParents !== undefined && {
-          groomParents: body.groomParents,
+          groomParents: body.groomParents as Prisma.InputJsonValue,
         }),
         ...(body.brideParents !== undefined && {
-          brideParents: body.brideParents,
+          brideParents: body.brideParents as Prisma.InputJsonValue,
         }),
         ...(body.groomCeremony !== undefined && {
-          groomCeremony: body.groomCeremony,
+          groomCeremony: body.groomCeremony as Prisma.InputJsonValue,
         }),
         ...(body.brideCeremony !== undefined && {
-          brideCeremony: body.brideCeremony,
+          brideCeremony: body.brideCeremony as Prisma.InputJsonValue,
         }),
         ...(body.quote !== undefined && { quote: body.quote }),
         ...(body.gallery !== undefined && { gallery: body.gallery }),
-        ...(body.gifting !== undefined && { gifting: body.gifting }),
+        ...(body.gifting !== undefined && {
+          gifting: body.gifting as Prisma.InputJsonValue,
+        }),
         ...(body.primaryColor !== undefined && {
           primaryColor: body.primaryColor,
         }),
@@ -157,9 +181,15 @@ export async function PUT(
         }),
         ...(body.textColor !== undefined && { textColor: body.textColor }),
         ...(body.fontFamily !== undefined && { fontFamily: body.fontFamily }),
-        ...(body.typography !== undefined && { typography: body.typography }),
+        ...(body.typography !== undefined && {
+          typography: body.typography as Prisma.InputJsonValue,
+        }),
         ...(body.sectionOrder !== undefined && {
-          sectionOrder: body.sectionOrder,
+          // null → xoá thứ tự tuỳ chỉnh (dùng thứ tự mặc định của template).
+          sectionOrder:
+            body.sectionOrder === null
+              ? Prisma.DbNull
+              : (body.sectionOrder as Prisma.InputJsonValue),
         }),
         ...(body.backgroundMusic !== undefined && {
           backgroundMusic: body.backgroundMusic,

@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { getEffectiveWeddingStatus } from "@/lib/payment";
 import { toWeddingData } from "@/lib/wedding-data";
+import { safeJsonLd } from "@/lib/json-ld";
 import { WeddingPageClient } from "./WeddingPageClient";
 
 type PageProps = {
@@ -185,7 +186,7 @@ export default async function PublicWeddingPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       {isOwnerDraftPreview && (
         <div className="fixed top-3 left-1/2 -translate-x-1/2 z-[9999] flex flex-wrap items-center gap-2 rounded-full bg-gray-900/90 text-white px-4 py-2 text-xs shadow-lg backdrop-blur border border-white/15">

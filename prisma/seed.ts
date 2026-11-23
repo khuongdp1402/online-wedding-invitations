@@ -1,11 +1,19 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { randomBytes } from "node:crypto";
 import { TEMPLATE_DEFS } from "./template-defs.cjs";
 
 const prisma = new PrismaClient();
 
-const ADMIN_EMAIL = "admin@example.com";
-const ADMIN_PASSWORD = "Admin@123";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@example.com";
+
+// Không dùng mật khẩu mặc định cố định: lấy từ env ADMIN_PASSWORD,
+// nếu không có thì sinh ngẫu nhiên (chỉ in ra 1 lần khi tạo admin mới).
+function resolveAdminPassword(): { password: string; generated: boolean } {
+  const fromEnv = process.env.ADMIN_PASSWORD;
+  if (fromEnv) return { password: fromEnv, generated: false };
+  return { password: randomBytes(18).toString("base64url"), generated: true };
+}
 
 async function main() {
   console.log("🌱 Seeding database...");
@@ -15,7 +23,8 @@ async function main() {
     where: { email: ADMIN_EMAIL },
   });
   if (!existingAdmin) {
-    const hashed = await bcrypt.hash(ADMIN_PASSWORD, 10);
+    const { password, generated } = resolveAdminPassword();
+    const hashed = await bcrypt.hash(password, 10);
     await prisma.user.create({
       data: {
         email: ADMIN_EMAIL,
@@ -24,9 +33,14 @@ async function main() {
         role: "ADMIN",
       },
     });
-    console.log("✅ Admin user created:", ADMIN_EMAIL, "| Password:", ADMIN_PASSWORD);
+    if (generated) {
+      console.log("✅ Admin user created:", ADMIN_EMAIL);
+      console.log("🔑 Mật khẩu admin sinh ngẫu nhiên (chỉ hiển thị 1 lần, hãy lưu lại):", password);
+    } else {
+      console.log("✅ Admin user created:", ADMIN_EMAIL, "| Password: (lấy từ ADMIN_PASSWORD)");
+    }
   } else {
-    // Đảm bảo user có role ADMIN
+    // Đảm bảo user có role ADMIN (không bao giờ ghi đè mật khẩu admin đã có)
     await prisma.user.update({
       where: { email: ADMIN_EMAIL },
       data: { role: "ADMIN" },

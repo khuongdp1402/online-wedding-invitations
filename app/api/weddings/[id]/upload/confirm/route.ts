@@ -6,9 +6,32 @@ import { prisma } from "@/lib/prisma";
 import { createS3Client, getPublicUrl } from "@/lib/s3-client";
 import { galleryIndexForSlotKey } from "@/lib/wedding-image-slots";
 
+// Cùng regex với presign — slotKey nằm trong storageKey nên phải khớp charset.
+const SLOT_KEY_RE = /^[a-zA-Z0-9_-]+$/;
+
+/**
+ * storageKey phải đúng dạng presign sinh ra:
+ *   weddings/{weddingId}/{fileType}/{slotKey}-{hex12}.{ext}
+ * Nếu không kiểm tra, client có thể gửi key của object bất kỳ trong bucket
+ * (file của khách hàng khác) và gắn vào thiệp của mình.
+ */
+function isValidStorageKey(
+  storageKey: string,
+  weddingId: string,
+  fileType: string,
+  slotKey: string
+): boolean {
+  if (storageKey.includes("..") || storageKey.includes("\\")) return false;
+  const prefix = `weddings/${weddingId}/${fileType}/`;
+  if (!storageKey.startsWith(prefix)) return false;
+  const fileName = storageKey.slice(prefix.length);
+  // slotKey đã qua SLOT_KEY_RE nên không chứa ký tự đặc biệt của regex.
+  return new RegExp(`^${slotKey}-[0-9a-f]{12}\\.[a-z0-9]+$`).test(fileName);
+}
+
 const ConfirmSchema = z.object({
-  storageKey: z.string().min(1),
-  slotKey: z.string().min(1),
+  storageKey: z.string().min(1).max(512),
+  slotKey: z.string().regex(SLOT_KEY_RE, "slotKey không hợp lệ"),
   originalName: z.string().optional(),
   sizeBytes: z.number().optional(),
   mimeType: z.string().optional(),
@@ -39,6 +62,9 @@ export async function POST(
       );
 
     const { storageKey, slotKey, originalName, sizeBytes, mimeType, fileType } = parsed.data;
+
+    if (!isValidStorageKey(storageKey, params.id, fileType, slotKey))
+      return NextResponse.json({ error: "storageKey không hợp lệ" }, { status: 400 });
 
     // Verify file đã thực sự tồn tại trên MinIO (tránh ghi DB khi upload thất bại)
     try {

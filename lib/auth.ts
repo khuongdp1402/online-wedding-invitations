@@ -4,12 +4,16 @@ import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { MISSING_SECRET_MESSAGE, resolveAuthSecret } from "@/lib/auth-secret";
 
-export const AUTH_SECRET =
-  process.env.NEXTAUTH_SECRET ||
-  process.env.AUTH_SECRET ||
-  process.env.JWT_SECRET ||
-  "winglove-default-nextauth-secret-key-2026";
+// Không còn secret mặc định cứng: production thiếu secret thì dừng ngay khi khởi động.
+// Bỏ qua lúc `next build` (NEXT_PHASE=phase-production-build) vì image Docker
+// build không có .env; secret thật được kiểm tra khi server chạy.
+const resolvedSecret = resolveAuthSecret();
+if (!resolvedSecret && process.env.NEXT_PHASE !== "phase-production-build") {
+  throw new Error(MISSING_SECRET_MESSAGE);
+}
+export const AUTH_SECRET: string | undefined = resolvedSecret ?? undefined;
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),

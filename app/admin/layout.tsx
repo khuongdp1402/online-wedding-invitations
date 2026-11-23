@@ -17,13 +17,7 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-stone-900 font-sans">
-      <Sidebar
-        isAdmin={true}
-        role={session.user.role}
-        permissions={session.user.permissions}
-        userName={session.user.name}
-        userEmail={session.user.email}
-      />
+      <Sidebar isAdmin={true} />
       <div className="lg:pl-72">
         <main className="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <AdminHeader

@@ -29,7 +29,6 @@ services:
       - .env
     environment:
       DATABASE_URL: "postgresql://wedding:wedding_secret@db:5432/wedding_db?schema=public"
-      PRISMA_USE_DB_PUSH: "true"
       NEXTAUTH_URL: "http://localhost:3001"
       NEXT_PUBLIC_APP_URL: "http://localhost:3001"
     volumes:
@@ -63,7 +62,7 @@ services:
       /bin/sh -c "
       until (/usr/bin/mc alias set myminio http://minio:9000 minio minio_secret_change_me) do echo 'Waiting for MinIO...' && sleep 1; done;
       /usr/bin/mc mb --ignore-existing myminio/wedding-uploads;
-      /usr/bin/mc anonymous set public myminio/wedding-uploads;
+      /usr/bin/mc anonymous set download myminio/wedding-uploads;
       exit 0;
       "
 
