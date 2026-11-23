@@ -36,6 +36,8 @@ Nếu **không** cấu hình S3, ảnh upload ghi vào `public/uploads/...` (tro
 
 ### Asset template trên MinIO (ảnh theme, nhạc, font)
 
+> Hướng dẫn đầy đủ (upload lần đầu, deploy trên máy khác, thêm asset, xử lý sự cố): **[docs/MINIO_ASSETS.md](docs/MINIO_ASSETS.md)**.
+
 Asset template (~550 MB, ~2.700 file) nằm trong `public/`: `images/themes`, `images/template-previews`, `images/giftbox`, `images/envelope`, `music`, `font`, `assets`, `thieponline-assets` (danh sách gốc: [`lib/asset-dirs.json`](lib/asset-dirs.json)). Code và bundle chỉ dùng đường dẫn tương đối (`/images/themes/...`, `/music/...`, `/font/...`), nên có thể chuyển sang MinIO mà không sửa code/DB.
 
 Bucket riêng cho asset (mặc định `wedding-assets`), tách khỏi bucket ảnh người dùng `wedding-uploads`.
@@ -151,11 +153,13 @@ Mở http://localhost:3000 (hoặc port Next in báo).
 | `npm test` | Chạy test (Vitest) |
 | `node scripts/migrate-thieponline-urls.cjs [--apply]` | Đổi URL `*.thieponline.app` đã lưu trong DB (Wedding, Template) sang đường dẫn local trong `public/`. Mặc định dry-run; thêm `--apply` để ghi (backup DB trước). Chạy lại nhiều lần không sao. |
 | `node scripts/upload-assets-to-minio.cjs [--dry-run]` | Upload asset template trong `public/` lên bucket MinIO (`ASSETS_S3_*`). Xem mục “Asset template trên MinIO”. |
+| `node scripts/download-assets-from-minio.cjs [--dry-run]` | Tải asset template từ bucket MinIO về `public/` (dùng trên máy mới clone, vì asset không có trong git). |
 
 ## Tài liệu kiến trúc & agent
 
 - **[Sơ đồ Code Graph & Kiến trúc hệ thống (Mermaid)](docs/CODE_GRAPH.md)**
 - [Bộ tài liệu đặc tả kỹ thuật (Specs)](docs/specs/README.md)
 - [Hướng dẫn phát triển Template](docs/TEMPLATE_GUIDE.md)
+- [Lưu trữ asset template trên MinIO](docs/MINIO_ASSETS.md)
 - [AGENTS.md](AGENTS.md)
 - [docs/standards/CODE_STYLE.md](docs/standards/CODE_STYLE.md)
