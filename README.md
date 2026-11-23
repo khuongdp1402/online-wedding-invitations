@@ -107,7 +107,7 @@ location ~ ^/(images/themes|images/template-previews|images/giftbox|images/envel
 
 Caddy tương đương: `handle_path` không dùng được vì cần giữ path, dùng `@assets path_regexp ...` + `rewrite * /wedding-assets{uri}` + `reverse_proxy https://winglove.phukhuong.io.vn { header_up Host {upstream_hostport} }`.
 
-**Git / Docker:** các thư mục asset mới đã được thêm vào `.gitignore` (trừ những file đã được commit từ trước). Chúng **chưa** được thêm vào `.dockerignore`: nếu bỏ khỏi image mà không đặt `ASSETS_BASE_URL` (hoặc proxy) thì thiệp sẽ thiếu ảnh/nhạc/font. Khi MinIO đã chạy ổn định và `ASSETS_BASE_URL`/proxy đã bật ở mọi môi trường, có thể thêm vào `.dockerignore` để image nhẹ hơn ~550 MB:
+**Git / Docker:** các thư mục asset mới đã được thêm vào `.gitignore` (trừ những file đã được commit từ trước). Khi upload MinIO **thành công 100%**, script `upload-assets-to-minio.cjs` **tự thêm** các thư mục dưới đây vào `.dockerignore` (tắt bằng `--no-dockerignore`) — nhớ commit `.dockerignore` và đặt `ASSETS_BASE_URL` (hoặc proxy) trên server trước khi build lại image, nếu không thiệp sẽ thiếu ảnh/nhạc/font:
 
 ```
 public/images/themes

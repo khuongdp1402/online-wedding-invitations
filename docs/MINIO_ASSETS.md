@@ -86,10 +86,30 @@ curl -I https://winglove.phukhuong.io.vn/wedding-assets/images/themes/song-hy-re
 
 Upload bị ngắt giữa chừng thì chạy lại lệnh ở bước 3, script chỉ upload phần còn thiếu.
 
+### Sau khi upload MinIO thành công: ignore asset khỏi image Docker
+
+Khi upload **thành công 100%** (không có file lỗi), script **tự thêm** các thư mục asset vào `.dockerignore`. Nhờ vậy image Docker nhẹ đi khoảng 550 MB, vì asset đã nằm trên MinIO. Chạy lại script nhiều lần vẫn chỉ thêm một lần.
+
+```
+# Asset template da dua len MinIO (scripts/upload-assets-to-minio.cjs)
+public/images/themes
+public/images/template-previews
+...
+```
+
+Sau đó cần:
+1. **Commit `.dockerignore`** lên git: `git add .dockerignore && git commit -m "chore: ignore template assets in Docker image (served from MinIO)"`.
+2. **Mọi server phải đặt `ASSETS_BASE_URL`** (hoặc cấu hình nginx, xem mục 4) **trước khi build lại image**. Image mới không còn chứa asset, nên thiếu biến này thì thiệp sẽ mất ảnh, nhạc, font.
+
+Không muốn script tự sửa `.dockerignore` thì thêm `--no-dockerignore`.
+
+> Thư mục asset đã nằm trong `.gitignore` từ trước, nên không cần sửa gì thêm phía git.
+
 **Các tham số khác:**
 - `--concurrency=N`: số file upload cùng lúc (mặc định 8).
 - `--force`: upload lại toàn bộ.
 - `--skip-setup`: bỏ qua bước tạo bucket, policy và CORS.
+- `--no-dockerignore`: không tự thêm thư mục asset vào `.dockerignore`.
 
 ## 4. Bật MinIO cho app
 
@@ -176,6 +196,7 @@ Chạy `node scripts/download-assets-from-minio.cjs` để có file trong `publi
 - [ ] Bucket `wedding-assets` đã upload đủ (`--dry-run` của script download báo "Can tai: 0" trên máy có đủ file)
 - [ ] `curl -I` một file asset trả về 200
 - [ ] Server có `ASSETS_BASE_URL` (hoặc đã cấu hình nginx)
+- [ ] `.dockerignore` đã có khối "Asset template da dua len MinIO" và đã được commit (script tự thêm khi upload thành công)
 - [ ] `.env` của server có `NEXTAUTH_SECRET`, `ADMIN_PASSWORD`
 - [ ] Đã chạy seed để cập nhật giá mẫu (`npm run db:seed` hoặc restart container)
 - [ ] (Nếu DB có dữ liệu cũ) đã chạy `scripts/migrate-thieponline-urls.cjs --apply`

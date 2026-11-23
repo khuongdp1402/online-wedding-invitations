@@ -10,6 +10,11 @@
  *   --concurrency=N    So upload song song (mac dinh 8).
  *   --force            Upload lai ca object da ton tai cung kich thuoc.
  *   --skip-setup       Bo qua buoc tao bucket / policy / CORS.
+ *   --no-dockerignore  Khong tu them thu muc asset vao .dockerignore khi upload xong.
+ *
+ * Khi upload thanh cong 100% (khong file loi), script tu them cac thu muc asset
+ * vao .dockerignore (idempotent) de image Docker khong con chua ~550 MB asset.
+ * Sau do server BAT BUOC dat ASSETS_BASE_URL (hoac proxy nginx) — xem docs/MINIO_ASSETS.md.
  *
  * Env (doc tu .env neu co):
  *   ASSETS_S3_ENDPOINT          vd. https://winglove.phukhuong.io.vn
@@ -69,9 +74,10 @@ function contentTypeFor(file) {
 }
 
 function parseArgs(argv) {
-  const args = { dryRun: false, concurrency: 8, force: false, skipSetup: false };
+  const args = { dryRun: false, concurrency: 8, force: false, skipSetup: false, dockerignore: true };
   for (const a of argv) {
     if (a === "--dry-run") args.dryRun = true;
+    else if (a === "--no-dockerignore") args.dockerignore = false;
     else if (a === "--force") args.force = true;
     else if (a === "--skip-setup") args.skipSetup = true;
     else if (a.startsWith("--concurrency=")) {
@@ -355,7 +361,33 @@ async function main() {
     process.exitCode = 1;
   } else {
     console.log(`\nXong. Dat ASSETS_BASE_URL=${cfg.endpoint}/${cfg.bucket} roi restart app.`);
+    if (args.dockerignore) updateDockerignore();
   }
+}
+
+const DOCKERIGNORE_MARKER = "# Asset template da dua len MinIO (scripts/upload-assets-to-minio.cjs)";
+
+/**
+ * Upload thanh cong => bo asset khoi image Docker. Idempotent: chi them mot lan
+ * (nhan dien bang dong marker). Server sau do phai dat ASSETS_BASE_URL hoac proxy.
+ */
+function updateDockerignore() {
+  const file = path.join(__dirname, "..", ".dockerignore");
+  const current = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : "";
+  if (current.includes(DOCKERIGNORE_MARKER)) {
+    console.log(".dockerignore da co cac thu muc asset — bo qua.");
+    return;
+  }
+  const eol = current.includes("\r\n") ? "\r\n" : "\n";
+  const lines = [
+    DOCKERIGNORE_MARKER,
+    "# Server phai dat ASSETS_BASE_URL (hoac proxy nginx) — xem docs/MINIO_ASSETS.md",
+    ...ASSET_DIRS.map((d) => `public/${d}`),
+  ];
+  const prefix = current.length && !current.endsWith("\n") ? eol : "";
+  fs.writeFileSync(file, current + prefix + eol + lines.join(eol) + eol);
+  console.log(".dockerignore: da them cac thu muc asset (image Docker nhe hon ~550 MB).");
+  console.log("=> Commit .dockerignore, va dam bao server da dat ASSETS_BASE_URL truoc khi build lai image.");
 }
 
 main().catch((err) => {
