@@ -38,8 +38,8 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
     "slug": "minimalism-do-dam",
     "name": "Minimalism - Đỏ Đậm",
     "description": "Tối giản sang trọng với nền kem, tông đỏ đô, hoa mẫu đơn và dấu sáp trái tim",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/minimalism_darkred.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/minimalism_darkred.webp",
+    "thumbnail": "/images/template-previews/listing/minimalism_darkred.webp",
+    "preview": "/images/template-previews/full/minimalism_darkred.webp",
     "category": "minimal",
     "isPremium": false,
     "minPlan": "FREE",
@@ -72,22 +72,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "minimalism-do-dam-DZpkChSH.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-red/hero.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-red/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-red/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-red/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-red/gallery_7.jpg"
+      "/images/themes/minimalism-dark-red/hero.jpg",
+      "/images/themes/minimalism-dark-red/gallery_1.jpg",
+      "/images/themes/minimalism-dark-red/gallery_2.jpg",
+      "/images/themes/minimalism-dark-red/gallery_3.jpg",
+      "/images/themes/minimalism-dark-red/gallery_4.jpg",
+      "/images/themes/minimalism-dark-red/gallery_5.jpg",
+      "/images/themes/minimalism-dark-red/gallery_6.jpg",
+      "/images/themes/minimalism-dark-red/gallery_7.jpg"
     ]
   },
   {
     "slug": "mau-don-do",
     "name": "Mẫu Đơn - Đỏ",
     "description": "Nền giấy thạch cao trắng, chữ đỏ rượu, hoa mẫu đơn đỏ có bướm đậu, phong bì đỏ kẹp lịch tháng trên giấy xé, cô dâu chú rể trên nền thạch cao tối, timeline biểu tượng nét đỏ và đồng hồ đếm ngược trên ảnh cưới",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/peony_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/peony_red.webp",
+    "thumbnail": "/images/template-previews/listing/peony_red.webp",
+    "preview": "/images/template-previews/full/peony_red.webp",
     "category": "modern",
     "isPremium": false,
     "minPlan": "FREE",
@@ -119,24 +119,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "peony-red-CRdVHMBi.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_9.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_8.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_10.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_5.jpg"
+      "/images/themes/longphung-v3-red/gallery_6.jpg",
+      "/images/themes/longphung-v3-red/gallery_2.jpg",
+      "/images/themes/longphung-v3-red/gallery_9.jpg",
+      "/images/themes/longphung-v3-red/gallery_1.jpg",
+      "/images/themes/longphung-v3-red/gallery_8.jpg",
+      "/images/themes/longphung-v3-red/gallery_4.jpg",
+      "/images/themes/longphung-v3-red/gallery_3.jpg",
+      "/images/themes/longphung-v3-red/gallery_7.jpg",
+      "/images/themes/longphung-v3-red/gallery_10.jpg",
+      "/images/themes/longphung-v3-red/gallery_5.jpg"
     ]
   },
   {
     "slug": "ngoc-trai-be",
     "name": "Ngọc Trai - Be",
     "description": "Nền lụa trắng ngọc trai, chữ lồng tên trong vòng lá vàng, thẻ mời viền lượn sóng có hoa lan trắng, lưới ảnh kẹp thẻ Save the date, ảnh polaroid Love Forever, timeline nửa ảnh nửa nền be và album Endless Romance",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/pearl_satin_beige.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/pearl_satin_beige.webp",
+    "thumbnail": "/images/template-previews/listing/pearl_satin_beige.webp",
+    "preview": "/images/template-previews/full/pearl_satin_beige.webp",
     "category": "modern",
     "isPremium": false,
     "minPlan": "FREE",
@@ -168,24 +168,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "pearl-satin-beige-BMn2T4Ki.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/silkflora-brown/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/silkflora-brown/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/silkflora-brown/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/silkflora-brown/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/silkflora-brown/gallery_1.webp"
+      "/images/themes/minimalism-brown/gallery_4.jpg",
+      "/images/themes/minimalism-brown/gallery_5.jpg",
+      "/images/themes/silkflora-brown/gallery_3.webp",
+      "/images/themes/silkflora-brown/gallery_4.webp",
+      "/images/themes/minimalism-brown/gallery_1.jpg",
+      "/images/themes/minimalism-brown/gallery_2.jpg",
+      "/images/themes/silkflora-brown/gallery_2.webp",
+      "/images/themes/minimalism-brown/gallery_6.jpg",
+      "/images/themes/silkflora-brown/gallery_6.webp",
+      "/images/themes/silkflora-brown/gallery_1.webp"
     ]
   },
   {
     "slug": "minimalism-nau",
     "name": "Minimalism - Nâu",
     "description": "Tối giản thanh lịch với nền kem trắng và sắc nâu trầm ấm áp",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/minimalism_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/minimalism_brown.webp",
+    "thumbnail": "/images/template-previews/listing/minimalism_brown.webp",
+    "preview": "/images/template-previews/full/minimalism_brown.webp",
     "category": "minimal",
     "isPremium": false,
     "minPlan": "FREE",
@@ -216,21 +216,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "minimalism-nau-CkNvy_Gh.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/hero.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_6.jpg"
+      "/images/themes/minimalism-brown/hero.jpg",
+      "/images/themes/minimalism-brown/gallery_1.jpg",
+      "/images/themes/minimalism-brown/gallery_2.jpg",
+      "/images/themes/minimalism-brown/gallery_3.jpg",
+      "/images/themes/minimalism-brown/gallery_4.jpg",
+      "/images/themes/minimalism-brown/gallery_5.jpg",
+      "/images/themes/minimalism-brown/gallery_6.jpg"
     ]
   },
   {
     "slug": "to-duyen-tim",
     "name": "Tơ Duyên - Tím",
     "description": "Hoa sen tím tử đinh hương nở trên nền giấy trắng tinh, dải lụa tím mềm mại uốn quanh từng phần nội dung cùng những nét cong mảnh như sợi tơ; chữ tím amethyst, bố cục so le trái phải, gợi vẻ thanh lịch và trầm tĩnh.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/silk_ribbon_purple.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/silk_ribbon_purple.webp",
+    "thumbnail": "/images/template-previews/listing/silk_ribbon_purple.webp",
+    "preview": "/images/template-previews/full/silk_ribbon_purple.webp",
     "category": "minimal",
     "isPremium": false,
     "minPlan": "FREE",
@@ -265,24 +265,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "silk-ribbon-purple-Cc9DspAY.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/groom.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/bride.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-purple/gallery_8.webp"
+      "/images/themes/silk-ribbon-purple/groom.webp",
+      "/images/themes/silk-ribbon-purple/bride.webp",
+      "/images/themes/silk-ribbon-purple/gallery_1.webp",
+      "/images/themes/silk-ribbon-purple/gallery_2.webp",
+      "/images/themes/silk-ribbon-purple/gallery_3.webp",
+      "/images/themes/silk-ribbon-purple/gallery_4.webp",
+      "/images/themes/silk-ribbon-purple/gallery_5.webp",
+      "/images/themes/silk-ribbon-purple/gallery_6.webp",
+      "/images/themes/silk-ribbon-purple/gallery_7.webp",
+      "/images/themes/silk-ribbon-purple/gallery_8.webp"
     ]
   },
   {
     "slug": "song-hy-xanh",
     "name": "Song Hỷ - Xanh",
     "description": "Chữ Hỷ nền xanh lá, khung ảnh cung, phong bì 囍",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/song_hy_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/song_hy_green.webp",
+    "thumbnail": "/images/template-previews/listing/song_hy_green.webp",
+    "preview": "/images/template-previews/full/song_hy_green.webp",
     "category": "classic",
     "isPremium": false,
     "minPlan": "FREE",
@@ -313,21 +313,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "song-hy-green-3mVb7g-O.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/song-hy-green/couple.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-green/gallery_6.webp"
+      "/images/themes/song-hy-green/couple.webp",
+      "/images/themes/song-hy-green/gallery_1.webp",
+      "/images/themes/song-hy-green/gallery_2.webp",
+      "/images/themes/song-hy-green/gallery_3.webp",
+      "/images/themes/song-hy-green/gallery_4.webp",
+      "/images/themes/song-hy-green/gallery_5.webp",
+      "/images/themes/song-hy-green/gallery_6.webp"
     ]
   },
   {
     "slug": "hoa-kho-v2-lam",
     "name": "Hoa Khô V2 - Lam",
     "description": "Hoa khô vẽ màu nước tông lam và vàng đất trên nền giấy kem, điểm những cánh bướm nhạt xuyên suốt tấm thiệp.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/hoa_kho_v2_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/hoa_kho_v2_blue.webp",
+    "thumbnail": "/images/template-previews/listing/hoa_kho_v2_blue.webp",
+    "preview": "/images/template-previews/full/hoa_kho_v2_blue.webp",
     "category": "vintage",
     "isPremium": false,
     "minPlan": "FREE",
@@ -361,24 +361,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "hoa-kho-v2-blue-CyA4Jc6v.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-v2-blue/gallery_10.webp"
+      "/images/themes/hoa-kho-v2-blue/gallery_1.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_2.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_3.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_4.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_5.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_6.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_7.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_8.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_9.webp",
+      "/images/themes/hoa-kho-v2-blue/gallery_10.webp"
     ]
   },
   {
     "slug": "long-phung-v3-do",
     "name": "Long Phụng V3 - Đỏ",
     "description": "Nền đỏ thẫm cổ điển, khung ảnh vòm rồng phượng và họa tiết chim én tinh tế",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/dragon_phoenix_v3_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/dragon_phoenix_v3_red.webp",
+    "thumbnail": "/images/template-previews/listing/dragon_phoenix_v3_red.webp",
+    "preview": "/images/template-previews/full/dragon_phoenix_v3_red.webp",
     "category": "classic",
     "isPremium": false,
     "minPlan": "FREE",
@@ -408,24 +408,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "longphung-v3-red-DdH1lI9A.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/hero.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_8.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_9.jpg"
+      "/images/themes/longphung-v3-red/hero.jpg",
+      "/images/themes/longphung-v3-red/gallery_1.jpg",
+      "/images/themes/longphung-v3-red/gallery_2.jpg",
+      "/images/themes/longphung-v3-red/gallery_3.jpg",
+      "/images/themes/longphung-v3-red/gallery_4.jpg",
+      "/images/themes/longphung-v3-red/gallery_5.jpg",
+      "/images/themes/longphung-v3-red/gallery_6.jpg",
+      "/images/themes/longphung-v3-red/gallery_7.jpg",
+      "/images/themes/longphung-v3-red/gallery_8.jpg",
+      "/images/themes/longphung-v3-red/gallery_9.jpg"
     ]
   },
   {
     "slug": "florence-nau",
     "name": "Florence - Nâu",
     "description": "Tranh màu nước vẽ thành Florence, mái vòm gạch đỏ của nhà thờ Duomo soi bóng xuống sông Arno, cầu đá phủ hoa hồng và hàng bách Tuscany trong sắc nâu ấm",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/florence_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/florence_brown.webp",
+    "thumbnail": "/images/template-previews/listing/florence_brown.webp",
+    "preview": "/images/template-previews/full/florence_brown.webp",
     "category": "vintage",
     "isPremium": false,
     "minPlan": "FREE",
@@ -459,15 +459,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "florence-brown-Cc0A_x6M.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/florence_brown.webp"
+      "/images/template-previews/full/florence_brown.webp"
     ]
   },
   {
     "slug": "hoa-moc-xanh",
     "name": "Hoa Mộc - Xanh",
     "description": "Hoa mộc watercolor với tông xanh lá thanh nhã trên nền kem trắng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/boho_floral_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/boho_floral_green.webp",
+    "thumbnail": "/images/template-previews/listing/boho_floral_green.webp",
+    "preview": "/images/template-previews/full/boho_floral_green.webp",
     "category": "vintage",
     "isPremium": false,
     "minPlan": "FREE",
@@ -498,24 +498,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "boho-floral-green-auhAhShs.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/groom.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/bride.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_8.webp"
+      "/images/themes/boho-floral-green/groom.webp",
+      "/images/themes/boho-floral-green/bride.webp",
+      "/images/themes/boho-floral-green/gallery_1.webp",
+      "/images/themes/boho-floral-green/gallery_2.webp",
+      "/images/themes/boho-floral-green/gallery_3.webp",
+      "/images/themes/boho-floral-green/gallery_4.webp",
+      "/images/themes/boho-floral-green/gallery_5.webp",
+      "/images/themes/boho-floral-green/gallery_6.webp",
+      "/images/themes/boho-floral-green/gallery_7.webp",
+      "/images/themes/boho-floral-green/gallery_8.webp"
     ]
   },
   {
     "slug": "hac-sen-do",
     "name": "Hạc Sen - Đỏ",
     "description": "Thiệp nền giấy chữ đỏ đô: ảnh cưới chuyển dần sang đỏ, đôi hạc, hoa sen và chữ Hỷ, khối \"Câu chuyện chúng mình\", lịch Save the date và lịch trình có biểu tượng — trang trọng và ấm áp.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/crane_lotus_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/crane_lotus_red.webp",
+    "thumbnail": "/images/template-previews/listing/crane_lotus_red.webp",
+    "preview": "/images/template-previews/full/crane_lotus_red.webp",
     "category": "classic",
     "isPremium": false,
     "minPlan": "FREE",
@@ -551,24 +551,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "crane-lotus-red-Bc_QvMZc.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_10.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_8.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_13.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_7.jpg"
+      "/images/themes/songlong-red/gallery_6.jpg",
+      "/images/themes/songlong-red/gallery_10.jpg",
+      "/images/themes/songlong-red/gallery_8.jpg",
+      "/images/themes/songlong-red/gallery_13.jpg",
+      "/images/themes/songlong-red/gallery_1.jpg",
+      "/images/themes/songlong-red/gallery_2.jpg",
+      "/images/themes/songlong-red/gallery_3.jpg",
+      "/images/themes/songlong-red/gallery_4.jpg",
+      "/images/themes/songlong-red/gallery_5.jpg",
+      "/images/themes/songlong-red/gallery_7.jpg"
     ]
   },
   {
     "slug": "minimalism-xanh",
     "name": "Minimalism - Xanh",
     "description": "Tối giản thanh lịch với nền giấy trắng và sắc xanh lá cây thảo mộc",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/minimalism_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/minimalism_green.webp",
+    "thumbnail": "/images/template-previews/listing/minimalism_green.webp",
+    "preview": "/images/template-previews/full/minimalism_green.webp",
     "category": "minimal",
     "isPremium": false,
     "minPlan": "FREE",
@@ -599,23 +599,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "minimalism-xanh-BGeyThvG.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-green/groom.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-green/bride.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-green/gallery_7.webp"
+      "/images/themes/minimalism-green/groom.webp",
+      "/images/themes/minimalism-green/bride.webp",
+      "/images/themes/minimalism-green/gallery_1.webp",
+      "/images/themes/minimalism-green/gallery_2.webp",
+      "/images/themes/minimalism-green/gallery_3.webp",
+      "/images/themes/minimalism-green/gallery_4.webp",
+      "/images/themes/minimalism-green/gallery_5.webp",
+      "/images/themes/minimalism-green/gallery_6.webp",
+      "/images/themes/minimalism-green/gallery_7.webp"
     ]
   },
   {
     "slug": "san-miguel-vang",
     "name": "San Miguel - Vàng",
     "description": "Tranh màu nước vẽ thị trấn thuộc địa Mexico, nhà thờ mái vòm vàng ochre, đài phun nước đá và hoa giấy hồng đổ xuống hai bên",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/san_miguel_yellow.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/san_miguel_yellow.webp",
+    "thumbnail": "/images/template-previews/listing/san_miguel_yellow.webp",
+    "preview": "/images/template-previews/full/san_miguel_yellow.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -650,21 +650,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "san-miguel-yellow-UGUhMTzU.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/san-miguel-yellow/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/san-miguel-yellow/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/san-miguel-yellow/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/san-miguel-yellow/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/san-miguel-yellow/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/san-miguel-yellow/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/san-miguel-yellow/gallery_7.webp"
+      "/images/themes/san-miguel-yellow/gallery_1.webp",
+      "/images/themes/san-miguel-yellow/gallery_2.webp",
+      "/images/themes/san-miguel-yellow/gallery_3.webp",
+      "/images/themes/san-miguel-yellow/gallery_4.webp",
+      "/images/themes/san-miguel-yellow/gallery_5.webp",
+      "/images/themes/san-miguel-yellow/gallery_6.webp",
+      "/images/themes/san-miguel-yellow/gallery_7.webp"
     ]
   },
   {
     "slug": "song-hy-do",
     "name": "Song Hỷ - Đỏ",
     "description": "Chữ Hỷ trang trọng, khung ảnh cung, phong bì 囍",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/song_hy_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/song_hy_red.webp",
+    "thumbnail": "/images/template-previews/listing/song_hy_red.webp",
+    "preview": "/images/template-previews/full/song_hy_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -695,22 +695,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "song-hy-red-C_iDqOPZ.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/song-hy-red/couple.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-red/gallery_7.webp"
+      "/images/themes/song-hy-red/couple.webp",
+      "/images/themes/song-hy-red/gallery_1.webp",
+      "/images/themes/song-hy-red/gallery_2.webp",
+      "/images/themes/song-hy-red/gallery_3.webp",
+      "/images/themes/song-hy-red/gallery_4.webp",
+      "/images/themes/song-hy-red/gallery_5.webp",
+      "/images/themes/song-hy-red/gallery_6.webp",
+      "/images/themes/song-hy-red/gallery_7.webp"
     ]
   },
   {
     "slug": "hoang-cung-do",
     "name": "Hoàng Cung - Đỏ",
     "description": "Bìa rèm lụa và phong bì đỏ, cuộn trang để bước qua cổng cung điện, rồng phượng ánh vàng, đèn lồng và cánh hoa đào rơi, khung vòm ảnh cô dâu chú rể, đếm ngược và chuyện tình dạng dòng thời gian",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/royal_crimson_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/royal_crimson_red.webp",
+    "thumbnail": "/images/template-previews/listing/royal_crimson_red.webp",
+    "preview": "/images/template-previews/full/royal_crimson_red.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -746,22 +746,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "royal-crimson-red-DQQ4NvYm.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_10.webp"
+      "/images/themes/nhat-binh-red/gallery_8.webp",
+      "/images/themes/nhat-binh-red/gallery_3.webp",
+      "/images/themes/nhat-binh-red/gallery_1.webp",
+      "/images/themes/nhat-binh-red/gallery_4.webp",
+      "/images/themes/nhat-binh-red/gallery_5.webp",
+      "/images/themes/nhat-binh-red/gallery_6.webp",
+      "/images/themes/nhat-binh-red/gallery_9.webp",
+      "/images/themes/nhat-binh-red/gallery_10.webp"
     ]
   },
   {
     "slug": "neel-bagh-lam",
     "name": "Neel Bagh - Lam",
     "description": "Tranh màu nước vòm đá phủ hoa trắng xanh bên hồ, thuyền buồm và tháp chuông, các lễ in trên thẻ hình vòm viền vàng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/neel_bagh_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/neel_bagh_blue.webp",
+    "thumbnail": "/images/template-previews/listing/neel_bagh_blue.webp",
+    "preview": "/images/template-previews/full/neel_bagh_blue.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -796,23 +796,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "neel-bagh-blue-CebIhRMY.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/neel-bagh-blue/hero-sky.webp",
-      "https://thieponline.app/images/themes/neel-bagh-blue/hero-mid.webp",
-      "https://thieponline.app/images/themes/neel-bagh-blue/hero-front.webp",
-      "https://thieponline.app/images/themes/neel-bagh-blue/gallery-bg.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_5.webp"
+      "/images/themes/neel-bagh-blue/hero-sky.webp",
+      "/images/themes/neel-bagh-blue/hero-mid.webp",
+      "/images/themes/neel-bagh-blue/hero-front.webp",
+      "/images/themes/neel-bagh-blue/gallery-bg.webp",
+      "/images/themes/riviera-blue/gallery_1.webp",
+      "/images/themes/riviera-blue/gallery_2.webp",
+      "/images/themes/riviera-blue/gallery_3.webp",
+      "/images/themes/riviera-blue/gallery_4.webp",
+      "/images/themes/riviera-blue/gallery_5.webp"
     ]
   },
   {
     "slug": "vuonkinh-hong",
     "name": "Vườn Kính - Hồng",
     "description": "Nền hoa mềm mại phủ kín thiệp, hai tên trong khung kính bầu dục trong suốt và tấm kính lớn ôm trọn nội dung; tông hồng phấn trên lá hồng ánh vàng, gợi vẻ ngọt ngào, lãng mạn kiểu khu vườn mùa xuân.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/glass_garden_pink.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/glass_garden_pink.webp",
+    "thumbnail": "/images/template-previews/listing/glass_garden_pink.webp",
+    "preview": "/images/template-previews/full/glass_garden_pink.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -843,23 +843,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "glass-garden-pink-BONd2N9P.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_8.jpg",
-      "https://cdn.thieponline.app/images/themes/glass-garden-pink/gallery_9.jpg"
+      "/images/themes/glass-garden-pink/gallery_1.jpg",
+      "/images/themes/glass-garden-pink/gallery_2.jpg",
+      "/images/themes/glass-garden-pink/gallery_3.jpg",
+      "/images/themes/glass-garden-pink/gallery_4.jpg",
+      "/images/themes/glass-garden-pink/gallery_5.jpg",
+      "/images/themes/glass-garden-pink/gallery_6.jpg",
+      "/images/themes/glass-garden-pink/gallery_7.jpg",
+      "/images/themes/glass-garden-pink/gallery_8.jpg",
+      "/images/themes/glass-garden-pink/gallery_9.jpg"
     ]
   },
   {
     "slug": "nha-co-hy-do",
     "name": "Nhà Có Hỷ - Đỏ",
     "description": "Thiệp đỏ son trên giấy kem dập hoa sen: hai cánh cửa hoa sen mở ra chữ Nhà có Hỷ và tranh cô dâu chú rể, hai nhà, tên cô dâu chú rể quanh trái tim, giờ ngày cưới, địa chỉ có nút chỉ đường, tranh áo dài, lịch tháng, đếm ngược, cụm ảnh hình trái tim, timeline, dress code và album ảnh.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/joyful_home_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/joyful_home_red.webp",
+    "thumbnail": "/images/template-previews/listing/joyful_home_red.webp",
+    "preview": "/images/template-previews/full/joyful_home_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -893,24 +893,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "joyful-home-red-B3yD1Zx_.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/joyful-home-red/hero-couple.webp",
-      "https://thieponline.app/images/themes/joyful-home-red/couple-art.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_10.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_11.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/hero.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_6.webp"
+      "/images/themes/joyful-home-red/hero-couple.webp",
+      "/images/themes/joyful-home-red/couple-art.webp",
+      "/images/themes/song-hy-v2-red/gallery_10.webp",
+      "/images/themes/song-hy-v2-red/gallery_11.webp",
+      "/images/themes/song-hy-v2-red/hero.webp",
+      "/images/themes/song-hy-v2-red/gallery_5.webp",
+      "/images/themes/song-hy-v2-red/gallery_7.webp",
+      "/images/themes/song-hy-v2-red/gallery_3.webp",
+      "/images/themes/song-hy-v2-red/gallery_4.webp",
+      "/images/themes/song-hy-v2-red/gallery_6.webp"
     ]
   },
   {
     "slug": "vuonkinh-xanh",
     "name": "Vườn Kính - Xanh",
     "description": "Nền hoa mềm mại phủ kín thiệp, hai tên trong khung kính bầu dục trong suốt và tấm kính lớn ôm trọn nội dung; tông xanh vườn trên hoa trắng, gợi vẻ trong trẻo, lãng mạn kiểu khu vườn mùa xuân.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/glass_garden_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/glass_garden_green.webp",
+    "thumbnail": "/images/template-previews/listing/glass_garden_green.webp",
+    "preview": "/images/template-previews/full/glass_garden_green.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -941,23 +941,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "glass-garden-green-DhobMCBa.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-green/gallery_9.webp"
+      "/images/themes/glass-garden-green/gallery_1.webp",
+      "/images/themes/glass-garden-green/gallery_2.webp",
+      "/images/themes/glass-garden-green/gallery_3.webp",
+      "/images/themes/glass-garden-green/gallery_4.webp",
+      "/images/themes/glass-garden-green/gallery_5.webp",
+      "/images/themes/glass-garden-green/gallery_6.webp",
+      "/images/themes/glass-garden-green/gallery_7.webp",
+      "/images/themes/glass-garden-green/gallery_8.webp",
+      "/images/themes/glass-garden-green/gallery_9.webp"
     ]
   },
   {
     "slug": "hoa-tulip-xanh-reu",
     "name": "Hoa Tulip - Xanh Rêu",
     "description": "Thiệp tulip trắng và ngọc trai trên nền lụa kem: Save the Date giữa khung hoa, hai nhà, dải xanh rêu kính mời, giờ ngày tiệc và âm lịch, địa điểm có nút chỉ đường, polaroid và lịch tháng, timeline, đếm ngược, cụm ảnh và album trượt.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/tulip_olive.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/tulip_olive.webp",
+    "thumbnail": "/images/template-previews/listing/tulip_olive.webp",
+    "preview": "/images/template-previews/full/tulip_olive.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -991,24 +991,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "tulip-olive-DGNe6Zdo.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/tulip-olive/hero-bg.webp",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_8.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_6.jpg"
+      "/images/themes/tulip-olive/hero-bg.webp",
+      "/images/themes/thanhdiep-green/groom.jpg",
+      "/images/themes/thanhdiep-green/bride.jpg",
+      "/images/themes/thanhdiep-green/gallery_4.jpg",
+      "/images/themes/thanhdiep-green/gallery_1.jpg",
+      "/images/themes/thanhdiep-green/gallery_7.jpg",
+      "/images/themes/thanhdiep-green/gallery_5.jpg",
+      "/images/themes/thanhdiep-green/gallery_3.jpg",
+      "/images/themes/thanhdiep-green/gallery_8.jpg",
+      "/images/themes/thanhdiep-green/gallery_6.jpg"
     ]
   },
   {
     "slug": "nhat-binh-do",
     "name": "Nhật Bình - Đỏ",
     "description": "Giấy kem ấm, chữ nâu cổ điển và điểm nhấn đỏ son; mây, hoa và đèn lồng có parallax. Phong bì nâu, thẻ kem, con dấu 囍 — gợi áo Nhật Bình và thiệp cổ trang hiện đại.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/nhat_binh_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/nhat_binh_red.webp",
+    "thumbnail": "/images/template-previews/listing/nhat_binh_red.webp",
+    "preview": "/images/template-previews/full/nhat_binh_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1040,24 +1040,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "nhat-binh-red-CoVjeAcv.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_10.webp"
+      "/images/themes/nhat-binh-red/gallery_1.webp",
+      "/images/themes/nhat-binh-red/gallery_2.webp",
+      "/images/themes/nhat-binh-red/gallery_3.webp",
+      "/images/themes/nhat-binh-red/gallery_4.webp",
+      "/images/themes/nhat-binh-red/gallery_5.webp",
+      "/images/themes/nhat-binh-red/gallery_6.webp",
+      "/images/themes/nhat-binh-red/gallery_7.webp",
+      "/images/themes/nhat-binh-red/gallery_8.webp",
+      "/images/themes/nhat-binh-red/gallery_9.webp",
+      "/images/themes/nhat-binh-red/gallery_10.webp"
     ]
   },
   {
     "slug": "hoa-xanh-lam",
     "name": "Hoa Xanh - Lam",
     "description": "Tranh màu nước trời xanh nhạt và hoa xanh navy, ảnh cưới trong khung hoa tròn, đồng hồ đếm ngược ô vuông xanh đậm",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/blue_flowers.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/blue_flowers.webp",
+    "thumbnail": "/images/template-previews/listing/blue_flowers.webp",
+    "preview": "/images/template-previews/full/blue_flowers.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1091,23 +1091,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "blue-flowers-BmXBJRsp.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/blue-flowers/wreath-hero.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_8.webp"
+      "/images/themes/blue-flowers/wreath-hero.webp",
+      "/images/themes/blue-v1/gallery_1.webp",
+      "/images/themes/blue-v1/gallery_2.webp",
+      "/images/themes/blue-v1/gallery_3.webp",
+      "/images/themes/blue-v1/gallery_4.webp",
+      "/images/themes/blue-v1/gallery_5.webp",
+      "/images/themes/blue-v1/gallery_6.webp",
+      "/images/themes/blue-v1/gallery_7.webp",
+      "/images/themes/blue-v1/gallery_8.webp"
     ]
   },
   {
     "slug": "hoa-mau-lam",
     "name": "Hoa Màu - Lam",
     "description": "Hoa thêu dân gian châu Âu rực rỡ viền quanh tấm thiệp ngà, chữ xanh than đậm điểm đỏ son; phong bao mừng cưới cùng một bộ hoa thêu, vui tươi và ấm áp như một tấm khăn tay thủ công",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/folk_floral_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/folk_floral_blue.webp",
+    "thumbnail": "/images/template-previews/listing/folk_floral_blue.webp",
+    "preview": "/images/template-previews/full/folk_floral_blue.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1142,24 +1142,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "folk-floral-blue-BjCHPqik.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/folk-floral-blue/gallery_10.webp"
+      "/images/themes/folk-floral-blue/gallery_1.webp",
+      "/images/themes/folk-floral-blue/gallery_2.webp",
+      "/images/themes/folk-floral-blue/gallery_3.webp",
+      "/images/themes/folk-floral-blue/gallery_4.webp",
+      "/images/themes/folk-floral-blue/gallery_5.webp",
+      "/images/themes/folk-floral-blue/gallery_6.webp",
+      "/images/themes/folk-floral-blue/gallery_7.webp",
+      "/images/themes/folk-floral-blue/gallery_8.webp",
+      "/images/themes/folk-floral-blue/gallery_9.webp",
+      "/images/themes/folk-floral-blue/gallery_10.webp"
     ]
   },
   {
     "slug": "song-long-do",
     "name": "Song Long - Đỏ",
     "description": "Phong cách truyền thống với họa tiết rồng đôi",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/double_dragon_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/double_dragon_red.webp",
+    "thumbnail": "/images/template-previews/listing/double_dragon_red.webp",
+    "preview": "/images/template-previews/full/double_dragon_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1189,24 +1189,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "song-long-do-ocjjjWbP.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/songlong-red/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-red/gallery_8.jpg"
+      "/images/themes/songlong-red/groom.jpg",
+      "/images/themes/songlong-red/bride.jpg",
+      "/images/themes/songlong-red/gallery_1.jpg",
+      "/images/themes/songlong-red/gallery_2.jpg",
+      "/images/themes/songlong-red/gallery_3.jpg",
+      "/images/themes/songlong-red/gallery_4.jpg",
+      "/images/themes/songlong-red/gallery_5.jpg",
+      "/images/themes/songlong-red/gallery_6.jpg",
+      "/images/themes/songlong-red/gallery_7.jpg",
+      "/images/themes/songlong-red/gallery_8.jpg"
     ]
   },
   {
     "slug": "chuyen-bay-nau",
     "name": "Chuyến Bay - Nâu",
     "description": "Thiệp chủ đề du lịch tông nâu vàng: ảnh cưới \"Getting Married!\", phong bì kẹp vé máy bay \"Our Love Flight\" và hộ chiếu, khung lời mời có huy hiệu chữ lồng, lịch cưới trên ảnh nền, lịch trình dọc, dòng thời gian chuyện tình và album ảnh.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/love_flight_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/love_flight_brown.webp",
+    "thumbnail": "/images/template-previews/listing/love_flight_brown.webp",
+    "preview": "/images/template-previews/full/love_flight_brown.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1241,15 +1241,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "love-flight-brown-CHQm-9ey.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/love_flight_brown.webp"
+      "/images/template-previews/full/love_flight_brown.webp"
     ]
   },
   {
     "slug": "long-phung-do",
     "name": "Long Phụng - Đỏ",
     "description": "Cổ điển với họa tiết rồng phượng truyền thống",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/dragon_phoenix_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/dragon_phoenix_red.webp",
+    "thumbnail": "/images/template-previews/listing/dragon_phoenix_red.webp",
+    "preview": "/images/template-previews/full/dragon_phoenix_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1279,19 +1279,19 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "red-v1-XzUKfCfL.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/red-v1/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/red-v1/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/red-v1/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/red-v1/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/red-v1/gallery_5.jpg"
+      "/images/themes/red-v1/gallery_1.jpg",
+      "/images/themes/red-v1/gallery_2.jpg",
+      "/images/themes/red-v1/gallery_3.jpg",
+      "/images/themes/red-v1/gallery_4.jpg",
+      "/images/themes/red-v1/gallery_5.jpg"
     ]
   },
   {
     "slug": "hong-mon-do",
     "name": "Anthurium - Đỏ",
     "description": "Chữ đỏ rượu trên nền kem, phong bì đỏ rượu kẹp ảnh cưới giữa hoa rum trắng và bó hồng môn, trái tim ren in ngày cưới, thẻ nhung đỏ thông tin lễ cưới và tiệc cưới, đếm ngược, lịch tháng, bản đồ, dress code và lịch trình có biểu tượng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/anthurium_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/anthurium_red.webp",
+    "thumbnail": "/images/template-previews/listing/anthurium_red.webp",
+    "preview": "/images/template-previews/full/anthurium_red.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1325,21 +1325,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "anthurium-red-C6y3Lahg.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_2.webp"
+      "/images/themes/silk-ribbon-darkred/gallery_3.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_1.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_4.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_6.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_5.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_7.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_2.webp"
     ]
   },
   {
     "slug": "cam-tu-cau-tim",
     "name": "Cẩm Tú Cầu - Tím",
     "description": "Thiệp navy trên giấy trắng vân đá: thẻ Save the Date giữa hoa cẩm tú cầu tím lam, hai nhà, tên đầy đủ cô dâu chú rể, hôn lễ trong khung lượn sóng, lời mời có tên khách, giờ ngày tiệc và âm lịch, địa chỉ có nút chỉ đường, lời nhắn viết tay, lịch tháng trên ảnh cưới, đếm ngược và album hai cột.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/hydrangea_purple.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/hydrangea_purple.webp",
+    "thumbnail": "/images/template-previews/listing/hydrangea_purple.webp",
+    "preview": "/images/template-previews/full/hydrangea_purple.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1373,24 +1373,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "hydrangea-purple-BrbcB_jm.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/hydrangea-purple/hero.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_12.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_6.webp"
+      "/images/themes/hydrangea-purple/hero.webp",
+      "/images/themes/blue-v1/gallery_5.webp",
+      "/images/themes/blue-v1/gallery_2.webp",
+      "/images/themes/blue-v1/gallery_3.webp",
+      "/images/themes/blue-v1/gallery_4.webp",
+      "/images/themes/blue-v1/gallery_7.webp",
+      "/images/themes/blue-v1/gallery_12.webp",
+      "/images/themes/blue-v1/gallery_8.webp",
+      "/images/themes/blue-v1/gallery_9.webp",
+      "/images/themes/blue-v1/gallery_6.webp"
     ]
   },
   {
     "slug": "long-phung-v2-do",
     "name": "Long Phụng V2 - Đỏ",
     "description": "Cổ điển hiện đại với họa tiết rồng phượng tinh tế",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/dragon_phoenix_v2_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/dragon_phoenix_v2_red.webp",
+    "thumbnail": "/images/template-previews/listing/dragon_phoenix_v2_red.webp",
+    "preview": "/images/template-previews/full/dragon_phoenix_v2_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1422,18 +1422,18 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "longphung-v2-red-DHfmkFA_.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/longphung-v2-red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v2-red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v2-red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v2-red/gallery_4.jpg"
+      "/images/themes/longphung-v2-red/gallery_1.jpg",
+      "/images/themes/longphung-v2-red/gallery_2.jpg",
+      "/images/themes/longphung-v2-red/gallery_3.jpg",
+      "/images/themes/longphung-v2-red/gallery_4.jpg"
     ]
   },
   {
     "slug": "minimalism-nau-dam",
     "name": "Minimalism - Nâu Đậm",
     "description": "Tối giản trên nền giấy ngà, tông nâu đậm với hoa nâu vẽ tay và một tấm ảnh polaroid lồng trong phong bì",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/minimalism_darkbrown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/minimalism_darkbrown.webp",
+    "thumbnail": "/images/template-previews/listing/minimalism_darkbrown.webp",
+    "preview": "/images/template-previews/full/minimalism_darkbrown.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1466,15 +1466,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "minimalism-nau-dam-ClBQRmlb.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/minimalism_darkbrown.webp"
+      "/images/template-previews/full/minimalism_darkbrown.webp"
     ]
   },
   {
     "slug": "song-phung-do",
     "name": "Song Phụng - Đỏ",
     "description": "Thanh lịch với họa tiết đôi phụng hoàng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/double_phoenix_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/double_phoenix_red.webp",
+    "thumbnail": "/images/template-previews/listing/double_phoenix_red.webp",
+    "preview": "/images/template-previews/full/double_phoenix_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1506,20 +1506,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "songphung-red-BpGOTki8.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/songphung-red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/songphung-red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/songphung-red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/songphung-red/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/songphung-red/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/songphung-red/gallery_6.jpg"
+      "/images/themes/songphung-red/gallery_1.jpg",
+      "/images/themes/songphung-red/gallery_2.jpg",
+      "/images/themes/songphung-red/gallery_3.jpg",
+      "/images/themes/songphung-red/gallery_4.jpg",
+      "/images/themes/songphung-red/gallery_5.jpg",
+      "/images/themes/songphung-red/gallery_6.jpg"
     ]
   },
   {
     "slug": "cam-tu-cau-lam",
     "name": "Cẩm Tú Cầu - Lam",
     "description": "Nền giấy trắng vân với hoa cẩm tú cầu giấy nổi khối, chữ xanh tím than, ảnh cưới mép giấy xé, phong bì kẹp hai ảnh, \"Save the date\", chuyện tình dạng dòng thời gian và lịch trình bốn biểu tượng nét",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/paper_hydrangea_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/paper_hydrangea_blue.webp",
+    "thumbnail": "/images/template-previews/listing/paper_hydrangea_blue.webp",
+    "preview": "/images/template-previews/full/paper_hydrangea_blue.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1551,23 +1551,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "paper-hydrangea-blue-BdlXa3rM.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/paper-hydrangea-blue/hero-flowers.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_1.webp"
+      "/images/themes/paper-hydrangea-blue/hero-flowers.webp",
+      "/images/themes/crystal-floral-blue/gallery_3.webp",
+      "/images/themes/crystal-floral-blue/gallery_5.webp",
+      "/images/themes/crystal-floral-blue/gallery_4.webp",
+      "/images/themes/crystal-floral-blue/gallery_2.webp",
+      "/images/themes/crystal-floral-blue/gallery_6.webp",
+      "/images/themes/crystal-floral-blue/gallery_8.webp",
+      "/images/themes/crystal-floral-blue/gallery_7.webp",
+      "/images/themes/crystal-floral-blue/gallery_1.webp"
     ]
   },
   {
     "slug": "mai-lan-trang",
     "name": "Mai Lan - Trắng",
     "description": "Tối giản hiện đại với nền kem trắng và sắc xanh olive",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/jasmine_white.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/jasmine_white.webp",
+    "thumbnail": "/images/template-previews/listing/jasmine_white.webp",
+    "preview": "/images/template-previews/full/jasmine_white.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1599,21 +1599,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "mai-lan-trang-DsY6BnFg.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/moclan-white/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/moclan-white/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/moclan-white/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/moclan-white/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/moclan-white/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/moclan-white/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/moclan-white/gallery_7.webp"
+      "/images/themes/moclan-white/gallery_1.webp",
+      "/images/themes/moclan-white/gallery_2.webp",
+      "/images/themes/moclan-white/gallery_3.webp",
+      "/images/themes/moclan-white/gallery_4.webp",
+      "/images/themes/moclan-white/gallery_5.webp",
+      "/images/themes/moclan-white/gallery_6.webp",
+      "/images/themes/moclan-white/gallery_7.webp"
     ]
   },
   {
     "slug": "happy-flowers-nau",
     "name": "Happy Flowers - Nâu",
     "description": "Giấy trắng vân với lá xanh màu nước đung đưa, sóng nâu đất ngăn từng mục, tên viết tay và lịch trình trên trục xanh lá",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/happy_flowers_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/happy_flowers_brown.webp",
+    "thumbnail": "/images/template-previews/listing/happy_flowers_brown.webp",
+    "preview": "/images/template-previews/full/happy_flowers_brown.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1648,22 +1648,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "happy-flowers-brown-BvcnjWnT.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_5.webp"
+      "/images/themes/boho-floral-green/gallery_2.webp",
+      "/images/themes/boho-floral-green/gallery_8.webp",
+      "/images/themes/boho-floral-green/gallery_3.webp",
+      "/images/themes/boho-floral-green/gallery_4.webp",
+      "/images/themes/boho-floral-green/gallery_1.webp",
+      "/images/themes/boho-floral-green/gallery_6.webp",
+      "/images/themes/boho-floral-green/gallery_7.webp",
+      "/images/themes/boho-floral-green/gallery_5.webp"
     ]
   },
   {
     "slug": "thanh-diep-xanh",
     "name": "Thanh Diệp - Xanh",
     "description": "Thanh lịch với tông xanh lá thanh diệp",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/elegant_leaf_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/elegant_leaf_green.webp",
+    "thumbnail": "/images/template-previews/listing/elegant_leaf_green.webp",
+    "preview": "/images/template-previews/full/elegant_leaf_green.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1695,24 +1695,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "thanhdiep-green-hlfX-dNI.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/thanhdiep-green/gallery_8.jpg"
+      "/images/themes/thanhdiep-green/groom.jpg",
+      "/images/themes/thanhdiep-green/bride.jpg",
+      "/images/themes/thanhdiep-green/gallery_1.jpg",
+      "/images/themes/thanhdiep-green/gallery_2.jpg",
+      "/images/themes/thanhdiep-green/gallery_3.jpg",
+      "/images/themes/thanhdiep-green/gallery_4.jpg",
+      "/images/themes/thanhdiep-green/gallery_5.jpg",
+      "/images/themes/thanhdiep-green/gallery_6.jpg",
+      "/images/themes/thanhdiep-green/gallery_7.jpg",
+      "/images/themes/thanhdiep-green/gallery_8.jpg"
     ]
   },
   {
     "slug": "thuoc-phim-be",
     "name": "Thước Phim - Be",
     "description": "Thiệp nâu be trên nền giấy hoa chìm: ảnh cưới \"We get married!\", đếm ngược và phong bì kẹp ảnh, ảnh Save the Date, ảnh polaroid cô dâu chú rể, cuộn phim và album ảnh ghép, lịch tháng cưới, lịch trình trên ảnh nền — mộc mạc và ấm áp.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/film_beige.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/film_beige.webp",
+    "thumbnail": "/images/template-previews/listing/film_beige.webp",
+    "preview": "/images/template-previews/full/film_beige.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1748,24 +1748,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "film-beige-DzTxhXUd.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/silkflora-brown/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/silkflora-brown/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-brown/hero.jpg",
-      "https://cdn.thieponline.app/images/themes/film-beige/groom.webp",
-      "https://cdn.thieponline.app/images/themes/film-beige/bride.webp",
-      "https://cdn.thieponline.app/images/themes/silkflora-brown/gallery_1.webp"
+      "/images/themes/minimalism-brown/gallery_2.jpg",
+      "/images/themes/minimalism-brown/gallery_5.jpg",
+      "/images/themes/silkflora-brown/gallery_4.webp",
+      "/images/themes/minimalism-brown/gallery_3.jpg",
+      "/images/themes/minimalism-brown/gallery_6.jpg",
+      "/images/themes/silkflora-brown/gallery_2.webp",
+      "/images/themes/minimalism-brown/hero.jpg",
+      "/images/themes/film-beige/groom.webp",
+      "/images/themes/film-beige/bride.webp",
+      "/images/themes/silkflora-brown/gallery_1.webp"
     ]
   },
   {
     "slug": "minimalism-do",
     "name": "Minimalism - Đỏ",
     "description": "Tối giản thanh lịch với nền trắng tinh tế và sắc đỏ chủ đạo",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/minimalism_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/minimalism_red.webp",
+    "thumbnail": "/images/template-previews/listing/minimalism_red.webp",
+    "preview": "/images/template-previews/full/minimalism_red.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1796,22 +1796,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "minimalism-do-BFNciJDF.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-red/gallery_8.webp"
+      "/images/themes/minimalism-red/gallery_1.webp",
+      "/images/themes/minimalism-red/gallery_2.webp",
+      "/images/themes/minimalism-red/gallery_3.webp",
+      "/images/themes/minimalism-red/gallery_4.webp",
+      "/images/themes/minimalism-red/gallery_5.webp",
+      "/images/themes/minimalism-red/gallery_6.webp",
+      "/images/themes/minimalism-red/gallery_7.webp",
+      "/images/themes/minimalism-red/gallery_8.webp"
     ]
   },
   {
     "slug": "minimalism-hong-tra",
     "name": "Minimalism - Hồng Trà",
     "description": "Phong bì mauve mở ra khoe ảnh cưới, hoa hồng trà và mẫu đơn trắng kem rủ quanh từng thẻ giấy dập nổi trên nền toà lâu đài mờ — lãng mạn, trầm ấm và rất nữ tính.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/minimalism_tearose.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/minimalism_tearose.webp",
+    "thumbnail": "/images/template-previews/listing/minimalism_tearose.webp",
+    "preview": "/images/template-previews/full/minimalism_tearose.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1848,22 +1848,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "minimalism-hong-tra-B7p_wnJ2.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-tea-rose/hero.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-tea-rose/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-tea-rose/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-tea-rose/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-tea-rose/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-tea-rose/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-tea-rose/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-tea-rose/gallery_7.webp"
+      "/images/themes/minimalism-tea-rose/hero.webp",
+      "/images/themes/minimalism-tea-rose/gallery_1.webp",
+      "/images/themes/minimalism-tea-rose/gallery_2.webp",
+      "/images/themes/minimalism-tea-rose/gallery_3.webp",
+      "/images/themes/minimalism-tea-rose/gallery_4.webp",
+      "/images/themes/minimalism-tea-rose/gallery_5.webp",
+      "/images/themes/minimalism-tea-rose/gallery_6.webp",
+      "/images/themes/minimalism-tea-rose/gallery_7.webp"
     ]
   },
   {
     "slug": "song-long-xanh",
     "name": "Song Long - Xanh",
     "description": "Thanh lịch với tông màu xanh lá tự nhiên",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/double_dragon_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/double_dragon_green.webp",
+    "thumbnail": "/images/template-previews/listing/double_dragon_green.webp",
+    "preview": "/images/template-previews/full/double_dragon_green.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1893,22 +1893,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "song-long-xanh-Dp0MAGnb.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/songlong-green/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-green/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-green/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-green/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-green/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-green/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-green/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-green/gallery_6.jpg"
+      "/images/themes/songlong-green/groom.jpg",
+      "/images/themes/songlong-green/bride.jpg",
+      "/images/themes/songlong-green/gallery_1.jpg",
+      "/images/themes/songlong-green/gallery_2.jpg",
+      "/images/themes/songlong-green/gallery_3.jpg",
+      "/images/themes/songlong-green/gallery_4.jpg",
+      "/images/themes/songlong-green/gallery_5.jpg",
+      "/images/themes/songlong-green/gallery_6.jpg"
     ]
   },
   {
     "slug": "co-phuc-nau",
     "name": "Cổ Phục - Nâu",
     "description": "Ảnh cưới tràn khổ với tên viết tay, nền giấy thạch cao trắng, vòng hạc mây ôm ấn đỏ son in ngày cưới, thiệp mời giấy xé có góc hoa văn và ấn song hỷ, đếm ngược, ảnh cô dâu chú rể, lịch trình biểu tượng khắc nét và album ảnh ghép",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/heritage_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/heritage_brown.webp",
+    "thumbnail": "/images/template-previews/listing/heritage_brown.webp",
+    "preview": "/images/template-previews/full/heritage_brown.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1942,24 +1942,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "heritage-brown-BhyIBPa-.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/nhat-binh-red/gallery_10.webp"
+      "/images/themes/nhat-binh-red/gallery_8.webp",
+      "/images/themes/nhat-binh-red/gallery_4.webp",
+      "/images/themes/nhat-binh-red/gallery_6.webp",
+      "/images/themes/nhat-binh-red/gallery_3.webp",
+      "/images/themes/nhat-binh-red/gallery_9.webp",
+      "/images/themes/nhat-binh-red/gallery_1.webp",
+      "/images/themes/nhat-binh-red/gallery_2.webp",
+      "/images/themes/nhat-binh-red/gallery_5.webp",
+      "/images/themes/nhat-binh-red/gallery_7.webp",
+      "/images/themes/nhat-binh-red/gallery_10.webp"
     ]
   },
   {
     "slug": "chibi-red",
     "name": "Chibi - Đỏ",
     "description": "Dễ thương với phong cách chibi minh họa",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/chibi_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/chibi_red.webp",
+    "thumbnail": "/images/template-previews/listing/chibi_red.webp",
+    "preview": "/images/template-previews/full/chibi_red.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -1992,24 +1992,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "chibi-red-BYMGske7.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/chibi_red/couple-main.webp",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_8.jpg",
-      "https://cdn.thieponline.app/images/themes/chibi_red/gallery_9.jpg"
+      "/images/themes/chibi_red/couple-main.webp",
+      "/images/themes/chibi_red/gallery_1.jpg",
+      "/images/themes/chibi_red/gallery_2.jpg",
+      "/images/themes/chibi_red/gallery_3.jpg",
+      "/images/themes/chibi_red/gallery_4.jpg",
+      "/images/themes/chibi_red/gallery_5.jpg",
+      "/images/themes/chibi_red/gallery_6.jpg",
+      "/images/themes/chibi_red/gallery_7.jpg",
+      "/images/themes/chibi_red/gallery_8.jpg",
+      "/images/themes/chibi_red/gallery_9.jpg"
     ]
   },
   {
     "slug": "thu-tinh-do",
     "name": "Thư Tình - Đỏ",
     "description": "Thiệp chữ đỏ rượu trên nền màu nước hồng: chữ lồng hai tên, phong bì đỏ rượu có hai ảnh polaroid và thẻ tên giữa hoa hồng, lời mời, hai nhà, ảnh cưới lớn, giờ ngày tiệc và âm lịch, địa điểm có nút chỉ đường, lịch Save our Date, album trượt, đếm ngược và ảnh kết.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/love_letter_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/love_letter_red.webp",
+    "thumbnail": "/images/template-previews/listing/love_letter_red.webp",
+    "preview": "/images/template-previews/full/love_letter_red.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2044,24 +2044,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "love-letter-red-D0cghqo5.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/love-letter-red/hero-flowers-back.webp",
-      "https://thieponline.app/images/themes/love-letter-red/hero-flowers-left.webp",
-      "https://thieponline.app/images/themes/love-letter-red/hero-flowers-right.webp",
-      "https://thieponline.app/images/themes/love-letter-red/album-flourish.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_10.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_2.webp"
+      "/images/themes/love-letter-red/hero-flowers-back.webp",
+      "/images/themes/love-letter-red/hero-flowers-left.webp",
+      "/images/themes/love-letter-red/hero-flowers-right.webp",
+      "/images/themes/love-letter-red/album-flourish.webp",
+      "/images/themes/royal-red/gallery_4.webp",
+      "/images/themes/royal-red/gallery_8.webp",
+      "/images/themes/royal-red/gallery_6.webp",
+      "/images/themes/royal-red/gallery_7.webp",
+      "/images/themes/royal-red/gallery_10.webp",
+      "/images/themes/royal-red/gallery_2.webp"
     ]
   },
   {
     "slug": "hoa-lua-nau",
     "name": "Hoa Lụa - Nâu",
     "description": "Thiệp cưới tối giản tông ấm, nhấn vào typography và nội dung, phù hợp phong cách thanh lịch hiện đại",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/silk_flora_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/silk_flora_brown.webp",
+    "thumbnail": "/images/template-previews/listing/silk_flora_brown.webp",
+    "preview": "/images/template-previews/full/silk_flora_brown.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2094,15 +2094,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "silk-flora-brown-DfeVh_aX.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/silk_flora_brown.webp"
+      "/images/template-previews/full/silk_flora_brown.webp"
     ]
   },
   {
     "slug": "ren-theu-trang",
     "name": "Ren Thêu - Trắng",
     "description": "Nền lụa đen mềm mại ôm lấy những tấm giấy trắng viền ren thêu nổi, ảnh cưới đen trắng nghiêng nhẹ trong phong bì ren, điểm thêm hoa mẫu đơn trắng và nhành khô màu be",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/applique_lace_white.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/applique_lace_white.webp",
+    "thumbnail": "/images/template-previews/listing/applique_lace_white.webp",
+    "preview": "/images/template-previews/full/applique_lace_white.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2137,15 +2137,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "applique-lace-white-CWPbyLPj.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/applique_lace_white.webp"
+      "/images/template-previews/full/applique_lace_white.webp"
     ]
   },
   {
     "slug": "vuon-xuan-do",
     "name": "Vườn Xuân - Đỏ",
     "description": "Thiên nhiên ấm áp với sắc đỏ tươi tắn",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/spring_garden_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/spring_garden_red.webp",
+    "thumbnail": "/images/template-previews/listing/spring_garden_red.webp",
+    "preview": "/images/template-previews/full/spring_garden_red.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2175,19 +2175,19 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "spring-garden-red-CrxBivys.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/vuon xuan red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/vuon xuan red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/vuon xuan red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/vuon xuan red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/vuon xuan red/gallery_5.webp"
+      "/images/themes/vuon xuan red/gallery_1.webp",
+      "/images/themes/vuon xuan red/gallery_2.webp",
+      "/images/themes/vuon xuan red/gallery_3.webp",
+      "/images/themes/vuon xuan red/gallery_4.webp",
+      "/images/themes/vuon xuan red/gallery_5.webp"
     ]
   },
   {
     "slug": "hoa-kho-do",
     "name": "Hoa Khô - Đỏ",
     "description": "Thược dược, cúc khô và lá thu vẽ màu nước tông đỏ tươi ôm lấy khung hình học mạ vàng, tên cô dâu chú rể viết tay giữa khung — rực rỡ mà vẫn mộc.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/hoa_kho_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/hoa_kho_red.webp",
+    "thumbnail": "/images/template-previews/listing/hoa_kho_red.webp",
+    "preview": "/images/template-previews/full/hoa_kho_red.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2221,22 +2221,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "hoa-kho-red-CYH05h_y.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/hoa-kho-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-red/gallery_8.webp"
+      "/images/themes/hoa-kho-red/gallery_1.webp",
+      "/images/themes/hoa-kho-red/gallery_2.webp",
+      "/images/themes/hoa-kho-red/gallery_3.webp",
+      "/images/themes/hoa-kho-red/gallery_4.webp",
+      "/images/themes/hoa-kho-red/gallery_5.webp",
+      "/images/themes/hoa-kho-red/gallery_6.webp",
+      "/images/themes/hoa-kho-red/gallery_7.webp",
+      "/images/themes/hoa-kho-red/gallery_8.webp"
     ]
   },
   {
     "slug": "hoa-moc-nau",
     "name": "Hoa Mộc - Nâu",
     "description": "Hoa mộc watercolor với tông nâu ấm áp, thanh nhã",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/boho_floral_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/boho_floral_brown.webp",
+    "thumbnail": "/images/template-previews/listing/boho_floral_brown.webp",
+    "preview": "/images/template-previews/full/boho_floral_brown.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2267,15 +2267,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "boho-floral-brown-Cuo4iEkF.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/boho_floral_brown.webp"
+      "/images/template-previews/full/boho_floral_brown.webp"
     ]
   },
   {
     "slug": "thien-nga-do",
     "name": "Thiên Nga - Đỏ",
     "description": "Thiệp nền giấy mỹ thuật chữ đỏ đô: ảnh cưới chuyển dần sang đỏ, đôi thiên nga và hoa vẽ nét, mỗi buổi tiệc nhà trai, nhà gái một địa điểm và nút chỉ đường riêng — hiện đại và ấm cúng.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/swan_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/swan_red.webp",
+    "thumbnail": "/images/template-previews/listing/swan_red.webp",
+    "preview": "/images/template-previews/full/swan_red.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2309,22 +2309,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "swan-red-BBSXBcQg.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_7.webp"
+      "/images/themes/porcelain-v2-red/gallery_5.webp",
+      "/images/themes/porcelain-v2-red/gallery_1.webp",
+      "/images/themes/porcelain-v2-red/gallery_8.webp",
+      "/images/themes/porcelain-v2-red/gallery_3.webp",
+      "/images/themes/porcelain-v2-red/gallery_4.webp",
+      "/images/themes/porcelain-v2-red/gallery_2.webp",
+      "/images/themes/porcelain-v2-red/gallery_6.webp",
+      "/images/themes/porcelain-v2-red/gallery_7.webp"
     ]
   },
   {
     "slug": "long-phung-xanh",
     "name": "Long Phụng - Xanh",
     "description": "Cổ điển với họa tiết rồng phượng truyền thống",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/dragon_phoenix_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/dragon_phoenix_green.webp",
+    "thumbnail": "/images/template-previews/listing/dragon_phoenix_green.webp",
+    "preview": "/images/template-previews/full/dragon_phoenix_green.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2354,18 +2354,18 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "green-v1-Dfa5c-IQ.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/green-v1/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/green-v1/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/green-v1/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/green-v1/gallery_4.jpg"
+      "/images/themes/green-v1/gallery_1.jpg",
+      "/images/themes/green-v1/gallery_2.jpg",
+      "/images/themes/green-v1/gallery_3.jpg",
+      "/images/themes/green-v1/gallery_4.jpg"
     ]
   },
   {
     "slug": "hoa-kho-nau-dat",
     "name": "Hoa Khô - Nâu Đất",
     "description": "Thược dược, cúc khô và lá thu vẽ màu nước tông gạch nung phủ quanh khung vòm giấy kem — ấm, mộc và rất boho.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/hoa_kho_terracotta.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/hoa_kho_terracotta.webp",
+    "thumbnail": "/images/template-previews/listing/hoa_kho_terracotta.webp",
+    "preview": "/images/template-previews/full/hoa_kho_terracotta.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2401,22 +2401,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "hoa-kho-terracotta-DOMyTIhM.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/hoa-kho-terracotta/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-terracotta/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-terracotta/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-terracotta/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-terracotta/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-terracotta/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-terracotta/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-terracotta/gallery_8.webp"
+      "/images/themes/hoa-kho-terracotta/gallery_1.webp",
+      "/images/themes/hoa-kho-terracotta/gallery_2.webp",
+      "/images/themes/hoa-kho-terracotta/gallery_3.webp",
+      "/images/themes/hoa-kho-terracotta/gallery_4.webp",
+      "/images/themes/hoa-kho-terracotta/gallery_5.webp",
+      "/images/themes/hoa-kho-terracotta/gallery_6.webp",
+      "/images/themes/hoa-kho-terracotta/gallery_7.webp",
+      "/images/themes/hoa-kho-terracotta/gallery_8.webp"
     ]
   },
   {
     "slug": "vuon-xuan-xanh",
     "name": "Vườn Xuân - Xanh",
     "description": "Thiên nhiên tươi mát với họa tiết lá cây",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/spring_garden_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/spring_garden_green.webp",
+    "thumbnail": "/images/template-previews/listing/spring_garden_green.webp",
+    "preview": "/images/template-previews/full/spring_garden_green.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2446,24 +2446,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "spring-garden-green-B5FeUdsA.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/nature/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/nature/gallery_10.webp"
+      "/images/themes/nature/gallery_1.webp",
+      "/images/themes/nature/gallery_2.webp",
+      "/images/themes/nature/gallery_3.webp",
+      "/images/themes/nature/gallery_4.webp",
+      "/images/themes/nature/gallery_5.webp",
+      "/images/themes/nature/gallery_6.webp",
+      "/images/themes/nature/gallery_7.webp",
+      "/images/themes/nature/gallery_8.webp",
+      "/images/themes/nature/gallery_9.webp",
+      "/images/themes/nature/gallery_10.webp"
     ]
   },
   {
     "slug": "thanhcung-lam",
     "name": "Thanh Cung - Lam",
     "description": "Cung điện mái vòm lam ngọc soi bóng giữa rặng cọ, rèm lụa buông hai bên cùng đèn lồng đồng treo lơ lửng; nền giấy ngà ấm điểm hoa nhài trắng và những đường viền vàng tinh xảo, gợi vẻ vương giả dịu dàng của một đám cưới phương Đông",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/qasr_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/qasr_blue.webp",
+    "thumbnail": "/images/template-previews/listing/qasr_blue.webp",
+    "preview": "/images/template-previews/full/qasr_blue.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2497,24 +2497,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "qasr-blue-C003kONe.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/qasr-blue/gallery_10.webp"
+      "/images/themes/qasr-blue/gallery_1.webp",
+      "/images/themes/qasr-blue/gallery_2.webp",
+      "/images/themes/qasr-blue/gallery_3.webp",
+      "/images/themes/qasr-blue/gallery_4.webp",
+      "/images/themes/qasr-blue/gallery_5.webp",
+      "/images/themes/qasr-blue/gallery_6.webp",
+      "/images/themes/qasr-blue/gallery_7.webp",
+      "/images/themes/qasr-blue/gallery_8.webp",
+      "/images/themes/qasr-blue/gallery_9.webp",
+      "/images/themes/qasr-blue/gallery_10.webp"
     ]
   },
   {
     "slug": "lau-dai-xanh",
     "name": "Lâu Đài - Xanh",
     "description": "Phong cách lâu đài châu Âu phiên bản vườn xanh, biệt thự nước màu watercolor với cây cối, vòi phun và hoa nhỏ; tông xanh lá rừng trên nền trắng, cảm giác lãng mạn, gần gũi thiên nhiên.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/chateau_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/chateau_green.webp",
+    "thumbnail": "/images/template-previews/listing/chateau_green.webp",
+    "preview": "/images/template-previews/full/chateau_green.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2548,22 +2548,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "chateau-green-KlDvRx9F.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_8.jpg"
+      "/images/themes/chateau-green/gallery_1.jpg",
+      "/images/themes/chateau-green/gallery_2.jpg",
+      "/images/themes/chateau-green/gallery_3.jpg",
+      "/images/themes/chateau-green/gallery_4.jpg",
+      "/images/themes/chateau-green/gallery_5.jpg",
+      "/images/themes/chateau-green/gallery_6.jpg",
+      "/images/themes/chateau-green/gallery_7.jpg",
+      "/images/themes/chateau-green/gallery_8.jpg"
     ]
   },
   {
     "slug": "lau-dai-hoa-xanh",
     "name": "Lâu Đài Hoa - Xanh",
     "description": "Vòm cung viền vàng giữa vườn hoa và thánh đường dưới trời xanh, khung vòm ảnh cô dâu chú rể, đếm ngược Save The Date, thẻ lễ có tranh vườn làm khung và chuyện tình dạng dòng thời gian",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/lau_dai_hoa_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/lau_dai_hoa_green.webp",
+    "thumbnail": "/images/template-previews/listing/lau_dai_hoa_green.webp",
+    "preview": "/images/template-previews/full/lau_dai_hoa_green.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2599,23 +2599,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "lau-dai-hoa-green-CTG6zJOQ.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_10.webp"
+      "/images/themes/silk-ribbon-pink/gallery_5.webp",
+      "/images/themes/silk-ribbon-pink/gallery_2.webp",
+      "/images/themes/silk-ribbon-pink/gallery_8.webp",
+      "/images/themes/silk-ribbon-pink/gallery_9.webp",
+      "/images/themes/silk-ribbon-pink/gallery_1.webp",
+      "/images/themes/silk-ribbon-pink/gallery_3.webp",
+      "/images/themes/silk-ribbon-pink/gallery_4.webp",
+      "/images/themes/silk-ribbon-pink/gallery_6.webp",
+      "/images/themes/silk-ribbon-pink/gallery_10.webp"
     ]
   },
   {
     "slug": "vuon-mong-lam",
     "name": "Vườn Mộng - Lam",
     "description": "Vườn hồ thiên nga màu nước rợp cẩm tú cầu xanh lam, nền hoa lá liền mạch, khung lục giác vàng và thẻ vòm hồng phấn viền vàng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/garden_dream_slate.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/garden_dream_slate.webp",
+    "thumbnail": "/images/template-previews/listing/garden_dream_slate.webp",
+    "preview": "/images/template-previews/full/garden_dream_slate.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2651,22 +2651,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "garden-dream-slate-DRjXuJbE.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_2.webp"
+      "/images/themes/glass-garden-blue/gallery_4.webp",
+      "/images/themes/glass-garden-blue/gallery_1.webp",
+      "/images/themes/glass-garden-blue/gallery_3.webp",
+      "/images/themes/glass-garden-blue/gallery_8.webp",
+      "/images/themes/glass-garden-blue/gallery_7.webp",
+      "/images/themes/glass-garden-blue/gallery_5.webp",
+      "/images/themes/glass-garden-blue/gallery_6.webp",
+      "/images/themes/glass-garden-blue/gallery_2.webp"
     ]
   },
   {
     "slug": "baroque-v2-do-dam",
     "name": "Baroque V2 - Đỏ Đậm",
     "description": "Nền đỏ đậm gần đen phủ hoa văn damask, khung tranh Baroque mạ vàng ôm ảnh cưới cùng hoa mẫu đơn đỏ rượu và kem; đường viền vàng, chữ Times New Roman và Cormorant Garamond, gợi vẻ cổ điển sang trọng kiểu châu Âu.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/baroque_v2_darkred.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/baroque_v2_darkred.webp",
+    "thumbnail": "/images/template-previews/listing/baroque_v2_darkred.webp",
+    "preview": "/images/template-previews/full/baroque_v2_darkred.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2701,22 +2701,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "baroque-v2-dark-red-CNM2Ra0e.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-red/hero.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-red/gallery_7.webp"
+      "/images/themes/baroque-v2-dark-red/hero.webp",
+      "/images/themes/baroque-v2-dark-red/gallery_1.webp",
+      "/images/themes/baroque-v2-dark-red/gallery_2.webp",
+      "/images/themes/baroque-v2-dark-red/gallery_3.webp",
+      "/images/themes/baroque-v2-dark-red/gallery_4.webp",
+      "/images/themes/baroque-v2-dark-red/gallery_5.webp",
+      "/images/themes/baroque-v2-dark-red/gallery_6.webp",
+      "/images/themes/baroque-v2-dark-red/gallery_7.webp"
     ]
   },
   {
     "slug": "riviera-lam",
     "name": "Riviera - Lam",
     "description": "Tranh màu nước vẽ ngôi làng bên hồ dưới chân núi kiểu Riviera, tông xanh lam và những nhánh hoa nở rực, nhẹ nhàng và thơ mộng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/riviera_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/riviera_blue.webp",
+    "thumbnail": "/images/template-previews/listing/riviera_blue.webp",
+    "preview": "/images/template-previews/full/riviera_blue.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2751,20 +2751,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "riviera-lam-CmYqV-QO.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/riviera-blue/flower-hero.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/riviera-blue/gallery_5.webp"
+      "/images/themes/riviera-blue/flower-hero.webp",
+      "/images/themes/riviera-blue/gallery_1.webp",
+      "/images/themes/riviera-blue/gallery_3.webp",
+      "/images/themes/riviera-blue/gallery_2.webp",
+      "/images/themes/riviera-blue/gallery_4.webp",
+      "/images/themes/riviera-blue/gallery_5.webp"
     ]
   },
   {
     "slug": "santorini-lam",
     "name": "Santorini - Lam",
     "description": "Tranh màu nước vẽ đảo Hy Lạp, những ngôi nhà trắng mái vòm xanh lam nối nhau xuống bậc đá, biển Aegean trong vắt và hoa giấy hồng rủ bên vách đá",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/santorini_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/santorini_blue.webp",
+    "thumbnail": "/images/template-previews/listing/santorini_blue.webp",
+    "preview": "/images/template-previews/full/santorini_blue.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2798,22 +2798,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "santorini-blue-D8qcD9B6.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_8.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-green/gallery_7.jpg"
+      "/images/themes/chateau-green/gallery_1.jpg",
+      "/images/themes/chateau-green/gallery_2.jpg",
+      "/images/themes/chateau-green/gallery_3.jpg",
+      "/images/themes/chateau-green/gallery_5.jpg",
+      "/images/themes/chateau-green/gallery_8.jpg",
+      "/images/themes/chateau-green/gallery_4.jpg",
+      "/images/themes/chateau-green/gallery_6.jpg",
+      "/images/themes/chateau-green/gallery_7.jpg"
     ]
   },
   {
     "slug": "anh-dao-hong",
     "name": "Anh Đào - Hồng",
     "description": "Lãng mạn với sắc hồng hoa anh đào",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/cherry_blossom_pink.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/cherry_blossom_pink.webp",
+    "thumbnail": "/images/template-previews/listing/cherry_blossom_pink.webp",
+    "preview": "/images/template-previews/full/cherry_blossom_pink.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2844,15 +2844,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "bank-gift-display-CaEfMy_m.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/cherry_blossom_pink.webp"
+      "/images/template-previews/full/cherry_blossom_pink.webp"
     ]
   },
   {
     "slug": "minimalism-xanh-dam",
     "name": "Minimalism - Lam Đậm",
     "description": "Tối giản trên nền giấy ngà, tông xanh navy với hoa xanh vẽ tay và hai tấm ảnh polaroid",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/minimalism_darkblue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/minimalism_darkblue.webp",
+    "thumbnail": "/images/template-previews/listing/minimalism_darkblue.webp",
+    "preview": "/images/template-previews/full/minimalism_darkblue.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2885,24 +2885,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "minimalism-xanh-dam-B28igFIQ.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_8.webp"
+      "/images/themes/minimalism-dark-blue/groom.jpg",
+      "/images/themes/minimalism-dark-blue/bride.jpg",
+      "/images/themes/minimalism-dark-blue/gallery_1.webp",
+      "/images/themes/minimalism-dark-blue/gallery_2.webp",
+      "/images/themes/minimalism-dark-blue/gallery_3.webp",
+      "/images/themes/minimalism-dark-blue/gallery_4.webp",
+      "/images/themes/minimalism-dark-blue/gallery_5.webp",
+      "/images/themes/minimalism-dark-blue/gallery_6.webp",
+      "/images/themes/minimalism-dark-blue/gallery_7.webp",
+      "/images/themes/minimalism-dark-blue/gallery_8.webp"
     ]
   },
   {
     "slug": "song-bien-lam",
     "name": "Sóng Biển - Lam",
     "description": "Nền giấy trắng, chữ navy và vàng đồng, khối giấy màu nước lam nối bằng mép giấy xé, phong bì navy lót tranh sóng biển kẹp hai ảnh, lịch tháng Save the Date, timeline đường cong và cụm ảnh The Album",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/ocean_wave_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/ocean_wave_blue.webp",
+    "thumbnail": "/images/template-previews/listing/ocean_wave_blue.webp",
+    "preview": "/images/template-previews/full/ocean_wave_blue.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2933,24 +2933,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "ocean-wave-blue-QrGZpuk6.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_11.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_1.webp"
+      "/images/themes/blue-v1/gallery_8.webp",
+      "/images/themes/blue-v1/gallery_6.webp",
+      "/images/themes/blue-v1/gallery_4.webp",
+      "/images/themes/blue-v1/gallery_2.webp",
+      "/images/themes/blue-v1/gallery_5.webp",
+      "/images/themes/blue-v1/gallery_7.webp",
+      "/images/themes/blue-v1/gallery_11.webp",
+      "/images/themes/blue-v1/gallery_3.webp",
+      "/images/themes/blue-v1/gallery_9.webp",
+      "/images/themes/blue-v1/gallery_1.webp"
     ]
   },
   {
     "slug": "hoa-hong-do-ruou",
     "name": "Hoa Hồng - Đỏ Rượu",
     "description": "Hồng phấn và hồng đỏ rượu trên nền thẻ nhung kẻ chỉ vàng, tên cô dâu chú rể viết tay mạ vàng, mở ra từ chiếc phong bì đỏ rượu niêm xi vàng.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/rose_burgundy.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/rose_burgundy.webp",
+    "thumbnail": "/images/template-previews/listing/rose_burgundy.webp",
+    "preview": "/images/template-previews/full/rose_burgundy.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -2986,23 +2986,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "hoa-hong-do-ruou-DP8vQ3vJ.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/hoa-hong-do-ruou/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-hong-do-ruou/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-hong-do-ruou/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-hong-do-ruou/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-hong-do-ruou/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-hong-do-ruou/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-hong-do-ruou/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-hong-do-ruou/gallery_8.webp",
-      "https://thieponline.app/images/themes/hoa-hong-do-ruou/hero.webp"
+      "/images/themes/hoa-hong-do-ruou/gallery_1.webp",
+      "/images/themes/hoa-hong-do-ruou/gallery_2.webp",
+      "/images/themes/hoa-hong-do-ruou/gallery_3.webp",
+      "/images/themes/hoa-hong-do-ruou/gallery_4.webp",
+      "/images/themes/hoa-hong-do-ruou/gallery_5.webp",
+      "/images/themes/hoa-hong-do-ruou/gallery_6.webp",
+      "/images/themes/hoa-hong-do-ruou/gallery_7.webp",
+      "/images/themes/hoa-hong-do-ruou/gallery_8.webp",
+      "/images/themes/hoa-hong-do-ruou/hero.webp"
     ]
   },
   {
     "slug": "hoa-moc-hong",
     "name": "Hoa Mộc - Hồng",
     "description": "Hoa mộc watercolor với tông hồng ấm lãng mạn trên nền kem trắng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/boho_floral_pink.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/boho_floral_pink.webp",
+    "thumbnail": "/images/template-previews/listing/boho_floral_pink.webp",
+    "preview": "/images/template-previews/full/boho_floral_pink.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3033,21 +3033,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "boho-floral-pink-CxNZBaGF.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/boho-floral-pink/groom.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-pink/bride.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-pink/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-pink/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-pink/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-pink/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-pink/gallery_5.webp"
+      "/images/themes/boho-floral-pink/groom.webp",
+      "/images/themes/boho-floral-pink/bride.webp",
+      "/images/themes/boho-floral-pink/gallery_1.webp",
+      "/images/themes/boho-floral-pink/gallery_2.webp",
+      "/images/themes/boho-floral-pink/gallery_3.webp",
+      "/images/themes/boho-floral-pink/gallery_4.webp",
+      "/images/themes/boho-floral-pink/gallery_5.webp"
     ]
   },
   {
     "slug": "baroque-lam",
     "name": "Baroque - Lam",
     "description": "Khung chạm rococo mạ vàng điểm xanh lam phấn nổi trên nền ngà phủ hoa văn damask; hai bên là cuộn lá acanthus và cột trụ cổ điển, khép lại bằng vòng hoa vỏ sò",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/baroque_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/baroque_blue.webp",
+    "thumbnail": "/images/template-previews/listing/baroque_blue.webp",
+    "preview": "/images/template-previews/full/baroque_blue.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3081,15 +3081,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "baroque-blue-DYt0Hoac.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/baroque_blue.webp"
+      "/images/template-previews/full/baroque_blue.webp"
     ]
   },
   {
     "slug": "hoang-gia-vang",
     "name": "Baroque - Vàng",
     "description": "Cảm hứng kiến trúc Baroque châu Âu: khung hoa văn mạ vàng cầu kỳ, hai cột trụ La Mã và nền damask kem; tông vàng đồng ấm điểm xanh ô-liu, gợi vẻ cổ điển xa hoa và lãng mạn.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/baroque_gold.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/baroque_gold.webp",
+    "thumbnail": "/images/template-previews/listing/baroque_gold.webp",
+    "preview": "/images/template-previews/full/baroque_gold.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3121,20 +3121,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "baroque-gold-BJIx3UEF.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/baroque-gold/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/baroque-gold/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/baroque-gold/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/baroque-gold/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/baroque-gold/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/baroque-gold/gallery_6.jpg"
+      "/images/themes/baroque-gold/gallery_1.jpg",
+      "/images/themes/baroque-gold/gallery_2.jpg",
+      "/images/themes/baroque-gold/gallery_3.jpg",
+      "/images/themes/baroque-gold/gallery_4.jpg",
+      "/images/themes/baroque-gold/gallery_5.jpg",
+      "/images/themes/baroque-gold/gallery_6.jpg"
     ]
   },
   {
     "slug": "van-da-vang",
     "name": "Vân Đá - Vàng",
     "description": "Nền đá cẩm thạch trắng ngà vân vàng óng, những nhành lá mạ vàng vươn vào từ hai mép thiệp, ảnh cưới nghiêng nhẹ trong khung chỉ vàng mảnh và chữ serif nâu đồng sang trọng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/marble_yellow.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/marble_yellow.webp",
+    "thumbnail": "/images/template-previews/listing/marble_yellow.webp",
+    "preview": "/images/template-previews/full/marble_yellow.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3169,24 +3169,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "marble-yellow-Bi6-_p1p.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/marble-yellow/groom.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/bride.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/marble-yellow/gallery_8.webp"
+      "/images/themes/marble-yellow/groom.webp",
+      "/images/themes/marble-yellow/bride.webp",
+      "/images/themes/marble-yellow/gallery_1.webp",
+      "/images/themes/marble-yellow/gallery_2.webp",
+      "/images/themes/marble-yellow/gallery_3.webp",
+      "/images/themes/marble-yellow/gallery_4.webp",
+      "/images/themes/marble-yellow/gallery_5.webp",
+      "/images/themes/marble-yellow/gallery_6.webp",
+      "/images/themes/marble-yellow/gallery_7.webp",
+      "/images/themes/marble-yellow/gallery_8.webp"
     ]
   },
   {
     "slug": "hoang-kim-do",
     "name": "Hoàng Kim - Đỏ",
     "description": "Sang trọng hoàng gia với nền đỏ thẫm và điểm nhấn vàng kim",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/royal_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/royal_red.webp",
+    "thumbnail": "/images/template-previews/listing/royal_red.webp",
+    "preview": "/images/template-previews/full/royal_red.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3216,24 +3216,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "royal-red-COz9YWqZ.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/royal-red/gallery_10.webp"
+      "/images/themes/royal-red/gallery_1.webp",
+      "/images/themes/royal-red/gallery_2.webp",
+      "/images/themes/royal-red/gallery_3.webp",
+      "/images/themes/royal-red/gallery_4.webp",
+      "/images/themes/royal-red/gallery_5.webp",
+      "/images/themes/royal-red/gallery_6.webp",
+      "/images/themes/royal-red/gallery_7.webp",
+      "/images/themes/royal-red/gallery_8.webp",
+      "/images/themes/royal-red/gallery_9.webp",
+      "/images/themes/royal-red/gallery_10.webp"
     ]
   },
   {
     "slug": "dia-than-nau",
     "name": "Đĩa Than - Nâu",
     "description": "Thiệp chữ nâu hổ phách trên nền kem: đĩa than, hai ảnh polaroid, dấu sáp vàng, phù điêu ngày cưới và tem tên giữa hoa kem, ảnh cưới lớn, hai nhà, chữ lồng, ngày giờ tiệc và âm lịch, địa điểm có nút chỉ đường, cụm bốn ảnh, timeline, dress code, đếm ngược, lịch tháng, album trượt và ảnh kết Thank You.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/vinyl_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/vinyl_brown.webp",
+    "thumbnail": "/images/template-previews/listing/vinyl_brown.webp",
+    "preview": "/images/template-previews/full/vinyl_brown.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3267,22 +3267,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "vinyl-brown-B8MJaiVl.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-brown/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-brown/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-brown/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-brown/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-brown/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-brown/gallery_10.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-brown/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-brown/gallery_7.webp"
+      "/images/themes/minimalism-dark-brown/gallery_6.webp",
+      "/images/themes/minimalism-dark-brown/gallery_5.webp",
+      "/images/themes/minimalism-dark-brown/gallery_4.webp",
+      "/images/themes/minimalism-dark-brown/gallery_8.webp",
+      "/images/themes/minimalism-dark-brown/gallery_3.webp",
+      "/images/themes/minimalism-dark-brown/gallery_10.webp",
+      "/images/themes/minimalism-dark-brown/gallery_2.webp",
+      "/images/themes/minimalism-dark-brown/gallery_7.webp"
     ]
   },
   {
     "slug": "song-phung-xanh",
     "name": "Song Phụng - Xanh",
     "description": "Thanh lịch với họa tiết đôi phụng hoàng, tông xanh lá",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/double_phoenix_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/double_phoenix_green.webp",
+    "thumbnail": "/images/template-previews/listing/double_phoenix_green.webp",
+    "preview": "/images/template-previews/full/double_phoenix_green.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3314,24 +3314,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "songphung-green-CeS47JUP.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/songphung-green/gallery_10.webp"
+      "/images/themes/songphung-green/gallery_1.webp",
+      "/images/themes/songphung-green/gallery_2.webp",
+      "/images/themes/songphung-green/gallery_3.webp",
+      "/images/themes/songphung-green/gallery_4.webp",
+      "/images/themes/songphung-green/gallery_5.webp",
+      "/images/themes/songphung-green/gallery_6.webp",
+      "/images/themes/songphung-green/gallery_7.webp",
+      "/images/themes/songphung-green/gallery_8.webp",
+      "/images/themes/songphung-green/gallery_9.webp",
+      "/images/themes/songphung-green/gallery_10.webp"
     ]
   },
   {
     "slug": "vuon-xuan-lam",
     "name": "Vườn Xuân - Lam",
     "description": "Thiên nhiên thanh lịch với sắc xanh lam dịu mát",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/spring_garden_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/spring_garden_blue.webp",
+    "thumbnail": "/images/template-previews/listing/spring_garden_blue.webp",
+    "preview": "/images/template-previews/full/spring_garden_blue.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3361,19 +3361,19 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "spring-garden-blue-DhaQFfEi.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/vuon xuan blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/vuon xuan blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/vuon xuan blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/vuon xuan blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/vuon xuan blue/gallery_5.webp"
+      "/images/themes/vuon xuan blue/gallery_1.webp",
+      "/images/themes/vuon xuan blue/gallery_2.webp",
+      "/images/themes/vuon xuan blue/gallery_3.webp",
+      "/images/themes/vuon xuan blue/gallery_4.webp",
+      "/images/themes/vuon xuan blue/gallery_5.webp"
     ]
   },
   {
     "slug": "song-hy-v2-do",
     "name": "Song Hỷ V2 - Đỏ",
     "description": "Thiệp giấy kem chữ Hỷ, ảnh khung vòm, hoa văn sóng nước",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/song_hy_v2_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/song_hy_v2_red.webp",
+    "thumbnail": "/images/template-previews/listing/song_hy_v2_red.webp",
+    "preview": "/images/template-previews/full/song_hy_v2_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3405,24 +3405,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "song-hy-v2-red-iB_egMd-.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/hero.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/song-hy-v2-red/gallery_9.webp"
+      "/images/themes/song-hy-v2-red/hero.webp",
+      "/images/themes/song-hy-v2-red/gallery_1.webp",
+      "/images/themes/song-hy-v2-red/gallery_2.webp",
+      "/images/themes/song-hy-v2-red/gallery_3.webp",
+      "/images/themes/song-hy-v2-red/gallery_4.webp",
+      "/images/themes/song-hy-v2-red/gallery_5.webp",
+      "/images/themes/song-hy-v2-red/gallery_6.webp",
+      "/images/themes/song-hy-v2-red/gallery_7.webp",
+      "/images/themes/song-hy-v2-red/gallery_8.webp",
+      "/images/themes/song-hy-v2-red/gallery_9.webp"
     ]
   },
   {
     "slug": "hoa-thuy-tinh-lam",
     "name": "Hoa Thuỷ Tinh - Lam",
     "description": "Hoa văn pha lê tinh xảo và khung hoa màu xanh sứ trên nền kem ấm, điểm tông xanh sứ đậm; cảm giác châu Âu thanh lịch, trong trẻo và lãng mạn.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/crystal_floral_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/crystal_floral_blue.webp",
+    "thumbnail": "/images/template-previews/listing/crystal_floral_blue.webp",
+    "preview": "/images/template-previews/full/crystal_floral_blue.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3454,22 +3454,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "crystal-floral-blue-BS0V8Kdo.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_8.webp"
+      "/images/themes/crystal-floral-blue/gallery_1.webp",
+      "/images/themes/crystal-floral-blue/gallery_2.webp",
+      "/images/themes/crystal-floral-blue/gallery_3.webp",
+      "/images/themes/crystal-floral-blue/gallery_4.webp",
+      "/images/themes/crystal-floral-blue/gallery_5.webp",
+      "/images/themes/crystal-floral-blue/gallery_6.webp",
+      "/images/themes/crystal-floral-blue/gallery_7.webp",
+      "/images/themes/crystal-floral-blue/gallery_8.webp"
     ]
   },
   {
     "slug": "dau-yeu-vang",
     "name": "Dấu Yêu - Vàng",
     "description": "Thiệp kem vàng truyền thống: Save the date với ảnh khung kem trên vòm hoa, cha mẹ hai bên, trái tim vân tay, ảnh cô dâu chú rể, thiệp mời ba ảnh, lịch cưới có tranh cô dâu chú rể, đếm ngược, bản đồ địa điểm và album ảnh trượt.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/fingerprint_gold.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/fingerprint_gold.webp",
+    "thumbnail": "/images/template-previews/listing/fingerprint_gold.webp",
+    "preview": "/images/template-previews/full/fingerprint_gold.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3504,24 +3504,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "fingerprint-gold-Be0-Cp_n.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_8.jpg"
+      "/images/themes/love-art/gallery_4.jpg",
+      "/images/themes/love-art/gallery_2.jpg",
+      "/images/themes/love-art/gallery_5.jpg",
+      "/images/themes/love-art/gallery_6.jpg",
+      "/images/themes/love-art/gallery_7.jpg",
+      "/images/themes/love-art/groom.jpg",
+      "/images/themes/love-art/bride.jpg",
+      "/images/themes/love-art/gallery_1.jpg",
+      "/images/themes/love-art/gallery_3.jpg",
+      "/images/themes/love-art/gallery_8.jpg"
     ]
   },
   {
     "slug": "lien-hoa-hong",
     "name": "Liên Hoa - Hồng",
     "description": "Sắc hồng phấn dịu dàng của hoa sen: khung mạ vàng tinh tế cùng những đóa sen vẽ màu nước, tông hồng blush trên nền trắng ngà; chữ EB Garamond và Beau Rivage viết tay, gợi vẻ thanh khiết, lãng mạn và đậm nét truyền thống Á Đông.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/lien_hoa_pink.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/lien_hoa_pink.webp",
+    "thumbnail": "/images/template-previews/listing/lien_hoa_pink.webp",
+    "preview": "/images/template-previews/full/lien_hoa_pink.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3555,19 +3555,19 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "lien-hoa-pink-CM_khklB.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/lien-hoa-pink/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-pink/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-pink/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-pink/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-pink/gallery_5.webp"
+      "/images/themes/lien-hoa-pink/gallery_1.webp",
+      "/images/themes/lien-hoa-pink/gallery_2.webp",
+      "/images/themes/lien-hoa-pink/gallery_3.webp",
+      "/images/themes/lien-hoa-pink/gallery_4.webp",
+      "/images/themes/lien-hoa-pink/gallery_5.webp"
     ]
   },
   {
     "slug": "long-phung-lam",
     "name": "Long Phụng - Lam",
     "description": "Cổ điển với họa tiết rồng phượng truyền thống",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/dragon_phoenix_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/dragon_phoenix_blue.webp",
+    "thumbnail": "/images/template-previews/listing/dragon_phoenix_blue.webp",
+    "preview": "/images/template-previews/full/dragon_phoenix_blue.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3597,24 +3597,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "blue-v1-Du1M57hC.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/blue-v1/gallery_10.webp"
+      "/images/themes/blue-v1/gallery_1.webp",
+      "/images/themes/blue-v1/gallery_2.webp",
+      "/images/themes/blue-v1/gallery_3.webp",
+      "/images/themes/blue-v1/gallery_4.webp",
+      "/images/themes/blue-v1/gallery_5.webp",
+      "/images/themes/blue-v1/gallery_6.webp",
+      "/images/themes/blue-v1/gallery_7.webp",
+      "/images/themes/blue-v1/gallery_8.webp",
+      "/images/themes/blue-v1/gallery_9.webp",
+      "/images/themes/blue-v1/gallery_10.webp"
     ]
   },
   {
     "slug": "giay-dap-noi-nau",
     "name": "Giấy Dập Nổi - Nâu",
     "description": "Nền giấy dập nổi hoạ tiết lá trắng ngà, các mục để trơn trên thẻ viền chìm; chữ mực nâu sepia điểm vàng đồng, tên cô dâu chú rể viết tay giữa thẻ viền sò chạm nổi.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/rose_terracotta.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/rose_terracotta.webp",
+    "thumbnail": "/images/template-previews/listing/rose_terracotta.webp",
+    "preview": "/images/template-previews/full/rose_terracotta.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3647,22 +3647,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "giay-dap-noi-nau-B8UeR3tn.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/giay-dap-noi-nau/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/giay-dap-noi-nau/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/giay-dap-noi-nau/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/giay-dap-noi-nau/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/giay-dap-noi-nau/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/giay-dap-noi-nau/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/giay-dap-noi-nau/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/giay-dap-noi-nau/gallery_8.webp"
+      "/images/themes/giay-dap-noi-nau/gallery_1.webp",
+      "/images/themes/giay-dap-noi-nau/gallery_2.webp",
+      "/images/themes/giay-dap-noi-nau/gallery_3.webp",
+      "/images/themes/giay-dap-noi-nau/gallery_4.webp",
+      "/images/themes/giay-dap-noi-nau/gallery_5.webp",
+      "/images/themes/giay-dap-noi-nau/gallery_6.webp",
+      "/images/themes/giay-dap-noi-nau/gallery_7.webp",
+      "/images/themes/giay-dap-noi-nau/gallery_8.webp"
     ]
   },
   {
     "slug": "baroque-v2-lam-dam",
     "name": "Baroque V2 - Lam Đậm",
     "description": "Nền lam đậm gần đen phủ hoa văn damask, khung gương Baroque mạ vàng hình bầu dục ôm ảnh cưới cùng hoa mẫu đơn xanh navy và kem; đường viền vàng, chữ Times New Roman và EB Garamond, gợi vẻ cổ điển sang trọng kiểu châu Âu.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/baroque_v2_darkblue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/baroque_v2_darkblue.webp",
+    "thumbnail": "/images/template-previews/listing/baroque_v2_darkblue.webp",
+    "preview": "/images/template-previews/full/baroque_v2_darkblue.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3697,24 +3697,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "baroque-v2-dark-blue-DsVDHK11.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/hero.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-blue/gallery_9.webp"
+      "/images/themes/baroque-v2-dark-blue/hero.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_1.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_2.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_3.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_4.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_5.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_6.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_7.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_8.webp",
+      "/images/themes/baroque-v2-dark-blue/gallery_9.webp"
     ]
   },
   {
     "slug": "lau-dai-lam",
     "name": "Lâu Đài - Lam",
     "description": "Phong cách lâu đài châu Âu với biệt thự lớn, vòi phun nước và cây bách Ý; tông xanh lam sâu trên nền trắng, font script lãng mạn.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/chateau_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/chateau_blue.webp",
+    "thumbnail": "/images/template-previews/listing/chateau_blue.webp",
+    "preview": "/images/template-previews/full/chateau_blue.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3746,19 +3746,19 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "chateau-blue-rr9BjQIO.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/chateau-blue/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-blue/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-blue/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-blue/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/chateau-blue/gallery_5.jpg"
+      "/images/themes/chateau-blue/gallery_1.jpg",
+      "/images/themes/chateau-blue/gallery_2.jpg",
+      "/images/themes/chateau-blue/gallery_3.jpg",
+      "/images/themes/chateau-blue/gallery_4.jpg",
+      "/images/themes/chateau-blue/gallery_5.jpg"
     ]
   },
   {
     "slug": "moc-thao-xanh",
     "name": "Mộc Thảo - Xanh",
     "description": "Thiệp xanh rêu trên nền giấy: ảnh cưới \"Save our date\", ảnh và lời giới thiệu cô dâu chú rể giữa hoa nét mảnh, ảnh Just Married, lịch tháng cưới, lịch trình trên ảnh nền và album ảnh ghép — nhẹ nhàng và hiện đại.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/botanical_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/botanical_green.webp",
+    "thumbnail": "/images/template-previews/listing/botanical_green.webp",
+    "preview": "/images/template-previews/full/botanical_green.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3792,24 +3792,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "botanical-green-oS9G7TRQ.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/groom.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/bride.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_6.webp"
+      "/images/themes/boho-floral-green/gallery_2.webp",
+      "/images/themes/boho-floral-green/gallery_1.webp",
+      "/images/themes/boho-floral-green/gallery_7.webp",
+      "/images/themes/boho-floral-green/gallery_5.webp",
+      "/images/themes/boho-floral-green/gallery_8.webp",
+      "/images/themes/boho-floral-green/groom.webp",
+      "/images/themes/boho-floral-green/bride.webp",
+      "/images/themes/boho-floral-green/gallery_3.webp",
+      "/images/themes/boho-floral-green/gallery_4.webp",
+      "/images/themes/boho-floral-green/gallery_6.webp"
     ]
   },
   {
     "slug": "song-long-lam",
     "name": "Song Long - Lam",
     "description": "Lãng mạn với sắc xanh dương nhẹ nhàng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/double_dragon_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/double_dragon_blue.webp",
+    "thumbnail": "/images/template-previews/listing/double_dragon_blue.webp",
+    "preview": "/images/template-previews/full/double_dragon_blue.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3839,24 +3839,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "song-long-lam-BNfb1nvn.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/songlong-blue/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/songlong-blue/gallery_8.jpg"
+      "/images/themes/songlong-blue/groom.jpg",
+      "/images/themes/songlong-blue/bride.jpg",
+      "/images/themes/songlong-blue/gallery_1.jpg",
+      "/images/themes/songlong-blue/gallery_2.jpg",
+      "/images/themes/songlong-blue/gallery_3.jpg",
+      "/images/themes/songlong-blue/gallery_4.jpg",
+      "/images/themes/songlong-blue/gallery_5.jpg",
+      "/images/themes/songlong-blue/gallery_6.jpg",
+      "/images/themes/songlong-blue/gallery_7.jpg",
+      "/images/themes/songlong-blue/gallery_8.jpg"
     ]
   },
   {
     "slug": "co-ba-do",
     "name": "Cô Ba - Đỏ",
     "description": "Giấy kem ấm, chữ nâu cổ điển và điểm nhấn đỏ son; mây, hoa và đèn lồng có parallax. Phong bì nâu, thẻ kem, con dấu 囍 — gợi áo Nhật Bình và thiệp cổ trang hiện đại.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/co_ba_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/co_ba_red.webp",
+    "thumbnail": "/images/template-previews/listing/co_ba_red.webp",
+    "preview": "/images/template-previews/full/co_ba_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3888,21 +3888,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "coba-red-DwpQorrA.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_7.webp"
+      "/images/themes/coba-red/gallery_1.webp",
+      "/images/themes/coba-red/gallery_2.webp",
+      "/images/themes/coba-red/gallery_3.webp",
+      "/images/themes/coba-red/gallery_4.webp",
+      "/images/themes/coba-red/gallery_5.webp",
+      "/images/themes/coba-red/gallery_6.webp",
+      "/images/themes/coba-red/gallery_7.webp"
     ]
   },
   {
     "slug": "vo-so-lam",
     "name": "Vỏ Sò - Lam",
     "description": "Thiệp xanh biển: phong bì lam và ảnh polaroid trên nền cát, Save The Date, đếm ngược trên dải giấy lam, hai nhà, địa điểm có nút chỉ đường, lịch trình, lịch tháng, chuyện tình trên thẻ vỏ sò và album ảnh.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/seashell_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/seashell_blue.webp",
+    "thumbnail": "/images/template-previews/listing/seashell_blue.webp",
+    "preview": "/images/template-previews/full/seashell_blue.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3936,23 +3936,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "seashell-blue-BiChzxN9.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/seashell-blue/hero-bg.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_2.webp"
+      "/images/themes/seashell-blue/hero-bg.webp",
+      "/images/themes/crystal-floral-blue/gallery_4.webp",
+      "/images/themes/crystal-floral-blue/gallery_1.webp",
+      "/images/themes/crystal-floral-blue/gallery_7.webp",
+      "/images/themes/crystal-floral-blue/gallery_3.webp",
+      "/images/themes/crystal-floral-blue/gallery_6.webp",
+      "/images/themes/crystal-floral-blue/gallery_8.webp",
+      "/images/themes/crystal-floral-blue/gallery_5.webp",
+      "/images/themes/crystal-floral-blue/gallery_2.webp"
     ]
   },
   {
     "slug": "hoa-tinh-do",
     "name": "Hoạ Tình - Đỏ",
     "description": "Phong cách comic nghệ thuật với nền trắng tinh khôi và điểm nhấn đỏ tươi. Hoạ tiết hoa tim lãng mạn, font chữ handwritten độc đáo. Phong bì đỏ son hiện đại.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/hoa_tinh_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/hoa_tinh_red.webp",
+    "thumbnail": "/images/template-previews/listing/hoa_tinh_red.webp",
+    "preview": "/images/template-previews/full/hoa_tinh_red.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -3982,24 +3982,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "hoa-tinh-red-Dkmkp-KS.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/love-art/bride frame.webp",
-      "https://thieponline.app/images/themes/love-art/groom frame.webp",
-      "https://cdn.thieponline.app/images/themes/love-art/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/love-art/gallery_6.jpg"
+      "/images/themes/love-art/bride frame.webp",
+      "/images/themes/love-art/groom frame.webp",
+      "/images/themes/love-art/groom.jpg",
+      "/images/themes/love-art/bride.jpg",
+      "/images/themes/love-art/gallery_1.jpg",
+      "/images/themes/love-art/gallery_2.jpg",
+      "/images/themes/love-art/gallery_3.jpg",
+      "/images/themes/love-art/gallery_4.jpg",
+      "/images/themes/love-art/gallery_5.jpg",
+      "/images/themes/love-art/gallery_6.jpg"
     ]
   },
   {
     "slug": "hoang-kim-ii-xanh",
     "name": "Hoàng Kim II - Xanh",
     "description": "Hoàng gia xanh lục thẫm với khung vàng kim và hoa hồng trắng sang trọng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/royal_v2_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/royal_v2_green.webp",
+    "thumbnail": "/images/template-previews/listing/royal_v2_green.webp",
+    "preview": "/images/template-previews/full/royal_v2_green.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4029,21 +4029,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "royal-v2-green-Dfkfh_JC.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/royal-v2-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-green/gallery_7.webp"
+      "/images/themes/royal-v2-green/gallery_1.webp",
+      "/images/themes/royal-v2-green/gallery_2.webp",
+      "/images/themes/royal-v2-green/gallery_3.webp",
+      "/images/themes/royal-v2-green/gallery_4.webp",
+      "/images/themes/royal-v2-green/gallery_5.webp",
+      "/images/themes/royal-v2-green/gallery_6.webp",
+      "/images/themes/royal-v2-green/gallery_7.webp"
     ]
   },
   {
     "slug": "thanh-nha-do",
     "name": "Thanh Nhã - Đỏ",
     "description": "Thiệp tối giản tông đỏ đô: ảnh cưới khung bầu dục trên nền ảnh mờ, lời ngỏ, ảnh tròn cô dâu chú rể kèm cha mẹ, lịch và đếm ngược, album, dòng thời gian chuyện tình và thẻ ảnh cho từng sự kiện cưới.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/graceful_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/graceful_red.webp",
+    "thumbnail": "/images/template-previews/listing/graceful_red.webp",
+    "preview": "/images/template-previews/full/graceful_red.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4077,22 +4077,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "graceful-red-B-0qkIwj.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/minimalism-dark-blue/hero.webp"
+      "/images/themes/minimalism-dark-blue/gallery_1.webp",
+      "/images/themes/minimalism-dark-blue/gallery_5.webp",
+      "/images/themes/minimalism-dark-blue/groom.jpg",
+      "/images/themes/minimalism-dark-blue/bride.jpg",
+      "/images/themes/minimalism-dark-blue/gallery_3.webp",
+      "/images/themes/minimalism-dark-blue/gallery_4.webp",
+      "/images/themes/minimalism-dark-blue/gallery_6.webp",
+      "/images/themes/minimalism-dark-blue/hero.webp"
     ]
   },
   {
     "slug": "minimalism-tim",
     "name": "Minimalism - Tím",
     "description": "Tối giản dịu dàng trên nền giấy trắng, hoa hồng tím lavender và dấu sáp trái tim mạ vàng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/minimalism_purple.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/minimalism_purple.webp",
+    "thumbnail": "/images/template-previews/listing/minimalism_purple.webp",
+    "preview": "/images/template-previews/full/minimalism_purple.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4126,22 +4126,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "minimalism-tim-Cb_lIY3L.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/minimalism-purple/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-purple/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-purple/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-purple/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-purple/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-purple/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-purple/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/minimalism-purple/gallery_8.jpg"
+      "/images/themes/minimalism-purple/gallery_6.jpg",
+      "/images/themes/minimalism-purple/gallery_1.jpg",
+      "/images/themes/minimalism-purple/gallery_2.jpg",
+      "/images/themes/minimalism-purple/gallery_3.jpg",
+      "/images/themes/minimalism-purple/gallery_4.jpg",
+      "/images/themes/minimalism-purple/gallery_5.jpg",
+      "/images/themes/minimalism-purple/gallery_7.jpg",
+      "/images/themes/minimalism-purple/gallery_8.jpg"
     ]
   },
   {
     "slug": "hoa-thuy-tinh-xanh",
     "name": "Hoa Thuỷ Tinh - Xanh",
     "description": "Hoa văn pha lê tinh xảo và khung hoa xanh lục ánh vàng trên nền kem ấm, điểm tông xanh ngọc lục đậm; cảm giác châu Âu thanh lịch, trong trẻo và tươi mát.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/crystal_floral_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/crystal_floral_green.webp",
+    "thumbnail": "/images/template-previews/listing/crystal_floral_green.webp",
+    "preview": "/images/template-previews/full/crystal_floral_green.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4175,21 +4175,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "crystal-floral-green-8SrHZEM4.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/crystal-floral-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-green/gallery_7.webp"
+      "/images/themes/crystal-floral-green/gallery_1.webp",
+      "/images/themes/crystal-floral-green/gallery_2.webp",
+      "/images/themes/crystal-floral-green/gallery_3.webp",
+      "/images/themes/crystal-floral-green/gallery_4.webp",
+      "/images/themes/crystal-floral-green/gallery_5.webp",
+      "/images/themes/crystal-floral-green/gallery_6.webp",
+      "/images/themes/crystal-floral-green/gallery_7.webp"
     ]
   },
   {
     "slug": "long-phung-huyen",
     "name": "Long Phụng - Huyền",
     "description": "Cổ điển sang trọng với tông đen huyền bí",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/dragon_phoenix_black.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/dragon_phoenix_black.webp",
+    "thumbnail": "/images/template-previews/listing/dragon_phoenix_black.webp",
+    "preview": "/images/template-previews/full/dragon_phoenix_black.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4220,18 +4220,18 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "black-v1-CBw6xIvu.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/black-v1/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/black-v1/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/black-v1/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/black-v1/gallery_4.jpg"
+      "/images/themes/black-v1/gallery_1.jpg",
+      "/images/themes/black-v1/gallery_2.jpg",
+      "/images/themes/black-v1/gallery_3.jpg",
+      "/images/themes/black-v1/gallery_4.jpg"
     ]
   },
   {
     "slug": "to-duyen-do-dam",
     "name": "Tơ Duyên - Đỏ Đậm",
     "description": "Hoa phong quỳ đỏ rượu vang nở trên nền giấy trắng tinh, dải lụa đỏ thẫm uốn quanh từng phần nội dung cùng những nét cong mảnh như sợi tơ; chữ đỏ đô, bố cục so le trái phải, gợi vẻ lãng mạn và sang trọng.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/silk_ribbon_darkred.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/silk_ribbon_darkred.webp",
+    "thumbnail": "/images/template-previews/listing/silk_ribbon_darkred.webp",
+    "preview": "/images/template-previews/full/silk_ribbon_darkred.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4266,23 +4266,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "silk-ribbon-darkred-DW6pCZpy.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-darkred/gallery_7.webp"
+      "/images/themes/silk-ribbon-darkred/groom.jpg",
+      "/images/themes/silk-ribbon-darkred/bride.jpg",
+      "/images/themes/silk-ribbon-darkred/gallery_1.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_2.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_3.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_4.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_5.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_6.webp",
+      "/images/themes/silk-ribbon-darkred/gallery_7.webp"
     ]
   },
   {
     "slug": "bach-su-v2-xanh",
     "name": "Bạch Sứ V2 - Xanh",
     "description": "Hoa trắng vẽ tay trên nền lá xanh ô liu, thẻ bo tròn viền xanh rêu và khối lịch cưới xanh trầm",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/porcelain_v2_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/porcelain_v2_green.webp",
+    "thumbnail": "/images/template-previews/listing/porcelain_v2_green.webp",
+    "preview": "/images/template-previews/full/porcelain_v2_green.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4318,23 +4318,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "porcelain-v2-green-Cy9sWvl3.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-green/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-green/gallery_8.webp",
-      "https://thieponline.app/images/themes/porcelain-v2-green/hero-frame.webp"
+      "/images/themes/porcelain-v2-green/gallery_1.webp",
+      "/images/themes/porcelain-v2-green/gallery_2.webp",
+      "/images/themes/porcelain-v2-green/gallery_3.webp",
+      "/images/themes/porcelain-v2-green/gallery_4.webp",
+      "/images/themes/porcelain-v2-green/gallery_5.webp",
+      "/images/themes/porcelain-v2-green/gallery_6.webp",
+      "/images/themes/porcelain-v2-green/gallery_7.webp",
+      "/images/themes/porcelain-v2-green/gallery_8.webp",
+      "/images/themes/porcelain-v2-green/hero-frame.webp"
     ]
   },
   {
     "slug": "bach-su-v2-hong",
     "name": "Bạch Sứ V2 - Hồng",
     "description": "Hoa mẫu đơn hồng vẽ tay phủ khắp nền sứ kem, thẻ bờ bo tròn viền vàng ô liu và khối lịch cưới hồng phấn",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/porcelain_v2_pink.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/porcelain_v2_pink.webp",
+    "thumbnail": "/images/template-previews/listing/porcelain_v2_pink.webp",
+    "preview": "/images/template-previews/full/porcelain_v2_pink.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4369,21 +4369,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "porcelain-v2-green-Cy9sWvl3.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-pink/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-pink/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-pink/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-pink/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-pink/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-pink/gallery_6.webp",
-      "https://thieponline.app/images/themes/porcelain-v2-pink/hero-frame.webp"
+      "/images/themes/porcelain-v2-pink/gallery_1.webp",
+      "/images/themes/porcelain-v2-pink/gallery_2.webp",
+      "/images/themes/porcelain-v2-pink/gallery_3.webp",
+      "/images/themes/porcelain-v2-pink/gallery_4.webp",
+      "/images/themes/porcelain-v2-pink/gallery_5.webp",
+      "/images/themes/porcelain-v2-pink/gallery_6.webp",
+      "/images/themes/porcelain-v2-pink/hero-frame.webp"
     ]
   },
   {
     "slug": "hoai-niem-do",
     "name": "Hoài Niệm - Đỏ",
     "description": "Thiệp truyền thống hoài cổ trên nền giấy cũ: tranh cô dâu áo dài bên xe máy cổ, hai nhà, lời báo tin quanh chữ Hỷ, giờ ngày lễ và âm lịch, tranh rước dâu, địa điểm có nút chỉ đường, lịch tháng, đếm ngược, mâm quả cưới và lưới ảnh.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/nostalgia_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/nostalgia_red.webp",
+    "thumbnail": "/images/template-previews/listing/nostalgia_red.webp",
+    "preview": "/images/template-previews/full/nostalgia_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4416,22 +4416,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "nostalgia-red-Cely11aZ.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/nostalgia-red/couple.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/coba-red/gallery_7.webp"
+      "/images/themes/nostalgia-red/couple.webp",
+      "/images/themes/coba-red/gallery_3.webp",
+      "/images/themes/coba-red/gallery_4.webp",
+      "/images/themes/coba-red/gallery_2.webp",
+      "/images/themes/coba-red/gallery_6.webp",
+      "/images/themes/coba-red/gallery_5.webp",
+      "/images/themes/coba-red/gallery_1.webp",
+      "/images/themes/coba-red/gallery_7.webp"
     ]
   },
   {
     "slug": "hoang-kim-lam",
     "name": "Hoàng Kim - Lam",
     "description": "Sang trọng hoàng gia với nền xanh lam thẫm và điểm nhấn vàng kim",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/royal_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/royal_blue.webp",
+    "thumbnail": "/images/template-previews/listing/royal_blue.webp",
+    "preview": "/images/template-previews/full/royal_blue.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4461,23 +4461,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "royal-blue-DMLS6mYS.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/royal-blue/gallery_9.webp"
+      "/images/themes/royal-blue/gallery_1.webp",
+      "/images/themes/royal-blue/gallery_2.webp",
+      "/images/themes/royal-blue/gallery_3.webp",
+      "/images/themes/royal-blue/gallery_4.webp",
+      "/images/themes/royal-blue/gallery_5.webp",
+      "/images/themes/royal-blue/gallery_6.webp",
+      "/images/themes/royal-blue/gallery_7.webp",
+      "/images/themes/royal-blue/gallery_8.webp",
+      "/images/themes/royal-blue/gallery_9.webp"
     ]
   },
   {
     "slug": "hoa-dai-hong",
     "name": "Hoa Dại - Hồng",
     "description": "Giấy màu nước hồng với vòng hoa dại thắt nơ quanh tên, cánh hoa rơi lơ lửng, chữ hồng đất và xanh lá, lịch trình có bánh cưới và bồ câu",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/hoa_dai_pink.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/hoa_dai_pink.webp",
+    "thumbnail": "/images/template-previews/listing/hoa_dai_pink.webp",
+    "preview": "/images/template-previews/full/hoa_dai_pink.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4513,24 +4513,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "hoa-dai-pink-BWbj8x_q.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_1.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/hero.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_2.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_3.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_4.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_5.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_6.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_7.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_8.jpg",
-      "https://cdn.thieponline.app/images/themes/longphung-v3-red/gallery_9.jpg"
+      "/images/themes/longphung-v3-red/gallery_1.jpg",
+      "/images/themes/longphung-v3-red/hero.jpg",
+      "/images/themes/longphung-v3-red/gallery_2.jpg",
+      "/images/themes/longphung-v3-red/gallery_3.jpg",
+      "/images/themes/longphung-v3-red/gallery_4.jpg",
+      "/images/themes/longphung-v3-red/gallery_5.jpg",
+      "/images/themes/longphung-v3-red/gallery_6.jpg",
+      "/images/themes/longphung-v3-red/gallery_7.jpg",
+      "/images/themes/longphung-v3-red/gallery_8.jpg",
+      "/images/themes/longphung-v3-red/gallery_9.jpg"
     ]
   },
   {
     "slug": "hoang-kim-xanh",
     "name": "Hoàng Kim - Xanh",
     "description": "Sang trọng hoàng gia với nền xanh lục thẫm và điểm nhấn vàng kim",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/royal_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/royal_green.webp",
+    "thumbnail": "/images/template-previews/listing/royal_green.webp",
+    "preview": "/images/template-previews/full/royal_green.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4560,24 +4560,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "royal-green-BbWsPHmt.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_9.webp",
-      "https://cdn.thieponline.app/images/themes/royal-green/gallery_10.webp"
+      "/images/themes/royal-green/gallery_1.webp",
+      "/images/themes/royal-green/gallery_2.webp",
+      "/images/themes/royal-green/gallery_3.webp",
+      "/images/themes/royal-green/gallery_4.webp",
+      "/images/themes/royal-green/gallery_5.webp",
+      "/images/themes/royal-green/gallery_6.webp",
+      "/images/themes/royal-green/gallery_7.webp",
+      "/images/themes/royal-green/gallery_8.webp",
+      "/images/themes/royal-green/gallery_9.webp",
+      "/images/themes/royal-green/gallery_10.webp"
     ]
   },
   {
     "slug": "hoang-hon-lam",
     "name": "Hoàng Hôn - Lam",
     "description": "Thiệp navy trên giấy hồng đào: phong bì navy và thẻ Save the Date giữa hoa mẫu đơn xanh, hai nhà, ảnh tròn cô dâu chú rể, giờ ngày tiệc và âm lịch, địa điểm có nút chỉ đường, ảnh cưới lớn với tuần lễ cưới, love quote, đếm ngược, lưới ảnh và album trượt.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/sunset_navy.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/sunset_navy.webp",
+    "thumbnail": "/images/template-previews/listing/sunset_navy.webp",
+    "preview": "/images/template-previews/full/sunset_navy.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4611,15 +4611,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "sunset-navy-CMJDHc99.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/sunset_navy.webp"
+      "/images/template-previews/full/sunset_navy.webp"
     ]
   },
   {
     "slug": "baroque-v2-xanh-dam",
     "name": "Baroque V2 - Xanh Đậm",
     "description": "Nền xanh rừng gần đen phủ hoa văn damask, khung tranh Baroque chạm trổ mạ vàng ôm ảnh cưới cùng hoa mẫu đơn xanh thẫm và kem; đường viền vàng, chữ Times New Roman và EB Garamond, gợi vẻ cổ điển sang trọng kiểu châu Âu.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/baroque_v2_darkgreen.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/baroque_v2_darkgreen.webp",
+    "thumbnail": "/images/template-previews/listing/baroque_v2_darkgreen.webp",
+    "preview": "/images/template-previews/full/baroque_v2_darkgreen.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4655,23 +4655,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "baroque-v2-dark-green-DxmKPVYH.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-green/hero.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/baroque-v2-dark-green/gallery_7.webp",
-      "https://thieponline.app/images/themes/baroque-v2-dark-green/bride-broom.webp"
+      "/images/themes/baroque-v2-dark-green/hero.webp",
+      "/images/themes/baroque-v2-dark-green/gallery_1.webp",
+      "/images/themes/baroque-v2-dark-green/gallery_2.webp",
+      "/images/themes/baroque-v2-dark-green/gallery_3.webp",
+      "/images/themes/baroque-v2-dark-green/gallery_4.webp",
+      "/images/themes/baroque-v2-dark-green/gallery_5.webp",
+      "/images/themes/baroque-v2-dark-green/gallery_6.webp",
+      "/images/themes/baroque-v2-dark-green/gallery_7.webp",
+      "/images/themes/baroque-v2-dark-green/bride-broom.webp"
     ]
   },
   {
     "slug": "bach-su-v2-do",
     "name": "Bạch Sứ II - Đỏ",
     "description": "Hoa đỏ vẽ tay phủ khắp nền sứ kem, thẻ bo tròn viền đỏ mảnh và khối lịch cưới đỏ trầm",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/porcelain_v2_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/porcelain_v2_red.webp",
+    "thumbnail": "/images/template-previews/listing/porcelain_v2_red.webp",
+    "preview": "/images/template-previews/full/porcelain_v2_red.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4706,23 +4706,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "porcelain-v2-green-Cy9sWvl3.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-v2-red/gallery_8.webp",
-      "https://thieponline.app/images/themes/porcelain-v2-red/hero-frame.webp"
+      "/images/themes/porcelain-v2-red/gallery_1.webp",
+      "/images/themes/porcelain-v2-red/gallery_2.webp",
+      "/images/themes/porcelain-v2-red/gallery_3.webp",
+      "/images/themes/porcelain-v2-red/gallery_4.webp",
+      "/images/themes/porcelain-v2-red/gallery_5.webp",
+      "/images/themes/porcelain-v2-red/gallery_6.webp",
+      "/images/themes/porcelain-v2-red/gallery_7.webp",
+      "/images/themes/porcelain-v2-red/gallery_8.webp",
+      "/images/themes/porcelain-v2-red/hero-frame.webp"
     ]
   },
   {
     "slug": "hoa-kho-cam",
     "name": "Hoa Khô - Cam",
     "description": "Hoa khô cúc vạn thọ vẽ màu nước viền quanh những khung thiệp kem, chữ cam đất trên nền giấy ấm",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/hoa_kho_orange.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/hoa_kho_orange.webp",
+    "thumbnail": "/images/template-previews/listing/hoa_kho_orange.webp",
+    "preview": "/images/template-previews/full/hoa_kho_orange.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4755,22 +4755,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "hoa-kho-orange-D0cSDKBz.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/hoa-kho-orange/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-orange/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-orange/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-orange/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-orange/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-orange/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-orange/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/hoa-kho-orange/gallery_8.webp"
+      "/images/themes/hoa-kho-orange/gallery_1.webp",
+      "/images/themes/hoa-kho-orange/gallery_2.webp",
+      "/images/themes/hoa-kho-orange/gallery_3.webp",
+      "/images/themes/hoa-kho-orange/gallery_4.webp",
+      "/images/themes/hoa-kho-orange/gallery_5.webp",
+      "/images/themes/hoa-kho-orange/gallery_6.webp",
+      "/images/themes/hoa-kho-orange/gallery_7.webp",
+      "/images/themes/hoa-kho-orange/gallery_8.webp"
     ]
   },
   {
     "slug": "long-phung-v4-do",
     "name": "Long Phụng v4 - Đỏ",
     "description": "Nền đỏ son rực rỡ, khung ảnh tròn mạ vàng cùng rồng phượng và mây ngũ sắc thêu nổi.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/dragon_phoenix_v4_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/dragon_phoenix_v4_red.webp",
+    "thumbnail": "/images/template-previews/listing/dragon_phoenix_v4_red.webp",
+    "preview": "/images/template-previews/full/dragon_phoenix_v4_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4802,22 +4802,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "longphung-v4-red-DMdowuuB.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/longphung-v4-red/hero.webp",
-      "https://cdn.thieponline.app/images/themes/longphung-v4-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/longphung-v4-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/longphung-v4-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/longphung-v4-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/longphung-v4-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/longphung-v4-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/longphung-v4-red/gallery_7.webp"
+      "/images/themes/longphung-v4-red/hero.webp",
+      "/images/themes/longphung-v4-red/gallery_1.webp",
+      "/images/themes/longphung-v4-red/gallery_2.webp",
+      "/images/themes/longphung-v4-red/gallery_3.webp",
+      "/images/themes/longphung-v4-red/gallery_4.webp",
+      "/images/themes/longphung-v4-red/gallery_5.webp",
+      "/images/themes/longphung-v4-red/gallery_6.webp",
+      "/images/themes/longphung-v4-red/gallery_7.webp"
     ]
   },
   {
     "slug": "lien-hoa-v2-xanh",
     "name": "Liên Hoa V2 - Xanh",
     "description": "Phiên bản thứ hai của dòng Liên Hoa: sen hồng phấn vẽ màu nước cùng những tàu lá sen xanh ngọc tràn vào từ hai bên mép thiệp, trên nền giấy kem ấm; ảnh cưới đặt trong khung bo cánh sen và mọi tiêu đề đều nằm gọn trong viền hoa văn thanh mảnh.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/lien_hoa_v2_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/lien_hoa_v2_green.webp",
+    "thumbnail": "/images/template-previews/listing/lien_hoa_v2_green.webp",
+    "preview": "/images/template-previews/full/lien_hoa_v2_green.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4851,21 +4851,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "lien-hoa-v2-green-Dza4Gsoe.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/lien-hoa-v2-green/hero.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-v2-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-v2-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-v2-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-v2-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-v2-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/lien-hoa-v2-green/gallery_6.webp"
+      "/images/themes/lien-hoa-v2-green/hero.webp",
+      "/images/themes/lien-hoa-v2-green/gallery_1.webp",
+      "/images/themes/lien-hoa-v2-green/gallery_2.webp",
+      "/images/themes/lien-hoa-v2-green/gallery_3.webp",
+      "/images/themes/lien-hoa-v2-green/gallery_4.webp",
+      "/images/themes/lien-hoa-v2-green/gallery_5.webp",
+      "/images/themes/lien-hoa-v2-green/gallery_6.webp"
     ]
   },
   {
     "slug": "bach-su-lam",
     "name": "Bạch Sứ - Lam",
     "description": "Hoa văn xanh lam vẽ nét trên nền sứ kem, khung viền chạm cổ điển và khối lịch cưới xanh navy",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/porcelain_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/porcelain_blue.webp",
+    "thumbnail": "/images/template-previews/listing/porcelain_blue.webp",
+    "preview": "/images/template-previews/full/porcelain_blue.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4900,23 +4900,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "porcelain-blue-ZTccF2eh.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-blue/gallery_9.webp"
+      "/images/themes/porcelain-blue/gallery_1.webp",
+      "/images/themes/porcelain-blue/gallery_2.webp",
+      "/images/themes/porcelain-blue/gallery_3.webp",
+      "/images/themes/porcelain-blue/gallery_4.webp",
+      "/images/themes/porcelain-blue/gallery_5.webp",
+      "/images/themes/porcelain-blue/gallery_6.webp",
+      "/images/themes/porcelain-blue/gallery_7.webp",
+      "/images/themes/porcelain-blue/gallery_8.webp",
+      "/images/themes/porcelain-blue/gallery_9.webp"
     ]
   },
   {
     "slug": "song-hac-do",
     "name": "Song Hạc - Đỏ",
     "description": "Nền đỏ son phủ vân giấy, đôi hạc bay qua vầng trăng son cùng mây xanh và mẫu đơn thêu nổi",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/song_hac_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/song_hac_red.webp",
+    "thumbnail": "/images/template-previews/listing/song_hac_red.webp",
+    "preview": "/images/template-previews/full/song_hac_red.webp",
     "category": "classic",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4949,21 +4949,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "song-hac-red-CuC6SBsb.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/song-hac-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/song-hac-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/song-hac-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/song-hac-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/song-hac-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/song-hac-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/song-hac-red/gallery_7.webp"
+      "/images/themes/song-hac-red/gallery_1.webp",
+      "/images/themes/song-hac-red/gallery_2.webp",
+      "/images/themes/song-hac-red/gallery_3.webp",
+      "/images/themes/song-hac-red/gallery_4.webp",
+      "/images/themes/song-hac-red/gallery_5.webp",
+      "/images/themes/song-hac-red/gallery_6.webp",
+      "/images/themes/song-hac-red/gallery_7.webp"
     ]
   },
   {
     "slug": "vuonkinh-lam",
     "name": "Vườn Kính - Lam",
     "description": "Nền hoa cẩm tú cầu xanh lam phủ kín thiệp, hai tên trong khung kính vòm trong suốt và tấm kính lớn ôm trọn nội dung; tông xanh lam mát cùng chữ trắng, gợi vẻ trong trẻo, mộng mơ kiểu khu vườn.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/glass_garden_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/glass_garden_blue.webp",
+    "thumbnail": "/images/template-previews/listing/glass_garden_blue.webp",
+    "preview": "/images/template-previews/full/glass_garden_blue.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -4996,22 +4996,22 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "glass-garden-blue-BS-taJIe.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-blue/gallery_8.webp"
+      "/images/themes/glass-garden-blue/gallery_1.webp",
+      "/images/themes/glass-garden-blue/gallery_2.webp",
+      "/images/themes/glass-garden-blue/gallery_3.webp",
+      "/images/themes/glass-garden-blue/gallery_4.webp",
+      "/images/themes/glass-garden-blue/gallery_5.webp",
+      "/images/themes/glass-garden-blue/gallery_6.webp",
+      "/images/themes/glass-garden-blue/gallery_7.webp",
+      "/images/themes/glass-garden-blue/gallery_8.webp"
     ]
   },
   {
     "slug": "vuonkinh-xanh-nhat",
     "name": "Vườn Kính - Xanh Nhạt",
     "description": "Nền màu nước trắng ngà điểm nhành lá bạch đàn gân vàng, hai tên trong khung kính vòm và tấm kính lớn ôm trọn nội dung; tông xanh rêu nhạt thanh nhã, nhẹ nhàng kiểu khu vườn lá xanh.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/glass_garden_light_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/glass_garden_light_green.webp",
+    "thumbnail": "/images/template-previews/listing/glass_garden_light_green.webp",
+    "preview": "/images/template-previews/full/glass_garden_light_green.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5045,21 +5045,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "glass-garden-light-green-BcH6nKTP.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/glass-garden-light-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-light-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-light-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-light-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-light-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-light-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/glass-garden-light-green/gallery_7.webp"
+      "/images/themes/glass-garden-light-green/gallery_1.webp",
+      "/images/themes/glass-garden-light-green/gallery_2.webp",
+      "/images/themes/glass-garden-light-green/gallery_3.webp",
+      "/images/themes/glass-garden-light-green/gallery_4.webp",
+      "/images/themes/glass-garden-light-green/gallery_5.webp",
+      "/images/themes/glass-garden-light-green/gallery_6.webp",
+      "/images/themes/glass-garden-light-green/gallery_7.webp"
     ]
   },
   {
     "slug": "to-duyen-hong",
     "name": "Tơ Duyên - Hồng",
     "description": "Hoa sen hồng phớt nở trên nền giấy trắng tinh, dải lụa hồng mềm mại uốn quanh từng phần nội dung cùng những nét cong mảnh như sợi tơ; chữ hồng phấn, bố cục so le trái phải, gợi vẻ dịu dàng và tinh khôi.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/silk_ribbon_pink.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/silk_ribbon_pink.webp",
+    "thumbnail": "/images/template-previews/listing/silk_ribbon_pink.webp",
+    "preview": "/images/template-previews/full/silk_ribbon_pink.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5094,24 +5094,24 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "silk-ribbon-pink-DNFXgzcm.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/groom.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/bride.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-pink/gallery_8.webp"
+      "/images/themes/silk-ribbon-pink/groom.webp",
+      "/images/themes/silk-ribbon-pink/bride.webp",
+      "/images/themes/silk-ribbon-pink/gallery_1.webp",
+      "/images/themes/silk-ribbon-pink/gallery_2.webp",
+      "/images/themes/silk-ribbon-pink/gallery_3.webp",
+      "/images/themes/silk-ribbon-pink/gallery_4.webp",
+      "/images/themes/silk-ribbon-pink/gallery_5.webp",
+      "/images/themes/silk-ribbon-pink/gallery_6.webp",
+      "/images/themes/silk-ribbon-pink/gallery_7.webp",
+      "/images/themes/silk-ribbon-pink/gallery_8.webp"
     ]
   },
   {
     "slug": "hoa-thuy-tinh-do",
     "name": "Hoa Thuỷ Tinh - Đỏ",
     "description": "Hoa văn pha lê tinh xảo và khung hoa đỏ ánh vàng trên nền kem ấm, điểm tông đỏ thắm sang trọng; cảm giác châu Âu thanh lịch, ấm áp và rực rỡ.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/crystal_floral_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/crystal_floral_red.webp",
+    "thumbnail": "/images/template-previews/listing/crystal_floral_red.webp",
+    "preview": "/images/template-previews/full/crystal_floral_red.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5145,21 +5145,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "crystal-floral-red-DXFbMamh.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/crystal-floral-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-red/gallery_7.webp"
+      "/images/themes/crystal-floral-red/gallery_1.webp",
+      "/images/themes/crystal-floral-red/gallery_2.webp",
+      "/images/themes/crystal-floral-red/gallery_3.webp",
+      "/images/themes/crystal-floral-red/gallery_4.webp",
+      "/images/themes/crystal-floral-red/gallery_5.webp",
+      "/images/themes/crystal-floral-red/gallery_6.webp",
+      "/images/themes/crystal-floral-red/gallery_7.webp"
     ]
   },
   {
     "slug": "mahal-vang",
     "name": "Mahal - Vàng",
     "description": "Cung điện sa thạch Rajasthan soi bóng bên hồ, voi trang trí lễ hội và giàn hoa giấy đỏ hồng buông dọc hai mép thiệp; khung vòm vàng kim cùng dải hoa văn tinh xảo trên nền kem ấm, gợi vẻ hoàng gia lộng lẫy của một đám cưới Ấn Độ.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/mahal_gold.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/mahal_gold.webp",
+    "thumbnail": "/images/template-previews/listing/mahal_gold.webp",
+    "preview": "/images/template-previews/full/mahal_gold.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5197,23 +5197,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "mahal-gold-QqtxX6xO.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/mahal-gold/gallery_9.webp"
+      "/images/themes/mahal-gold/gallery_1.webp",
+      "/images/themes/mahal-gold/gallery_2.webp",
+      "/images/themes/mahal-gold/gallery_3.webp",
+      "/images/themes/mahal-gold/gallery_4.webp",
+      "/images/themes/mahal-gold/gallery_5.webp",
+      "/images/themes/mahal-gold/gallery_6.webp",
+      "/images/themes/mahal-gold/gallery_7.webp",
+      "/images/themes/mahal-gold/gallery_8.webp",
+      "/images/themes/mahal-gold/gallery_9.webp"
     ]
   },
   {
     "slug": "to-duyen-xanh",
     "name": "Tơ Duyên - Xanh",
     "description": "Hoa rum trắng nở trên nền giấy trắng tinh, dải lụa xanh rêu mềm mại uốn quanh từng phần nội dung cùng những nét cong mảnh như sợi tơ; chữ xanh ô liu, bố cục so le trái phải, gợi vẻ tinh giản và thanh lịch.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/silk_ribbon_green.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/silk_ribbon_green.webp",
+    "thumbnail": "/images/template-previews/listing/silk_ribbon_green.webp",
+    "preview": "/images/template-previews/full/silk_ribbon_green.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5248,23 +5248,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "silk-ribbon-green-CNzTszbJ.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/groom.jpg",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/bride.jpg",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/silk-ribbon-green/gallery_7.webp"
+      "/images/themes/silk-ribbon-green/groom.jpg",
+      "/images/themes/silk-ribbon-green/bride.jpg",
+      "/images/themes/silk-ribbon-green/gallery_1.webp",
+      "/images/themes/silk-ribbon-green/gallery_2.webp",
+      "/images/themes/silk-ribbon-green/gallery_3.webp",
+      "/images/themes/silk-ribbon-green/gallery_4.webp",
+      "/images/themes/silk-ribbon-green/gallery_5.webp",
+      "/images/themes/silk-ribbon-green/gallery_6.webp",
+      "/images/themes/silk-ribbon-green/gallery_7.webp"
     ]
   },
   {
     "slug": "hoang-kim-ii-tim",
     "name": "Hoàng Kim II - Tím",
     "description": "Nền tím hoàng gia với khung vàng kim và hoa mẫu đơn tím sang trọng",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/royal_v2_purple.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/royal_v2_purple.webp",
+    "thumbnail": "/images/template-previews/listing/royal_v2_purple.webp",
+    "preview": "/images/template-previews/full/royal_v2_purple.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5297,20 +5297,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "royal-v2-purple-BvQQ-E4X.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/royal-v2-purple/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-purple/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-purple/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-purple/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-purple/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/royal-v2-purple/gallery_6.webp"
+      "/images/themes/royal-v2-purple/gallery_1.webp",
+      "/images/themes/royal-v2-purple/gallery_2.webp",
+      "/images/themes/royal-v2-purple/gallery_3.webp",
+      "/images/themes/royal-v2-purple/gallery_4.webp",
+      "/images/themes/royal-v2-purple/gallery_5.webp",
+      "/images/themes/royal-v2-purple/gallery_6.webp"
     ]
   },
   {
     "slug": "bach-su-nau",
     "name": "Bạch Sứ - Nâu",
     "description": "Hoa văn vàng nâu vẽ nét trên nền sứ kem, khung vòm cổ điển và khối lịch cưới vàng đồng ấm",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/porcelain_brown.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/porcelain_brown.webp",
+    "thumbnail": "/images/template-previews/listing/porcelain_brown.webp",
+    "preview": "/images/template-previews/full/porcelain_brown.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5346,20 +5346,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "porcelain-blue-ZTccF2eh.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/porcelain-brown/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-brown/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-brown/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-brown/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-brown/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-brown/gallery_6.webp"
+      "/images/themes/porcelain-brown/gallery_1.webp",
+      "/images/themes/porcelain-brown/gallery_2.webp",
+      "/images/themes/porcelain-brown/gallery_3.webp",
+      "/images/themes/porcelain-brown/gallery_4.webp",
+      "/images/themes/porcelain-brown/gallery_5.webp",
+      "/images/themes/porcelain-brown/gallery_6.webp"
     ]
   },
   {
     "slug": "hoa-lan-xanh-reu",
     "name": "Hoa Lan - Xanh Rêu",
     "description": "Thiệp chữ xanh rêu trên nền trắng: ảnh cưới trong khung Wedding Day, phong bì xanh rêu có ba ảnh polaroid giữa hai bó lan trắng, chữ lồng, hai nhà, lời mời, giờ ngày tiệc và âm lịch, địa điểm có nút chỉ đường, lịch tháng, timeline, dress code, đếm ngược, cụm ảnh, album trượt và lời cảm ơn.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/orchid_olive.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/orchid_olive.webp",
+    "thumbnail": "/images/template-previews/listing/orchid_olive.webp",
+    "preview": "/images/template-previews/full/orchid_olive.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5393,23 +5393,23 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "orchid-olive-CR28lvbA.css"
     ],
     "defaultImages": [
-      "https://thieponline.app/images/themes/orchid-olive/hero-bg.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_7.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/boho-floral-green/gallery_3.webp"
+      "/images/themes/orchid-olive/hero-bg.webp",
+      "/images/themes/boho-floral-green/gallery_2.webp",
+      "/images/themes/boho-floral-green/gallery_4.webp",
+      "/images/themes/boho-floral-green/gallery_7.webp",
+      "/images/themes/boho-floral-green/gallery_6.webp",
+      "/images/themes/boho-floral-green/gallery_8.webp",
+      "/images/themes/boho-floral-green/gallery_5.webp",
+      "/images/themes/boho-floral-green/gallery_1.webp",
+      "/images/themes/boho-floral-green/gallery_3.webp"
     ]
   },
   {
     "slug": "bach-su-do",
     "name": "Bạch Sứ - Đỏ",
     "description": "Hoa văn đỏ vẽ nét trên nền sứ kem, khung viền chạm cổ điển và khối lịch cưới đỏ trầm",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/porcelain_red.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/porcelain_red.webp",
+    "thumbnail": "/images/template-previews/listing/porcelain_red.webp",
+    "preview": "/images/template-previews/full/porcelain_red.webp",
     "category": "luxury",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5444,21 +5444,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "porcelain-blue-ZTccF2eh.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/porcelain-red/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-red/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-red/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-red/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-red/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-red/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/porcelain-red/gallery_7.webp"
+      "/images/themes/porcelain-red/gallery_1.webp",
+      "/images/themes/porcelain-red/gallery_2.webp",
+      "/images/themes/porcelain-red/gallery_3.webp",
+      "/images/themes/porcelain-red/gallery_4.webp",
+      "/images/themes/porcelain-red/gallery_5.webp",
+      "/images/themes/porcelain-red/gallery_6.webp",
+      "/images/themes/porcelain-red/gallery_7.webp"
     ]
   },
   {
     "slug": "hai-au-lam",
     "name": "Hải Âu - Lam",
     "description": "Thiệp xanh lam navy chủ đề biển trên nền giấy: tên cô dâu chú rể chữ hoa lớn trên ảnh cưới, Save the date, lịch cưới trên nền lam, hai ảnh polaroid, lịch trình có biểu tượng, tranh sóng biển và hải âu, album ảnh.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/seagull_blue.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/seagull_blue.webp",
+    "thumbnail": "/images/template-previews/listing/seagull_blue.webp",
+    "preview": "/images/template-previews/full/seagull_blue.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5493,21 +5493,21 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "seagull-blue-DwM1Z_TG.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_8.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_6.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/crystal-floral-blue/gallery_7.webp"
+      "/images/themes/crystal-floral-blue/gallery_1.webp",
+      "/images/themes/crystal-floral-blue/gallery_4.webp",
+      "/images/themes/crystal-floral-blue/gallery_3.webp",
+      "/images/themes/crystal-floral-blue/gallery_8.webp",
+      "/images/themes/crystal-floral-blue/gallery_6.webp",
+      "/images/themes/crystal-floral-blue/gallery_5.webp",
+      "/images/themes/crystal-floral-blue/gallery_7.webp"
     ]
   },
   {
     "slug": "hoa-huong-duong",
     "name": "Hoa Hướng Dương",
     "description": "Hoa hướng dương vẽ màu nước trên nền kem ấm, tiêu đề tông hổ phách và chữ xanh ô liu, rực rỡ mà vẫn dịu mắt",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/sunflower_yellow.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/sunflower_yellow.webp",
+    "thumbnail": "/images/template-previews/listing/sunflower_yellow.webp",
+    "preview": "/images/template-previews/full/sunflower_yellow.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5542,20 +5542,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "sunflower-yellow-DyWzMzy-.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/sunflower/gallery_1.webp",
-      "https://cdn.thieponline.app/images/themes/sunflower/gallery_2.webp",
-      "https://cdn.thieponline.app/images/themes/sunflower/gallery_3.webp",
-      "https://cdn.thieponline.app/images/themes/sunflower/gallery_4.webp",
-      "https://cdn.thieponline.app/images/themes/sunflower/gallery_5.webp",
-      "https://cdn.thieponline.app/images/themes/sunflower/gallery_6.webp"
+      "/images/themes/sunflower/gallery_1.webp",
+      "/images/themes/sunflower/gallery_2.webp",
+      "/images/themes/sunflower/gallery_3.webp",
+      "/images/themes/sunflower/gallery_4.webp",
+      "/images/themes/sunflower/gallery_5.webp",
+      "/images/themes/sunflower/gallery_6.webp"
     ]
   },
   {
     "slug": "sinh-nhat-phieu-luu-xanh",
     "name": "Phiêu Lưu - Xanh",
     "description": "Giấy kem trong khung viền xanh bo tròn, tranh màu nước khinh khí cầu, máy bay giấy, biển chỉ đường và xe jeep; tinh nghịch cho tiệc thôi nôi và sinh nhật bé trai.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/sinh-nhat-phieu-luu-xanh.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/sinh-nhat-phieu-luu-xanh.webp",
+    "thumbnail": "/images/template-previews/listing/sinh-nhat-phieu-luu-xanh.webp",
+    "preview": "/images/template-previews/full/sinh-nhat-phieu-luu-xanh.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5589,20 +5589,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "adventure-blue-cG5rElMb.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-1.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-2.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-3.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-4.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-5.webp"
+      "/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby.webp",
+      "/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-1.webp",
+      "/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-2.webp",
+      "/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-3.webp",
+      "/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-4.webp",
+      "/images/themes/sinh-nhat-phieu-luu-xanh/demo-baby-album-5.webp"
     ]
   },
   {
     "slug": "sinh-nhat-polaroid-kem",
     "name": "Polaroid - Kem",
     "description": "Ảnh nhân vật chính trong khung polaroid dán băng dính, cờ đuôi nheo và máy ảnh trên giấy kem lấm tấm; lịch, bản đồ, đếm ngược, album ghép và hộp quà — nhẹ nhàng cho tiệc sinh nhật tuổi mới.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/sinh-nhat-polaroid-kem.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/sinh-nhat-polaroid-kem.webp",
+    "thumbnail": "/images/template-previews/listing/sinh-nhat-polaroid-kem.webp",
+    "preview": "/images/template-previews/full/sinh-nhat-polaroid-kem.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5635,20 +5635,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "polaroid-cream-Be0Hl2Ga.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-polaroid-kem/demo-hero.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-polaroid-kem/demo-album-1.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-polaroid-kem/demo-album-2.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-polaroid-kem/demo-album-3.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-polaroid-kem/demo-album-4.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-polaroid-kem/demo-album-5.webp"
+      "/images/themes/sinh-nhat-polaroid-kem/demo-hero.webp",
+      "/images/themes/sinh-nhat-polaroid-kem/demo-album-1.webp",
+      "/images/themes/sinh-nhat-polaroid-kem/demo-album-2.webp",
+      "/images/themes/sinh-nhat-polaroid-kem/demo-album-3.webp",
+      "/images/themes/sinh-nhat-polaroid-kem/demo-album-4.webp",
+      "/images/themes/sinh-nhat-polaroid-kem/demo-album-5.webp"
     ]
   },
   {
     "slug": "sinh-nhat-khat-vong-xanh",
     "name": "Khát Vọng - Xanh",
     "description": "Bìa xanh đêm có gáy \"Hành trình khát vọng\", ảnh nhân vật chính trong khung lục giác kèm ô tuổi; bảng giờ khai tiệc, đếm ngược, lịch, bản đồ, album xếp lớp, phong bao mừng và câu hỏi thường gặp — cá tính cho tuổi mới.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/sinh-nhat-khat-vong-xanh.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/sinh-nhat-khat-vong-xanh.webp",
+    "thumbnail": "/images/template-previews/listing/sinh-nhat-khat-vong-xanh.webp",
+    "preview": "/images/template-previews/full/sinh-nhat-khat-vong-xanh.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5680,15 +5680,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "aspiration-blue-CPSw47Qv.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/sinh-nhat-khat-vong-xanh.webp"
+      "/images/template-previews/full/sinh-nhat-khat-vong-xanh.webp"
     ]
   },
   {
     "slug": "sinh-nhat-cong-chua-hong",
     "name": "Công Chúa - Hồng",
     "description": "Giấy hồng phấn trong khung viền bo tròn, tranh màu nước vương miện, lâu đài, xe bí ngô và hoa anh đào; ngọt ngào cho tiệc thôi nôi và sinh nhật bé gái.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/sinh-nhat-cong-chua-hong.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/sinh-nhat-cong-chua-hong.webp",
+    "thumbnail": "/images/template-previews/listing/sinh-nhat-cong-chua-hong.webp",
+    "preview": "/images/template-previews/full/sinh-nhat-cong-chua-hong.webp",
     "category": "minimal",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5722,20 +5722,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "princess-pink-Zdeb4vrF.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-cong-chua-hong/demo-baby-hero.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-1.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-2.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-3.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-4.webp",
-      "https://cdn.thieponline.app/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-5.webp"
+      "/images/themes/sinh-nhat-cong-chua-hong/demo-baby-hero.webp",
+      "/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-1.webp",
+      "/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-2.webp",
+      "/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-3.webp",
+      "/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-4.webp",
+      "/images/themes/sinh-nhat-cong-chua-hong/demo-baby-album-5.webp"
     ]
   },
   {
     "slug": "sinh-nhat-ruby-do",
     "name": "Ruby - Đỏ",
     "description": "Giấy kem điểm đỏ ruby, nơ satin, vương miện, chùm bóng bay và bánh kem số 1 quanh ảnh bé; lịch, bản đồ, đếm ngược, album và hộp quà — rực rỡ cho ngày thôi nôi.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/sinh-nhat-ruby-do.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/sinh-nhat-ruby-do.webp",
+    "thumbnail": "/images/template-previews/listing/sinh-nhat-ruby-do.webp",
+    "preview": "/images/template-previews/full/sinh-nhat-ruby-do.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5766,15 +5766,15 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "boutique-ruby-DWkm9tHB.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/template-previews/full/sinh-nhat-ruby-do.webp"
+      "/images/template-previews/full/sinh-nhat-ruby-do.webp"
     ]
   },
   {
     "slug": "tot-nghiep-suong-xanh",
     "name": "Sương Xanh",
     "description": "Giấy màu nước xanh sương, sticker mũ cử nhân và máy ảnh quanh ảnh tân cử nhân; lịch, bản đồ, đếm ngược, album \"Khoảnh khắc thanh xuân\", sổ lưu bút và xác nhận tham dự — trong trẻo cho ngày tốt nghiệp.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/tot-nghiep-suong-xanh.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/tot-nghiep-suong-xanh.webp",
+    "thumbnail": "/images/template-previews/listing/tot-nghiep-suong-xanh.webp",
+    "preview": "/images/template-previews/full/tot-nghiep-suong-xanh.webp",
     "category": "vintage",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5806,20 +5806,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "sky-blue-mist-s_Hc-9A4.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/tot-nghiep-suong-xanh/demo-hero.webp",
-      "https://cdn.thieponline.app/images/themes/tot-nghiep-suong-xanh/demo-album-1.webp",
-      "https://cdn.thieponline.app/images/themes/tot-nghiep-suong-xanh/demo-album-2.webp",
-      "https://cdn.thieponline.app/images/themes/tot-nghiep-suong-xanh/demo-album-3.webp",
-      "https://cdn.thieponline.app/images/themes/tot-nghiep-suong-xanh/demo-album-4.webp",
-      "https://cdn.thieponline.app/images/themes/tot-nghiep-suong-xanh/demo-album-5.webp"
+      "/images/themes/tot-nghiep-suong-xanh/demo-hero.webp",
+      "/images/themes/tot-nghiep-suong-xanh/demo-album-1.webp",
+      "/images/themes/tot-nghiep-suong-xanh/demo-album-2.webp",
+      "/images/themes/tot-nghiep-suong-xanh/demo-album-3.webp",
+      "/images/themes/tot-nghiep-suong-xanh/demo-album-4.webp",
+      "/images/themes/tot-nghiep-suong-xanh/demo-album-5.webp"
     ]
   },
   {
     "slug": "su-kien-no-do",
     "name": "Nơ Đỏ",
     "description": "Nơ satin đỏ vắt ngang tờ thiệp kem, tên sự kiện tô gradient đỏ và ảnh khung vòm viền vàng; lịch, bản đồ, lịch trình, đếm ngược, album, lời chúc và xác nhận tham dự — cho tiệc tân gia, khai trương, tất niên.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/su-kien-no-do.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/su-kien-no-do.webp",
+    "thumbnail": "/images/template-previews/listing/su-kien-no-do.webp",
+    "preview": "/images/template-previews/full/su-kien-no-do.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5851,20 +5851,20 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "modern-ribbon-red-BglC3Fjp.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/su-kien-no-do/demo-hero.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-no-do/demo-album-1.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-no-do/demo-album-2.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-no-do/demo-album-3.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-no-do/demo-album-4.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-no-do/demo-album-5.webp"
+      "/images/themes/su-kien-no-do/demo-hero.webp",
+      "/images/themes/su-kien-no-do/demo-album-1.webp",
+      "/images/themes/su-kien-no-do/demo-album-2.webp",
+      "/images/themes/su-kien-no-do/demo-album-3.webp",
+      "/images/themes/su-kien-no-do/demo-album-4.webp",
+      "/images/themes/su-kien-no-do/demo-album-5.webp"
     ]
   },
   {
     "slug": "su-kien-champagne-vang",
     "name": "Champagne Vàng",
     "description": "Giấy ngà loang màu nước vàng trong viền kép vàng đồng, tên sự kiện tô gradient champagne và ảnh khung vàng lệch; lịch, bản đồ, lịch trình, đếm ngược, album, lời chúc và xác nhận tham dự — cho tiệc tất niên, kỷ niệm thành lập, tri ân khách hàng.",
-    "thumbnail": "https://cdn.thieponline.app/images/template-previews/listing/su-kien-champagne-vang.webp",
-    "preview": "https://cdn.thieponline.app/images/template-previews/full/su-kien-champagne-vang.webp",
+    "thumbnail": "/images/template-previews/listing/su-kien-champagne-vang.webp",
+    "preview": "/images/template-previews/full/su-kien-champagne-vang.webp",
     "category": "modern",
     "isPremium": true,
     "minPlan": "BASIC",
@@ -5896,12 +5896,12 @@ export const THIEPONLINE_CATALOG: ThiepOnlineCatalogItem[] = [
       "champagne-gold-DhFfNIJK.css"
     ],
     "defaultImages": [
-      "https://cdn.thieponline.app/images/themes/su-kien-champagne-vang/demo-hero.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-champagne-vang/demo-album-1.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-champagne-vang/demo-album-2.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-champagne-vang/demo-album-3.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-champagne-vang/demo-album-4.webp",
-      "https://cdn.thieponline.app/images/themes/su-kien-champagne-vang/demo-album-5.webp"
+      "/images/themes/su-kien-champagne-vang/demo-hero.webp",
+      "/images/themes/su-kien-champagne-vang/demo-album-1.webp",
+      "/images/themes/su-kien-champagne-vang/demo-album-2.webp",
+      "/images/themes/su-kien-champagne-vang/demo-album-3.webp",
+      "/images/themes/su-kien-champagne-vang/demo-album-4.webp",
+      "/images/themes/su-kien-champagne-vang/demo-album-5.webp"
     ]
   }
 ];

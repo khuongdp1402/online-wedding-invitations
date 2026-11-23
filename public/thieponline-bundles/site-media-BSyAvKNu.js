@@ -1,6 +1,6 @@
 import{B as s}from"./brand-DICvTjSV.js";
 const r=["/images/template-previews/","/images/template-showcase/"],i="/music/";
-function a(t){return`${s.MusicCdn}/library/${encodeURIComponent(t)}`}
+function a(t){return`${s.MusicCdn}/${encodeURIComponent(t)}`}
 function o(t){
   if(typeof t!=="string"||!t)return"";
   if(t.startsWith(s.Site))t=t.slice(s.Site.length);

@@ -42,3 +42,15 @@ next-env.d.ts
 
 # User uploads (local storage fallback)
 /public/uploads
+
+# Asset template tu host (~550 MB) - dua len MinIO (scripts/upload-assets-to-minio.cjs),
+# khong commit vao git. File da tracked tu truoc van duoc git giu nguyen
+# (gitignore khong anh huong file da tracked); chi file moi bi bo qua.
+/public/images/template-previews/
+/public/images/themes/
+/public/images/giftbox/
+/public/images/envelope/
+/public/font/
+/public/assets/
+/public/music/
+/public/thieponline-assets/
